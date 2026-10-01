@@ -1,0 +1,146 @@
+\documentclass[10pt,a4paper]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[indonesian]{babel}
+\usepackage{lipsum}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\bibliographystyle{IEEEtran}
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{listings}
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  literate={-}{{-}}1
+}
+\usepackage{forest}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\usepackage{titlesec}
+
+\usepackage{titlesec}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{tocloft}
+\setlength{\cftbeforechapskip}{4pt}
+\setlength{\cftbeforesecskip}{1pt}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc, backgrounds}
+
+
+
+\setlength{\headheight}{20pt}
+\setlength{\headsep}{30pt}
+\setlength{\footskip}{20pt}
+\usepackage[a4paper,top=2.5cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\graphicspath{{public/}{public/01-pendahuluan/}{public/02-dasar-teori/}{public/03-implementasi/}}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancypagestyle{plain}{%
+	\fancyhf{}%
+	\fancyhead[L]{%
+		\includegraphics[height=1.1cm]{logo-itb}\hspace{0.3cm}%
+		\includegraphics[height=1.1cm]{logo-stei}\hspace{0.3cm}%
+	}%
+	\fancyhead[R]{%
+		\begin{minipage}{9cm}
+			\raggedleft\bfseries IF3170 Intelegensi Artifisial\\
+			\normalsize Tugas Besar 1\\
+			Semester 1 2027/2028
+		\end{minipage}
+	}%
+	\renewcommand{\headrulewidth}{0.4pt}%
+	\fancyfoot[L]{\small v1.0}%
+	\fancyfoot[C]{\small Halaman \thepage}%
+	\fancyfoot[R]{\small }%
+	\renewcommand{\footrulewidth}{0.4pt}%
+}
+
+
+\fancyhead[L]{%
+	\includegraphics[height=1.1cm]{logo-itb}\hspace{0.3cm}%
+	\includegraphics[height=1.1cm]{logo-stei}\hspace{0.3cm}%
+}
+
+\fancyhead[R]{%
+	\begin{minipage}{9cm}
+		\raggedleft\bfseries IF3170 Intelegensi Artifisial\\
+			\normalsize Tugas Besar 1\\
+			Semester 1 2027/2028
+	\end{minipage}
+}
+
+\renewcommand{\headrulewidth}{0.4pt}
+
+\fancyfoot[L]{\small v1.0}
+\fancyfoot[C]{\small Halaman \thepage}
+\fancyfoot[R]{\small }
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{titlepage}
+	\thispagestyle{empty}
+	\centering
+
+	{\huge \textbf{Tugas Besar 1}\par}
+	\vspace{0.1cm}
+	{\huge \textbf{Optimasi Kebijakan Suku Bunga Bank Indonesia berbasis \textit{Local Search}}\par}
+	\vspace{0.4cm}
+	{\Large IF3170 Intelegensi Artifisial \par}
+	\vspace{0.1cm}
+	{\Large Semester 1 Tahun 2027/2028\par}
+
+	\vspace{0.6cm}
+	\includegraphics[width=0.50\textwidth]{cover.png}\par
+
+	\vspace{0.6cm}
+	{\large\bfseries Disusun oleh:\par}
+	\vspace{0.1cm}
+	\textbf{Muhammad Aufar Rizqi Kusuma (13524061)}
+
+	\vspace{2.3cm}
+	\large Laboratorium Intelegensi Buatan\par
+	Program Studi Teknik Informatika\par
+	Sekolah Teknik Elektro dan Informatika\par
+	Institut Teknologi Bandung\par
+
+\end{titlepage}
+
+\clearpage
+\pagestyle{fancy}
+
+\tableofcontents
+\clearpage
+
+\chapter{Pendahuluan}
+\input{sections/01-pendahuluan}
+
+\chapter{Spesifikasi Masalah}
+\input{sections/02-spesifikasi-wajib}
+
+\chapter{Spesifikasi Bonus}
+\input{sections/03-spesifikasi-bonus}
+
+
+\bibliography{dafpus}
+
+\end{document}

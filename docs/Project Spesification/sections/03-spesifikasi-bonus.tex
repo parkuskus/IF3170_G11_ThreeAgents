@@ -1,0 +1,53 @@
+\section{Interaksi Kebijakan Fiskal-Moneter (Stackelberg Game)}
+
+Pada spesifikasi utama, program mengasumsikan Bank Indonesia beroperasi secara independen dalam menentukan lintasan BI-Rate, tanpa memperhitungkan respons strategis dari otoritas fiskal. Dalam praktiknya, keputusan suku bunga tidak dapat dipisahkan dari kebijakan fiskal pemerintah. Defisit APBN yang besar memerlukan penerbitan Surat Berharga Negara (SBN) dalam jumlah besar, yang pada gilirannya memengaruhi imbal hasil obligasi dan ekspektasi inflasi. Sebaliknya, suku bunga yang tinggi akan memberatkan biaya pembiayaan utang pemerintah. Interaksi dua arah ini telah menjadi perhatian sentral dalam literatur ekonomi moneter sejak Sargent dan Wallace \cite{sargent1981} memperkenalkan konsep \textit{unpleasant monetarist arithmetic} dan Leeper \cite{leeper1991} memformalkan interaksi fiskal-moneter dalam kerangka rezim \textit{active/passive}.
+
+Bonus ini memodelkan interaksi strategis antara BI (otoritas moneter) dan Kementerian Keuangan (otoritas fiskal) sebagai \textit{game} Stackelberg dua pemain. Dalam struktur Stackelberg, otoritas fiskal bertindak sebagai \textit{leader} yang menetapkan lintasan defisit terlebih dahulu, dan BI bertindak sebagai \textit{follower} yang mengoptimalkan lintasan suku bunga dengan mempertimbangkan defisit yang sudah ditetapkan. Urutan ini mencerminkan realitas kelembagaan Indonesia, di mana APBN disahkan DPR sebelum RDG BI menetapkan suku bunga untuk kuartal berjalan.
+
+\subsection{Perluasan State}
+
+State tidak lagi hanya berisi vektor suku bunga, melainkan diperluas menjadi pasangan state moneter dan fiskal.
+
+\[
+    s = \Big( \underbrace{(r_1, r_2, \dots, r_T)}_{\text{BI (moneter)}},\; \underbrace{(g_1, g_2, \dots, g_T)}_{\text{Kemenkeu (fiskal)}} \Big)
+\]
+
+Variabel $g_t \in \{-3{,}00\%, -2{,}75\%, \dots, 0{,}00\%\}$ adalah rasio defisit fiskal terhadap PDB pada kuartal ke-$t$, didiskritisasi dalam kelipatan 25 basis poin. Tanda negatif menunjukkan defisit (pengeluaran melebihi penerimaan), dan nol menunjukkan anggaran berimbang. Batas defisit mengikuti ketentuan UU Keuangan Negara yang membatasi defisit maksimum 3\% PDB per tahun.
+
+\subsection{Perluasan Model Makroekonomi}
+
+Persamaan IS Curve diperluas dengan menambahkan kanal stimulus fiskal. Defisit pemerintah pada periode $t-1$ memberikan dorongan tambahan terhadap \textit{output gap} pada periode $t$ karena belanja pemerintah langsung meningkatkan permintaan agregat.
+
+\[
+    y_t = \rho_y \, y_{t-1} - \beta (r_{t-1} - \pi_{t-1} - r^{*}) + \gamma_g \, g_{t-1} + \epsilon_t^{IS}
+\]
+
+Parameter baru $\gamma_g$ mengukur pengganda fiskal (\textit{fiscal multiplier}), yaitu seberapa besar satu poin persentase defisit terhadap PDB mampu mendorong \textit{output gap}. Nilai $\gamma_g = 0{,}50$ ditetapkan untuk keperluan simulasi kelas. Persamaan Phillips Curve, UIP, dan proksi lainnya tidak berubah karena kanal transmisi fiskal ke inflasi dan nilai tukar sudah tertangkap melalui dampaknya terhadap \textit{output gap}.
+
+Otoritas fiskal memiliki fungsi objektif sendiri yang berbeda dari BI. Kementerian Keuangan bertujuan mendorong pertumbuhan ekonomi sambil menjaga defisit tetap terkendali.
+
+\[
+    L_{fiskal}(s) = \sum_{t=1}^{T} \Big[ -w_y^{f} \, y_t + w_g \, g_t^{2} \Big]
+\]
+
+Suku pertama mendorong \textit{output gap} setinggi mungkin (tanda negatif karena $L_{fiskal}$ diminimalkan), sedangkan suku kedua menghukum defisit yang terlalu besar. Bobot $w_y^{f} = 1{,}0$ dan $w_g = 0{,}5$ ditetapkan sebagai default.
+
+\subsection{Mekanisme Pencarian \textit{Joint Equilibrium}}
+
+Proses evaluasi satu state $s$ kini memerlukan dua tahap. Pertama, otoritas fiskal sebagai \textit{leader} menetapkan $g = (g_1, \dots, g_T)$. Kedua, BI sebagai \textit{follower} menjalankan \textit{local search} sendiri untuk menemukan $r = (r_1, \dots, r_T)$ yang memaksimalkan $J(s)$ dengan $g$ yang sudah \textit{given}. Hasil dari \textit{nested search} BI ini menentukan \textit{best response} terhadap $g$, dan nilai $J(s)$ dari \textit{best response} tersebut menjadi skor yang digunakan untuk mengevaluasi state gabungan $(r, g)$ pada level \textit{leader}.
+
+Secara implementatif, fungsi \texttt{compute\_objective(s)} pada spesifikasi utama diganti dengan \texttt{compute\_joint\_ equilibrium(g)} yang menerima lintasan fiskal, lalu menjalankan \texttt{simulated\_annealing} atau \texttt{genetic\_algorithm} untuk mencari $r$ optimal terhadap $g$ tersebut, dan mengembalikan skor $J(r, g)$ terbaik. Algoritma \textit{local search} pada level \textit{leader} (untuk mencari $g$ optimal) tetap dapat menggunakan \texttt{hill\_climbing}, \texttt{simulated\_annealing}, atau \texttt{genetic\_algorithm}, dengan modifikasi bahwa setiap evaluasi neighbor kini memanggil \texttt{compute\_joint\_ equilibrium} yang di dalamnya menjalankan \textit{nested search}.
+
+
+\section{Visualisasi \textit{Local Search}}
+
+Pada spesifikasi wajib, program hanya menampilkan hasil akhir algoritma melalui antarmuka teks. Melalui bonus ini, anda akan ditantang untuk membuat sebuah GUI interaktif yang dapat memvisualisasikan proses pencarian ketiga algoritma secara \textit{real-time} dan juga \textit{side-by-side}. Fitur minimal yang harus tersedia pada GUI mencakup lima komponen.
+\begin{enumerate}
+    \item Pertama, grafik konvergensi yang menampilkan nilai $J(s)$ terhadap iterasi untuk Hill-Climbing, Simulated Annealing, dan Genetic Algorithm dalam satu \textit{chart} sehingga perbandingan kecepatan dan kualitas konvergensi ketiganya terlihat langsung.
+    \item Kedua, visualisasi state yang menampilkan plot $r_t$ terhadap waktu untuk kandidat terbaik di tiap iterasi, dianimasikan agar terlihat bagaimana lintasan suku bunga berevolusi selama proses pencarian.
+    \item Ketiga, panel status \textit{constraint} yang menampilkan indikator visual (hijau untuk terpenuhi, merah untuk dilanggar) untuk C1 sampai C5 pada kandidat solusi saat ini.
+    \item  Keempat, kontrol \textit{hyperparameter} interaktif berupa \textit{slider} untuk mengubah \textit{cooling schedule} SA, \textit{mutation rate} GA, atau bobot $w_\pi, w_y, w_{pp}, w_r$ pada fungsi objektif, yang memungkinkan pengguna menjalankan ulang pencarian dengan parameter berbeda tanpa menyentuh kode.
+    \item Kelima, mode perbandingan yang menjalankan ketiga algoritma dari \textit{initial state} yang sama dan menampilkan solusi akhir masing-masing beserta nilai $J(s)$, status \textit{feasible}, dan inflasi akhir $\pi_T$ dalam satu tabel ringkasan.
+\end{enumerate}
+
+
