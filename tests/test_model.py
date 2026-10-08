@@ -18,7 +18,7 @@ class DomainModelTests(unittest.TestCase):
         state = State(
             packages=(self.package, Package("outside", (1, 1, 1), 10, 1, False, 1)),
             truck=Truck((10, 20, 5), 500),
-            placements={"box": Placement((0, 0, 0)), "outside": None},
+            placements={"box": Placement((0, 0, 0), (2, 3, 4)), "outside": None},
         )
         self.assertEqual(state.objective(), 60)
 

@@ -61,11 +61,13 @@ class Placement:
     """Position and orientation of a package inside the truck."""
 
     coordinate: Coordinate
+    oriented_dimensions: Dimensions
     orientation: Orientation = (0, 1, 2)
 
     def __post_init__(self) -> None:
         if len(self.coordinate) != 3 or any(type(value) is not int or value < 0 for value in self.coordinate):
             raise ValueError("placement coordinate must contain three non-negative integers")
+        _positive_dimensions(self.oriented_dimensions, "oriented dimensions")
         if len(self.orientation) != 3 or set(self.orientation) != {0, 1, 2}:
             raise ValueError("orientation must be a permutation of (0, 1, 2)")
 
@@ -84,6 +86,12 @@ class State:
             raise ValueError("package IDs must be unique")
         if set(self.placements) != set(package_ids):
             raise ValueError("placements must contain exactly one entry for each package ID")
+        packages_by_id = {package.id: package for package in self.packages}
+        for package_id, placement in self.placements.items():
+            if placement is not None and placement.oriented_dimensions != packages_by_id[
+                package_id
+            ].oriented_dimensions(placement.orientation):
+                raise ValueError(f"oriented dimensions do not match package {package_id!r}")
 
     def objective(self) -> int:
         """Return the total value of packages currently placed in the truck."""
