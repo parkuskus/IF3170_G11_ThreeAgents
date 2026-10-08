@@ -16,7 +16,7 @@ def _valid(state: State) -> bool:
     return not validate_state(state)
 
 
-def _candidate_position(      
+def _candidate_position(
     package: Package,
     orientation: tuple[int, int, int],
     truck: Truck,
@@ -28,7 +28,9 @@ def _candidate_position(
     for existing in placements.values():
         if existing is not None:
             possible_z.add(existing.coordinate[2] + existing.oriented_dimensions[2])
-    possible_z = {z for z in possible_z if z + dimensions[2] <= truck.dimensions[2]}
+    possible_z = {
+        z for z in possible_z if z + dimensions[2] <= truck.dimensions[2]
+    }
     z = rng.choice(tuple(possible_z))
     x = rng.randint(0, truck.dimensions[0] - dimensions[0])
     y = rng.randint(0, truck.dimensions[1] - dimensions[1])
@@ -36,7 +38,10 @@ def _candidate_position(
 
 
 def random_initial_state(
-    packages: tuple[Package, ...], truck: Truck, rng: Random | None = None, attempts_per_package: int = 50
+    packages: tuple[Package, ...],
+    truck: Truck,
+    rng: Random | None = None,
+    attempts_per_package: int = 50,
 ) -> State:
     """Build a random valid state, leaving packages outside if placement fails."""
     rng = rng or Random()
@@ -96,7 +101,11 @@ def _move_candidate(state: State, rng: Random) -> State:
         return state
     placements = dict(state.placements)
     placements[package.id] = _candidate_position(
-        package, orientation, state.truck, {key: value for key, value in placements.items() if key != package.id}, rng
+        package,
+        orientation,
+        state.truck,
+        {key: value for key, value in placements.items() if key != package.id},
+        rng,
     )
     return _make_state(state.packages, state.truck, placements)
 
@@ -108,8 +117,13 @@ def _rotate_candidate(state: State, rng: Random) -> State:
     package = rng.choice(placed)
     old = state.placements[package.id]
     assert old is not None
-    options = [orientation for orientation in ORIENTATIONS if orientation != old.orientation]
-    orientation = rng.choice(options)
+    axes = rng.choice(((1, 2), (0, 2), (0, 1)))
+    orientation_list = list(old.orientation)
+    orientation_list[axes[0]], orientation_list[axes[1]] = (
+        orientation_list[axes[1]],
+        orientation_list[axes[0]],
+    )
+    orientation = tuple(orientation_list)
     placements = dict(state.placements)
     placements[package.id] = Placement(
         old.coordinate, package.oriented_dimensions(orientation), orientation

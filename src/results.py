@@ -46,8 +46,8 @@ AlgorithmMetrics: TypeAlias = (
 class SearchResult(Generic[StateT]):
     """One run's common output plus algorithm-specific metrics.
 
-    For GA, initial_state may be the initial population and final_state the
-    best final individual. StateT also permits a future multi-truck state.
+    GA should seed its initial population with initial_state; final_state is
+    the best solution found. StateT also permits a future multi-truck state.
     """
 
     algorithm: str

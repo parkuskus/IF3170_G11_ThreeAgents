@@ -26,6 +26,19 @@ class DomainModelTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             State((self.package,), Truck((10, 20, 5), 500), {})
 
+    def test_state_rejects_duplicate_package_ids(self):
+        duplicate = Package("box", (1, 1, 1), 1, 1, False, 0)
+        with self.assertRaises(ValueError):
+            State((self.package, duplicate), Truck((10, 20, 5), 500), {"box": None})
+
+    def test_state_rejects_oriented_dimensions_that_do_not_match(self):
+        with self.assertRaises(ValueError):
+            State(
+                (self.package,),
+                Truck((10, 20, 5), 500),
+                {"box": Placement((0, 0, 0), (2, 3, 4), (1, 0, 2))},
+            )
+
     def test_invalid_package_dimensions_are_rejected(self):
         with self.assertRaises(ValueError):
             Package("bad", (2, 0, 4), 1, 1, False, 0)

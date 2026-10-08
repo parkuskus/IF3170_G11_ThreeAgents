@@ -1,8 +1,8 @@
 import unittest
 from random import Random
 
-from src.model import Package, Truck
-from src.neighbors import random_initial_state, random_neighbor
+from src.model import Package, Placement, State, Truck
+from src.neighbors import _rotate_candidate, random_initial_state, random_neighbor
 from src.validation import validate_state
 
 
@@ -30,6 +30,19 @@ class NeighborGenerationTests(unittest.TestCase):
         initial = random_initial_state((), Truck((4, 4, 4), 10), Random(1))
         self.assertEqual(validate_state(initial), [])
         self.assertIs(random_neighbor(initial, Random(1)), initial)
+
+    def test_rotation_neighbor_swaps_two_axes_only(self):
+        package = Package("box", (2, 3, 1), 10, 1, False, 1)
+        initial = State(
+            (package,),
+            Truck((5, 5, 5), 10),
+            {"box": Placement((0, 0, 0), (2, 3, 1))},
+        )
+        rotated = _rotate_candidate(initial, Random(2))
+        old_orientation = initial.placements["box"].orientation
+        new_orientation = rotated.placements["box"].orientation
+        self.assertEqual(sum(a != b for a, b in zip(old_orientation, new_orientation)), 2)
+        self.assertEqual(validate_state(rotated), [])
 
 
 if __name__ == "__main__":
