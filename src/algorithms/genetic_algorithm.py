@@ -10,7 +10,7 @@ from src.validation import validate_state
 def initialize_population(
     initial_state: State, population_size: int, rng: Random
 ) -> tuple[State, ...]:
-    """Create a valid population with the supplied initial state as member 0."""
+    """Create a valid population with the random initial state as member 0."""
     if type(population_size) is not int or population_size < 1:
         raise ValueError("population_size must be a positive integer")
     violations = validate_state(initial_state)

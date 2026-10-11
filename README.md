@@ -54,7 +54,7 @@ algorithm(
 ) -> SearchResult
 ```
 
-- `initial_state` adalah state valid. HC dan SA memulai pencarian dari state tersebut; GA menggunakannya sebagai kandidat dalam populasi awal.
+- `initial_state` adalah state valid yang dibangkitkan secara acak. HC dan SA memulai pencarian dari state tersebut; GA menggunakannya sebagai anggota pertama populasi awal acak.
 - `seed` wajib diberikan agar proses acak dapat diulang. Catat nilainya di `SearchResult.seed`.
 - `objective_fn` menerima state dan mengembalikan nilai numerik yang dimaksimalkan. Jika tidak diberikan, gunakan objective bawaan melalui `resolve_objective`.
 - Simpan parameter algoritma yang digunakan di `SearchResult.parameters`.
