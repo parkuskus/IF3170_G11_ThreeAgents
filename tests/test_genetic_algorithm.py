@@ -1,9 +1,25 @@
 import unittest
 from random import Random
 
-from src.algorithms.genetic_algorithm import initialize_population
+from src.algorithms.genetic_algorithm import (
+    initialize_population,
+    mutate_individual,
+    roulette_wheel_select,
+    single_point_crossover,
+)
 from src.model import Package, Placement, State, Truck
 from src.validation import validate_state
+
+
+class FixedPointRandom(Random):
+    def randrange(self, start, stop=None, step=1):
+        return 1
+
+
+class RecordingRandom(Random):
+    def choices(self, population, weights=None, *, cum_weights=None, k=1):
+        self.recorded_weights = weights
+        return [population[-1]]
 
 
 class GeneticAlgorithmFoundationTests(unittest.TestCase):
@@ -49,6 +65,60 @@ class GeneticAlgorithmFoundationTests(unittest.TestCase):
     def test_population_size_one_contains_only_initial_state(self):
         population = initialize_population(self.initial_state, 1, Random(1))
         self.assertEqual(population, (self.initial_state,))
+
+    def test_roulette_wheel_uses_fitness_as_weights(self):
+        population = initialize_population(self.initial_state, 3, Random(3))
+        rng = RecordingRandom(1)
+        selected = roulette_wheel_select(population, (24, 23, 20), rng)
+        self.assertEqual(rng.recorded_weights, [24, 23, 20])
+        self.assertIs(selected, population[-1])
+
+    def test_roulette_wheel_shifts_negative_fitness(self):
+        population = initialize_population(self.initial_state, 2, Random(3))
+        rng = RecordingRandom(1)
+        roulette_wheel_select(population, (-3, -1), rng)
+        self.assertEqual(rng.recorded_weights, [0, 2])
+
+    def test_single_point_crossover_inherits_parent_prefix_and_suffix(self):
+        packages = tuple(
+            Package(package_id, (1, 1, 1), 10, 1, False, 1)
+            for package_id in ("a", "b", "c")
+        )
+        truck = Truck((8, 3, 3), 10)
+        parent_a = State(
+            packages,
+            truck,
+            {
+                "a": Placement((0, 0, 0), (1, 1, 1)),
+                "b": Placement((1, 0, 0), (1, 1, 1)),
+                "c": Placement((2, 0, 0), (1, 1, 1)),
+            },
+        )
+        parent_b = State(
+            packages,
+            truck,
+            {
+                "a": Placement((4, 0, 0), (1, 1, 1)),
+                "b": Placement((5, 0, 0), (1, 1, 1)),
+                "c": Placement((6, 0, 0), (1, 1, 1)),
+            },
+        )
+
+        child = single_point_crossover(parent_a, parent_b, FixedPointRandom(1))
+
+        self.assertEqual(child.placements["a"].coordinate, (0, 0, 0))
+        self.assertEqual(child.placements["b"].coordinate, (5, 0, 0))
+        self.assertEqual(child.placements["c"].coordinate, (6, 0, 0))
+        self.assertEqual(validate_state(child), [])
+
+    def test_mutation_changes_at_most_one_gene_and_keeps_state_valid(self):
+        mutated = mutate_individual(self.initial_state, Random(41))
+        changed_genes = sum(
+            self.initial_state.placements[package.id] != mutated.placements[package.id]
+            for package in self.initial_state.packages
+        )
+        self.assertLessEqual(changed_genes, 1)
+        self.assertEqual(validate_state(mutated), [])
 
 
 if __name__ == "__main__":

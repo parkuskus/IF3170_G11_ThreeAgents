@@ -26,7 +26,7 @@ Algoritma pencarian dan entry point aplikasi dikembangkan terpisah. Instruksi un
 │   ├── contracts.py            # Interface pemanggilan algoritma dan objective
 │   ├── results.py              # SearchResult dan metrik khusus tiap algoritma
 │   ├── algorithms/
-│   │   └── genetic_algorithm.py # Fondasi populasi awal GA; operator/loop menyusul
+│   │   └── genetic_algorithm.py # Populasi awal dan operator GA; loop menyusul
 │   ├── experiments/            # Runner eksperimen dan pengumpulan hasil
 │   └── visualization/          # Visualisasi state dan hasil eksperimen
 ├── tests/                      # Tes model, validator, neighbor, dan kontrak
