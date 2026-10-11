@@ -48,6 +48,15 @@ class GAExperimentTests(unittest.TestCase):
             self.assertEqual(len(counts), 6)
             self.assertTrue(all(count == 3 for count in counts.values()))
             self.assertEqual(len(json.loads((Path(temporary_dir) / "results.json").read_text())), 18)
+            summaries = json.loads((Path(temporary_dir) / "summary.json").read_text())
+            self.assertEqual(len(summaries), 6)
+            self.assertTrue(all(summary["run_count"] == 3 for summary in summaries))
+            self.assertTrue(
+                (Path(temporary_dir) / "summary-generation-sweep.png").is_file()
+            )
+            self.assertTrue(
+                (Path(temporary_dir) / "summary-population-sweep.png").is_file()
+            )
 
     def test_runner_rejects_incomplete_parameter_sweep(self):
         with tempfile.TemporaryDirectory() as temporary_dir:

@@ -7,12 +7,14 @@ from random import Random
 from typing import Any
 
 from src.algorithms.genetic_algorithm import genetic_algorithm
+from src.experiments.analysis import summarize_ga_runs
 from src.contracts import ObjectiveFunction
 from src.model import Package, State, Truck
 from src.neighbors import random_initial_state
 from src.results import SearchResult
 from src.visualization.genetic_algorithm import (
     plot_ga_history,
+    plot_ga_sweep_summary,
     plot_state_comparison,
 )
 
@@ -25,6 +27,8 @@ def _validate_values(values: Sequence[int], name: str, *, allow_zero: bool) -> t
         raise ValueError(f"{name} must contain {requirement}")
     if len(set(values)) != 3:
         raise ValueError(f"{name} values must be distinct")
+    if tuple(sorted(values)) != tuple(values):
+        raise ValueError(f"{name} values must be in increasing order")
     return tuple(values)
 
 
@@ -197,4 +201,12 @@ def run_ga_experiments(
     (output_dir / "results.json").write_text(
         json.dumps(records, indent=2), encoding="utf-8"
     )
+    summaries = summarize_ga_runs(tuple(records))
+    (output_dir / "summary.json").write_text(
+        json.dumps(summaries, indent=2), encoding="utf-8"
+    )
+    for experiment in ("generation-sweep", "population-sweep"):
+        plot_ga_sweep_summary(
+            summaries, experiment, output_dir / f"summary-{experiment}.png"
+        )
     return tuple(records)

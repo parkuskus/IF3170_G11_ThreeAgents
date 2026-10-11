@@ -1,6 +1,8 @@
 """Matplotlib visualizations for Genetic Algorithm results."""
 
 from pathlib import Path
+from collections.abc import Sequence
+from typing import Any
 
 import matplotlib
 
@@ -106,6 +108,57 @@ def plot_state_comparison(
     fig = plt.figure(figsize=(13, 6))
     _draw_state(fig.add_subplot(1, 2, 1, projection="3d"), initial_state, "Initial state")
     _draw_state(fig.add_subplot(1, 2, 2, projection="3d"), final_state, "Best final state")
+    fig.tight_layout()
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(destination, dpi=150)
+    plt.close(fig)
+
+
+def plot_ga_sweep_summary(
+    summaries: Sequence[dict[str, Any]], experiment: str, destination: str | Path
+) -> None:
+    """Plot mean best/average histories across runs for each configuration."""
+    selected = [summary for summary in summaries if summary["experiment"] == experiment]
+    if not selected:
+        raise ValueError(f"no GA summaries found for experiment {experiment!r}")
+
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    colors = plt.get_cmap("tab10")
+    for index, summary in enumerate(selected):
+        if experiment == "generation-sweep":
+            label = f"generations={summary['generations']}"
+        elif experiment == "population-sweep":
+            label = f"population={summary['population_size']}"
+        else:
+            raise ValueError(f"unknown GA sweep {experiment!r}")
+        color = colors(index % 10)
+        x = range(len(summary["best_history_mean"]))
+        ax.plot(x, summary["best_history_mean"], color=color, label=f"{label} — max")
+        ax.plot(
+            x,
+            summary["average_history_mean"],
+            color=color,
+            linestyle="--",
+            label=f"{label} — average",
+        )
+        best = summary["best_history_mean"]
+        spread = summary["best_history_stdev"]
+        ax.fill_between(
+            x,
+            [value - deviation for value, deviation in zip(best, spread)],
+            [value + deviation for value, deviation in zip(best, spread)],
+            color=color,
+            alpha=0.12,
+        )
+
+    ax.set(
+        title=f"GA {experiment.replace('-', ' ')} — mean across runs",
+        xlabel="Generation",
+        ylabel="Objective value",
+    )
+    ax.grid(True, alpha=0.25)
+    ax.legend(fontsize=8, ncol=2)
     fig.tight_layout()
     destination = Path(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)

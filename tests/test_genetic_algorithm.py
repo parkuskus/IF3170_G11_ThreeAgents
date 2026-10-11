@@ -80,6 +80,12 @@ class GeneticAlgorithmFoundationTests(unittest.TestCase):
         roulette_wheel_select(population, (-3, -1), rng)
         self.assertEqual(rng.recorded_weights, [0, 2])
 
+    def test_roulette_wheel_falls_back_to_uniform_for_zero_fitness(self):
+        population = initialize_population(self.initial_state, 2, Random(3))
+        self.assertIn(
+            roulette_wheel_select(population, (0, 0), Random(4)), population
+        )
+
     def test_single_point_crossover_inherits_parent_prefix_and_suffix(self):
         packages = tuple(
             Package(package_id, (1, 1, 1), 10, 1, False, 1)
@@ -111,6 +117,35 @@ class GeneticAlgorithmFoundationTests(unittest.TestCase):
         self.assertEqual(child.placements["b"].coordinate, (5, 0, 0))
         self.assertEqual(child.placements["c"].coordinate, (6, 0, 0))
         self.assertEqual(validate_state(child), [])
+
+    def test_single_point_crossover_repairs_conflicting_inherited_placements(self):
+        packages = (
+            Package("base", (2, 2, 1), 10, 1, False, 1),
+            Package("top", (1, 1, 1), 10, 1, False, 1),
+            Package("side", (1, 1, 1), 10, 1, False, 1),
+        )
+        truck = Truck((6, 4, 3), 10)
+        parent_a = State(
+            packages,
+            truck,
+            {
+                "base": Placement((0, 0, 0), (2, 2, 1)),
+                "top": Placement((0, 0, 1), (1, 1, 1)),
+                "side": Placement((3, 0, 0), (1, 1, 1)),
+            },
+        )
+        parent_b = State(
+            packages,
+            truck,
+            {
+                "base": Placement((4, 0, 0), (2, 2, 1)),
+                "top": Placement((0, 0, 0), (1, 1, 1)),
+                "side": Placement((2, 0, 0), (1, 1, 1)),
+            },
+        )
+        child = single_point_crossover(parent_a, parent_b, FixedPointRandom(1))
+        self.assertEqual(validate_state(child), [])
+        self.assertIsNotNone(child.placements["base"])
 
     def test_mutation_changes_at_most_one_gene_and_keeps_state_valid(self):
         mutated = mutate_individual(self.initial_state, Random(41))

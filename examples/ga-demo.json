@@ -1,0 +1,14 @@
+{
+  "description": "Synthetic demonstration dataset; replace with the group's actual task data.",
+  "truck": {
+    "dimensions": [10, 10, 6],
+    "max_capacity": 12
+  },
+  "packages": [
+    {"id": "Box-A", "dimensions": [2, 3, 1], "value": 60, "weight": 5, "fragile": false, "eta": 3},
+    {"id": "Box-B", "dimensions": [3, 2, 1], "value": 40, "weight": 4, "fragile": false, "eta": 2},
+    {"id": "Fragile-C", "dimensions": [2, 2, 2], "value": 90, "weight": 8, "fragile": true, "eta": 1},
+    {"id": "Box-D", "dimensions": [1, 2, 1], "value": 30, "weight": 2, "fragile": false, "eta": 4},
+    {"id": "Box-E", "dimensions": [3, 3, 2], "value": 80, "weight": 7, "fragile": false, "eta": 2}
+  ]
+}

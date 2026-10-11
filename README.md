@@ -38,7 +38,10 @@ Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm suda
 │   │       ├── _placement.py    # Helper placement valid untuk operator
 │   │       └── algorithm.py     # Loop Genetic Algorithm
 │   ├── experiments/
-│   │   └── genetic_algorithm.py # Dua sweep parameter, simpan JSON dan gambar
+│   │   ├── data.py              # Loader problem dari JSON
+│   │   ├── run_ga.py            # CLI runner
+│   │   ├── genetic_algorithm.py # Dua sweep parameter dan hasil per run
+│   │   └── analysis.py          # Ringkasan lintas run
 │   └── visualization/
 │       └── genetic_algorithm.py # Plot riwayat dan tampilan state 3D
 ├── tests/                      # Tes model, validator, neighbor, dan kontrak
@@ -81,23 +84,13 @@ algorithm(
 
 ### Menjalankan eksperimen GA
 
-Panggil runner dengan tiga nilai generasi, tiga nilai populasi, satu kontrol untuk masing-masing sweep, dan tiga seed. Runner menjalankan 18 run total dan menyimpan `results.json`, JSON per run, plot objective maksimum/rata-rata, serta gambar state awal/akhir di `output/ga/`.
+Runner membaca JSON problem dengan `truck` (dimensi dan kapasitas) serta `packages` (ID, dimensi, value, weight, fragile, ETA). Jalankan kedua sweep wajib dengan tiga nilai untuk setiap parameter dan tiga seed:
 
-```python
-from src.experiments.genetic_algorithm import run_ga_experiments
-
-records = run_ga_experiments(
-    packages,
-    truck,
-    generation_values=(25, 50, 100),
-    population_values=(10, 20, 40),
-    fixed_population_size=20,
-    fixed_generations=50,
-    seeds=(101, 202, 303),
-)
+```bash
+python -m src.experiments.run_ga --input examples/ga-demo.json --generation-values 4 6 8 --population-values 4 6 8 --fixed-population-size 6 --fixed-generations 6 --seeds 41 42 43 --output output/ga-demo
 ```
 
-`packages` berupa tuple `Package`, sedangkan `truck` berupa `Truck`. Ganti nilai contoh parameter sesuai skala eksperimen yang dipilih dan catat alasannya di laporan.
+Contoh tersebut memakai **data sintetis** untuk demo. Untuk eksperimen laporan, siapkan JSON dengan data paket tugas yang sebenarnya, pilih nilai parameter lewat pilot, lalu jalankan dengan lokasi input dan output yang sesuai. Runner menghasilkan 18 run, `results.json`, `summary.json` (mean dan simpangan baku), plot ringkasan tiap sweep, serta JSON dan visualisasi state/objective untuk setiap run.
 
 ### Alur kerja
 

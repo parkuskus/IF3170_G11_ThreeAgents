@@ -1,0 +1,277 @@
+{
+  "experiment": "population-sweep",
+  "population_size": 6,
+  "generations": 6,
+  "run_index": 1,
+  "seed": 41,
+  "initial_state_seed": 24260,
+  "artifacts": {
+    "run_directory": "output\\ga-demo\\population-sweep\\population-6\\generations-6\\run-1",
+    "objective_history": "output\\ga-demo\\population-sweep\\population-6\\generations-6\\run-1\\objective-history.png",
+    "initial_final_states": "output\\ga-demo\\population-sweep\\population-6\\generations-6\\run-1\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "total_value",
+    "objective_value": 140,
+    "objective_history": [
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140
+    ],
+    "duration_seconds": 0.01780870000948198,
+    "seed": 41,
+    "run_index": 1,
+    "parameters": {
+      "population_size": 6,
+      "generations": 6,
+      "mutation_rate": 0.05
+    },
+    "metrics": {
+      "generations": 6,
+      "population_size": 6,
+      "best_objective_history": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "average_objective_history": [
+        125.0,
+        76.66666666666667,
+        91.66666666666667,
+        108.33333333333333,
+        101.66666666666667,
+        108.33333333333333,
+        118.33333333333333
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          6
+        ],
+        "max_capacity": 12
+      },
+      "total_package_value": 110,
+      "packages": [
+        {
+          "id": "Box-A",
+          "dimensions": [
+            2,
+            3,
+            1
+          ],
+          "value": 60,
+          "weight": 5,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "Box-B",
+          "dimensions": [
+            3,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "Fragile-C",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 8,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "Box-D",
+          "dimensions": [
+            1,
+            2,
+            1
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": {
+            "coordinate": [
+              3,
+              4,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "Box-E",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 80,
+          "weight": 7,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              5,
+              4,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              3,
+              2,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          6
+        ],
+        "max_capacity": 12
+      },
+      "total_package_value": 140,
+      "packages": [
+        {
+          "id": "Box-A",
+          "dimensions": [
+            2,
+            3,
+            1
+          ],
+          "value": 60,
+          "weight": 5,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              8,
+              5,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              3,
+              1
+            ]
+          }
+        },
+        {
+          "id": "Box-B",
+          "dimensions": [
+            3,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "Fragile-C",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 8,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "Box-D",
+          "dimensions": [
+            1,
+            2,
+            1
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "Box-E",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 80,
+          "weight": 7,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              7,
+              5,
+              1
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              2
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -27,8 +27,8 @@ class Package:
     eta: int
 
     def __post_init__(self) -> None:
-        if not self.id:
-            raise ValueError("package id must not be empty")
+        if not isinstance(self.id, str) or not self.id:
+            raise ValueError("package id must be a non-empty string")
         _positive_dimensions(self.dimensions, "package dimensions")
         if type(self.value) is not int or self.value < 0:
             raise ValueError("package value must be a non-negative integer")
