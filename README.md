@@ -5,7 +5,11 @@ Implementasi Tugas Besar 1 IF3170 Inteligensi Artifisial: pencarian konfigurasi 
 ## Persiapan
 
 - Python **3.10 atau lebih baru**.
-- Tidak ada dependency eksternal untuk fondasi saat ini.
+- Install dependency visualisasi:
+
+```bash
+python -m pip install -r requirements.txt
+```
 
 Jalankan tes fondasi dari root repository:
 
@@ -13,7 +17,7 @@ Jalankan tes fondasi dari root repository:
 python -m unittest discover -s tests -v
 ```
 
-Algoritma pencarian dan entry point aplikasi dikembangkan terpisah. Instruksi untuk menjalankan eksperimen akan ditambahkan setelah runner algoritma tersedia.
+Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm sudah memiliki loop, runner eksperimen, serta visualisasi.
 
 ## Struktur direktori
 
@@ -33,8 +37,10 @@ Algoritma pencarian dan entry point aplikasi dikembangkan terpisah. Instruksi un
 │   │       ├── mutation.py      # Mutasi satu gen
 │   │       ├── _placement.py    # Helper placement valid untuk operator
 │   │       └── algorithm.py     # Loop Genetic Algorithm
-│   ├── experiments/            # Runner eksperimen dan pengumpulan hasil
-│   └── visualization/          # Visualisasi state dan hasil eksperimen
+│   ├── experiments/
+│   │   └── genetic_algorithm.py # Dua sweep parameter, simpan JSON dan gambar
+│   └── visualization/
+│       └── genetic_algorithm.py # Plot riwayat dan tampilan state 3D
 ├── tests/                      # Tes model, validator, neighbor, dan kontrak
 ├── docs/
 │   └── laporan-akhir/          # Sumber dan hasil laporan
@@ -42,7 +48,7 @@ Algoritma pencarian dan entry point aplikasi dikembangkan terpisah. Instruksi un
 └── README.md
 ```
 
-Folder `algorithms`, `experiments`, dan `visualization` memiliki `.gitkeep` sampai implementasinya ditambahkan. Folder `target/` berisi bahan referensi lokal dan diabaikan Git; jangan gunakan folder tersebut untuk file yang perlu dikirim melalui repository.
+Folder `target/` berisi bahan referensi lokal dan diabaikan Git; jangan gunakan folder tersebut untuk file yang perlu dikirim melalui repository.
 
 ## Panduan pengembangan
 
@@ -72,6 +78,26 @@ algorithm(
 - `validation.py`: `validate_state(state)` mengembalikan daftar pelanggaran; daftar kosong berarti state valid.
 - `neighbors.py`: `random_initial_state(packages, truck, rng)` dan `random_neighbor(state, rng)` membentuk state valid. Neighbor menggunakan swap, perpindahan, atau rotasi 90°.
 - `results.py`: `SearchResult` memakai metrik `HillClimbingMetrics`, `SimulatedAnnealingMetrics`, atau `GeneticAlgorithmMetrics`.
+
+### Menjalankan eksperimen GA
+
+Panggil runner dengan tiga nilai generasi, tiga nilai populasi, satu kontrol untuk masing-masing sweep, dan tiga seed. Runner menjalankan 18 run total dan menyimpan `results.json`, JSON per run, plot objective maksimum/rata-rata, serta gambar state awal/akhir di `output/ga/`.
+
+```python
+from src.experiments.genetic_algorithm import run_ga_experiments
+
+records = run_ga_experiments(
+    packages,
+    truck,
+    generation_values=(25, 50, 100),
+    population_values=(10, 20, 40),
+    fixed_population_size=20,
+    fixed_generations=50,
+    seeds=(101, 202, 303),
+)
+```
+
+`packages` berupa tuple `Package`, sedangkan `truck` berupa `Truck`. Ganti nilai contoh parameter sesuai skala eksperimen yang dipilih dan catat alasannya di laporan.
 
 ### Alur kerja
 
