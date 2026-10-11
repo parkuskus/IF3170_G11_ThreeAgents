@@ -2,6 +2,7 @@ import unittest
 from random import Random
 
 from src.algorithms.genetic_algorithm import (
+    genetic_algorithm,
     initialize_population,
     mutate_individual,
     roulette_wheel_select,
@@ -119,6 +120,57 @@ class GeneticAlgorithmFoundationTests(unittest.TestCase):
         )
         self.assertLessEqual(changed_genes, 1)
         self.assertEqual(validate_state(mutated), [])
+
+    def test_loop_returns_search_result_and_population_histories(self):
+        result = genetic_algorithm(
+            self.initial_state,
+            seed=11,
+            population_size=5,
+            generations=4,
+        )
+        self.assertIs(result.initial_state, self.initial_state)
+        self.assertEqual(len(result.objective_history), 5)
+        self.assertEqual(len(result.metrics.best_objective_history), 5)
+        self.assertEqual(len(result.metrics.average_objective_history), 5)
+        self.assertEqual(result.objective_history, result.metrics.best_objective_history)
+        self.assertEqual(result.objective_value, result.final_state.objective())
+        self.assertEqual(validate_state(result.final_state), [])
+        self.assertEqual(result.seed, 11)
+        self.assertEqual(result.parameters["population_size"], 5)
+        self.assertGreaterEqual(result.duration_seconds, 0)
+
+    def test_loop_is_reproducible_for_same_seed(self):
+        first = genetic_algorithm(
+            self.initial_state, seed=23, population_size=6, generations=5
+        )
+        second = genetic_algorithm(
+            self.initial_state, seed=23, population_size=6, generations=5
+        )
+        self.assertEqual(first.final_state, second.final_state)
+        self.assertEqual(first.objective_history, second.objective_history)
+        self.assertEqual(first.metrics.average_objective_history, second.metrics.average_objective_history)
+
+    def test_loop_supports_custom_objective(self):
+        result = genetic_algorithm(
+            self.initial_state,
+            seed=5,
+            population_size=3,
+            generations=1,
+            objective_fn=lambda state: -state.objective(),
+            objective_name="negative_value",
+        )
+        self.assertEqual(result.objective_name, "negative_value")
+        self.assertEqual(result.objective_value, -result.final_state.objective())
+
+    def test_loop_rejects_invalid_run_parameters(self):
+        invalid_parameters = (
+            {"seed": True, "population_size": 3, "generations": 1},
+            {"seed": 1, "population_size": 3, "generations": -1},
+            {"seed": 1, "population_size": 3, "generations": 1, "mutation_rate": 1.1},
+        )
+        for parameters in invalid_parameters:
+            with self.subTest(parameters=parameters), self.assertRaises(ValueError):
+                genetic_algorithm(self.initial_state, **parameters)
 
 
 if __name__ == "__main__":

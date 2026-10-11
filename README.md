@@ -32,7 +32,7 @@ Algoritma pencarian dan entry point aplikasi dikembangkan terpisah. Instruksi un
 │   │       ├── crossover.py     # Single-point crossover dan repair
 │   │       ├── mutation.py      # Mutasi satu gen
 │   │       ├── _placement.py    # Helper placement valid untuk operator
-│   │       └── algorithm.py     # Loop GA (belum dibuat)
+│   │       └── algorithm.py     # Loop Genetic Algorithm
 │   ├── experiments/            # Runner eksperimen dan pengumpulan hasil
 │   └── visualization/          # Visualisasi state dan hasil eksperimen
 ├── tests/                      # Tes model, validator, neighbor, dan kontrak
