@@ -8,6 +8,7 @@ from unittest.mock import patch
 
 from src.algorithms.genetic_algorithm import genetic_algorithm
 from src.experiments.genetic_algorithm import run_ga_experiments
+from src.experiments.edge_cases import run_edge_case_comparison
 from src.model import Package, Truck
 from src.neighbors import random_initial_state
 from src.visualization.genetic_algorithm import (
@@ -84,6 +85,22 @@ class GAExperimentTests(unittest.TestCase):
             plot_state_comparison(result.initial_state, result.final_state, states)
             self.assertGreater(history.stat().st_size, 0)
             self.assertGreater(states.stat().st_size, 0)
+
+    def test_edge_case_runner_creates_comparison_curve(self):
+        with tempfile.TemporaryDirectory() as temporary_dir:
+            summaries = run_edge_case_comparison(
+                self.packages,
+                self.truck,
+                seeds=(21, 22, 23),
+                population_size=2,
+                generations=1,
+                output_dir=temporary_dir,
+            )
+            self.assertEqual(len(summaries), 4)
+            self.assertTrue(all(summary["run_count"] == 3 for summary in summaries))
+            self.assertTrue(
+                (Path(temporary_dir) / "objective-vs-generations.png").is_file()
+            )
 
 
 if __name__ == "__main__":

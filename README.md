@@ -44,7 +44,7 @@ Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm suda
 │   │   └── analysis.py          # Ringkasan lintas run
 │   └── visualization/
 │       └── genetic_algorithm.py # Plot riwayat dan tampilan state 3D
-├── tests/                      # Tes model, validator, neighbor, dan kontrak
+├── tests/                      # Tes fondasi, eksperimen, dan kasus GA kompleks
 ├── docs/
 │   └── laporan-akhir/          # Sumber dan hasil laporan
 ├── output/                     # Hasil run, data eksperimen, dan visualisasi

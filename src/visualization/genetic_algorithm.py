@@ -164,3 +164,42 @@ def plot_ga_sweep_summary(
     destination.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destination, dpi=150)
     plt.close(fig)
+
+
+def plot_edge_case_comparison(
+    summaries: Sequence[dict[str, Any]], destination: str | Path
+) -> None:
+    """Compare mean GA objective histories across truck-constraint edge cases."""
+    if not summaries:
+        raise ValueError("at least one edge-case summary is required")
+
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5.5), sharey=True)
+    colors = plt.get_cmap("tab10")
+    for index, summary in enumerate(summaries):
+        color = colors(index % 10)
+        x = range(len(summary["best_history_mean"]))
+        for ax, mean_key, stdev_key, label in (
+            (axes[0], "best_history_mean", "best_history_stdev", "Maximum population objective"),
+            (axes[1], "average_history_mean", "average_history_stdev", "Average population objective"),
+        ):
+            values = summary[mean_key]
+            spread = summary[stdev_key]
+            ax.plot(x, values, color=color, label=summary["case"])
+            ax.fill_between(
+                x,
+                [value - deviation for value, deviation in zip(values, spread)],
+                [value + deviation for value, deviation in zip(values, spread)],
+                color=color,
+                alpha=0.12,
+            )
+            ax.set_title(label)
+            ax.set_xlabel("Generation")
+            ax.grid(True, alpha=0.25)
+    axes[0].set_ylabel("Objective value")
+    axes[1].legend(fontsize=8)
+    fig.suptitle("GA objective comparison across truck edge cases (mean ± 1 SD)")
+    fig.tight_layout()
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(destination, dpi=150)
+    plt.close(fig)
