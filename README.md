@@ -40,6 +40,7 @@ Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm suda
 │   ├── experiments/
 │   │   ├── data.py              # Loader problem dari JSON
 │   │   ├── run_ga.py            # CLI runner
+│   │   ├── run_ga_ablation.py   # CLI studi ablasi GA
 │   │   ├── genetic_algorithm.py # Dua sweep parameter dan hasil per run
 │   │   └── analysis.py          # Ringkasan lintas run
 │   └── visualization/
@@ -91,6 +92,14 @@ python -m src.experiments.run_ga --input examples/ga-demo.json --generation-valu
 ```
 
 Contoh tersebut memakai **data sintetis** untuk demo. Untuk eksperimen laporan, siapkan JSON dengan data paket tugas yang sebenarnya, pilih nilai parameter lewat pilot, lalu jalankan dengan lokasi input dan output yang sesuai. Runner menghasilkan 18 run, `results.json`, `summary.json` (mean dan simpangan baku), plot ringkasan tiap sweep, serta JSON dan visualisasi state/objective untuk setiap run.
+
+#### Studi ablasi operator GA
+
+```bash
+python -m src.experiments.run_ga_ablation --input examples/ga-demo.json --output output/ga-ablation-demo
+```
+
+Runner membandingkan baseline GA dengan tiga ablasi satu-komponen: tanpa mutasi, tanpa crossover, dan seleksi uniform sebagai pembanding roulette-wheel. Secara default tiap varian dijalankan dengan 5 seed yang sama, populasi 20, 50 generasi, dan mutation rate baseline 0,05. Parameter bersama bisa diubah lewat opsi CLI. Hasilnya mencakup `runs.json`, `summary.json` (mean dan simpangan baku objective/durasi per varian), dan plot objective maksimum serta rata-rata populasi. Gunakan dataset dan parameter tetap untuk membandingkan semua varian. Contoh di atas memakai data sintetis demo; hasil laporan harus memakai problem kelompok. Ablasi ini eksperimen tambahan dan tidak menggantikan 18 run sweep wajib.
 
 ### Alur kerja
 

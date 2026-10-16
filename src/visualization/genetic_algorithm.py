@@ -203,3 +203,24 @@ def plot_edge_case_comparison(
     destination.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destination, dpi=150)
     plt.close(fig)
+
+
+def plot_ablation_comparison(summaries: Sequence[dict[str, Any]], destination: str | Path) -> None:
+    if not summaries:
+        raise ValueError("at least one ablation summary is required")
+    fig, axes = plt.subplots(1, 2, figsize=(13, 5), sharey=True)
+    for summary in summaries:
+        generations = range(len(summary["best_history_mean"]))
+        axes[0].plot(generations, summary["best_history_mean"], label=summary["variant"])
+        axes[1].plot(generations, summary["average_history_mean"], label=summary["variant"])
+    axes[0].set(title="Maximum population objective", ylabel="Objective", xlabel="Generation")
+    axes[1].set(title="Average population objective", xlabel="Generation")
+    for ax in axes:
+        ax.grid(True, alpha=0.25)
+    axes[1].legend()
+    fig.suptitle("GA ablation: mean objective histories")
+    fig.tight_layout()
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(destination, dpi=150)
+    plt.close(fig)

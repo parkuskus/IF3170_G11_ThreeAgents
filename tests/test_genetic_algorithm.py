@@ -197,6 +197,26 @@ class GeneticAlgorithmFoundationTests(unittest.TestCase):
         self.assertEqual(result.objective_name, "negative_value")
         self.assertEqual(result.objective_value, -result.final_state.objective())
 
+    def test_loop_supports_uniform_selection_and_disabled_crossover(self):
+        result = genetic_algorithm(
+            self.initial_state,
+            seed=5,
+            population_size=3,
+            generations=1,
+            selection_mode="uniform",
+            crossover_enabled=False,
+        )
+        self.assertEqual(result.parameters["selection_mode"], "uniform")
+        self.assertFalse(result.parameters["crossover_enabled"])
+        self.assertEqual(validate_state(result.final_state), [])
+
+    def test_loop_rejects_unknown_ablation_operator_settings(self):
+        with self.assertRaisesRegex(ValueError, "selection_mode"):
+            genetic_algorithm(
+                self.initial_state, seed=1, population_size=2, generations=1,
+                selection_mode="tournament",
+            )
+
     def test_loop_rejects_invalid_run_parameters(self):
         invalid_parameters = (
             {"seed": True, "population_size": 3, "generations": 1},

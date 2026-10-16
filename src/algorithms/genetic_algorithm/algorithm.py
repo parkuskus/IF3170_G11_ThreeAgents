@@ -35,6 +35,8 @@ def genetic_algorithm(
     population_size: int,
     generations: int,
     mutation_rate: float = 0.05,
+    selection_mode: str = "roulette",
+    crossover_enabled: bool = True,
     objective_name: str | None = None,
     run_index: int = 1,
 ) -> SearchResult[State]:
@@ -52,6 +54,10 @@ def genetic_algorithm(
         raise ValueError("mutation_rate must be a finite number between 0 and 1")
     if objective_name is not None and (not isinstance(objective_name, str) or not objective_name):
         raise ValueError("objective_name must be a non-empty string")
+    if selection_mode not in ("roulette", "uniform"):
+        raise ValueError("selection_mode must be 'roulette' or 'uniform'")
+    if type(crossover_enabled) is not bool:
+        raise ValueError("crossover_enabled must be a boolean")
     if type(run_index) is not int or run_index < 1:
         raise ValueError("run_index must be a positive integer")
 
@@ -80,9 +86,17 @@ def genetic_algorithm(
 
         next_population = []
         while len(next_population) < population_size:
-            parent_a = roulette_wheel_select(population, fitnesses, rng)
-            parent_b = roulette_wheel_select(population, fitnesses, rng)
-            child = single_point_crossover(parent_a, parent_b, rng)
+            if selection_mode == "uniform":
+                parent_a = rng.choice(population)
+                parent_b = rng.choice(population)
+            else:
+                parent_a = roulette_wheel_select(population, fitnesses, rng)
+                parent_b = roulette_wheel_select(population, fitnesses, rng)
+            child = (
+                single_point_crossover(parent_a, parent_b, rng)
+                if crossover_enabled
+                else parent_a
+            )
             if rng.random() < mutation_rate:
                 child = mutate_individual(child, rng)
             next_population.append(child)
@@ -109,5 +123,7 @@ def genetic_algorithm(
             "population_size": population_size,
             "generations": generations,
             "mutation_rate": mutation_rate,
+            "selection_mode": selection_mode,
+            "crossover_enabled": crossover_enabled,
         },
     )

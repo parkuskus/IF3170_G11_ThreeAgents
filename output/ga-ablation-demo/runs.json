@@ -1,0 +1,8314 @@
+[
+  {
+    "variant": "baseline",
+    "seed": 41,
+    "initial_state_seed": 24260,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.28499960000044666,
+      "seed": 41,
+      "run_index": 1,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.5,
+          100.0,
+          98.0,
+          102.5,
+          103.0,
+          107.5,
+          100.0,
+          103.0,
+          96.0,
+          87.0,
+          89.0,
+          98.5,
+          103.5,
+          105.5,
+          106.0,
+          104.5,
+          102.5,
+          104.5,
+          106.0,
+          104.5,
+          110.5,
+          112.0,
+          115.0,
+          119.5,
+          119.5,
+          119.5,
+          121.0,
+          122.0,
+          125.5,
+          128.5,
+          130.0,
+          128.5,
+          128.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          123.5,
+          125.5,
+          122.5,
+          118.0,
+          122.5,
+          127.0,
+          124.0,
+          124.0,
+          124.0,
+          127.0,
+          124.0,
+          119.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                3,
+                4,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                8,
+                5,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "baseline",
+    "seed": 42,
+    "initial_state_seed": 24263,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        130,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.24249180001788773,
+      "seed": 42,
+      "run_index": 2,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          130,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.0,
+          99.5,
+          100.5,
+          97.5,
+          94.0,
+          94.5,
+          105.0,
+          120.5,
+          123.5,
+          117.0,
+          117.0,
+          117.5,
+          120.5,
+          128.5,
+          127.0,
+          128.5,
+          128.5,
+          130.0,
+          130.0,
+          130.0,
+          127.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          126.5,
+          128.0,
+          128.0,
+          126.0,
+          128.0,
+          128.0,
+          126.0,
+          124.5,
+          130.0,
+          130.0,
+          130.0,
+          128.5,
+          130.0,
+          130.0,
+          130.0,
+          128.5,
+          128.5,
+          125.0,
+          130.0,
+          130.0,
+          128.5,
+          130.0,
+          125.0,
+          126.0,
+          128.0,
+          128.5
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                2,
+                2,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                8,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "baseline",
+    "seed": 43,
+    "initial_state_seed": 24262,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.2743805999925826,
+      "seed": 43,
+      "run_index": 3,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          127.5,
+          113.0,
+          99.5,
+          86.5,
+          96.0,
+          92.5,
+          93.0,
+          95.0,
+          80.5,
+          96.0,
+          101.5,
+          95.5,
+          103.0,
+          107.5,
+          107.0,
+          112.0,
+          110.5,
+          101.5,
+          102.5,
+          115.0,
+          127.0,
+          121.5,
+          126.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          128.0,
+          128.0,
+          126.0,
+          126.0,
+          122.0,
+          126.0,
+          128.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 120,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                2,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "baseline",
+    "seed": 44,
+    "initial_state_seed": 24257,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 130,
+      "objective_history": [
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.2639947999850847,
+      "seed": 44,
+      "run_index": 4,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          124.5,
+          110.0,
+          114.0,
+          108.0,
+          120.5,
+          108.5,
+          112.5,
+          124.0,
+          118.0,
+          125.5,
+          128.5,
+          128.5,
+          124.5,
+          126.5,
+          127.0,
+          125.5,
+          128.5,
+          130.0,
+          128.5,
+          128.5,
+          130.0,
+          130.0,
+          130.0,
+          128.0,
+          125.0,
+          127.0,
+          127.0,
+          127.0,
+          127.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          128.5,
+          130.0,
+          130.0,
+          130.0,
+          128.0,
+          130.0,
+          128.5,
+          128.5,
+          125.5,
+          128.5,
+          128.5,
+          130.0,
+          130.0,
+          130.0,
+          128.5,
+          128.5,
+          127.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                7,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                7,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "baseline",
+    "seed": 45,
+    "initial_state_seed": 24256,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.2832524999976158,
+      "seed": 45,
+      "run_index": 5,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.5,
+          111.0,
+          100.0,
+          108.5,
+          92.0,
+          101.0,
+          110.5,
+          100.0,
+          124.0,
+          125.5,
+          127.0,
+          121.0,
+          125.5,
+          128.5,
+          130.0,
+          127.0,
+          124.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          128.0,
+          125.0,
+          127.0,
+          130.0,
+          127.0,
+          127.0,
+          130.0,
+          128.5,
+          128.0,
+          130.0,
+          128.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          128.0,
+          124.0,
+          126.0,
+          124.0,
+          126.5,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          125.5,
+          124.0,
+          125.5
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                0,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-mutation",
+    "seed": 41,
+    "initial_state_seed": 24260,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.0,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.2581703999894671,
+      "seed": 41,
+      "run_index": 1,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.0,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.5,
+          105.5,
+          88.5,
+          88.5,
+          87.0,
+          80.5,
+          89.0,
+          98.5,
+          105.0,
+          108.5,
+          109.0,
+          114.5,
+          114.0,
+          118.0,
+          116.0,
+          120.0,
+          120.0,
+          126.0,
+          124.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                3,
+                4,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                8,
+                5,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-mutation",
+    "seed": 42,
+    "initial_state_seed": 24263,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.0,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        130,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.3370559000177309,
+      "seed": 42,
+      "run_index": 2,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.0,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          130,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.0,
+          100.5,
+          100.5,
+          97.0,
+          115.0,
+          105.5,
+          101.0,
+          107.0,
+          100.5,
+          91.0,
+          87.0,
+          85.5,
+          91.0,
+          98.0,
+          97.5,
+          106.0,
+          110.0,
+          112.0,
+          108.0,
+          112.0,
+          120.0,
+          122.0,
+          122.0,
+          126.0,
+          124.0,
+          126.0,
+          126.0,
+          126.0,
+          124.0,
+          128.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                2,
+                2,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                8,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-mutation",
+    "seed": 43,
+    "initial_state_seed": 24262,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.0,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "duration_seconds": 0.3875179000024218,
+      "seed": 43,
+      "run_index": 3,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.0,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100
+        ],
+        "average_objective_history": [
+          127.5,
+          113.0,
+          99.5,
+          86.5,
+          96.0,
+          92.5,
+          85.0,
+          82.0,
+          73.5,
+          67.0,
+          99.0,
+          122.0,
+          108.0,
+          119.5,
+          116.5,
+          121.0,
+          109.0,
+          115.0,
+          115.0,
+          122.5,
+          113.5,
+          118.0,
+          109.0,
+          92.5,
+          103.0,
+          101.5,
+          97.0,
+          101.5,
+          107.5,
+          107.5,
+          98.5,
+          106.0,
+          104.5,
+          100.0,
+          103.0,
+          103.0,
+          91.0,
+          80.5,
+          94.0,
+          94.0,
+          95.5,
+          88.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0,
+          100.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 120,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                2,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-mutation",
+    "seed": 44,
+    "initial_state_seed": 24257,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.0,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 130,
+      "objective_history": [
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.30157199999666773,
+      "seed": 44,
+      "run_index": 4,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.0,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          124.5,
+          112.5,
+          107.0,
+          99.0,
+          117.0,
+          113.5,
+          118.0,
+          124.0,
+          125.5,
+          128.5,
+          127.0,
+          124.0,
+          125.5,
+          128.5,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                7,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                7,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-mutation",
+    "seed": 45,
+    "initial_state_seed": 24256,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.0,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.33856139998533763,
+      "seed": 45,
+      "run_index": 5,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.0,
+        "selection_mode": "roulette",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.5,
+          100.0,
+          107.0,
+          86.5,
+          95.5,
+          111.5,
+          126.0,
+          121.0,
+          125.5,
+          124.5,
+          123.0,
+          120.0,
+          122.0,
+          128.0,
+          126.0,
+          126.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                0,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-crossover",
+    "seed": 41,
+    "initial_state_seed": 24260,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": false
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "duration_seconds": 0.22110620001330972,
+      "seed": 41,
+      "run_index": 1,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": false
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140
+        ],
+        "average_objective_history": [
+          128.5,
+          128.0,
+          123.5,
+          129.0,
+          131.0,
+          129.0,
+          129.0,
+          132.5,
+          133.5,
+          136.0,
+          136.5,
+          139.0,
+          139.5,
+          140.0,
+          140.0,
+          140.0,
+          136.0,
+          136.0,
+          132.0,
+          136.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          136.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          136.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          136.0,
+          136.0,
+          136.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                3,
+                4,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                8,
+                5,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-crossover",
+    "seed": 42,
+    "initial_state_seed": 24263,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": false
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.23383499999181367,
+      "seed": 42,
+      "run_index": 2,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": false
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.0,
+          127.5,
+          129.0,
+          129.0,
+          128.0,
+          130.0,
+          127.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          127.0,
+          127.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          124.0,
+          130.0,
+          130.0,
+          130.0,
+          127.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          125.5,
+          116.5,
+          125.5,
+          130.0,
+          128.0,
+          128.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          130.0,
+          128.0,
+          125.5,
+          121.0,
+          130.0,
+          130.0,
+          130.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                2,
+                2,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                8,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-crossover",
+    "seed": 43,
+    "initial_state_seed": 24262,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": false
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "duration_seconds": 0.23383459998876788,
+      "seed": 43,
+      "run_index": 3,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": false
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140
+        ],
+        "average_objective_history": [
+          127.5,
+          129.0,
+          127.0,
+          125.0,
+          127.5,
+          130.5,
+          130.5,
+          133.0,
+          129.5,
+          132.0,
+          133.0,
+          131.0,
+          135.0,
+          137.0,
+          132.0,
+          134.0,
+          137.0,
+          138.0,
+          139.0,
+          138.0,
+          135.0,
+          136.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          136.0,
+          136.0,
+          140.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 120,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                2,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-crossover",
+    "seed": 44,
+    "initial_state_seed": 24257,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": false
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        140,
+        120,
+        120,
+        120,
+        140,
+        140,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "duration_seconds": 0.23042680000071414,
+      "seed": 44,
+      "run_index": 4,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": false
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          140,
+          120,
+          120,
+          120,
+          140,
+          140,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120,
+          120
+        ],
+        "average_objective_history": [
+          124.5,
+          123.0,
+          118.5,
+          121.5,
+          115.5,
+          121.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          118.0,
+          116.5,
+          116.0,
+          119.0,
+          116.0,
+          118.0,
+          116.0,
+          122.0,
+          121.0,
+          120.0,
+          116.0,
+          112.0,
+          120.0,
+          120.0,
+          120.0,
+          118.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          116.0,
+          118.0,
+          118.0,
+          118.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          116.0,
+          120.0,
+          120.0,
+          116.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          118.0,
+          120.0,
+          120.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                7,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                1,
+                4,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "no-crossover",
+    "seed": 45,
+    "initial_state_seed": 24256,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": false
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140,
+        140
+      ],
+      "duration_seconds": 0.2279495999973733,
+      "seed": 45,
+      "run_index": 5,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "roulette",
+        "crossover_enabled": false
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140,
+          140
+        ],
+        "average_objective_history": [
+          128.5,
+          125.0,
+          131.5,
+          132.0,
+          130.5,
+          133.5,
+          133.0,
+          133.0,
+          133.5,
+          132.5,
+          135.0,
+          135.0,
+          136.0,
+          137.0,
+          137.0,
+          138.5,
+          136.5,
+          136.5,
+          136.5,
+          136.0,
+          136.5,
+          136.5,
+          135.5,
+          133.0,
+          133.0,
+          133.5,
+          128.0,
+          122.5,
+          136.0,
+          136.5,
+          136.0,
+          135.0,
+          136.0,
+          136.5,
+          137.0,
+          138.0,
+          138.0,
+          134.5,
+          138.5,
+          139.0,
+          139.0,
+          140.0,
+          136.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0,
+          140.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                0,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "uniform-selection",
+    "seed": 41,
+    "initial_state_seed": 24260,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "uniform",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        120,
+        120,
+        90,
+        70,
+        100,
+        100,
+        100,
+        140,
+        100,
+        100,
+        100,
+        140,
+        140,
+        100,
+        100,
+        140,
+        140,
+        140,
+        140,
+        100,
+        130,
+        130,
+        100,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        140,
+        140,
+        140,
+        140,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "duration_seconds": 0.28922240002430044,
+      "seed": 41,
+      "run_index": 1,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "uniform",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          120,
+          120,
+          90,
+          70,
+          100,
+          100,
+          100,
+          140,
+          100,
+          100,
+          100,
+          140,
+          140,
+          100,
+          100,
+          140,
+          140,
+          140,
+          140,
+          100,
+          130,
+          130,
+          100,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          140,
+          140,
+          140,
+          140,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100
+        ],
+        "average_objective_history": [
+          128.5,
+          115.5,
+          90.5,
+          84.0,
+          90.5,
+          82.5,
+          60.5,
+          52.0,
+          51.0,
+          50.0,
+          39.5,
+          39.5,
+          33.5,
+          30.5,
+          39.5,
+          38.5,
+          44.0,
+          56.5,
+          48.0,
+          64.5,
+          63.0,
+          78.0,
+          78.0,
+          63.5,
+          72.5,
+          81.5,
+          77.5,
+          83.0,
+          80.5,
+          77.0,
+          75.5,
+          72.0,
+          70.5,
+          76.5,
+          77.0,
+          82.5,
+          82.0,
+          74.0,
+          76.0,
+          65.0,
+          72.0,
+          72.0,
+          64.5,
+          49.0,
+          57.0,
+          51.0,
+          63.0,
+          46.0,
+          42.0,
+          44.0,
+          30.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                3,
+                4,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                8,
+                5,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "uniform-selection",
+    "seed": 42,
+    "initial_state_seed": 24263,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "uniform",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        100,
+        100,
+        70,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.33906309999292716,
+      "seed": 42,
+      "run_index": 2,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "uniform",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          100,
+          100,
+          70,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.0,
+          116.5,
+          100.0,
+          91.5,
+          103.5,
+          99.0,
+          88.5,
+          91.5,
+          92.5,
+          87.0,
+          89.5,
+          104.5,
+          89.5,
+          91.0,
+          97.0,
+          94.0,
+          86.5,
+          91.0,
+          73.0,
+          77.5,
+          68.5,
+          64.0,
+          53.5,
+          47.5,
+          53.5,
+          64.0,
+          71.5,
+          79.0,
+          70.0,
+          58.0,
+          53.5,
+          53.0,
+          53.0,
+          62.0,
+          70.5,
+          80.5,
+          66.0,
+          66.0,
+          71.0,
+          75.0,
+          83.0,
+          75.0,
+          88.5,
+          85.0,
+          88.5,
+          90.0,
+          109.0,
+          119.5,
+          125.5,
+          121.0,
+          116.5
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                2,
+                2,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                8,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "uniform-selection",
+    "seed": 43,
+    "initial_state_seed": 24262,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "uniform",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        140,
+        140,
+        100,
+        100,
+        100,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        100,
+        100,
+        120,
+        120,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        130,
+        100,
+        100,
+        100,
+        140,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        130,
+        140,
+        140,
+        140,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        130
+      ],
+      "duration_seconds": 0.29268149999552406,
+      "seed": 43,
+      "run_index": 3,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "uniform",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          140,
+          140,
+          100,
+          100,
+          100,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          100,
+          100,
+          120,
+          120,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          130,
+          100,
+          100,
+          100,
+          140,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          130,
+          140,
+          140,
+          140,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          130
+        ],
+        "average_objective_history": [
+          127.5,
+          112.0,
+          77.0,
+          65.5,
+          73.0,
+          72.0,
+          71.5,
+          69.5,
+          65.0,
+          64.0,
+          69.5,
+          63.5,
+          64.5,
+          63.0,
+          57.5,
+          57.5,
+          54.0,
+          58.0,
+          61.0,
+          62.0,
+          57.0,
+          50.0,
+          61.0,
+          59.0,
+          71.5,
+          76.0,
+          80.0,
+          83.0,
+          91.5,
+          87.0,
+          93.0,
+          94.0,
+          96.0,
+          96.0,
+          90.0,
+          88.0,
+          92.0,
+          88.0,
+          92.0,
+          90.0,
+          95.5,
+          99.5,
+          105.0,
+          104.5,
+          97.0,
+          91.0,
+          94.0,
+          100.0,
+          100.0,
+          100.0,
+          101.5
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 120,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                2,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                4,
+                7,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                7,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "uniform-selection",
+    "seed": 44,
+    "initial_state_seed": 24257,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "uniform",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 130,
+      "objective_history": [
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        120,
+        130,
+        100,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        100,
+        100,
+        130,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "duration_seconds": 0.26793169998563826,
+      "seed": 44,
+      "run_index": 4,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "uniform",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          120,
+          130,
+          100,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          100,
+          100,
+          130,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100,
+          100
+        ],
+        "average_objective_history": [
+          124.5,
+          100.0,
+          82.5,
+          68.5,
+          73.5,
+          70.5,
+          70.0,
+          64.5,
+          57.0,
+          63.0,
+          73.0,
+          69.0,
+          66.5,
+          65.5,
+          72.5,
+          73.0,
+          58.5,
+          57.5,
+          69.5,
+          80.0,
+          92.0,
+          92.0,
+          84.5,
+          86.0,
+          74.5,
+          68.5,
+          82.0,
+          70.0,
+          71.5,
+          80.5,
+          79.0,
+          71.5,
+          73.0,
+          79.0,
+          76.0,
+          64.0,
+          59.5,
+          61.0,
+          67.0,
+          74.5,
+          70.0,
+          79.0,
+          82.0,
+          76.0,
+          73.0,
+          68.0,
+          59.0,
+          54.5,
+          50.0,
+          49.0,
+          54.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                7,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 130,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                7,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                3
+              ]
+            }
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "uniform-selection",
+    "seed": 45,
+    "initial_state_seed": 24256,
+    "parameters": {
+      "population_size": 20,
+      "generations": 50,
+      "mutation_rate": 0.05,
+      "selection_mode": "uniform",
+      "crossover_enabled": true
+    },
+    "result": {
+      "algorithm": "genetic_algorithm",
+      "objective_name": "total_value",
+      "objective_value": 140,
+      "objective_history": [
+        140,
+        140,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        100,
+        100,
+        100,
+        120,
+        120,
+        100,
+        100,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130,
+        130
+      ],
+      "duration_seconds": 0.3729433999978937,
+      "seed": 45,
+      "run_index": 5,
+      "parameters": {
+        "population_size": 20,
+        "generations": 50,
+        "mutation_rate": 0.05,
+        "selection_mode": "uniform",
+        "crossover_enabled": true
+      },
+      "metrics": {
+        "generations": 50,
+        "population_size": 20,
+        "best_objective_history": [
+          140,
+          140,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          100,
+          100,
+          100,
+          120,
+          120,
+          100,
+          100,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130,
+          130
+        ],
+        "average_objective_history": [
+          128.5,
+          95.0,
+          89.0,
+          90.0,
+          96.5,
+          108.0,
+          107.0,
+          120.5,
+          117.5,
+          110.5,
+          119.0,
+          116.5,
+          103.0,
+          112.0,
+          116.5,
+          105.5,
+          103.0,
+          88.0,
+          91.0,
+          82.0,
+          86.5,
+          86.5,
+          88.0,
+          77.5,
+          79.0,
+          80.0,
+          74.0,
+          82.5,
+          81.5,
+          76.0,
+          68.5,
+          70.0,
+          77.5,
+          83.5,
+          83.5,
+          83.5,
+          85.0,
+          86.0,
+          82.0,
+          77.0,
+          83.0,
+          82.0,
+          83.5,
+          82.0,
+          92.5,
+          97.0,
+          88.0,
+          88.0,
+          91.0,
+          89.5,
+          85.0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 110,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                7,
+                0,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            10,
+            10,
+            6
+          ],
+          "max_capacity": 12
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "Box-A",
+            "dimensions": [
+              2,
+              3,
+              1
+            ],
+            "value": 60,
+            "weight": 5,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                1
+              ]
+            }
+          },
+          {
+            "id": "Box-B",
+            "dimensions": [
+              3,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 4,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "Fragile-C",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 90,
+            "weight": 8,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "Box-D",
+            "dimensions": [
+              1,
+              2,
+              1
+            ],
+            "value": 30,
+            "weight": 2,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "Box-E",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 80,
+            "weight": 7,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+]
