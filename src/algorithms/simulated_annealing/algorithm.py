@@ -20,8 +20,8 @@ def simulated_annealing(
     cooling_rate: float,
     objective_name: str | None = None,
     run_index: int = 1,
+    stuck_patience: int = 100,
 ) -> SearchResult[State]:
-    """Run SA and return the best-so-far state plus per-iteration metrics."""
     if type(seed) is not int:
         raise ValueError("seed must be an integer")
     if type(max_iterations) is not int or max_iterations < 0:
@@ -46,6 +46,8 @@ def simulated_annealing(
         raise ValueError("objective_name must be a non-empty string")
     if type(run_index) is not int or run_index < 1:
         raise ValueError("run_index must be a positive integer")
+    if type(stuck_patience) is not int or stuck_patience < 1:
+        raise ValueError("stuck_patience must be a positive integer")
 
     started_at = perf_counter()
     rng = Random(seed)
@@ -55,19 +57,21 @@ def simulated_annealing(
     current_score = _validate_objective(objective(current))
     best_score = current_score
     objective_history = [best_score]
+    current_history = [current_score]
     acceptance_history = []
+    temperature_history = []
     stuck_count = 0
+    stalled_iterations = 0
+    plateau_counted = False
     temperature = float(initial_temperature)
 
     for _ in range(max_iterations):
         candidate = random_neighbor(current, rng)
-        if candidate is current:
-            stuck_count += 1
-
         candidate_score = _validate_objective(objective(candidate))
         delta = candidate_score - current_score
-        acceptance_probability = min(1.0, exp(delta / temperature))
+        acceptance_probability = _acceptance_probability(delta, temperature)
         acceptance_history.append(acceptance_probability)
+        temperature_history.append(temperature)
 
         if delta >= 0 or rng.random() < acceptance_probability:
             current = candidate
@@ -76,7 +80,15 @@ def simulated_annealing(
         if current_score > best_score:
             best = current
             best_score = current_score
+            stalled_iterations = 0
+            plateau_counted = False
+        else:
+            stalled_iterations += 1
+            if stalled_iterations >= stuck_patience and not plateau_counted:
+                stuck_count += 1
+                plateau_counted = True
         objective_history.append(best_score)
+        current_history.append(current_score)
         temperature *= cooling_rate
 
     return SearchResult(
@@ -91,6 +103,9 @@ def simulated_annealing(
             iterations=max_iterations,
             exp_delta_e_over_temperature=tuple(acceptance_history),
             stuck_count=stuck_count,
+            stuck_patience=stuck_patience,
+            current_objective_history=tuple(current_history),
+            temperature_history=tuple(temperature_history),
         ),
         seed=seed,
         run_index=run_index,
@@ -98,8 +113,17 @@ def simulated_annealing(
             "max_iterations": max_iterations,
             "initial_temperature": initial_temperature,
             "cooling_rate": cooling_rate,
+            "stuck_patience": stuck_patience,
         },
     )
+
+
+def _acceptance_probability(delta: float, temperature: float) -> float:
+    if delta >= 0:
+        return 1.0
+    if temperature <= 0:
+        return 0.0
+    return exp(delta / temperature)
 
 
 def _validate_objective(value: object) -> int | float:

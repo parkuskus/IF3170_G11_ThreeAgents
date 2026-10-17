@@ -63,10 +63,63 @@ class SimulatedAnnealingTests(unittest.TestCase):
             {"initial_temperature": 0},
             {"cooling_rate": 0},
             {"cooling_rate": 1.1},
+            {"stuck_patience": 0},
         )
         for overrides in invalid_parameters:
             with self.subTest(overrides=overrides), self.assertRaises(ValueError):
                 self.run_algorithm(**overrides)
+
+    def test_records_current_history_and_temperature_schedule(self):
+        result = self.run_algorithm()
+
+        self.assertEqual(len(result.metrics.current_objective_history), 9)
+        self.assertEqual(result.metrics.current_objective_history[0], 10)
+        self.assertEqual(len(result.metrics.temperature_history), 8)
+        self.assertAlmostEqual(result.metrics.temperature_history[1], 8.0)
+        for current, best in zip(
+            result.metrics.current_objective_history, result.objective_history
+        ):
+            self.assertLessEqual(current, best)
+
+    def test_acceptance_probabilities_stay_in_unit_interval(self):
+        result = self.run_algorithm(max_iterations=60)
+
+        for probability in result.metrics.exp_delta_e_over_temperature:
+            self.assertGreaterEqual(probability, 0.0)
+            self.assertLessEqual(probability, 1.0)
+
+    def test_survives_temperature_cooling_to_zero(self):
+        # 0.5^2000 underflows to 0.0; improving moves must not overflow exp().
+        result = self.run_algorithm(
+            max_iterations=2000, initial_temperature=1.0, cooling_rate=0.5
+        )
+
+        self.assertEqual(result.metrics.temperature_history[-1], 0.0)
+        self.assertEqual(validate_state(result.final_state), [])
+
+    def test_counts_each_stalled_plateau_once(self):
+        # A constant objective never improves, so the run is a single plateau.
+        result = self.run_algorithm(
+            max_iterations=50, stuck_patience=5, objective_fn=lambda state: 0
+        )
+        self.assertEqual(result.metrics.stuck_count, 1)
+        self.assertEqual(result.metrics.stuck_patience, 5)
+
+        never_stuck = self.run_algorithm(
+            max_iterations=4, stuck_patience=5, objective_fn=lambda state: 0
+        )
+        self.assertEqual(never_stuck.metrics.stuck_count, 0)
+
+    def test_new_plateau_after_improvement_is_counted_again(self):
+        calls = iter(range(10_000))
+        # Objective improves only on the 11th evaluation, splitting the run
+        # into two plateaus that each exceed the patience.
+        result = self.run_algorithm(
+            max_iterations=30,
+            stuck_patience=5,
+            objective_fn=lambda state: 1 if next(calls) >= 10 else 0,
+        )
+        self.assertEqual(result.metrics.stuck_count, 2)
 
 
 if __name__ == "__main__":

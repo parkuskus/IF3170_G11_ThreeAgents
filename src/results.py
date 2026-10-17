@@ -24,9 +24,15 @@ class HillClimbingMetrics:
 
 @dataclass(frozen=True, slots=True)
 class SimulatedAnnealingMetrics:
+    """stuck_count counts distinct plateaus where best-so-far stalled for
+    stuck_patience consecutive iterations (frequency stuck in local optima)."""
+
     iterations: int
     exp_delta_e_over_temperature: tuple[float, ...] = ()
     stuck_count: int = 0
+    stuck_patience: int | None = None
+    current_objective_history: tuple[ObjectiveValue, ...] = ()
+    temperature_history: tuple[float, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
