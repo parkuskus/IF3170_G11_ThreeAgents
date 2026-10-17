@@ -19,20 +19,20 @@ Heuristik yang kami gunakan adalah \textit{steepest} berbasis sampel: pada setia
 
 \subsection{Parameter dan Kondisi Berhenti}
 \begin{table}[h]
-\centering
-\begin{tabular}{@{}p{4.7cm}p{2.3cm}p{6.5cm}@{}}
-\toprule
-Parameter & Bawaan & Keterangan \\
-\midrule
-\texttt{variant} & \texttt{steepest} & \texttt{steepest}, \texttt{sideways}, \texttt{stochastic}, atau \texttt{random\_restart} \\
-\texttt{neighbors\_per\_iteration} & 30 & Jumlah \textit{neighbor} yang disampel per iterasi (tidak dipakai \textit{stochastic}) \\
-\texttt{max\_iterations} & 1000 & Batas iterasi; menjadi kondisi berhenti pada \textit{stochastic} dan batas pengaman pada varian lain \\
-\texttt{max\_sideways} & 100 & Batas \textit{sideways move} (varian \textit{sideways}) \\
-\texttt{max\_restarts} & 10 & Jumlah \textit{restart} setelah percobaan pertama (varian \textit{random restart}) \\
-\texttt{seed} & --- & Seed pembangkit acak agar eksperimen dapat diulang \\
-\bottomrule
-\end{tabular}
-\caption{Parameter algoritma \textit{hill climbing}}
+    \centering
+    \begin{tabular}{@{}p{4.7cm}p{2.3cm}p{6.5cm}@{}}
+        \toprule
+        Parameter                          & Bawaan            & Keterangan                                                                                           \\
+        \midrule
+        \texttt{variant}                   & \texttt{steepest} & \texttt{steepest}, \texttt{sideways}, \texttt{stochastic}, atau \texttt{random\_restart}             \\
+        \texttt{neighbors\_per\_iteration} & 30                & Jumlah \textit{neighbor} yang disampel per iterasi (tidak dipakai \textit{stochastic})               \\
+        \texttt{max\_iterations}           & 1000              & Batas iterasi; menjadi kondisi berhenti pada \textit{stochastic} dan batas pengaman pada varian lain \\
+        \texttt{max\_sideways}             & 100               & Batas \textit{sideways move} (varian \textit{sideways})                                              \\
+        \texttt{max\_restarts}             & 10                & Jumlah \textit{restart} setelah percobaan pertama (varian \textit{random restart})                   \\
+        \texttt{seed}                      & ---               & Seed pembangkit acak agar eksperimen dapat diulang                                                   \\
+        \bottomrule
+    \end{tabular}
+    \caption{Parameter algoritma \textit{hill climbing}}
 \end{table}
 
 \begin{itemize}
