@@ -1,5 +1,150 @@
 \section{Algoritma Hill Climbing}
 
+Hill Climbing adalah algoritma pencarian lokal yang berusaha meningkatkan kualitas satu solusi secara bertahap. Algoritma memulai pencarian dari satu konfigurasi, membentuk sejumlah konfigurasi tetangga, lalu berpindah ke tetangga yang memberikan nilai objektif lebih baik. Pencarian berhenti saat tidak ditemukan tetangga yang meningkatkan nilai tersebut. Varian \textit{steepest-ascent} yang digunakan pada pseudocode memilih tetangga dengan nilai objektif tertinggi dari semua kandidat yang diperiksa \cite{poole2017artificial,russell2021artificial}.
+
+Karakteristik utama Hill Climbing adalah penggunaan satu konfigurasi aktif dan keputusan yang hanya bergantung pada nilai konfigurasi tetangganya. Algoritma ini tidak menyimpan pohon pencarian atau seluruh jalur yang ditempuh. Karena setiap langkah memilih perbaikan lokal, nilai objektif konfigurasi yang dikunjungi meningkat secara monoton pada varian \textit{steepest-ascent} dengan perpindahan yang hanya menerima peningkatan ketat. Dengan ruang solusi berhingga, proses tersebut berakhir pada konfigurasi yang tidak memiliki tetangga lebih baik, yaitu optimum lokal \cite{poole2017artificial}.
+
+Keunggulan Hill Climbing terletak pada kesederhanaan implementasi dan kebutuhan memori yang rendah dibandingkan metode yang menyimpan banyak kandidat pencarian. Algoritma ini juga dapat menghasilkan perbaikan dengan cepat apabila fungsi objektif dan pembentukan tetangga dapat dihitung secara efisien. Namun, hasilnya bergantung pada konfigurasi awal dan definisi tetangga. Pencarian dapat berhenti pada optimum lokal yang bukan optimum global, atau kesulitan bergerak pada daerah datar dan punggung sempit pada lanskap objektif. Oleh sebab itu, Hill Climbing tidak menjamin solusi terbaik secara global \cite{poole2017artificial,russell2021artificial}.
+
+Hill Climbing sesuai digunakan ketika ruang solusi besar, evaluasi kualitas solusi relatif murah, dan solusi yang baik sudah berguna meskipun belum terbukti optimal. Metode ini kurang sesuai apabila dibutuhkan jaminan optimum global atau apabila perpindahan lokal jarang menghasilkan arah perbaikan yang informatif. Penggunaan beberapa titik awal atau varian yang mengizinkan langkah menyamping dapat mengurangi sebagian risiko terjebak, tetapi tidak mengubah sifat dasar metode pencarian lokal.
+
+Dalam persoalan pemuatan paket, konfigurasi awal dibentuk secara acak sesuai spesifikasi. Algoritma kemudian membandingkan konfigurasi tetangga yang diperoleh melalui langkah perubahan susunan paket yang diizinkan, lalu memilih konfigurasi layak dengan nilai total paket yang lebih tinggi. Proses berlanjut sampai tidak ada tetangga yang meningkatkan nilai objektif. Pseudocode berikut menunjukkan varian \textit{steepest-ascent} tanpa langkah menyamping atau pengulangan dari titik awal baru.
+
+\begingroup
+\setlength{\parskip}{0pt}
+\begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
+\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Steepest-Ascent Hill Climbing\label{alg:steepest-ascent-hill-climbing}\par
+\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+\begin{algorithmic}
+\REQUIRE Konfigurasi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$
+\ENSURE Konfigurasi optimum lokal $s$
+\STATE $s \gets s_0$
+\WHILE{$N(s) \neq \emptyset$}
+    \STATE $s' \gets \arg\max_{u \in N(s)} f(u)$
+    \IF{$f(s') \leq f(s)$}
+        \RETURN $s$
+    \ENDIF
+    \STATE $s \gets s'$
+\ENDWHILE
+\RETURN $s$
+\end{algorithmic}
+\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+\end{list}
+\endgroup
+
 \section{Algoritma Simulated Annealing}
 
+Simulated Annealing adalah algoritma pencarian lokal stokastik yang meniru proses pendinginan material untuk mencari solusi bernilai objektif tinggi. Berbeda dari Hill Climbing yang hanya menerima perpindahan ke solusi lebih baik, Simulated Annealing juga dapat menerima solusi yang lebih buruk dengan peluang tertentu. Mekanisme ini membantu pencarian keluar dari optimum lokal dan mengeksplorasi bagian lain dari ruang solusi \cite{russell2021artificial,kirkpatrick1983optimization}.
+
+Pada setiap iterasi, algoritma memilih satu solusi tetangga dan menghitung perubahan nilai objektifnya. Untuk persoalan maksimisasi, perubahan tersebut didefinisikan sebagai $\Delta E=f(s')-f(s)$, dengan $s$ sebagai solusi saat ini dan $s'$ sebagai kandidat tetangga. Kandidat yang meningkatkan atau mempertahankan nilai objektif selalu diterima. Kandidat yang menurunkan nilai objektif dapat diterima dengan peluang yang bergantung pada temperatur $T$, seperti dirumuskan pada Persamaan~\ref{eq:sa-acceptance} \cite{kirkpatrick1983optimization}.
+
+\begin{equation}
+P(\text{menerima } s') =
+\begin{cases}
+1, & \Delta E \geq 0, \\
+\exp\left(\dfrac{\Delta E}{T}\right), & \Delta E < 0.
+\end{cases}
+\label{eq:sa-acceptance}
+\end{equation}
+
+Temperatur mengendalikan tingkat eksplorasi algoritma. Pada temperatur tinggi, penurunan nilai objektif masih mungkin diterima sehingga pencarian dapat menjelajahi ruang solusi dengan lebih luas. Ketika temperatur diturunkan, peluang menerima perpindahan yang lebih buruk ikut mengecil dan pencarian semakin berfokus pada perbaikan. Salah satu jadwal pendinginan yang umum digunakan adalah pendinginan geometris, dengan $0<\alpha<1$ sebagai faktor pendinginan \cite{russell2021artificial}.
+
+\begin{equation}
+T_{k+1}=\alpha T_k, \qquad 0<\alpha<1.
+\label{eq:sa-cooling}
+\end{equation}
+
+Keunggulan Simulated Annealing adalah kemampuannya melewati optimum lokal dengan menerima perpindahan yang sesaat menurunkan nilai objektif, tanpa harus menyimpan banyak kandidat solusi. Namun, kualitas hasil dan waktu pencarian sensitif terhadap temperatur awal, faktor pendinginan, temperatur minimum, serta mekanisme pembentukan tetangga. Jika temperatur turun terlalu cepat, pencarian masih dapat terjebak pada optimum lokal; frekuensi kondisi ini menjadi salah satu metrik evaluasi algoritma. Karena itu, algoritma ini tidak menjamin solusi global terbaik untuk jadwal pendinginan berdurasi terbatas dan hasilnya dapat berbeda antarpercobaan \cite{russell2021artificial,kirkpatrick1983optimization}.
+
+Simulated Annealing cocok digunakan pada ruang solusi besar dengan banyak optimum lokal, terutama ketika evaluasi solusi cukup murah dan solusi mendekati optimal sudah bermanfaat. Dalam persoalan pemuatan paket, pencarian dimulai dari konfigurasi acak. Pada setiap iterasi, satu tetangga dibentuk melalui operasi pertukaran paket, pemindahan paket, atau rotasi. Algoritma menerima kandidat yang meningkatkan nilai objektif, dan sesekali menerima kandidat yang menurunkannya sesuai peluang pada Persamaan~\ref{eq:sa-acceptance}. Temperatur kemudian dikurangi berdasarkan jadwal pendinginan. Nilai $\exp(\Delta E/T)$ menjadi ukuran peluang penerimaan kandidat yang lebih buruk, sesuai metrik yang diminta spesifikasi untuk dianalisis terhadap iterasi.
+
+Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika temperatur mencapai nilai minimum. Variabel $s_{\text{best}}$ menyimpan konfigurasi bernilai tertinggi yang ditemukan, meskipun proses menerima perpindahan sementara ke konfigurasi yang lebih buruk.
+
+\begingroup
+\setlength{\parskip}{0pt}
+\begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
+\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
+\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+\begin{algorithmic}
+\REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, parameter $T_0>T_{\min}>0$ dan $0<\alpha<1$
+\ENSURE Solusi terbaik yang ditemukan $s_{\text{best}}$
+\STATE $s \gets s_0$, $s_{\text{best}} \gets s_0$, $T \gets T_0$
+\WHILE{$T > T_{\min}$}
+    \IF{$N(s) = \emptyset$}
+        \RETURN $s_{\text{best}}$
+    \ENDIF
+    \STATE Pilih $s'$ secara acak dari $N(s)$
+    \STATE $\Delta E \gets f(s') - f(s)$
+    \IF{$\Delta E \geq 0$}
+        \STATE $s \gets s'$
+    \ELSE
+        \STATE Bangkitkan $u$ secara acak dari $[0,1]$
+        \IF{$u < \exp(\Delta E/T)$}
+            \STATE $s \gets s'$
+        \ENDIF
+    \ENDIF
+    \IF{$f(s) > f(s_{\text{best}})$}
+        \STATE $s_{\text{best}} \gets s$
+    \ENDIF
+    \STATE $T \gets \alpha T$
+\ENDWHILE
+\RETURN $s_{\text{best}}$
+\end{algorithmic}
+\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+\end{list}
+\endgroup
+
 \section{Genetic Algorithm}
+
+Genetic Algorithm adalah metode pencarian berbasis populasi yang memperbarui kumpulan kandidat solusi melalui mekanisme yang terinspirasi oleh seleksi alam. Setiap kandidat disebut individu, sedangkan nilai objektifnya berperan sebagai ukuran fitness. Pada tiap generasi, algoritma memilih individu sebagai induk, menggabungkan bagian solusi melalui crossover, lalu menerapkan mutasi secara acak untuk membentuk populasi baru \cite{russell2021artificial,goldberg1989genetic}.
+
+Karakteristik Genetic Algorithm adalah pencarian atas banyak kandidat secara bersamaan dan penggunaan operator stokastik untuk menghasilkan generasi berikutnya. Seleksi roulette memberi peluang lebih besar kepada individu dengan fitness lebih tinggi. Jika fitness individu ke-$i$ adalah $f_i$ dan bobot seleksinya $w_i$, peluang memilih individu tersebut dirumuskan sebagai
+
+\begin{equation}
+P(i)=\frac{w_i}{\sum_{j=1}^{n} w_j}.
+\label{eq:ga-selection}
+\end{equation}
+
+Untuk persoalan pemuatan paket dengan nilai objektif nonnegatif, bobot seleksi dapat menggunakan nilai objektif. Jika seluruh bobot bernilai nol, seleksi dilakukan secara seragam. Crossover satu titik menggabungkan gen dari dua induk, sementara mutasi mengubah satu gen dengan peluang tertentu. Kedua operator harus menghasilkan individu yang memenuhi batasan pemuatan paket \cite{goldberg1989genetic}.
+
+Keunggulan Genetic Algorithm adalah kemampuannya mengeksplorasi beberapa wilayah ruang solusi secara paralel dan mengurangi ketergantungan pencarian pada satu konfigurasi awal. Keragaman populasi dapat membantu pencarian menghindari optimum lokal. Namun, hasil dan waktu pencarian bergantung pada ukuran populasi, jumlah generasi, operator, serta parameter seperti laju mutasi. Algoritma ini tidak menjamin solusi global terbaik dalam jumlah generasi terbatas, dan setiap generasi memerlukan evaluasi banyak kandidat \cite{russell2021artificial,goldberg1989genetic}.
+
+Genetic Algorithm sesuai untuk ruang solusi besar dengan representasi kandidat yang dapat digabungkan dan dimutasi, khususnya ketika solusi layak dapat dipulihkan setelah operator diterapkan. Pada persoalan pemuatan paket, satu individu merepresentasikan penempatan seluruh paket. Populasi awal memuat konfigurasi awal yang valid dan konfigurasi valid lain yang dibentuk secara acak. Di setiap generasi, individu dievaluasi dengan fungsi objektif, induk dipilih menggunakan roulette, kemudian crossover satu titik dan mutasi dilakukan untuk membentuk populasi berikutnya. Individu terbaik disimpan terpisah sepanjang pencarian agar solusi terbaik tetap tersedia meskipun tidak diwariskan ke generasi baru.
+
+Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan perbaikan kelayakan, dan mutasi satu gen dengan peluang $\mu$. Pencarian berhenti setelah jumlah generasi yang ditentukan dan mengembalikan individu terbaik yang pernah dievaluasi.
+
+\begingroup
+\setlength{\parskip}{0pt}
+\begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
+\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
+\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+\begin{algorithmic}
+\REQUIRE Solusi awal valid $s_0$, fungsi objektif $f$, ukuran populasi $n$, jumlah generasi $G$, laju mutasi $\mu$
+\ENSURE Individu terbaik yang ditemukan $s_{\text{best}}$
+\STATE $P \gets$ populasi valid berukuran $n$ yang memuat $s_0$
+\STATE $s_{\text{best}} \gets s_0$, $f_{\text{best}} \gets -\infty$
+\FOR{$g \gets 0$ sampai $G$}
+    \STATE Evaluasi $f(x)$ untuk setiap $x \in P$
+    \STATE $x_{\text{best}} \gets \arg\max_{x \in P} f(x)$
+    \IF{$f(x_{\text{best}}) > f_{\text{best}}$}
+        \STATE $s_{\text{best}} \gets x_{\text{best}}$, $f_{\text{best}} \gets f(x_{\text{best}})$
+    \ENDIF
+    \IF{$g < G$}
+        \STATE $P_{\text{baru}} \gets \emptyset$
+        \WHILE{$|P_{\text{baru}}| < n$}
+            \STATE Pilih induk $p_1$ dan $p_2$ dari $P$ dengan seleksi roulette
+            \STATE $c \gets$ crossover satu titik $(p_1,p_2)$ dan perbaiki agar valid
+            \STATE Dengan peluang $\mu$, mutasikan satu gen pada $c$ dan pertahankan validitasnya
+            \STATE Tambahkan $c$ ke $P_{\text{baru}}$
+        \ENDWHILE
+        \STATE $P \gets P_{\text{baru}}$
+    \ENDIF
+\ENDFOR
+\RETURN $s_{\text{best}}$
+\end{algorithmic}
+\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+\end{list}
+\endgroup
