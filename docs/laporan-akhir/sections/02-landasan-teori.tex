@@ -19,10 +19,8 @@ Varian ini sama dengan \textit{steepest ascent}, tetapi juga mengizinkan perpind
 \subsection{\textit{Stochastic Hill Climbing}}
 Algoritma memilih satu \textit{neighbor} secara acak pada setiap iterasi dan berpindah ke \textit{neighbor} tersebut hanya jika nilainya lebih baik. Varian ini tidak perlu mengevaluasi seluruh \textit{neighbor} dalam satu iterasi sehingga setiap iterasinya lebih murah, dan sifat acaknya membuat jalur pencarian lebih bervariasi. Karena tidak ada kondisi ``tidak ada \textit{neighbor} yang lebih baik'' yang dapat dipastikan dari satu sampel, pencarian dihentikan setelah jumlah iterasi maksimum tercapai.
 
-<<<<<<< HEAD
 \subsection{\textit{Random Restart Hill Climbing}}
 Algoritma menjalankan \textit{steepest ascent hill climbing} berulang kali, setiap kali dimulai dari \textit{state} awal acak yang baru, dan menyimpan hasil terbaik dari seluruh percobaan. Peluang menemukan \textit{global optimum} meningkat seiring bertambahnya jumlah \textit{restart}, karena setiap \textit{restart} mengeksplorasi daerah ruang pencarian yang berbeda. Pencarian dihentikan ketika jumlah \textit{restart} mencapai \textit{maximum restart}. Kelemahannya adalah biaya komputasi yang bertambah sebanding dengan jumlah \textit{restart}.
-=======
 \begingroup
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
@@ -45,7 +43,6 @@ Algoritma menjalankan \textit{steepest ascent hill climbing} berulang kali, seti
 \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
 \end{list}
 \endgroup
->>>>>>> e8cc096 (feat: add genetic algo explanation)
 
 \section{Algoritma Simulated Annealing}
 
@@ -77,7 +74,6 @@ Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika tempera
 
 \begingroup
 \setlength{\parskip}{0pt}
-<<<<<<< HEAD
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
           \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
           \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
@@ -108,7 +104,6 @@ Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika tempera
               \RETURN $s_{\text{best}}$
           \end{algorithmic}
           \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
-=======
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
 \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
@@ -139,7 +134,6 @@ Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika tempera
 \RETURN $s_{\text{best}}$
 \end{algorithmic}
 \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
->>>>>>> e8cc096 (feat: add genetic algo explanation)
 \end{list}
 \endgroup
 
@@ -164,7 +158,6 @@ Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan per
 
 \begingroup
 \setlength{\parskip}{0pt}
-<<<<<<< HEAD
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
           \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
           \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
@@ -194,7 +187,6 @@ Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan per
               \RETURN $s_{\text{best}}$
           \end{algorithmic}
           \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
-=======
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
 \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
@@ -224,6 +216,5 @@ Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan per
 \RETURN $s_{\text{best}}$
 \end{algorithmic}
 \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
->>>>>>> e8cc096 (feat: add genetic algo explanation)
 \end{list}
 \endgroup

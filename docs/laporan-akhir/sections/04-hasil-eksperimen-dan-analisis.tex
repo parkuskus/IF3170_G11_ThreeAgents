@@ -1,5 +1,42 @@
 \section{Metodologi Eksperimen}
 
+Metodologi eksperimen dirancang untuk membandingkan kualitas solusi dan biaya pencarian secara adil, sekaligus memeriksa ketahanan algoritma pada kasus sulit dan masukan batas. Seluruh algoritma diuji pada instance paket dan truk yang sama, menggunakan fungsi objektif serta validator constraint yang sama. Rincian konfigurasi khusus tiap algoritma dibahas terpisah dan tidak diulang pada metodologi umum ini.
+
+\subsection{Kumpulan Instance dan Kasus Uji}
+
+Kumpulan uji mencakup instance utama dari data tugas serta instance terkontrol yang dibentuk untuk menguji karakteristik tertentu. Ukuran dan tingkat kesulitan instance dibuat bervariasi agar hasil tidak hanya menggambarkan satu konfigurasi pemuatan. Setidaknya, pengujian mencakup kategori berikut:
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{(\arabic{enumi})}
+\item \textbf{Kasus dasar.} Instance dengan paket yang bervariasi dalam dimensi, nilai, dan berat, serta beberapa kombinasi pemuatan yang layak. Kasus ini digunakan untuk membandingkan kinerja umum.
+\item \textbf{Kasus kendala ketat.} Ruang truk diperkecil atau kapasitas berat dikurangi agar lebih banyak kandidat penempatan ditolak. Instance ini menguji dampak keterbatasan ruang dan kapasitas.
+\item \textbf{Kasus tanpa pemuatan nonkosong yang layak.} Semua paket dibuat tidak dapat dimuat, misalnya setiap paket lebih besar daripada ruang truk pada semua orientasi atau beratnya melebihi kapasitas. Karena representasi tetap mengizinkan semua paket berada di luar truk, state kosong merupakan state valid dengan nilai objektif nol; kasus ini menguji apakah algoritma dapat mengembalikan state valid tanpa paket termuat.
+\item \textbf{Kasus batas dan struktur khusus.} Pengujian meliputi satu paket, paket yang hanya muat setelah rotasi, paket yang tepat menyentuh dinding truk, berat total yang tepat sama dengan kapasitas, paket rapuh yang memengaruhi dukungan, serta paket bernilai atau berbobot nol. Kasus dengan fitness sama juga digunakan untuk memeriksa perilaku ketika seleksi tidak memiliki preferensi nilai.
+\item \textbf{Masukan tidak valid.} Data dengan dimensi atau kapasitas yang melanggar format, ID paket duplikat, atau daftar paket kosong diuji pada batas validasi data. Kasus ini dipisahkan dari benchmark pencarian karena bukan instance masalah yang sah menurut loader.
+\end{enumerate}
+
+Instance sintetis untuk uji batas dibuat dengan mengubah satu karakteristik pada satu waktu dari instance dasar, sementara atribut lain dipertahankan. Dengan demikian, perbedaan hasil dapat dikaitkan dengan kendala yang sedang diuji. Kasus yang dirancang untuk memastikan tidak ada paket yang dapat dimuat dibedakan secara eksplisit dari kasus sulit yang masih memiliki solusi layak.
+
+\subsection{Protokol Perbandingan}
+
+Untuk setiap pasangan instance dan seed, state awal yang sama digunakan oleh semua algoritma. Daftar seed ditetapkan sebelum eksperimen; setiap kombinasi dijalankan sedikitnya tiga kali dengan seed berbeda sesuai kebutuhan evaluasi tugas. Jika anggaran komputasi memungkinkan, jumlah pengulangan ditambah agar estimasi variasi hasil lebih stabil. Penggunaan seed dan state awal berpasangan mengurangi pengaruh variasi inisialisasi saat membandingkan metode.
+
+Selain jenis instance, faktor lain seperti data paket, truk, fungsi objektif, dan implementasi validasi dijaga tetap sama. Batas penghentian dan konfigurasi spesifik mengikuti definisi masing-masing algoritma; karena satu iterasi pada algoritma berbeda belum tentu setara, jumlah iterasi tidak digunakan sendirian sebagai ukuran biaya lintas algoritma. Durasi pencarian dan jumlah evaluasi fungsi objektif dicatat sebagai ukuran biaya yang lebih langsung. Pengukuran waktu dilakukan pada lingkungan komputasi yang sama, dengan waktu persiapan data dan pembuatan visualisasi dipisahkan dari waktu pencarian.
+
+Setiap hasil akhir diperiksa kembali menggunakan validator. Run dinyatakan berhasil jika algoritma mengembalikan state valid; pada instance tanpa pemuatan nonkosong yang layak, state akhir harus valid dan tidak memuat paket. State awal dan akhir, seed, nilai objektif, jumlah paket termuat, riwayat pencarian, durasi, serta konfigurasi run disimpan agar hasil dapat direproduksi dan ditelusuri.
+
+\subsection{Metrik dan Analisis}
+
+Kualitas hasil dinilai dari nilai objektif akhir dan jumlah paket yang termuat. Ketahanan terhadap constraint dinilai dari proporsi run yang menghasilkan state akhir valid. Konsistensi diukur dengan merangkum nilai objektif dan durasi antarrun menggunakan rata-rata serta simpangan baku; hasil tiap run tetap disajikan agar variasi tidak tersembunyi oleh agregat. Riwayat nilai objektif juga ditampilkan untuk memperlihatkan perkembangan pencarian. Untuk perbandingan lintas algoritma, kurva dapat disejajarkan terhadap jumlah evaluasi objektif atau waktu berjalan, selain menampilkan sumbu iterasi atau generasi yang diwajibkan untuk masing-masing algoritma.
+
+Pada kasus tanpa pemuatan nonkosong yang layak, nilai objektif nol saja tidak cukup untuk menyimpulkan perilaku algoritma karena paket bernilai nol dapat saja termuat. Oleh sebab itu, jumlah paket termuat dan validitas state diperiksa bersamaan dengan nilai objektif. Hasil kasus ini dilaporkan sebagai uji ketahanan, terpisah dari perbandingan kualitas solusi pada instance yang dapat dimuat.
+
+\subsection{Studi Ablasi}
+
+Studi ablasi digunakan untuk mengetahui kontribusi pilihan desain terhadap hasil pencarian. Untuk setiap studi, satu konfigurasi acuan dibandingkan dengan beberapa varian konfigurasi. Pada tiap perbandingan, hanya faktor yang sedang diuji yang diubah; instance, state awal, seed, fungsi objektif, constraint, dan anggaran pencarian lainnya dijaga tetap sama. Jika dua faktor diduga saling memengaruhi, interaksinya diuji pada eksperimen terpisah, bukan diubah sekaligus tanpa kontrol.
+
+Setiap varian dijalankan pada seed yang sama dengan konfigurasi acuannya, sehingga hasil dapat dibandingkan secara berpasangan. Analisis melaporkan perubahan nilai objektif akhir dan durasi terhadap acuan, disertai rata-rata dan simpangan baku serta riwayat pencarian. Dengan protokol ini, studi ablasi menilai apakah perubahan konfigurasi memberi manfaat yang konsisten, bukan hanya hasil yang lebih baik pada satu seed.
+
 \section{Hasil Eksperimen dan Analisis tiap Algoritma}
 \subsection{Hill Climbing}
 
