@@ -1,13 +1,17 @@
 """Shared invocation contract for Hill-climbing, SA, and GA implementations."""
 
 from collections.abc import Callable
-from typing import Protocol, TypeAlias, TypeVar
+from typing import Protocol, TypeAlias, TypeVar, cast
 
 from src.results import ObjectiveValue, ParameterValue, SearchResult
 
 
 StateT = TypeVar("StateT")
 ObjectiveFunction: TypeAlias = Callable[[StateT], ObjectiveValue]
+
+
+class _ObjectiveState(Protocol):
+    def objective(self) -> ObjectiveValue: ...
 
 
 class SearchAlgorithm(Protocol[StateT]):
@@ -36,4 +40,4 @@ def resolve_objective(
     default = getattr(state, "objective", None)
     if not callable(default):
         raise TypeError("objective_fn is required when state has no objective() method")
-    return lambda candidate: candidate.objective()
+    return lambda candidate: cast(_ObjectiveState, candidate).objective()
