@@ -1,0 +1,358 @@
+{
+  "variant": "sideways",
+  "run_index": 1,
+  "seed": 41,
+  "initial_state_seed": 24260,
+  "artifacts": {
+    "run_directory": "output\\hc-demo\\sideways\\run-1",
+    "objective_history": "output\\hc-demo\\sideways\\run-1\\objective-history.png",
+    "initial_final_states": "output\\hc-demo\\sideways\\run-1\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "hill_climbing_sideways",
+    "objective_name": "total_value",
+    "objective_value": 140,
+    "objective_history": [
+      110,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140,
+      140
+    ],
+    "duration_seconds": 0.11441829998511821,
+    "seed": 41,
+    "run_index": 1,
+    "parameters": {
+      "variant": "sideways",
+      "max_iterations": 1000,
+      "neighbors_per_iteration": 30,
+      "max_sideways": 100
+    },
+    "metrics": {
+      "variant": "sideways",
+      "iterations": 101,
+      "sideways_moves": 100,
+      "maximum_sideways_moves": 100,
+      "restarts": 0,
+      "maximum_restarts": null,
+      "iterations_per_restart": []
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          6
+        ],
+        "max_capacity": 12
+      },
+      "total_package_value": 110,
+      "packages": [
+        {
+          "id": "Box-A",
+          "dimensions": [
+            2,
+            3,
+            1
+          ],
+          "value": 60,
+          "weight": 5,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "Box-B",
+          "dimensions": [
+            3,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "Fragile-C",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 8,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "Box-D",
+          "dimensions": [
+            1,
+            2,
+            1
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": {
+            "coordinate": [
+              3,
+              4,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "Box-E",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 80,
+          "weight": 7,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              5,
+              4,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              3,
+              2,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          6
+        ],
+        "max_capacity": 12
+      },
+      "total_package_value": 140,
+      "packages": [
+        {
+          "id": "Box-A",
+          "dimensions": [
+            2,
+            3,
+            1
+          ],
+          "value": 60,
+          "weight": 5,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              3
+            ]
+          }
+        },
+        {
+          "id": "Box-B",
+          "dimensions": [
+            3,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "Fragile-C",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 8,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "Box-D",
+          "dimensions": [
+            1,
+            2,
+            1
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "Box-E",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 80,
+          "weight": 7,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              8,
+              6,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

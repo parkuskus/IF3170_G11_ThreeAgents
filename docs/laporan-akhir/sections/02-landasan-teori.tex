@@ -1,5 +1,27 @@
 \section{Algoritma Hill Climbing}
 
+\textit{Hill climbing} adalah algoritma \textit{local search} yang bekerja pada satu \textit{state} saja. Algoritma ini mulai dari sebuah \textit{state} awal, membangkitkan \textit{neighbor} dari \textit{state} saat ini, lalu berpindah ke \textit{neighbor} yang nilai \textit{objective function}-nya lebih baik. Pencarian berhenti ketika tidak ada lagi \textit{neighbor} yang lebih baik. Karena hanya menyimpan satu \textit{state} dan tidak menyimpan jalur pencarian, kebutuhan memorinya sangat kecil dan setiap iterasinya murah. Pada permasalahan ini \textit{objective function} dimaksimalkan, sehingga algoritma bergerak ``naik'' menuju nilai \textit{value} total paket yang lebih besar.
+
+Kelemahan utama \textit{hill climbing} adalah tidak adanya mekanisme untuk keluar dari daerah yang buruk. Ada tiga kondisi yang menyebabkan pencarian terhenti sebelum mencapai \textit{global optimum}.
+\begin{itemize}
+    \item \textit{Local maximum}: \textit{state} yang lebih baik dari semua \textit{neighbor}-nya, tetapi bukan yang terbaik secara global.
+    \item \textit{Plateau}: daerah datar tempat semua \textit{neighbor} bernilai sama, sehingga tidak ada arah yang jelas untuk naik.
+    \item \textit{Shoulder}: \textit{plateau} yang di ujungnya masih terdapat jalan menaik, sehingga pencarian yang berhenti terlalu cepat melewatkannya.
+\end{itemize}
+Keempat varian berikut dibuat untuk mengurangi kelemahan tersebut dengan cara yang berbeda.
+
+\subsection{\textit{Steepest Ascent Hill Climbing}}
+Pada setiap iterasi, algoritma mengevaluasi sekumpulan \textit{neighbor} dan memilih \textit{neighbor} dengan nilai terbaik. Algoritma berpindah ke \textit{neighbor} tersebut hanya jika nilainya \textit{strictly} lebih besar daripada nilai \textit{state} saat ini; jika tidak, algoritma berhenti karena telah mencapai \textit{local optimum}. Varian ini deterministik terhadap pilihan langkahnya dan berhenti paling cepat, tetapi paling mudah terjebak pada \textit{local maximum} dan \textit{plateau}.
+
+\subsection{\textit{Hill Climbing with Sideways Move}}
+Varian ini sama dengan \textit{steepest ascent}, tetapi juga mengizinkan perpindahan ke \textit{neighbor} yang nilainya sama dengan \textit{state} saat ini (\textit{sideways move}). Dengan cara ini algoritma dapat menyeberangi \textit{plateau} dan \textit{shoulder}. Agar tidak berputar tanpa akhir pada \textit{plateau} yang tidak memiliki jalan keluar, jumlah \textit{sideways move} dibatasi oleh parameter \textit{maximum sideways move}. Pencarian dihentikan ketika jumlah \textit{sideways move} mencapai batas tersebut.
+
+\subsection{\textit{Stochastic Hill Climbing}}
+Algoritma memilih satu \textit{neighbor} secara acak pada setiap iterasi dan berpindah ke \textit{neighbor} tersebut hanya jika nilainya lebih baik. Varian ini tidak perlu mengevaluasi seluruh \textit{neighbor} dalam satu iterasi sehingga setiap iterasinya lebih murah, dan sifat acaknya membuat jalur pencarian lebih bervariasi. Karena tidak ada kondisi ``tidak ada \textit{neighbor} yang lebih baik'' yang dapat dipastikan dari satu sampel, pencarian dihentikan setelah jumlah iterasi maksimum tercapai.
+
+\subsection{\textit{Random Restart Hill Climbing}}
+Algoritma menjalankan \textit{steepest ascent hill climbing} berulang kali, setiap kali dimulai dari \textit{state} awal acak yang baru, dan menyimpan hasil terbaik dari seluruh percobaan. Peluang menemukan \textit{global optimum} meningkat seiring bertambahnya jumlah \textit{restart}, karena setiap \textit{restart} mengeksplorasi daerah ruang pencarian yang berbeda. Pencarian dihentikan ketika jumlah \textit{restart} mencapai \textit{maximum restart}. Kelemahannya adalah biaya komputasi yang bertambah sebanding dengan jumlah \textit{restart}.
+
 \section{Algoritma Simulated Annealing}
 
 \section{Genetic Algorithm}
