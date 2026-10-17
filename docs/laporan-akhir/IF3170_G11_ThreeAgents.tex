@@ -26,6 +26,8 @@
 \usepackage{fancyhdr}
 
 \usepackage{titlesec}
+\titlespacing*{\section}{0pt}{2ex}{1ex}
+\titlespacing*{\subsection}{0pt}{1.5ex}{0.75ex}
 
 \usepackage{titlesec}
 \usepackage{longtable}
@@ -41,10 +43,10 @@
 
 
 
-\setlength{\headheight}{20pt}
 \setlength{\headsep}{30pt}
 \setlength{\footskip}{20pt}
 \usepackage[a4paper,top=2.5cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\setlength{\headheight}{50pt}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
@@ -64,7 +66,7 @@
 		\begin{minipage}{9cm}
 			\raggedleft\bfseries IF3170 Intelegensi Artifisial\\
 			\normalsize Tugas Besar 1\\
-			Semester 1 2027/2028
+			Semester 1 2026/2027
 		\end{minipage}
 	}%
 	\renewcommand{\headrulewidth}{0.4pt}%
@@ -84,7 +86,7 @@
 	\begin{minipage}{9cm}
 		\raggedleft\bfseries IF3170 Intelegensi Artifisial\\
 			\normalsize Tugas Besar 1\\
-			Semester 1 2027/2028
+			Semester 1 2026/2027
 	\end{minipage}
 }
 
@@ -97,34 +99,43 @@
 
 \begin{document}
 
+\hypersetup{pageanchor=false}
 \begin{titlepage}
 	\thispagestyle{empty}
 	\centering
 
 	{\huge \textbf{Tugas Besar 1}\par}
 	\vspace{0.1cm}
-	{\huge \textbf{Optimasi Kebijakan Suku Bunga Bank Indonesia berbasis \textit{Local Search}}\par}
+	{\huge \textbf{Penerapan Algoritma \textit{Local Search} untuk Optimasi Pemilihan dan Penataan Paket dalam Peti Kemas}\par}
 	\vspace{0.4cm}
 	{\Large IF3170 Intelegensi Artifisial \par}
 	\vspace{0.1cm}
-	{\Large Semester 1 Tahun 2027/2028\par}
+	{\Large Semester 1 Tahun 2026/2027\par}
 
 	\vspace{0.6cm}
 	\includegraphics[width=0.50\textwidth]{cover.png}\par
 
 	\vspace{0.6cm}
-	{\large\bfseries Disusun oleh:\par}
-	\vspace{0.1cm}
-	\textbf{Muhammad Aufar Rizqi Kusuma (13524061)}
+	{\Large\bfseries Disusun oleh:\par}
+	\vspace{0.2cm}
+	\textbf{\large Three Agents} \\
+	\vspace{0.3cm}
+	{\large
+		\begin{tabular}{@{}p{6cm}r@{}}
+			Muhammad Aufar Rizqi Kusuma & (13524061) \\
+			Arina Azka                  & (13524049) \\
+			Michael James Liman         & (13524106)
+		\end{tabular}\par}
 
 	\vspace{2.3cm}
-	\large Laboratorium Intelegensi Buatan\par
-	Program Studi Teknik Informatika\par
-	Sekolah Teknik Elektro dan Informatika\par
-	Institut Teknologi Bandung\par
+	\large Laboratorium Intelegensi Buatan\\
+	Program Studi Teknik Informatika\\
+	Sekolah Teknik Elektro dan Informatika\\
+	Institut Teknologi Bandung\\
 
 \end{titlepage}
 
+\hypersetup{pageanchor=true}
 \clearpage
 \pagestyle{fancy}
 
@@ -141,6 +152,6 @@
 \input{sections/03-spesifikasi-bonus}
 
 
-\bibliography{dafpus}
+\chapter*{Daftar Pustaka}
 
 \end{document}
