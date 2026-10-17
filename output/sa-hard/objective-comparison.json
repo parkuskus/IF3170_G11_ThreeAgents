@@ -1,0 +1,92 @@
+[
+  {
+    "objective_name": "total_value",
+    "run_count": 3,
+    "seeds": [
+      11,
+      12,
+      13
+    ],
+    "parameters": {
+      "max_iterations": 3000,
+      "initial_temperature": 100.0,
+      "cooling_rate": 0.995,
+      "stuck_patience": 100
+    },
+    "final_objective_values": [
+      200,
+      200,
+      200
+    ],
+    "final_objective_mean": 200,
+    "final_objective_stdev": 0.0,
+    "total_package_value_mean": 200,
+    "total_package_value_stdev": 0.0,
+    "eta_weighted_value_mean": 82.5,
+    "compactness_mean": 0.18898809523809523,
+    "packages_inside_mean": 4,
+    "stuck_count_mean": 1,
+    "duration_seconds_mean": 0.735310266672362,
+    "duration_seconds_stdev": 0.2331622541742437
+  },
+  {
+    "objective_name": "eta_weighted_value",
+    "run_count": 3,
+    "seeds": [
+      11,
+      12,
+      13
+    ],
+    "parameters": {
+      "max_iterations": 3000,
+      "initial_temperature": 100.0,
+      "cooling_rate": 0.995,
+      "stuck_patience": 100
+    },
+    "final_objective_values": [
+      82.5,
+      82.5,
+      82.5
+    ],
+    "final_objective_mean": 82.5,
+    "final_objective_stdev": 0.0,
+    "total_package_value_mean": 200,
+    "total_package_value_stdev": 0.0,
+    "eta_weighted_value_mean": 82.5,
+    "compactness_mean": 0.18898809523809523,
+    "packages_inside_mean": 4,
+    "stuck_count_mean": 1,
+    "duration_seconds_mean": 0.7174070333373189,
+    "duration_seconds_stdev": 0.12015227313303493
+  },
+  {
+    "objective_name": "compact_value",
+    "run_count": 3,
+    "seeds": [
+      11,
+      12,
+      13
+    ],
+    "parameters": {
+      "max_iterations": 3000,
+      "initial_temperature": 100.0,
+      "cooling_rate": 0.995,
+      "stuck_patience": 100
+    },
+    "final_objective_values": [
+      200.16794642857144,
+      200.17236607142857,
+      200.38450892857142
+    ],
+    "final_objective_mean": 200.24160714285713,
+    "final_objective_stdev": 0.12377630460226645,
+    "total_package_value_mean": 200,
+    "total_package_value_stdev": 0.0,
+    "eta_weighted_value_mean": 82.5,
+    "compactness_mean": 0.24404761904761904,
+    "packages_inside_mean": 4,
+    "stuck_count_mean": 1.3333333333333333,
+    "duration_seconds_mean": 0.8256846666675605,
+    "duration_seconds_stdev": 0.05461022292026579
+  }
+]
