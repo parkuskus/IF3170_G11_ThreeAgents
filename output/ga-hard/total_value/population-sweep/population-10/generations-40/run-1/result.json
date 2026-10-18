@@ -1,0 +1,523 @@
+{
+  "experiment": "population-sweep",
+  "population_size": 10,
+  "generations": 40,
+  "run_index": 1,
+  "seed": 11,
+  "initial_state_seed": 24294,
+  "artifacts": {
+    "run_directory": "output\\ga-hard\\total_value\\population-sweep\\population-10\\generations-40\\run-1",
+    "objective_history": "output\\ga-hard\\total_value\\population-sweep\\population-10\\generations-40\\run-1\\objective-history.png",
+    "initial_final_states": "output\\ga-hard\\total_value\\population-sweep\\population-10\\generations-40\\run-1\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "total_value",
+    "objective_value": 200,
+    "objective_history": [
+      200,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195
+    ],
+    "duration_seconds": 0.08138740000003963,
+    "seed": 11,
+    "run_index": 1,
+    "parameters": {
+      "population_size": 10,
+      "generations": 40,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 40,
+      "population_size": 10,
+      "best_objective_history": [
+        200,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195
+      ],
+      "average_objective_history": [
+        187.5,
+        170.5,
+        188.0,
+        195.0,
+        190.0,
+        188.0,
+        195.0,
+        188.0,
+        181.0,
+        195.0,
+        195.0,
+        195.0,
+        188.5,
+        188.5,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        188.5,
+        182.0,
+        175.5,
+        188.5,
+        188.5,
+        175.5,
+        188.5,
+        188.5,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        183.0
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 200,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              2,
+              3,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              1,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              4,
+              4,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              3,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 200,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              2,
+              3,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              1,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              4,
+              4,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              3,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
