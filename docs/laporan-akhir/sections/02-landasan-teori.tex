@@ -1,6 +1,5 @@
 \section{Algoritma Hill Climbing}
 
-<<<<<<< HEAD
 \textit{Hill climbing} adalah algoritma \textit{local search} yang bekerja pada satu \textit{state} saja. Algoritma ini mulai dari sebuah \textit{state} awal, membangkitkan \textit{neighbor} dari \textit{state} saat ini, lalu berpindah ke \textit{neighbor} yang nilai \textit{objective function}-nya lebih baik. Pencarian berhenti ketika tidak ada lagi \textit{neighbor} yang lebih baik. Karena hanya menyimpan satu \textit{state} dan tidak menyimpan jalur pencarian, kebutuhan memorinya sangat kecil dan setiap iterasinya murah. Pada permasalahan ini \textit{objective function} dimaksimalkan, sehingga algoritma bergerak ``naik'' menuju nilai \textit{value} total paket yang lebih besar.
 
 Kelemahan utama \textit{hill climbing} adalah tidak adanya mekanisme untuk keluar dari daerah yang buruk. Ada tiga kondisi yang menyebabkan pencarian terhenti sebelum mencapai \textit{global optimum}.
@@ -22,18 +21,6 @@ Algoritma memilih satu \textit{neighbor} secara acak pada setiap iterasi dan ber
 
 \subsection{\textit{Random Restart Hill Climbing}}
 Algoritma menjalankan \textit{steepest ascent hill climbing} berulang kali, setiap kali dimulai dari \textit{state} awal acak yang baru, dan menyimpan hasil terbaik dari seluruh percobaan. Peluang menemukan \textit{global optimum} meningkat seiring bertambahnya jumlah \textit{restart}, karena setiap \textit{restart} mengeksplorasi daerah ruang pencarian yang berbeda. Pencarian dihentikan ketika jumlah \textit{restart} mencapai \textit{maximum restart}. Kelemahannya adalah biaya komputasi yang bertambah sebanding dengan jumlah \textit{restart}.
-=======
-Hill Climbing adalah algoritma pencarian lokal yang berusaha meningkatkan kualitas satu solusi secara bertahap. Algoritma memulai pencarian dari satu konfigurasi, membentuk sejumlah konfigurasi tetangga, lalu berpindah ke tetangga yang memberikan nilai objektif lebih baik. Pencarian berhenti saat tidak ditemukan tetangga yang meningkatkan nilai tersebut. Varian \textit{steepest-ascent} yang digunakan pada pseudocode memilih tetangga dengan nilai objektif tertinggi dari semua kandidat yang diperiksa \cite{poole2017artificial,russell2021artificial}.
-
-Karakteristik utama Hill Climbing adalah penggunaan satu konfigurasi aktif dan keputusan yang hanya bergantung pada nilai konfigurasi tetangganya. Algoritma ini tidak menyimpan pohon pencarian atau seluruh jalur yang ditempuh. Karena setiap langkah memilih perbaikan lokal, nilai objektif konfigurasi yang dikunjungi meningkat secara monoton pada varian \textit{steepest-ascent} dengan perpindahan yang hanya menerima peningkatan ketat. Dengan ruang solusi berhingga, proses tersebut berakhir pada konfigurasi yang tidak memiliki tetangga lebih baik, yaitu optimum lokal \cite{poole2017artificial}.
-
-Keunggulan Hill Climbing terletak pada kesederhanaan implementasi dan kebutuhan memori yang rendah dibandingkan metode yang menyimpan banyak kandidat pencarian. Algoritma ini juga dapat menghasilkan perbaikan dengan cepat apabila fungsi objektif dan pembentukan tetangga dapat dihitung secara efisien. Namun, hasilnya bergantung pada konfigurasi awal dan definisi tetangga. Pencarian dapat berhenti pada optimum lokal yang bukan optimum global, atau kesulitan bergerak pada daerah datar dan punggung sempit pada lanskap objektif. Oleh sebab itu, Hill Climbing tidak menjamin solusi terbaik secara global \cite{poole2017artificial,russell2021artificial}.
-
-Hill Climbing sesuai digunakan ketika ruang solusi besar, evaluasi kualitas solusi relatif murah, dan solusi yang baik sudah berguna meskipun belum terbukti optimal. Metode ini kurang sesuai apabila dibutuhkan jaminan optimum global atau apabila perpindahan lokal jarang menghasilkan arah perbaikan yang informatif. Penggunaan beberapa titik awal atau varian yang mengizinkan langkah menyamping dapat mengurangi sebagian risiko terjebak, tetapi tidak mengubah sifat dasar metode pencarian lokal.
-
-Dalam persoalan pemuatan paket, konfigurasi awal dibentuk secara acak sesuai spesifikasi. Algoritma kemudian membandingkan konfigurasi tetangga yang diperoleh melalui langkah perubahan susunan paket yang diizinkan, lalu memilih konfigurasi layak dengan nilai total paket yang lebih tinggi. Proses berlanjut sampai tidak ada tetangga yang meningkatkan nilai objektif. Pseudocode berikut menunjukkan varian \textit{steepest-ascent} tanpa langkah menyamping atau pengulangan dari titik awal baru.
-
->>>>>>> dc2130662f02cae0704530ce1c3b002946670f90
 \begingroup
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
@@ -64,33 +51,19 @@ Simulated Annealing adalah algoritma pencarian lokal stokastik yang meniru prose
 Pada setiap iterasi, algoritma memilih satu solusi tetangga dan menghitung perubahan nilai objektifnya. Untuk persoalan maksimisasi, perubahan tersebut didefinisikan sebagai $\Delta E=f(s')-f(s)$, dengan $s$ sebagai solusi saat ini dan $s'$ sebagai kandidat tetangga. Kandidat yang meningkatkan atau mempertahankan nilai objektif selalu diterima. Kandidat yang menurunkan nilai objektif dapat diterima dengan peluang yang bergantung pada temperatur $T$, seperti dirumuskan pada Persamaan~\ref{eq:sa-acceptance} \cite{kirkpatrick1983optimization}.
 
 \begin{equation}
-<<<<<<< HEAD
     P(\text{menerima } s') =
     \begin{cases}
         1,                                    & \Delta E \geq 0, \\
         \exp\left(\dfrac{\Delta E}{T}\right), & \Delta E < 0.
     \end{cases}
     \label{eq:sa-acceptance}
-=======
-P(\text{menerima } s') =
-\begin{cases}
-1, & \Delta E \geq 0, \\
-\exp\left(\dfrac{\Delta E}{T}\right), & \Delta E < 0.
-\end{cases}
-\label{eq:sa-acceptance}
->>>>>>> dc2130662f02cae0704530ce1c3b002946670f90
 \end{equation}
 
 Temperatur mengendalikan tingkat eksplorasi algoritma. Pada temperatur tinggi, penurunan nilai objektif masih mungkin diterima sehingga pencarian dapat menjelajahi ruang solusi dengan lebih luas. Ketika temperatur diturunkan, peluang menerima perpindahan yang lebih buruk ikut mengecil dan pencarian semakin berfokus pada perbaikan. Salah satu jadwal pendinginan yang umum digunakan adalah pendinginan geometris, dengan $0<\alpha<1$ sebagai faktor pendinginan \cite{russell2021artificial}.
 
 \begin{equation}
-<<<<<<< HEAD
     T_{k+1}=\alpha T_k, \qquad 0<\alpha<1.
     \label{eq:sa-cooling}
-=======
-T_{k+1}=\alpha T_k, \qquad 0<\alpha<1.
-\label{eq:sa-cooling}
->>>>>>> dc2130662f02cae0704530ce1c3b002946670f90
 \end{equation}
 
 Keunggulan Simulated Annealing adalah kemampuannya melewati optimum lokal dengan menerima perpindahan yang sesaat menurunkan nilai objektif, tanpa harus menyimpan banyak kandidat solusi. Namun, kualitas hasil dan waktu pencarian sensitif terhadap temperatur awal, faktor pendinginan, temperatur minimum, serta mekanisme pembentukan tetangga. Jika temperatur turun terlalu cepat, pencarian masih dapat terjebak pada optimum lokal; frekuensi kondisi ini menjadi salah satu metrik evaluasi algoritma. Karena itu, algoritma ini tidak menjamin solusi global terbaik untuk jadwal pendinginan berdurasi terbatas dan hasilnya dapat berbeda antarpercobaan \cite{russell2021artificial,kirkpatrick1983optimization}.
@@ -101,7 +74,6 @@ Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika tempera
 
 \begingroup
 \setlength{\parskip}{0pt}
-<<<<<<< HEAD
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
           \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
           \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
@@ -132,8 +104,6 @@ Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika tempera
               \RETURN $s_{\text{best}}$
           \end{algorithmic}
           \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
-=======
->>>>>>> dc2130662f02cae0704530ce1c3b002946670f90
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
 \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
@@ -174,13 +144,8 @@ Genetic Algorithm adalah metode pencarian berbasis populasi yang memperbarui kum
 Karakteristik Genetic Algorithm adalah pencarian atas banyak kandidat secara bersamaan dan penggunaan operator stokastik untuk menghasilkan generasi berikutnya. Seleksi roulette memberi peluang lebih besar kepada individu dengan fitness lebih tinggi. Jika fitness individu ke-$i$ adalah $f_i$ dan bobot seleksinya $w_i$, peluang memilih individu tersebut dirumuskan sebagai
 
 \begin{equation}
-<<<<<<< HEAD
     P(i)=\frac{w_i}{\sum_{j=1}^{n} w_j}.
     \label{eq:ga-selection}
-=======
-P(i)=\frac{w_i}{\sum_{j=1}^{n} w_j}.
-\label{eq:ga-selection}
->>>>>>> dc2130662f02cae0704530ce1c3b002946670f90
 \end{equation}
 
 Untuk persoalan pemuatan paket dengan nilai objektif nonnegatif, bobot seleksi dapat menggunakan nilai objektif. Jika seluruh bobot bernilai nol, seleksi dilakukan secara seragam. Crossover satu titik menggabungkan gen dari dua induk, sementara mutasi mengubah satu gen dengan peluang tertentu. Kedua operator harus menghasilkan individu yang memenuhi batasan pemuatan paket \cite{goldberg1989genetic}.
@@ -193,7 +158,6 @@ Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan per
 
 \begingroup
 \setlength{\parskip}{0pt}
-<<<<<<< HEAD
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
           \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
           \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
@@ -223,8 +187,6 @@ Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan per
               \RETURN $s_{\text{best}}$
           \end{algorithmic}
           \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
-=======
->>>>>>> dc2130662f02cae0704530ce1c3b002946670f90
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
 \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
