@@ -5,7 +5,7 @@ State merepresentasikan satu konfigurasi pemuatan paket pada sebuah truk. Implem
 Objek \texttt{Package} menyimpan ID, dimensi awal, nilai, berat, status mudah pecah, dan ETA. Dimensi disimpan sebagai tiga bilangan bulat, sedangkan orientasi adalah permutasi indeks dimensi yang menentukan urutan ukuran setelah rotasi. Ada enam kemungkinan orientasi, sesuai seluruh permutasi indeks tiga dimensi. Objek \texttt{Truck} menyimpan dimensi ruang muat serta kapasitas berat maksimum. Objek \texttt{Placement} menggabungkan koordinat sudut paket, dimensi setelah orientasi diterapkan, dan orientasinya. Kode~\ref{lst:state-model} memperlihatkan struktur data inti dari \texttt{src/model.py}; pemeriksaan validasi dihilangkan dari cuplikan agar fokus pada field representasinya.
 
 \begin{samepage}
-\begin{lstlisting}[caption={Struktur inti model state},label={lst:state-model}]
+    \begin{lstlisting}[caption={Struktur inti model state},label={lst:state-model}]
 from dataclasses import dataclass
 from itertools import permutations
 from typing import Mapping, TypeAlias
@@ -41,14 +41,14 @@ class State:
 Secara matematis, satu state dituliskan sebagai $S=(P,T,\phi)$, dengan $P=(p_1,\ldots,p_n)$ sebagai kumpulan paket, $T=(\mathbf{L},C)$ sebagai truk berdimensi $\mathbf{L}$ dan berkapasitas maksimum $C$, serta $\phi$ sebagai pemetaan penempatan. Jika paket $p_i$ memiliki ID $\operatorname{id}_i$ dan dimensi $\mathbf{d}_i$, maka representasinya adalah
 
 \begin{equation}
-\begin{aligned}
-I &= \{\operatorname{id}_1,\ldots,\operatorname{id}_n\}, \\
-\phi &: I \longrightarrow \{\bot\} \cup
-\left\{(\mathbf{x}_i,\mathbf{d}_i^{\pi_i},\pi_i)\;\middle|\;
-\mathbf{x}_i \in \mathbb{Z}_{\geq 0}^{3},\; \pi_i \in S_3\right\}, \\
-\mathbf{d}_i^{\pi_i} &= (d_{i,\pi_i(1)},d_{i,\pi_i(2)},d_{i,\pi_i(3)}).
-\end{aligned}
-\label{eq:state-representation}
+    \begin{aligned}
+        I                    & = \{\operatorname{id}_1,\ldots,\operatorname{id}_n\}, \\
+        \phi                 & : I \longrightarrow \{\bot\} \cup
+        \left\{(\mathbf{x}_i,\mathbf{d}_i^{\pi_i},\pi_i)\;\middle|\;
+        \mathbf{x}_i \in \mathbb{Z}_{\geq 0}^{3},\; \pi_i \in S_3\right\},           \\
+        \mathbf{d}_i^{\pi_i} & = (d_{i,\pi_i(1)},d_{i,\pi_i(2)},d_{i,\pi_i(3)}).
+    \end{aligned}
+    \label{eq:state-representation}
 \end{equation}
 
 Di sini $\bot$ menyatakan paket tidak dimuat, $\mathbf{x}_i$ adalah koordinat sudut paket di dalam truk, dan $S_3$ adalah himpunan enam permutasi sumbu yang merepresentasikan orientasi. Domain $I$ memastikan setiap paket memiliki tepat satu entri penempatan. Persamaan~\ref{eq:state-representation} menjelaskan bentuk representasi; batas ruang, kapasitas, dan batasan fisik lainnya menentukan apakah state tersebut layak.
@@ -79,29 +79,29 @@ state = State(
 State layak apabila seluruh syarat berikut terpenuhi. Misalkan $I^+=\{i\in I\mid\phi(i)\neq\bot\}$ adalah himpunan ID paket yang dimuat. Untuk setiap $i\in I^+$, penempatannya ditulis sebagai $\phi(i)=(\mathbf{x}_i,\mathbf{d}_i,\pi_i)$, dengan $\mathbf{x}_i=(x_i,y_i,z_i)$ sebagai koordinat dan $\mathbf{d}_i=(w_i,d_i,h_i)$ sebagai dimensi setelah rotasi. Syarat kelayakan dituliskan dalam enumerasi berikut.
 
 \begin{enumerate}
-\renewcommand{\labelenumi}{(\arabic{enumi})}
-\item Setiap paket harus seluruhnya berada di dalam ruang muat truk:
-\begin{equation*}
-\mathbf{0}\leq\mathbf{x}_i,\qquad \mathbf{x}_i+\mathbf{d}_i\leq\mathbf{L},\qquad \forall i\in I^+.
-\end{equation*}
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \item Setiap paket harus seluruhnya berada di dalam ruang muat truk:
+          \begin{equation*}
+              \mathbf{0}\leq\mathbf{x}_i,\qquad \mathbf{x}_i+\mathbf{d}_i\leq\mathbf{L},\qquad \forall i\in I^+.
+          \end{equation*}
 
-\item Setiap pasangan paket harus terpisah pada setidaknya satu sumbu, sehingga keduanya tidak saling bertumpang tindih. Di sini $d_{i,k}$ adalah ukuran paket $i$ pada sumbu $k$:
-\begin{equation*}
-\exists k\in\{x,y,z\}:\quad x_{i,k}+d_{i,k}\leq x_{j,k}\ \lor\ x_{j,k}+d_{j,k}\leq x_{i,k},\qquad \forall i,j\in I^+,\ i\neq j.
-\end{equation*}
+    \item Setiap pasangan paket harus terpisah pada setidaknya satu sumbu, sehingga keduanya tidak saling bertumpang tindih. Di sini $d_{i,k}$ adalah ukuran paket $i$ pada sumbu $k$:
+          \begin{equation*}
+              \exists k\in\{x,y,z\}:\quad x_{i,k}+d_{i,k}\leq x_{j,k}\ \lor\ x_{j,k}+d_{j,k}\leq x_{i,k},\qquad \forall i,j\in I^+,\ i\neq j.
+          \end{equation*}
 
-\item Jumlah berat semua paket yang dimuat tidak boleh melebihi kapasitas truk $C$. Simbol $w_i^{\text{paket}}$ menyatakan berat paket, bukan ukuran pada sumbu $x$:
-\begin{equation*}
-\sum_{i\in I^+}w_i^{\text{paket}}\leq C.
-\end{equation*}
+    \item Jumlah berat semua paket yang dimuat tidak boleh melebihi kapasitas truk $C$. Simbol $w_i^{\text{paket}}$ menyatakan berat paket, bukan ukuran pada sumbu $x$:
+          \begin{equation*}
+              \sum_{i\in I^+}w_i^{\text{paket}}\leq C.
+          \end{equation*}
 
-\item Paket yang berada di atas lantai truk harus ditopang oleh setidaknya satu paket lain yang tidak rapuh. Bagian atas paket penopang harus sejajar dengan dasar paket yang ditopang, dan proyeksi alas keduanya harus beririsan:
-\begin{equation*}
-\begin{aligned}
-z_i>0 &\Rightarrow \exists j\in I^+,\ j\neq i:\\
-&z_j+h_j=z_i,\quad \neg\operatorname{rapuh}(j),\quad \operatorname{overlap}_{xy}(i,j),\qquad \forall i\in I^+.
-\end{aligned}
-\end{equation*}
+    \item Paket yang berada di atas lantai truk harus ditopang oleh setidaknya satu paket lain yang tidak rapuh. Bagian atas paket penopang harus sejajar dengan dasar paket yang ditopang, dan proyeksi alas keduanya harus beririsan:
+          \begin{equation*}
+              \begin{aligned}
+                  z_i>0 & \Rightarrow \exists j\in I^+,\ j\neq i:                                                                       \\
+                        & z_j+h_j=z_i,\quad \neg\operatorname{rapuh}(j),\quad \operatorname{overlap}_{xy}(i,j),\qquad \forall i\in I^+.
+              \end{aligned}
+          \end{equation*}
 \end{enumerate}
 
 Predikat $\operatorname{overlap}_{xy}$ bernilai benar ketika proyeksi alas dua paket beririsan dengan luas positif. Karena itu, implementasi tidak menganggap kontak yang hanya terjadi pada tepi atau satu titik sebagai dukungan, meskipun spesifikasi menyebut dukungan pada setidaknya satu titik alas. Paket di lantai truk ($z_i=0$) tidak memerlukan paket penopang. Kode~\ref{lst:state-validation} menunjukkan pemeriksaan yang dipakai oleh \texttt{validate\_state}; fungsi bantu irisan satu dimensi dan alas juga disertakan.
@@ -177,17 +177,17 @@ def validate_state(state):
 Fungsi suksesor membangkitkan kandidat dengan menerapkan salah satu operator berikut secara acak:
 
 \begin{enumerate}
-\renewcommand{\labelenumi}{(\arabic{enumi})}
-\item \textit{Move} memilih satu paket. Jika paket sudah dimuat, orientasinya dipertahankan; jika masih di luar truk, orientasi dipilih secara acak. Paket kemudian ditempatkan pada koordinat baru yang masih berada dalam rentang truk.
-\item \textit{Rotate} memilih satu paket yang sedang dimuat, lalu menukar dua sumbu orientasinya (rotasi 90 derajat) tanpa mengubah koordinat paket.
-\item \textit{Swap} memilih dua paket dan menukar status pemuatan atau posisi keduanya. Dimensi penempatan disesuaikan dengan ukuran dan orientasi masing-masing paket.
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \item \textit{Move} memilih satu paket. Jika paket sudah dimuat, orientasinya dipertahankan; jika masih di luar truk, orientasi dipilih secara acak. Paket kemudian ditempatkan pada koordinat baru yang masih berada dalam rentang truk.
+    \item \textit{Rotate} memilih satu paket yang sedang dimuat, lalu menukar dua sumbu orientasinya (rotasi 90 derajat) tanpa mengubah koordinat paket.
+    \item \textit{Swap} memilih dua paket dan menukar status pemuatan atau posisi keduanya. Dimensi penempatan disesuaikan dengan ukuran dan orientasi masing-masing paket.
 \end{enumerate}
 
 Operator \textit{swap} hanya tersedia jika state memiliki setidaknya dua paket. Misalkan $\mathcal{O}(S)$ adalah himpunan operator yang tersedia pada state $S$. Himpunan suksesor layak didefinisikan sebagai
 
 \begin{equation}
-N(S)=\{S'\mid S'=o(S),\ o\in\mathcal{O}(S),\ S'\neq S,\ \operatorname{validate}(S')=\emptyset\}.
-\label{eq:successor-function}
+    N(S)=\{S'\mid S'=o(S),\ o\in\mathcal{O}(S),\ S'\neq S,\ \operatorname{validate}(S')=\emptyset\}.
+    \label{eq:successor-function}
 \end{equation}
 
 Pada operator \textit{move}, ketinggian dipilih dari lantai truk atau permukaan atas paket lain. Setiap kandidat harus berbeda dari state asal dan lolos validasi. Implementasi mencoba paling banyak 100 kandidat, lalu mengembalikan kandidat layak pertama; jika tidak ada paket atau tidak ditemukan kandidat yang layak, fungsi mengembalikan state asal. Cuplikan~\ref{lst:random-neighbor} memperlihatkan pemilihan operator dan penyaringan tersebut.
@@ -215,10 +215,10 @@ def random_neighbor(state, rng=None, max_attempts=100):
 Fungsi objektif memberi nilai pada state berdasarkan total nilai paket yang berhasil dimuat. Untuk state $S=(P,T,\phi)$, definisikan $I^+(S)=\{i\in P\mid\phi(i)\neq\bot\}$ sebagai paket yang berada di dalam truk. Nilai state dan tujuan optimasinya adalah
 
 \begin{align}
-f(S) &= \sum_{i\in I^+(S)} v_i,
-\label{eq:objective-value}\\
-S^* &\in \operatorname*{arg\,max}_{S\in\mathcal{F}} f(S),
-\label{eq:objective-max}
+    f(S) & = \sum_{i\in I^+(S)} v_i,
+    \label{eq:objective-value}                                  \\
+    S^*  & \in \operatorname*{arg\,max}_{S\in\mathcal{F}} f(S),
+    \label{eq:objective-max}
 \end{align}
 
 dengan $v_i$ adalah nilai paket $i$ dan $\mathcal{F}$ adalah himpunan state yang memenuhi seluruh constraint pada bagian sebelumnya. Dengan demikian, paket yang berada di luar truk tidak menyumbang nilai, sementara paket dengan nilai lebih tinggi meningkatkan nilai objektif jika dapat dimuat tanpa melanggar constraint. Fungsi ini tidak memberi bonus langsung untuk ruang kosong atau penalti berat; berat hanya membatasi state melalui constraint kapasitas. Implementasi menghitung jumlah nilai paket yang memiliki penempatan, seperti ditunjukkan pada Kode~\ref{lst:objective-function}.
@@ -237,11 +237,11 @@ def objective(self):
 Program membentuk state awal secara konstruktif dan acak, bukan dengan mengambil sampel seragam dari seluruh state layak. Mula-mula semua paket dianggap berada di luar truk, kemudian paket diproses dalam urutan acak. Proses untuk paket ke-$k$ dapat diringkas sebagai
 
 \begin{enumerate}
-\renewcommand{\labelenumi}{(\arabic{enumi})}
-\item Atur penempatan awal setiap paket menjadi $\bot$, yang menandakan paket berada di luar truk.
-\item Acak urutan paket yang akan dicoba.
-\item Untuk setiap paket, coba hingga 50 kali secara default. Pada tiap percobaan, pilih orientasi secara acak, lalu pilih koordinat yang muat di dalam truk.
-\item Terima penempatan pertama yang menghasilkan state valid. Jika semua percobaan gagal, biarkan paket tersebut di luar truk dan lanjutkan ke paket berikutnya.
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \item Atur penempatan awal setiap paket menjadi $\bot$, yang menandakan paket berada di luar truk.
+    \item Acak urutan paket yang akan dicoba.
+    \item Untuk setiap paket, coba hingga 50 kali secara default. Pada tiap percobaan, pilih orientasi secara acak, lalu pilih koordinat yang muat di dalam truk.
+    \item Terima penempatan pertama yang menghasilkan state valid. Jika semua percobaan gagal, biarkan paket tersebut di luar truk dan lanjutkan ke paket berikutnya.
 \end{enumerate}
 
 Secara formal, jika $\sigma$ adalah urutan acak paket, penempatan dimulai dengan $\phi_0(i)=\bot$ untuk setiap $i\in P$. Pada langkah $k$, kandidat $\phi_k'$ mengganti penempatan paket $\sigma_k$; kandidat diterima hanya jika $\operatorname{validate}(P,T,\phi_k')=\emptyset$. Setelah seluruh paket diproses, pemetaan yang terbentuk menjadi state awal $S_0=(P,T,\phi)$. Koordinat horizontal dipilih acak dari rentang integer yang muat, sedangkan koordinat $z$ dipilih dari lantai truk atau ketinggian permukaan atas paket yang sudah ditempatkan. Kode~\ref{lst:initial-state} memperlihatkan inti proses tersebut.
@@ -704,3 +704,10 @@ return SearchResult(
 Seed acak diberikan pada generator \texttt{Random}, sehingga konfigurasi seed yang sama dapat mereproduksi urutan keputusan acak yang sama. Sebagai catatan implementasi, riwayat fitness terbaik menyimpan nilai terbaik pada masing-masing generasi, sedangkan \texttt{final\_state} menyimpan individu terbaik sepanjang seluruh generasi. Karena tidak ada elitisme, nilai terbaik per generasi dapat turun meskipun solusi terbaik global yang dikembalikan tetap dipertahankan.
 
 
+\section{Implementasi Spesifikasi Bonus}
+
+\subsection{\textit{Extra} Objective Function}
+
+\subsection{All-variant Hill Climbing Algorithm}
+
+\subsection{Multi-Truck}
