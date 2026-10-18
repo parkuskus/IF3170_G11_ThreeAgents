@@ -7,12 +7,12 @@ Metodologi eksperimen dirancang untuk membandingkan kualitas solusi dan biaya pe
 Kumpulan uji mencakup instance utama dari data tugas serta instance terkontrol yang dibentuk untuk menguji karakteristik tertentu. Ukuran dan tingkat kesulitan instance dibuat bervariasi agar hasil tidak hanya menggambarkan satu konfigurasi pemuatan. Setidaknya, pengujian mencakup kategori berikut:
 
 \begin{enumerate}
-\renewcommand{\labelenumi}{(\arabic{enumi})}
-\item \textbf{Kasus dasar.} Instance dengan paket yang bervariasi dalam dimensi, nilai, dan berat, serta beberapa kombinasi pemuatan yang layak. Kasus ini digunakan untuk membandingkan kinerja umum.
-\item \textbf{Kasus kendala ketat.} Ruang truk diperkecil atau kapasitas berat dikurangi agar lebih banyak kandidat penempatan ditolak. Instance ini menguji dampak keterbatasan ruang dan kapasitas.
-\item \textbf{Kasus tanpa pemuatan nonkosong yang layak.} Semua paket dibuat tidak dapat dimuat, misalnya setiap paket lebih besar daripada ruang truk pada semua orientasi atau beratnya melebihi kapasitas. Karena representasi tetap mengizinkan semua paket berada di luar truk, state kosong merupakan state valid dengan nilai objektif nol; kasus ini menguji apakah algoritma dapat mengembalikan state valid tanpa paket termuat.
-\item \textbf{Kasus batas dan struktur khusus.} Pengujian meliputi satu paket, paket yang hanya muat setelah rotasi, paket yang tepat menyentuh dinding truk, berat total yang tepat sama dengan kapasitas, paket rapuh yang memengaruhi dukungan, serta paket bernilai atau berbobot nol. Kasus dengan fitness sama juga digunakan untuk memeriksa perilaku ketika seleksi tidak memiliki preferensi nilai.
-\item \textbf{Masukan tidak valid.} Data dengan dimensi atau kapasitas yang melanggar format, ID paket duplikat, atau daftar paket kosong diuji pada batas validasi data. Kasus ini dipisahkan dari benchmark pencarian karena bukan instance masalah yang sah menurut loader.
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \item \textbf{Kasus dasar.} Instance dengan paket yang bervariasi dalam dimensi, nilai, dan berat, serta beberapa kombinasi pemuatan yang layak. Kasus ini digunakan untuk membandingkan kinerja umum.
+    \item \textbf{Kasus kendala ketat.} Ruang truk diperkecil atau kapasitas berat dikurangi agar lebih banyak kandidat penempatan ditolak. Instance ini menguji dampak keterbatasan ruang dan kapasitas.
+    \item \textbf{Kasus tanpa pemuatan nonkosong yang layak.} Semua paket dibuat tidak dapat dimuat, misalnya setiap paket lebih besar daripada ruang truk pada semua orientasi atau beratnya melebihi kapasitas. Karena representasi tetap mengizinkan semua paket berada di luar truk, state kosong merupakan state valid dengan nilai objektif nol; kasus ini menguji apakah algoritma dapat mengembalikan state valid tanpa paket termuat.
+    \item \textbf{Kasus batas dan struktur khusus.} Pengujian meliputi satu paket, paket yang hanya muat setelah rotasi, paket yang tepat menyentuh dinding truk, berat total yang tepat sama dengan kapasitas, paket rapuh yang memengaruhi dukungan, serta paket bernilai atau berbobot nol. Kasus dengan fitness sama juga digunakan untuk memeriksa perilaku ketika seleksi tidak memiliki preferensi nilai.
+    \item \textbf{Masukan tidak valid.} Data dengan dimensi atau kapasitas yang melanggar format, ID paket duplikat, atau daftar paket kosong diuji pada batas validasi data. Kasus ini dipisahkan dari benchmark pencarian karena bukan instance masalah yang sah menurut loader.
 \end{enumerate}
 
 Instance sintetis untuk uji batas dibuat dengan mengubah satu karakteristik pada satu waktu dari instance dasar, sementara atribut lain dipertahankan. Dengan demikian, perbedaan hasil dapat dikaitkan dengan kendala yang sedang diuji. Kasus yang dirancang untuk memastikan tidak ada paket yang dapat dimuat dibedakan secara eksplisit dari kasus sulit yang masih memiliki solusi layak.
@@ -46,3 +46,10 @@ Setiap varian dijalankan pada seed yang sama dengan konfigurasi acuannya, sehing
 
 \section{Analisis Keseluruhan}
 
+\section{Analisis Implementasi Spesifikasi Bonus}
+
+\subsection{\textit{Extra} Objective Function}
+
+\subsection{All-variant Hill Climbing Algorithm}
+
+\subsection{Multi-Truck}
