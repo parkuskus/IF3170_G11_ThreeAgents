@@ -16,6 +16,10 @@ python -m src.visualizer            # http://127.0.0.1:8000
 
 Run `python -m src.visualizer --reload` and, in `src/visualizer/web`, `npm run dev` (http://localhost:5173, `/api` is proxied to port 8000).
 
+## Multiple trucks
+
+The Problem tab holds a list of trucks (add, remove, edit each one's size and weight limit). With one truck the search runs on a single-truck `State`; with more it runs on a `FleetState` using the fleet operators, so Hill-climbing, Simulated Annealing and the Genetic Algorithm all work on a fleet. The 3D view lays the trucks side by side, and a package that changes truck is lifted out of one and lowered into the other. JSON import/export accepts either the fixture shape (`"truck": {...}`) or `"trucks": [...]`. The `base-2-trucks` and `hard-3-trucks` examples repeat the fixture's truck.
+
 ## Solving animation
 
 The **Animate solving** checkbox in the Solver panel (on by default) makes the server record a replay of the search; when off, no frames are recorded and the result view is static. `recording.py` does this by wrapping the `objective_fn` passed to the algorithm, so the algorithms themselves are untouched. A replay holds each new best state plus an even sample of the other candidates the search evaluated (about 300 frames at most, whatever the run length). The result view plays it with play/pause, a scrubber, and a speed selector.
