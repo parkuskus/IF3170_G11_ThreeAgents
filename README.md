@@ -151,7 +151,7 @@ Keduanya menerima daftar `trucks` heterogen atau `--truck-count` untuk menduplik
 
 #### Fixture dan benchmark lintas algoritma
 
-`tests/fixtures/` berisi instance per kategori metodologi laporan: `base.json` (kasus dasar), `tight-space.json` dan `tight-capacity.json` (kendala ketat, diturunkan dari base dengan mengubah satu faktor), `infeasible.json` (tidak ada paket yang bisa dimuat), `boundary/` (kasus batas), dan `invalid/` (masukan yang harus ditolak loader). `tests/test_fixtures.py` memeriksa sifat tiap fixture. `hard.json` dan `demo.json` adalah instance lama yang masih dipakai tes lain.
+`tests/fixtures/` berisi instance per kategori metodologi laporan: `base.json` (kasus dasar), `tight-space.json` dan `tight-capacity.json` (kendala ketat, diturunkan dari base dengan mengubah satu faktor), `infeasible.json` (tidak ada paket yang bisa dimuat), `boundary/` (kasus batas), dan `invalid/` (masukan yang harus ditolak loader). `tests/experiments/test_fixtures.py` memeriksa sifat tiap fixture. `hard.json` dan `demo.json` adalah instance lama yang masih dipakai tes lain.
 
 ```bash
 python -m src.experiments.run_benchmark --output output/benchmark
