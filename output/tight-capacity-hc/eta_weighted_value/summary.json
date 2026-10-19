@@ -1,0 +1,38 @@
+[
+  {
+    "variant": "steepest",
+    "runs": 3,
+    "objective_mean": 62.8968253968254,
+    "objective_stdev": 6.76398172141522,
+    "objective_best": 67.85714285714286,
+    "duration_mean": 0.004514500000368571,
+    "iterations_mean": 1.3333333333333333
+  },
+  {
+    "variant": "sideways",
+    "runs": 3,
+    "objective_mean": 72.77777777777777,
+    "objective_stdev": 3.747427100897788,
+    "objective_best": 75.83333333333333,
+    "duration_mean": 0.20311243333283832,
+    "iterations_mean": 102.66666666666667
+  },
+  {
+    "variant": "stochastic",
+    "runs": 3,
+    "objective_mean": 72.22222222222221,
+    "objective_stdev": 3.4916125249934797,
+    "objective_best": 75.83333333333333,
+    "duration_mean": 0.08440433333331991,
+    "iterations_mean": 1000
+  },
+  {
+    "variant": "random_restart",
+    "runs": 3,
+    "objective_mean": 75.83333333333333,
+    "objective_stdev": 0.0,
+    "objective_best": 75.83333333333333,
+    "duration_mean": 0.10927089999980429,
+    "iterations_mean": 12
+  }
+]

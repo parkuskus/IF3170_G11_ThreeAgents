@@ -1,0 +1,8563 @@
+[
+  {
+    "variant": "steepest",
+    "run_index": 1,
+    "seed": 11,
+    "initial_state_seed": 24294,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-1",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-1\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-1\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_steepest",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 67.85714285714286,
+      "objective_history": [
+        54.16666666666667,
+        60.0,
+        67.85714285714286
+      ],
+      "duration_seconds": 0.004175400001258822,
+      "seed": 11,
+      "run_index": 1,
+      "parameters": {
+        "variant": "steepest",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30
+      },
+      "metrics": {
+        "variant": "steepest",
+        "iterations": 2,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": {
+              "coordinate": [
+                2,
+                1,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                2,
+                2
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                2,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                2,
+                2
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": {
+              "coordinate": [
+                2,
+                5,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                4,
+                1,
+                4
+              ]
+            }
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "steepest",
+    "run_index": 2,
+    "seed": 12,
+    "initial_state_seed": 24289,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-2",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-2\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-2\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_steepest",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 67.5,
+      "objective_history": [
+        60.5,
+        67.5
+      ],
+      "duration_seconds": 0.0022824000006949063,
+      "seed": 12,
+      "run_index": 2,
+      "parameters": {
+        "variant": "steepest",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30
+      },
+      "metrics": {
+        "variant": "steepest",
+        "iterations": 1,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                1,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                1,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "steepest",
+    "run_index": 3,
+    "seed": 13,
+    "initial_state_seed": 24288,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-3",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-3\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\steepest\\run-3\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_steepest",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 53.333333333333336,
+      "objective_history": [
+        50.0,
+        53.333333333333336
+      ],
+      "duration_seconds": 0.007085699999151984,
+      "seed": 13,
+      "run_index": 3,
+      "parameters": {
+        "variant": "steepest",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30
+      },
+      "metrics": {
+        "variant": "steepest",
+        "iterations": 1,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 160,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                1,
+                1
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": null
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": {
+              "coordinate": [
+                1,
+                3,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                6,
+                2,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 120,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                1,
+                1
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                3,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                5,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": null
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "sideways",
+    "run_index": 1,
+    "seed": 11,
+    "initial_state_seed": 24294,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-1",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-1\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-1\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_sideways",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 75.0,
+      "objective_history": [
+        54.16666666666667,
+        60.0,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        67.85714285714286,
+        73.33333333333333,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0,
+        75.0
+      ],
+      "duration_seconds": 0.1762758999993821,
+      "seed": 11,
+      "run_index": 1,
+      "parameters": {
+        "variant": "sideways",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30,
+        "max_sideways": 100
+      },
+      "metrics": {
+        "variant": "sideways",
+        "iterations": 104,
+        "sideways_moves": 100,
+        "maximum_sideways_moves": 100,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": {
+              "coordinate": [
+                2,
+                1,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                2,
+                2
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 160,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": {
+              "coordinate": [
+                0,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                3,
+                3,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "sideways",
+    "run_index": 2,
+    "seed": 12,
+    "initial_state_seed": 24289,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-2",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-2\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-2\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_sideways",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 67.5,
+      "objective_history": [
+        60.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5
+      ],
+      "duration_seconds": 0.14979440000024624,
+      "seed": 12,
+      "run_index": 2,
+      "parameters": {
+        "variant": "sideways",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30,
+        "max_sideways": 100
+      },
+      "metrics": {
+        "variant": "sideways",
+        "iterations": 101,
+        "sideways_moves": 100,
+        "maximum_sideways_moves": 100,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                1,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                4,
+                0,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                2,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                3,
+                0
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                3,
+                2,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "sideways",
+    "run_index": 3,
+    "seed": 13,
+    "initial_state_seed": 24288,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-3",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-3\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\sideways\\run-3\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_sideways",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 75.83333333333333,
+      "objective_history": [
+        50.0,
+        53.333333333333336,
+        53.333333333333336,
+        73.33333333333333,
+        73.33333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333
+      ],
+      "duration_seconds": 0.2832669999988866,
+      "seed": 13,
+      "run_index": 3,
+      "parameters": {
+        "variant": "sideways",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30,
+        "max_sideways": 100
+      },
+      "metrics": {
+        "variant": "sideways",
+        "iterations": 103,
+        "sideways_moves": 100,
+        "maximum_sideways_moves": 100,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 160,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                1,
+                1
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": null
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": {
+              "coordinate": [
+                1,
+                3,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                6,
+                2,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 170,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                3,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                5,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                0,
+                0,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                4,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                2,
+                0,
+                2
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                2,
+                3,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "stochastic",
+    "run_index": 1,
+    "seed": 11,
+    "initial_state_seed": 24294,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-1",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-1\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-1\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_stochastic",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 75.83333333333333,
+      "objective_history": [
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        54.16666666666667,
+        60.0,
+        60.0,
+        60.0,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        62.5,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333,
+        75.83333333333333
+      ],
+      "duration_seconds": 0.06516740000006394,
+      "seed": 11,
+      "run_index": 1,
+      "parameters": {
+        "variant": "stochastic",
+        "max_iterations": 1000
+      },
+      "metrics": {
+        "variant": "stochastic",
+        "iterations": 1000,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": {
+              "coordinate": [
+                2,
+                1,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                2,
+                2
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 170,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                1,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                5,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                2,
+                2
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                2,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "stochastic",
+    "run_index": 2,
+    "seed": 12,
+    "initial_state_seed": 24289,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-2",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-2\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-2\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_stochastic",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 67.5,
+      "objective_history": [
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        60.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5,
+        67.5
+      ],
+      "duration_seconds": 0.033995099998719525,
+      "seed": 12,
+      "run_index": 2,
+      "parameters": {
+        "variant": "stochastic",
+        "max_iterations": 1000
+      },
+      "metrics": {
+        "variant": "stochastic",
+        "iterations": 1000,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                1,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                1,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "stochastic",
+    "run_index": 3,
+    "seed": 13,
+    "initial_state_seed": 24288,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-3",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-3\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\stochastic\\run-3\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_stochastic",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 73.33333333333333,
+      "objective_history": [
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        53.333333333333336,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333,
+        73.33333333333333
+      ],
+      "duration_seconds": 0.15405050000117626,
+      "seed": 13,
+      "run_index": 3,
+      "parameters": {
+        "variant": "stochastic",
+        "max_iterations": 1000
+      },
+      "metrics": {
+        "variant": "stochastic",
+        "iterations": 1000,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 0,
+        "maximum_restarts": null,
+        "iterations_per_restart": []
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 160,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                1,
+                1
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": null
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": {
+              "coordinate": [
+                1,
+                3,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                6,
+                2,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 140,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                1,
+                1
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                3,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                5,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                3,
+                0,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "random_restart",
+    "run_index": 1,
+    "seed": 11,
+    "initial_state_seed": 24294,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-1",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-1\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-1\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_random_restart",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 75.83333333333333,
+      "objective_history": [
+        54.16666666666667,
+        60.0,
+        67.85714285714286,
+        50.0,
+        51.333333333333336,
+        60.833333333333336,
+        52.5,
+        59.16666666666667,
+        51.333333333333336,
+        45.0,
+        52.5,
+        60.0,
+        75.0,
+        17.857142857142858,
+        25.357142857142858,
+        47.857142857142854,
+        67.85714285714286,
+        45.0,
+        60.0,
+        67.5,
+        32.857142857142854,
+        40.0,
+        75.83333333333333,
+        31.666666666666668,
+        39.16666666666667,
+        59.16666666666667
+      ],
+      "duration_seconds": 0.11181869999927585,
+      "seed": 11,
+      "run_index": 1,
+      "parameters": {
+        "variant": "random_restart",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30,
+        "max_restarts": 10
+      },
+      "metrics": {
+        "variant": "random_restart",
+        "iterations": 15,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 10,
+        "maximum_restarts": 10,
+        "iterations_per_restart": [
+          2,
+          1,
+          0,
+          1,
+          0,
+          3,
+          3,
+          2,
+          1,
+          0,
+          2
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": {
+              "coordinate": [
+                2,
+                1,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                6,
+                2,
+                2
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                6,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 170,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                3,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                5,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                2,
+                1
+              ],
+              "orientation": [
+                1,
+                2,
+                0
+              ],
+              "oriented_dimensions": [
+                1,
+                4,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                5,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                2,
+                1,
+                1
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                3,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "random_restart",
+    "run_index": 2,
+    "seed": 12,
+    "initial_state_seed": 24289,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-2",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-2\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-2\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_random_restart",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 75.83333333333333,
+      "objective_history": [
+        60.5,
+        67.5,
+        65.83333333333333,
+        60.833333333333336,
+        75.0,
+        60.833333333333336,
+        75.83333333333333,
+        51.333333333333336,
+        60.5,
+        50.0,
+        42.857142857142854,
+        50.0,
+        55.0,
+        31.666666666666668,
+        36.66666666666667,
+        59.16666666666667,
+        59.16666666666667,
+        67.5
+      ],
+      "duration_seconds": 0.09797699999944598,
+      "seed": 12,
+      "run_index": 2,
+      "parameters": {
+        "variant": "random_restart",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30,
+        "max_restarts": 10
+      },
+      "metrics": {
+        "variant": "random_restart",
+        "iterations": 7,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 10,
+        "maximum_restarts": 10,
+        "iterations_per_restart": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          2,
+          1
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 155,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                1,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": {
+              "coordinate": [
+                4,
+                1,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                3
+              ]
+            }
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                2,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 170,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                2,
+                3
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                5,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                2,
+                3,
+                2
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                4,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                4,
+                4,
+                0
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                1,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                2,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  },
+  {
+    "variant": "random_restart",
+    "run_index": 3,
+    "seed": 13,
+    "initial_state_seed": 24288,
+    "artifacts": {
+      "run_directory": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-3",
+      "objective_history": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-3\\objective-history.png",
+      "initial_final_states": "output\\tight-capacity-hc\\eta_weighted_value\\random_restart\\run-3\\initial-final-states.png"
+    },
+    "result": {
+      "algorithm": "hill_climbing_random_restart",
+      "objective_name": "eta_weighted_value",
+      "objective_value": 75.83333333333333,
+      "objective_history": [
+        50.0,
+        53.333333333333336,
+        60.833333333333336,
+        67.5,
+        60.0,
+        67.85714285714286,
+        73.33333333333333,
+        47.5,
+        50.833333333333336,
+        75.83333333333333,
+        45.0,
+        48.333333333333336,
+        65.83333333333333,
+        73.33333333333333,
+        75.0,
+        42.857142857142854,
+        60.0,
+        67.5,
+        60.833333333333336,
+        60.833333333333336,
+        67.5,
+        55.5,
+        60.0,
+        75.0,
+        32.857142857142854
+      ],
+      "duration_seconds": 0.11801700000069104,
+      "seed": 13,
+      "run_index": 3,
+      "parameters": {
+        "variant": "random_restart",
+        "max_iterations": 1000,
+        "neighbors_per_iteration": 30,
+        "max_restarts": 10
+      },
+      "metrics": {
+        "variant": "random_restart",
+        "iterations": 14,
+        "sideways_moves": 0,
+        "maximum_sideways_moves": null,
+        "restarts": 10,
+        "maximum_restarts": 10,
+        "iterations_per_restart": [
+          1,
+          1,
+          0,
+          1,
+          2,
+          4,
+          2,
+          0,
+          1,
+          2,
+          0
+        ]
+      },
+      "initial_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 160,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                1,
+                1
+              ],
+              "orientation": [
+                2,
+                0,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                5,
+                0,
+                0
+              ],
+              "orientation": [
+                0,
+                2,
+                1
+              ],
+              "oriented_dimensions": [
+                2,
+                4,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": null
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": null
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": {
+              "coordinate": [
+                1,
+                3,
+                1
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                6,
+                2,
+                2
+              ]
+            }
+          }
+        ]
+      },
+      "final_state": {
+        "truck": {
+          "dimensions": [
+            8,
+            6,
+            4
+          ],
+          "max_capacity": 15
+        },
+        "total_package_value": 170,
+        "packages": [
+          {
+            "id": "P01",
+            "dimensions": [
+              3,
+              2,
+              2
+            ],
+            "value": 60,
+            "weight": 6,
+            "fragile": false,
+            "eta": 3,
+            "placement": null
+          },
+          {
+            "id": "P02",
+            "dimensions": [
+              4,
+              3,
+              2
+            ],
+            "value": 100,
+            "weight": 9,
+            "fragile": false,
+            "eta": 5,
+            "placement": null
+          },
+          {
+            "id": "P03",
+            "dimensions": [
+              2,
+              2,
+              2
+            ],
+            "value": 45,
+            "weight": 4,
+            "fragile": true,
+            "eta": 1,
+            "placement": null
+          },
+          {
+            "id": "P04",
+            "dimensions": [
+              5,
+              2,
+              1
+            ],
+            "value": 40,
+            "weight": 3,
+            "fragile": false,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                1,
+                1,
+                0
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                5,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P05",
+            "dimensions": [
+              3,
+              3,
+              3
+            ],
+            "value": 90,
+            "weight": 10,
+            "fragile": false,
+            "eta": 4,
+            "placement": null
+          },
+          {
+            "id": "P06",
+            "dimensions": [
+              2,
+              1,
+              4
+            ],
+            "value": 35,
+            "weight": 3,
+            "fragile": false,
+            "eta": 1,
+            "placement": {
+              "coordinate": [
+                4,
+                0,
+                0
+              ],
+              "orientation": [
+                2,
+                1,
+                0
+              ],
+              "oriented_dimensions": [
+                4,
+                1,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P07",
+            "dimensions": [
+              4,
+              4,
+              1
+            ],
+            "value": 55,
+            "weight": 7,
+            "fragile": false,
+            "eta": 6,
+            "placement": null
+          },
+          {
+            "id": "P08",
+            "dimensions": [
+              2,
+              2,
+              1
+            ],
+            "value": 20,
+            "weight": 1,
+            "fragile": false,
+            "eta": 0,
+            "placement": {
+              "coordinate": [
+                4,
+                4,
+                0
+              ],
+              "orientation": [
+                0,
+                1,
+                2
+              ],
+              "oriented_dimensions": [
+                2,
+                2,
+                1
+              ]
+            }
+          },
+          {
+            "id": "P09",
+            "dimensions": [
+              3,
+              3,
+              2
+            ],
+            "value": 75,
+            "weight": 8,
+            "fragile": true,
+            "eta": 2,
+            "placement": {
+              "coordinate": [
+                0,
+                0,
+                1
+              ],
+              "orientation": [
+                1,
+                0,
+                2
+              ],
+              "oriented_dimensions": [
+                3,
+                3,
+                2
+              ]
+            }
+          },
+          {
+            "id": "P10",
+            "dimensions": [
+              6,
+              2,
+              2
+            ],
+            "value": 80,
+            "weight": 8,
+            "fragile": false,
+            "eta": 7,
+            "placement": null
+          }
+        ]
+      }
+    }
+  }
+]
