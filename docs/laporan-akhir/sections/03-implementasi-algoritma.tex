@@ -875,7 +875,7 @@ OBJECTIVES = {
 }
 \end{lstlisting}
 
-Fungsi \texttt{compactness} menghitung satu dikurangi rata-rata tinggi puncak paket yang dibobot volume dan dinormalisasi terhadap tinggi truk, sehingga bernilai dalam $[0,1]$ dan bernilai 0 untuk truk kosong. Setiap algoritma menerima \textit{objective} melalui parameter \texttt{objective\_fn} pada kontrak yang sama, dan \texttt{src/\allowbreak experiments/\allowbreak objective\_comparison.py} menyediakan fungsi bersama untuk memilih \textit{objective} berdasarkan nama serta menilai ulang setiap \textit{state} akhir dengan \texttt{total\_value} agar perbandingan antar-\textit{objective} adil.
+Fungsi \texttt{compactness} menghitung satu dikurangi rata-rata tinggi puncak paket yang dibobot volume dan dinormalisasi terhadap tinggi truk, sehingga bernilai dalam $[0,1]$ dan bernilai 0 untuk truk kosong. Setiap algoritma menerima \textit{objective} melalui parameter \texttt{objective\_fn} pada kontrak yang sama, dan \texttt{src/\allowbreak experiments/\allowbreak common/\allowbreak objective\_comparison.py} menyediakan fungsi bersama untuk memilih \textit{objective} berdasarkan nama serta menilai ulang setiap \textit{state} akhir dengan \texttt{total\_value} agar perbandingan antar-\textit{objective} adil.
 
 \subsection{All-variant Hill Climbing Algorithm}
 

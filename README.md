@@ -5,10 +5,16 @@ Implementasi Tugas Besar 1 IF3170 Inteligensi Artifisial: pencarian konfigurasi 
 ## Persiapan
 
 - Python **3.10 atau lebih baru**.
-- Install dependency visualisasi:
+- Install dependency plot dan visualisasi:
 
 ```bash
 python -m pip install -r requirements.txt
+```
+
+- Untuk visualizer web, install juga dependency servernya (sudah mencakup `requirements.txt`) dan lihat `src/visualizer/README.md` untuk build UI:
+
+```bash
+python -m pip install -r requirements-visualizer.txt
 ```
 
 Jalankan tes fondasi dari root repository:
@@ -31,6 +37,10 @@ Hill-climbing, Simulated Annealing, dan Genetic Algorithm memiliki loop dan runn
 │   ├── search_problems.py       # Adapter operasi State dan FleetState ke SearchProblem
 │   ├── results.py              # SearchResult dan metrik khusus tiap algoritma
 │   ├── algorithms/
+│   │   ├── hill_climbing/
+│   │   │   └── algorithm.py     # Loop Hill-climbing
+│   │   ├── simulated_annealing/
+│   │   │   └── algorithm.py     # Loop Simulated Annealing
 │   │   └── genetic_algorithm/
 │   │       ├── fleet.py         # Inisialisasi, crossover, mutasi, dan GA multi-truk
 │   │       ├── population.py    # Pembentukan populasi awal
@@ -46,8 +56,12 @@ Hill-climbing, Simulated Annealing, dan Genetic Algorithm memiliki loop dan runn
 │   │   ├── sa/                  # Eksperimen dan runner Simulated Annealing
 │   │   ├── fleet/               # Eksperimen dan runner multi-truk HC/SA/GA
 │   │   └── run_*.py             # Entry point kompatibel untuk perintah CLI lama
-│   └── visualization/
-│       └── genetic_algorithm.py # Plot riwayat dan tampilan state 3D
+│   ├── visualization/
+│   │   ├── hill_climbing.py     # Plot riwayat dan ringkasan HC
+│   │   ├── simulated_annealing.py # Plot riwayat, acceptance, dan ringkasan SA
+│   │   ├── genetic_algorithm.py # Plot riwayat dan tampilan state 3D
+│   │   └── benchmark.py         # Plot perbandingan lintas algoritma
+│   └── visualizer/              # Visualizer web (FastAPI + UI di web/), lihat README di dalamnya
 ├── tests/
 │   ├── core/                   # Tes model dan kontrak
 │   ├── algorithms/             # Tes algoritma
@@ -57,6 +71,8 @@ Hill-climbing, Simulated Annealing, dan Genetic Algorithm memiliki loop dan runn
 ├── docs/
 │   └── laporan-akhir/          # Sumber dan hasil laporan
 ├── output/                     # Hasil run, data eksperimen, dan visualisasi
+├── requirements.txt            # Dependency eksperimen dan plot
+├── requirements-visualizer.txt # Dependency tambahan visualizer web
 └── README.md
 ```
 
@@ -151,7 +167,7 @@ Keduanya menerima daftar `trucks` heterogen atau `--truck-count` untuk menduplik
 
 #### Fixture dan benchmark lintas algoritma
 
-`tests/fixtures/` berisi instance per kategori metodologi laporan: `base.json` (kasus dasar), `tight-space.json` dan `tight-capacity.json` (kendala ketat, diturunkan dari base dengan mengubah satu faktor), `infeasible.json` (tidak ada paket yang bisa dimuat), `boundary/` (kasus batas), dan `invalid/` (masukan yang harus ditolak loader). `tests/test_fixtures.py` memeriksa sifat tiap fixture. `hard.json` dan `demo.json` adalah instance lama yang masih dipakai tes lain.
+`tests/fixtures/` berisi instance per kategori metodologi laporan: `base.json` (kasus dasar), `tight-space.json` dan `tight-capacity.json` (kendala ketat, diturunkan dari base dengan mengubah satu faktor), `infeasible.json` (tidak ada paket yang bisa dimuat), `boundary/` (kasus batas), dan `invalid/` (masukan yang harus ditolak loader). `tests/experiments/test_fixtures.py` memeriksa sifat tiap fixture. `hard.json` dan `demo.json` adalah instance lama yang masih dipakai tes lain.
 
 ```bash
 python -m src.experiments.run_benchmark --output output/benchmark
