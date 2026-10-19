@@ -93,6 +93,16 @@ python -m src.experiments.run_ga --input tests/fixtures/demo.json --generation-v
 
 Contoh tersebut memakai **data sintetis** untuk demo. Untuk eksperimen laporan, siapkan JSON dengan data paket tugas yang sebenarnya, pilih nilai parameter lewat pilot, lalu jalankan dengan lokasi input dan output yang sesuai. Runner menghasilkan 18 run, `results.json`, `summary.json` (mean dan simpangan baku), plot ringkasan tiap sweep, serta JSON dan visualisasi state/objective untuk setiap run.
 
+#### Fixture dan benchmark lintas algoritma
+
+`tests/fixtures/` berisi instance per kategori metodologi laporan: `base.json` (kasus dasar), `tight-space.json` dan `tight-capacity.json` (kendala ketat, diturunkan dari base dengan mengubah satu faktor), `infeasible.json` (tidak ada paket yang bisa dimuat), `boundary/` (kasus batas), dan `invalid/` (masukan yang harus ditolak loader). `tests/test_fixtures.py` memeriksa sifat tiap fixture. `hard.json` dan `demo.json` adalah instance lama yang masih dipakai tes lain.
+
+```bash
+python -m src.experiments.run_benchmark --output output/benchmark
+```
+
+Perintah ini menjalankan empat varian HC, SA, dan GA pada semua fixture valid dengan seed 11-15 (state awal dan seed yang sama untuk semua algoritma), memvalidasi tiap state akhir, mencatat jumlah evaluasi objective dan durasi, serta memeriksa bahwa fixture `invalid/` ditolak. Hasil: `runs.json`, `summary.json`, dan `summary.png`.
+
 #### Studi ablasi operator GA
 
 ```bash

@@ -1,0 +1,4 @@
+{
+  "truck": {"dimensions": [4, 4, 4], "max_capacity": 10},
+  "packages": [{"id": "a", "dimensions": [1, 0, 1], "value": 1, "weight": 1, "fragile": false, "eta": 1}]
+}

@@ -1,0 +1,4 @@
+{
+  "truck": {"dimensions": [4, 4, 4], "max_capacity": 10},
+  "packages": []
+}

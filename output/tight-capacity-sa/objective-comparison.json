@@ -1,0 +1,92 @@
+[
+  {
+    "objective_name": "total_value",
+    "run_count": 3,
+    "seeds": [
+      11,
+      12,
+      13
+    ],
+    "parameters": {
+      "max_iterations": 3000,
+      "initial_temperature": 100.0,
+      "cooling_rate": 0.995,
+      "stuck_patience": 100
+    },
+    "final_objective_values": [
+      175,
+      175,
+      170
+    ],
+    "final_objective_mean": 173.33333333333334,
+    "final_objective_stdev": 2.8867513459481287,
+    "total_package_value_mean": 173.33333333333334,
+    "total_package_value_stdev": 2.8867513459481287,
+    "eta_weighted_value_mean": 61.388888888888886,
+    "compactness_mean": 0.30517598343685304,
+    "packages_inside_mean": 3.6666666666666665,
+    "stuck_count_mean": 1.3333333333333333,
+    "duration_seconds_mean": 0.28478563333252777,
+    "duration_seconds_stdev": 0.08377573288053614
+  },
+  {
+    "objective_name": "eta_weighted_value",
+    "run_count": 3,
+    "seeds": [
+      11,
+      12,
+      13
+    ],
+    "parameters": {
+      "max_iterations": 3000,
+      "initial_temperature": 100.0,
+      "cooling_rate": 0.995,
+      "stuck_patience": 100
+    },
+    "final_objective_values": [
+      75.83333333333333,
+      75.83333333333333,
+      75.83333333333333
+    ],
+    "final_objective_mean": 75.83333333333333,
+    "final_objective_stdev": 0.0,
+    "total_package_value_mean": 170,
+    "total_package_value_stdev": 0.0,
+    "eta_weighted_value_mean": 75.83333333333333,
+    "compactness_mean": 0.3083333333333333,
+    "packages_inside_mean": 4,
+    "stuck_count_mean": 1.3333333333333333,
+    "duration_seconds_mean": 0.29100356666640437,
+    "duration_seconds_stdev": 0.061068784528138194
+  },
+  {
+    "objective_name": "compact_value",
+    "run_count": 3,
+    "seeds": [
+      11,
+      12,
+      13
+    ],
+    "parameters": {
+      "max_iterations": 3000,
+      "initial_temperature": 100.0,
+      "cooling_rate": 0.995,
+      "stuck_patience": 100
+    },
+    "final_objective_values": [
+      175.6133695652174,
+      175.6133695652174,
+      165.59691176470588
+    ],
+    "final_objective_mean": 172.27455029838023,
+    "final_objective_stdev": 5.7830046074518515,
+    "total_package_value_mean": 171.66666666666666,
+    "total_package_value_stdev": 5.773502691896257,
+    "eta_weighted_value_mean": 64.16666666666667,
+    "compactness_mean": 0.6140238704177323,
+    "packages_inside_mean": 4,
+    "stuck_count_mean": 3.6666666666666665,
+    "duration_seconds_mean": 0.31398573333293217,
+    "duration_seconds_stdev": 0.06211861197917237
+  }
+]

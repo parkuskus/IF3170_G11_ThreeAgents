@@ -1,0 +1,19 @@
+{
+  "description": "Tight space: base packages and capacity, truck dimensions reduced from 8x6x4 to 6x4x3.",
+  "truck": {
+    "dimensions": [6, 4, 3],
+    "max_capacity": 30
+  },
+  "packages": [
+    {"id": "P01", "dimensions": [3, 2, 2], "value": 60, "weight": 6, "fragile": false, "eta": 3},
+    {"id": "P02", "dimensions": [4, 3, 2], "value": 100, "weight": 9, "fragile": false, "eta": 5},
+    {"id": "P03", "dimensions": [2, 2, 2], "value": 45, "weight": 4, "fragile": true, "eta": 1},
+    {"id": "P04", "dimensions": [5, 2, 1], "value": 40, "weight": 3, "fragile": false, "eta": 2},
+    {"id": "P05", "dimensions": [3, 3, 3], "value": 90, "weight": 10, "fragile": false, "eta": 4},
+    {"id": "P06", "dimensions": [2, 1, 4], "value": 35, "weight": 3, "fragile": false, "eta": 1},
+    {"id": "P07", "dimensions": [4, 4, 1], "value": 55, "weight": 7, "fragile": false, "eta": 6},
+    {"id": "P08", "dimensions": [2, 2, 1], "value": 20, "weight": 1, "fragile": false, "eta": 0},
+    {"id": "P09", "dimensions": [3, 3, 2], "value": 75, "weight": 8, "fragile": true, "eta": 2},
+    {"id": "P10", "dimensions": [6, 2, 2], "value": 80, "weight": 8, "fragile": false, "eta": 7}
+  ]
+}

@@ -34,11 +34,11 @@ Lokasi & Isi \\
 \midrule
 \texttt{src/model.py}, \texttt{validation.py}, \texttt{neighbors.py}, \texttt{objectives.py} & Representasi \textit{state}, validator \textit{constraint}, pembangkit \textit{state} awal dan \textit{neighbor}, serta ketiga \textit{objective function} \\
 \texttt{src/algorithms/} & Implementasi \textit{hill climbing}, \textit{simulated annealing}, dan \textit{genetic algorithm} \\
-\texttt{src/experiments/} & Pelaksana eksperimen, termasuk perbandingan \textit{objective} dan ablasi GA \\
+\texttt{src/experiments/} & Pelaksana eksperimen, termasuk \textit{benchmark} lintas kategori (\texttt{run\_benchmark.py}), perbandingan \textit{objective}, dan ablasi GA \\
 \texttt{src/visualization/} & Pembuat plot riwayat \textit{objective} dan tampilan 3D \textit{state} \\
-\texttt{examples/} & Data \textit{instance}: \texttt{ga-hard.json} (8 paket) dan \texttt{ga-demo.json} (5 paket) \\
-\texttt{output/} & Hasil \textit{run} (JSON) dan visualisasi untuk setiap algoritma dan \textit{objective} (\texttt{hc-hard}, \texttt{sa-hard}, \texttt{ga-hard}, dan padanan \texttt{-demo}) \\
-\texttt{tests/} & Tes fondasi, algoritma, dan eksperimen \\
+\texttt{tests/fixtures/} & Data \textit{instance} per kategori kasus uji: \texttt{base}, \texttt{tight-space}, \texttt{tight-capacity}, \texttt{infeasible}, \texttt{boundary/} (7 berkas), dan \texttt{invalid/} (8 berkas); \texttt{hard.json} dan \texttt{demo.json} adalah \textit{instance} pendahulu yang tidak dipakai pada bab hasil \\
+\texttt{output/} & Hasil \textit{run} (JSON) dan visualisasi: \texttt{benchmark} (330 \textit{run}), \texttt{base-hc}, \texttt{base-sa}, \texttt{base-ga}, \texttt{base-ga-ablation}, dan padanan \texttt{tight-capacity-*} \\
+\texttt{tests/} & Tes fondasi, algoritma, eksperimen, dan \textit{fixture} \\
 \bottomrule
 \end{tabular}
 \caption{Struktur repositori}
