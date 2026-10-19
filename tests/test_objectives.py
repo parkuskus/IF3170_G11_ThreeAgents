@@ -1,6 +1,6 @@
 import unittest
 
-from src.model import Package, Placement, State, Truck
+from src.model import FleetState, Package, Placement, State, Truck
 from src.objectives import (
     OBJECTIVES,
     compact_value,
@@ -63,6 +63,21 @@ class ObjectiveTests(unittest.TestCase):
         self.assertEqual(
             set(OBJECTIVES), {"total_value", "eta_weighted_value", "compact_value"}
         )
+
+    def test_alternative_objectives_aggregate_across_fleet(self):
+        fleet = FleetState(
+            self.packages,
+            (self.truck, Truck((2, 2, 2), 10)),
+            (
+                {"urgent": Placement((0, 0, 0), (1, 1, 1)), "later": None},
+                {"urgent": None, "later": Placement((0, 0, 1), (1, 1, 1))},
+            ),
+        )
+
+        self.assertEqual(total_value(fleet), 60)
+        self.assertEqual(eta_weighted_value(fleet), 40)
+        self.assertGreater(compactness(fleet), 0)
+        self.assertGreater(compact_value(fleet), total_value(fleet))
 
 
 if __name__ == "__main__":

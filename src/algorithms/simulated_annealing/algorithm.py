@@ -3,25 +3,27 @@
 from math import exp, isfinite
 from random import Random
 from time import perf_counter
+from typing import TypeVar
 
-from src.contracts import ObjectiveFunction, resolve_objective
-from src.model import State
-from src.neighbors import random_neighbor
+from src.contracts import ObjectiveFunction, SearchProblem
 from src.results import SearchResult, SimulatedAnnealingMetrics
+
+StateT = TypeVar("StateT")
 
 
 def simulated_annealing(
-    initial_state: State,
+    initial_state: StateT,
     *,
     seed: int,
-    objective_fn: ObjectiveFunction[State] | None = None,
+    objective_fn: ObjectiveFunction[StateT] | None = None,
+    search_problem: SearchProblem[StateT] | None = None,
     max_iterations: int,
     initial_temperature: float,
     cooling_rate: float,
     objective_name: str | None = None,
     run_index: int = 1,
     stuck_patience: int = 100,
-) -> SearchResult[State]:
+) -> SearchResult[StateT]:
     if type(seed) is not int:
         raise ValueError("seed must be an integer")
     if type(max_iterations) is not int or max_iterations < 0:
@@ -51,7 +53,12 @@ def simulated_annealing(
 
     started_at = perf_counter()
     rng = Random(seed)
-    objective = resolve_objective(initial_state, objective_fn)
+    from src.search_problems import search_problem_for_state
+
+    problem = search_problem or search_problem_for_state(initial_state, objective_fn)
+    objective = objective_fn if objective_fn is not None else problem.objective_fn
+    if not problem.is_valid(initial_state):
+        raise ValueError("initial_state is invalid")
     current = initial_state
     best = current
     current_score = _validate_objective(objective(current))
@@ -66,7 +73,9 @@ def simulated_annealing(
     temperature = float(initial_temperature)
 
     for _ in range(max_iterations):
-        candidate = random_neighbor(current, rng)
+        candidate = problem.neighbor(current, rng)
+        if not problem.is_valid(candidate):
+            raise ValueError("neighbor operator returned invalid state")
         candidate_score = _validate_objective(objective(candidate))
         delta = candidate_score - current_score
         acceptance_probability = _acceptance_probability(delta, temperature)
@@ -93,7 +102,9 @@ def simulated_annealing(
 
     return SearchResult(
         algorithm="simulated_annealing",
-        objective_name=objective_name or ("total_value" if objective_fn is None else "custom"),
+        objective_name=objective_name or (
+            "custom" if objective_fn is not None else problem.objective_name
+        ),
         initial_state=initial_state,
         final_state=best,
         objective_value=best_score,

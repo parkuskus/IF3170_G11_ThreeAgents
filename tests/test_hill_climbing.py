@@ -5,11 +5,14 @@ from pathlib import Path
 from random import Random
 
 from src.algorithms.hill_climbing import VARIANTS, hill_climbing
+from src.contracts import SearchProblem
 from src.experiments.data import load_problem
 from src.experiments.hill_climbing import run_hc_experiments
+from src.model import FleetState
 from src.neighbors import random_initial_state
 from src.results import HillClimbingMetrics
-from src.validation import validate_state
+from src.search_problems import search_problem_for_state
+from src.validation import validate_fleet_state, validate_state
 
 DEMO = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "demo.json"
 
@@ -64,6 +67,34 @@ class HillClimbingTests(unittest.TestCase):
             hill_climbing(self.start, seed=1, variant="nope")
         with self.assertRaises(ValueError):
             hill_climbing(self.start, seed=1, neighbors_per_iteration=0)
+
+    def test_hill_climbing_accepts_fleet_search_problem(self):
+        fleet = FleetState(
+            self.packages,
+            (self.truck, self.truck),
+            tuple({package.id: None for package in self.packages} for _ in range(2)),
+        )
+        problem = search_problem_for_state(fleet)
+        for variant in ("steepest", "random_restart"):
+            result = hill_climbing(
+                fleet,
+                seed=7,
+                variant=variant,
+                max_iterations=3,
+                max_restarts=1,
+                search_problem=problem,
+            )
+            self.assertEqual(validate_fleet_state(result.final_state), [])
+
+    def test_hill_climbing_rejects_invalid_problem_neighbor(self):
+        problem = SearchProblem(
+            objective_fn=lambda state: state,
+            is_valid=lambda state: state >= 0,
+            random_state=lambda rng: 0,
+            neighbor=lambda state, rng: -1,
+        )
+        with self.assertRaisesRegex(ValueError, "neighbor.*invalid"):
+            hill_climbing(0, seed=1, search_problem=problem, max_iterations=1)
 
     def test_experiment_runner_writes_artifacts(self):
         with tempfile.TemporaryDirectory() as tmp:
