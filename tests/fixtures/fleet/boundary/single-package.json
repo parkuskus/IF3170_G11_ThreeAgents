@@ -1,0 +1,35 @@
+{
+  "description": "Two-truck counterpart of single-package: Boundary: a single package that fits.",
+  "packages": [
+    {
+      "id": "only",
+      "dimensions": [
+        2,
+        2,
+        2
+      ],
+      "value": 50,
+      "weight": 5,
+      "fragile": false,
+      "eta": 1
+    }
+  ],
+  "trucks": [
+    {
+      "dimensions": [
+        4,
+        4,
+        4
+      ],
+      "max_capacity": 10
+    },
+    {
+      "dimensions": [
+        4,
+        4,
+        4
+      ],
+      "max_capacity": 10
+    }
+  ]
+}

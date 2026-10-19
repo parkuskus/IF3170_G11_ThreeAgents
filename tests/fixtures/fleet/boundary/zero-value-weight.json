@@ -1,0 +1,71 @@
+{
+  "description": "Two-truck counterpart of zero-value-weight: Boundary: packages with zero value and/or zero weight beside one regular package.",
+  "packages": [
+    {
+      "id": "regular",
+      "dimensions": [
+        2,
+        2,
+        2
+      ],
+      "value": 60,
+      "weight": 5,
+      "fragile": false,
+      "eta": 2
+    },
+    {
+      "id": "zero-value",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 0,
+      "weight": 1,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "zero-weight",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 10,
+      "weight": 0,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "zero-both",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 0,
+      "weight": 0,
+      "fragile": false,
+      "eta": 0
+    }
+  ],
+  "trucks": [
+    {
+      "dimensions": [
+        4,
+        4,
+        4
+      ],
+      "max_capacity": 5
+    },
+    {
+      "dimensions": [
+        4,
+        4,
+        4
+      ],
+      "max_capacity": 5
+    }
+  ]
+}

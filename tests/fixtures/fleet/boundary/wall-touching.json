@@ -1,0 +1,71 @@
+{
+  "description": "Two-truck counterpart of wall-touching: Boundary: four 2x2x2 packages exactly fill a 4x4x2 truck, each touching the walls.",
+  "packages": [
+    {
+      "id": "cube-1",
+      "dimensions": [
+        2,
+        2,
+        2
+      ],
+      "value": 10,
+      "weight": 2,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "cube-2",
+      "dimensions": [
+        2,
+        2,
+        2
+      ],
+      "value": 20,
+      "weight": 2,
+      "fragile": false,
+      "eta": 2
+    },
+    {
+      "id": "cube-3",
+      "dimensions": [
+        2,
+        2,
+        2
+      ],
+      "value": 30,
+      "weight": 2,
+      "fragile": false,
+      "eta": 3
+    },
+    {
+      "id": "cube-4",
+      "dimensions": [
+        2,
+        2,
+        2
+      ],
+      "value": 40,
+      "weight": 2,
+      "fragile": false,
+      "eta": 4
+    }
+  ],
+  "trucks": [
+    {
+      "dimensions": [
+        4,
+        4,
+        2
+      ],
+      "max_capacity": 8
+    },
+    {
+      "dimensions": [
+        4,
+        4,
+        2
+      ],
+      "max_capacity": 8
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "description": "Two-truck counterpart of exact-capacity: Boundary: the optimum (weights 4+3+3, value 100) equals the capacity of 10 exactly; replacing a weight-3 item by the weight-2 item gives a lower value.",
+  "packages": [
+    {
+      "id": "w4",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 40,
+      "weight": 4,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "w3a",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 30,
+      "weight": 3,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "w3b",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 30,
+      "weight": 3,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "w2",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 25,
+      "weight": 2,
+      "fragile": false,
+      "eta": 1
+    }
+  ],
+  "trucks": [
+    {
+      "dimensions": [
+        10,
+        10,
+        10
+      ],
+      "max_capacity": 10
+    },
+    {
+      "dimensions": [
+        10,
+        10,
+        10
+      ],
+      "max_capacity": 10
+    }
+  ]
+}

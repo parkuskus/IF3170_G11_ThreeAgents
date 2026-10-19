@@ -41,32 +41,32 @@ Setiap varian dijalankan pada seed yang sama dengan konfigurasi acuannya, sehing
 Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \textit{constraint}, dan fungsi \textit{neighbor} yang sama untuk ketiga algoritma. Spesifikasi tugas tidak menyediakan data paket, sehingga seluruh \textit{instance} bersifat sintetis dan disimpan sebagai \textit{fixture} pada \texttt{tests/fixtures/}. Setiap kategori pada subbab pertama diwujudkan oleh satu atau lebih berkas, dan sifat tiap berkas diperiksa otomatis oleh \texttt{tests/test\_fixtures.py} (misalnya bahwa \texttt{tight-space} hanya berbeda dari \texttt{base} pada dimensi truk, atau bahwa tidak ada paket pada \texttt{infeasible} yang dapat dimuat sendirian).
 
 \begin{table}[H]
-\centering
-\small
-\begin{tabular}{@{}p{2.6cm}p{3.3cm}p{1.0cm}p{2.3cm}p{5.4cm}@{}}
-\toprule
-Kategori & Berkas & Paket & Truk (kapasitas) & Karakteristik \\
-\midrule
-Dasar & \texttt{base.json} & 10 & $8\times6\times4$ (30) & Dimensi, nilai, berat, ETA, dan kerapuhan bervariasi; total berat 59 melebihi kapasitas sehingga harus dipilih himpunan bagian \\
-\midrule
-Kendala ketat & \texttt{tight-space.json} & 10 & $6\times4\times3$ (30) & Paket dan kapasitas sama dengan \texttt{base}; hanya dimensi truk diperkecil \\
- & \texttt{tight-capacity.json} & 10 & $8\times6\times4$ (15) & Paket dan dimensi sama dengan \texttt{base}; hanya kapasitas dikurangi \\
-\midrule
-Tanpa pemuatan layak & \texttt{infeasible.json} & 10 & $8\times6\times4$ (30) & Dari \texttt{base}: P01--P05 diberi satu sisi 9 (melebihi sisi terpanjang truk), P06--P10 diberi berat 31 (melebihi kapasitas) \\
-\midrule
-Batas dan struktur khusus & \texttt{boundary/single-package} & 1 & $4\times4\times4$ (10) & Satu paket yang muat \\
- & \texttt{boundary/rotation-only} & 2 & $5\times2\times2$ (10) & Paket $2\times2\times5$ hanya muat setelah rotasi \\
- & \texttt{boundary/wall-touching} & 4 & $4\times4\times2$ (8) & Empat paket $2\times2\times2$ mengisi truk tepat sampai dinding \\
- & \texttt{boundary/exact-capacity} & 4 & $10\times10\times10$ (10) & Optimum (berat $4+3+3$) tepat sama dengan kapasitas \\
- & \texttt{boundary/fragile-support} & 3 & $2\times2\times2$ (10) & Paket rapuh boleh berada di atas paket biasa, tetapi tidak boleh menopang \\
- & \texttt{boundary/zero-value-weight} & 4 & $4\times4\times4$ (5) & Paket bernilai nol, berbobot nol, dan keduanya nol \\
- & \texttt{boundary/equal-fitness} & 6 & $2\times2\times1$ (100) & Enam paket identik: seleksi tidak punya preferensi \\
-\midrule
-Masukan tidak valid & \texttt{invalid/} (8 berkas) & --- & --- & Dimensi paket nonpositif, panjang, atau bukan bilangan bulat; dimensi truk nonpositif; kapasitas negatif; ID ganda; daftar paket kosong; atribut hilang \\
-\bottomrule
-\end{tabular}
-\caption{\textit{Fixture} untuk tiap kategori kasus uji}
-\label{tab:fixtures}
+    \centering
+    \small
+    \begin{tabular}{@{}p{2.6cm}p{3.3cm}p{1.0cm}p{2.3cm}p{5.4cm}@{}}
+        \toprule
+        Kategori                  & Berkas                              & Paket & Truk (kapasitas)          & Karakteristik                                                                                                                                           \\
+        \midrule
+        Dasar                     & \texttt{base.json}                  & 10    & $8\times6\times4$ (30)    & Dimensi, nilai, berat, ETA, dan kerapuhan bervariasi; total berat 59 melebihi kapasitas sehingga harus dipilih himpunan bagian                          \\
+        \midrule
+        Kendala ketat             & \texttt{tight-space.json}           & 10    & $6\times4\times3$ (30)    & Paket dan kapasitas sama dengan \texttt{base}; hanya dimensi truk diperkecil                                                                            \\
+                                  & \texttt{tight-capacity.json}        & 10    & $8\times6\times4$ (15)    & Paket dan dimensi sama dengan \texttt{base}; hanya kapasitas dikurangi                                                                                  \\
+        \midrule
+        Tanpa pemuatan layak      & \texttt{infeasible.json}            & 10    & $8\times6\times4$ (30)    & Dari \texttt{base}: P01--P05 diberi satu sisi 9 (melebihi sisi terpanjang truk), P06--P10 diberi berat 31 (melebihi kapasitas)                          \\
+        \midrule
+        Batas dan struktur khusus & \texttt{boundary/single-package}    & 1     & $4\times4\times4$ (10)    & Satu paket yang muat                                                                                                                                    \\
+                                  & \texttt{boundary/rotation-only}     & 2     & $5\times2\times2$ (10)    & Paket $2\times2\times5$ hanya muat setelah rotasi                                                                                                       \\
+                                  & \texttt{boundary/wall-touching}     & 4     & $4\times4\times2$ (8)     & Empat paket $2\times2\times2$ mengisi truk tepat sampai dinding                                                                                         \\
+                                  & \texttt{boundary/exact-capacity}    & 4     & $10\times10\times10$ (10) & Optimum (berat $4+3+3$) tepat sama dengan kapasitas                                                                                                     \\
+                                  & \texttt{boundary/fragile-support}   & 3     & $2\times2\times2$ (10)    & Paket rapuh boleh berada di atas paket biasa, tetapi tidak boleh menopang                                                                               \\
+                                  & \texttt{boundary/zero-value-weight} & 4     & $4\times4\times4$ (5)     & Paket bernilai nol, berbobot nol, dan keduanya nol                                                                                                      \\
+                                  & \texttt{boundary/equal-fitness}     & 6     & $2\times2\times1$ (100)   & Enam paket identik: seleksi tidak punya preferensi                                                                                                      \\
+        \midrule
+        Masukan tidak valid       & \texttt{invalid/} (8 berkas)        & ---   & ---                       & Dimensi paket nonpositif, panjang, atau bukan bilangan bulat; dimensi truk nonpositif; kapasitas negatif; ID ganda; daftar paket kosong; atribut hilang \\
+        \bottomrule
+    \end{tabular}
+    \caption{\textit{Fixture} untuk tiap kategori kasus uji}
+    \label{tab:fixtures}
 \end{table}
 
 Setiap algoritma dijalankan pada tiga \textit{objective function}: \texttt{total\_value} (fungsi wajib), \texttt{eta\_weighted\_value} (nilai paket dibagi $\text{ETA}+1$, sehingga paket yang mendesak bernilai lebih besar), dan \texttt{compact\_value} (nilai total ditambah bonus kurang dari satu satuan untuk penumpukan yang rendah). Eksperimen dibagi menjadi empat rangkaian.
@@ -80,18 +80,18 @@ Setiap algoritma dijalankan pada tiga \textit{objective function}: \texttt{total
 \end{enumerate}
 
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}p{3.4cm}p{11.6cm}@{}}
-\toprule
-Algoritma & Parameter \\
-\midrule
-\textit{Hill climbing} & 4 varian; \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, \texttt{max\_restarts}\,=\,10 \\
-\textit{Simulated annealing} & \texttt{max\_iterations}\,=\,3000, $T_0=100$, \texttt{cooling\_rate}\,=\,0,995, \texttt{stuck\_patience}\,=\,100 \\
-\textit{Genetic algorithm} & Baseline: populasi 20, 40 generasi, \textit{mutation rate} 0,05. \textit{Sweep} terpisah: populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, dan \textit{mutation rate} $\{0;0,05;0,20\}$, dengan parameter lain tetap pada baseline; seleksi \textit{roulette-wheel}. Ablasi: populasi 20, 50 generasi \\
-\bottomrule
-\end{tabular}
-\caption{Konfigurasi parameter eksperimen}
-\label{tab:konfigurasi}
+    \centering
+    \begin{tabular}{@{}p{3.4cm}p{11.6cm}@{}}
+        \toprule
+        Algoritma                    & Parameter                                                                                                                                                                                                                                                                                              \\
+        \midrule
+        \textit{Hill climbing}       & 4 varian; \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, \texttt{max\_restarts}\,=\,10                                                                                                                                                  \\
+        \textit{Simulated annealing} & \texttt{max\_iterations}\,=\,3000, $T_0=100$, \texttt{cooling\_rate}\,=\,0,995, \texttt{stuck\_patience}\,=\,100                                                                                                                                                                                       \\
+        \textit{Genetic algorithm}   & Baseline: populasi 20, 40 generasi, \textit{mutation rate} 0,05. \textit{Sweep} terpisah: populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, dan \textit{mutation rate} $\{0;0,05;0,20\}$, dengan parameter lain tetap pada baseline; seleksi \textit{roulette-wheel}. Ablasi: populasi 20, 50 generasi \\
+        \bottomrule
+    \end{tabular}
+    \caption{Konfigurasi parameter eksperimen}
+    \label{tab:konfigurasi}
 \end{table}
 
 \textit{State} awal setiap \textit{run} dibangkitkan secara acak dari \textit{seed} yang sama (\textit{seed} dikenai XOR dengan konstanta tetap), sehingga ketiga algoritma dan ketiga \textit{objective} memulai dari \textit{state} yang identik. Pada \texttt{base}, nilai total \textit{state} awal untuk \textit{seed} 11 sampai 15 berturut-turut adalah 330, 285, 320, 275, dan 275; pada \texttt{tight-capacity} untuk \textit{seed} 11 sampai 13 adalah 155, 155, dan 160. Pada GA, \textit{state} awal menjadi anggota pertama populasi. Karena hanya ada tiga atau lima \textit{seed}, simpangan baku (simpangan baku sampel, dihitung ulang dari nilai tiap \textit{run}) harus dibaca sebagai gambaran sebaran kasar, bukan hasil uji statistik.
@@ -106,19 +106,19 @@ Hasil \textit{hill climbing} dan SA pada bagian ini menggunakan \texttt{base} de
 
 \subsubsection{Fungsi objektif \texttt{total\_value}}
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
-Varian & Rata-rata & Simpangan baku & Terbaik & Iterasi rata-rata & Durasi rata-rata (s) \\
-\midrule
-\textit{Steepest}       & 316,67 & 27,54 & 335 & 0,33 & 0,0053 \\
-\textit{Sideways}       & 318,33 & 28,87 & 335 & 100,67 & 0,4646 \\
-\textit{Stochastic}     & 318,33 & 24,66 & 335 & 1000 & 0,1703 \\
-\textit{Random restart} & 333,33 & 2,89  & 335 & 1,67 & 0,1535 \\
-\bottomrule
-\end{tabular}
-\caption{Hasil \textit{hill climbing} dengan \texttt{total\_value} (\texttt{base}, 3 \textit{seed})}
-\label{tab:hc-total}
+    \centering
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        Varian                  & Rata-rata & Simpangan baku & Terbaik & Iterasi rata-rata & Durasi rata-rata (s) \\
+        \midrule
+        \textit{Steepest}       & 316,67    & 27,54          & 335     & 0,33              & 0,0053               \\
+        \textit{Sideways}       & 318,33    & 28,87          & 335     & 100,67            & 0,4646               \\
+        \textit{Stochastic}     & 318,33    & 24,66          & 335     & 1000              & 0,1703               \\
+        \textit{Random restart} & 333,33    & 2,89           & 335     & 1,67              & 0,1535               \\
+        \bottomrule
+    \end{tabular}
+    \caption{Hasil \textit{hill climbing} dengan \texttt{total\_value} (\texttt{base}, 3 \textit{seed})}
+    \label{tab:hc-total}
 \end{table}
 
 Nilai akhir per \textit{seed} (11, 12, 13) dari \textit{state} awal bernilai 330, 285, dan 320 adalah 330, 285, 335 untuk \textit{steepest}; 335, 285, 335 untuk \textit{sideways}; 330, 290, 335 untuk \textit{stochastic}; dan 335, 330, 335 untuk \textit{random restart}. \textit{Seed} 12 adalah kasus tersulit: \textit{state} awalnya (lima paket termuat, bernilai 285) adalah \textit{local optimum} bagi \textit{steepest} dan \textit{sideways}, yang masing-masing berhenti pada iterasi ke-0 dan menghabiskan 100 \textit{sideways move} tanpa perbaikan; \textit{stochastic} hanya naik ke 290 dalam 1000 iterasi. Pada \textit{seed} 11, \textit{steepest} dan \textit{stochastic} tidak menemukan perbaikan dari 330 sedangkan \textit{sideways} mencapai 335 melalui gerakan setara, dan pada \textit{seed} 13 semua varian naik dari 320 ke 335. Dengan kata lain, \textit{base} memiliki beberapa \textit{local optimum} yang tidak dapat ditinggalkan oleh gerakan tunggal \textit{swap}, \textit{move}, atau rotasi yang diterima hanya jika tidak lebih buruk.
@@ -126,77 +126,77 @@ Nilai akhir per \textit{seed} (11, 12, 13) dari \textit{state} awal bernilai 330
 \textit{Random restart} adalah satu-satunya varian yang tidak tersangkut pada \textit{seed} 12 (330) dan mencapai 335 pada dua \textit{seed} lain, sehingga simpangan bakunya turun dari sekitar 25--29 menjadi 2,89. Sepuluh pendakian tambahan dari \textit{state} acak memberi peluang untuk mendarat di cekungan yang berbeda; iterasi rata-ratanya kecil (1,67) karena sebagian besar pendakian segera berhenti. Durasinya (0,15 detik) berada di antara \textit{steepest} dan \textit{sideways}.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.78\textwidth]{figures/base/hc-summary-total_value.png}
-\caption{Ringkasan \textit{hill climbing} dengan \texttt{total\_value}}
+    \centering
+    \includegraphics[width=0.78\textwidth]{figures/base/hc-summary-total_value.png}
+    \caption{Ringkasan \textit{hill climbing} dengan \texttt{total\_value}}
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.85\textwidth]{figures/base/hc-states-steepest-seed12.png}
-\caption{\textit{State} awal dan akhir \textit{steepest} pada \textit{seed} 12: kedua \textit{state} bernilai 285}
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/hc-states-steepest-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{steepest} pada \textit{seed} 12: kedua \textit{state} bernilai 285}
 \end{figure}
 
 \subsubsection{Fungsi objektif \texttt{eta\_weighted\_value}}
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
-Varian & Rata-rata & Simpangan baku & Terbaik & Nilai total paket rata-rata & Durasi rata-rata (s) \\
-\midrule
-\textit{Steepest}       & 103,23 & 11,82 & 116,33 & 303,33 & 0,0064 \\
-\textit{Sideways}       & 116,33 & 0     & 116,33 & 305,00 & 0,3379 \\
-\textit{Stochastic}     & 110,89 & 9,43  & 116,33 & 310,00 & 0,1644 \\
-\textit{Random restart} & 114,89 & 1,50  & 116,33 & 298,33 & 0,1784 \\
-\bottomrule
-\end{tabular}
-\caption{Hasil \textit{hill climbing} dengan \texttt{eta\_weighted\_value} (\texttt{base}, 3 \textit{seed})}
-\label{tab:hc-eta}
+    \centering
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        Varian                  & Rata-rata & Simpangan baku & Terbaik & Nilai total paket rata-rata & Durasi rata-rata (s) \\
+        \midrule
+        \textit{Steepest}       & 103,23    & 11,82          & 116,33  & 303,33                      & 0,0064               \\
+        \textit{Sideways}       & 116,33    & 0              & 116,33  & 305,00                      & 0,3379               \\
+        \textit{Stochastic}     & 110,89    & 9,43           & 116,33  & 310,00                      & 0,1644               \\
+        \textit{Random restart} & 114,89    & 1,50           & 116,33  & 298,33                      & 0,1784               \\
+        \bottomrule
+    \end{tabular}
+    \caption{Hasil \textit{hill climbing} dengan \texttt{eta\_weighted\_value} (\texttt{base}, 3 \textit{seed})}
+    \label{tab:hc-eta}
 \end{table}
 
 Pada \texttt{eta\_weighted\_value}, \textit{sideways} mencapai nilai terbaik (116,33) pada ketiga \textit{seed}, sedangkan \textit{random restart} mencapainya hanya pada satu dari tiga \textit{seed} (116,33; 115,00; 113,33). Ini satu-satunya kombinasi \textit{instance} dan \textit{objective} pada eksperimen per algoritma di mana \textit{random restart} bukan yang terbaik; penyebabnya belum diselidiki, dan dengan tiga \textit{seed} selisih 1,4 poin ini dapat berasal dari \textit{noise}. Himpunan paket yang dipilih juga berbeda dari \texttt{total\_value}: nilai total paket pada \textit{state} akhir hanya 298--310, di bawah 335 yang dapat dicapai (dibahas pada subbab \textit{objective function}).
 
 \subsubsection{Fungsi objektif \texttt{compact\_value}}
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
-Varian & Rata-rata & Simpangan baku & Terbaik & Iterasi rata-rata & Durasi rata-rata (s) \\
-\midrule
-\textit{Steepest}       & 316,91 & 27,55 & 335,254 & 0,33  & 0,0053 \\
-\textit{Sideways}       & 328,76 & 7,58  & 335,380 & 103,67 & 0,3724 \\
-\textit{Stochastic}     & 322,03 & 18,86 & 335,344 & 1000  & 0,1381 \\
-\textit{Random restart} & 331,98 & 2,84  & 335,254 & 18,33 & 0,1874 \\
-\bottomrule
-\end{tabular}
-\caption{Hasil \textit{hill climbing} dengan \texttt{compact\_value} (\texttt{base}, 3 \textit{seed})}
-\label{tab:hc-compact}
+    \centering
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        Varian                  & Rata-rata & Simpangan baku & Terbaik & Iterasi rata-rata & Durasi rata-rata (s) \\
+        \midrule
+        \textit{Steepest}       & 316,91    & 27,55          & 335,254 & 0,33              & 0,0053               \\
+        \textit{Sideways}       & 328,76    & 7,58           & 335,380 & 103,67            & 0,3724               \\
+        \textit{Stochastic}     & 322,03    & 18,86          & 335,344 & 1000              & 0,1381               \\
+        \textit{Random restart} & 331,98    & 2,84           & 335,254 & 18,33             & 0,1874               \\
+        \bottomrule
+    \end{tabular}
+    \caption{Hasil \textit{hill climbing} dengan \texttt{compact\_value} (\texttt{base}, 3 \textit{seed})}
+    \label{tab:hc-compact}
 \end{table}
 
 Berbeda dari \texttt{total\_value}, \texttt{compact\_value} memberi gradien kecil pada dataran sehingga \textit{sideways} naik dari 318,33 menjadi 328,76 dan \textit{stochastic} dari 318,33 menjadi 322,03: pada \textit{seed} 12 keduanya meninggalkan \textit{state} 285 karena ada gerakan yang menurunkan tumpukan (iterasi \textit{random restart} juga naik dari 1,67 menjadi 18,33). \textit{Steepest} tidak terbantu (316,91) karena hanya menerima perbaikan sedikit demi sedikit dari sampel 30 \textit{neighbor}. \textit{Random restart} tetap yang terbaik (331,98). Nilai terbaik 335,380 pada \textit{sideways} melebihi 335 karena bonus kepadatan lebih besar pada penataan yang lebih rendah, bukan karena paket tambahan: bonus dirancang selalu kurang dari satu satuan nilai.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.85\textwidth]{figures/base/hc-objective-comparison.png}
-\caption{Perbandingan ketiga \textit{objective function} pada \textit{hill climbing}}
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/hc-objective-comparison.png}
+    \caption{Perbandingan ketiga \textit{objective function} pada \textit{hill climbing}}
 \end{figure}
 
 \subsection{Simulated Annealing}
 
 \subsubsection{Fungsi objektif \texttt{total\_value}}
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-\textit{Objective} & Rata-rata akhir & Simpangan baku & Nilai total paket & Durasi rata-rata (s) \\
-\midrule
-\texttt{total\_value}         & 330     & 8,66  & 330     & $0{,}390 \pm 0{,}037$ \\
-\texttt{eta\_weighted\_value} & 116,33  & 0     & 305     & $0{,}375 \pm 0{,}027$ \\
-\texttt{compact\_value}       & 332,04  & 2,79  & 331,67  & $0{,}568 \pm 0{,}043$ \\
-\bottomrule
-\end{tabular}
-\caption{Hasil \textit{simulated annealing} (\texttt{base}, 3 \textit{seed}, 3000 iterasi)}
-\label{tab:sa}
+    \centering
+    \begin{tabular}{@{}lrrrr@{}}
+        \toprule
+        \textit{Objective}            & Rata-rata akhir & Simpangan baku & Nilai total paket & Durasi rata-rata (s)  \\
+        \midrule
+        \texttt{total\_value}         & 330             & 8,66           & 330               & $0{,}390 \pm 0{,}037$ \\
+        \texttt{eta\_weighted\_value} & 116,33          & 0              & 305               & $0{,}375 \pm 0{,}027$ \\
+        \texttt{compact\_value}       & 332,04          & 2,79           & 331,67            & $0{,}568 \pm 0{,}043$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Hasil \textit{simulated annealing} (\texttt{base}, 3 \textit{seed}, 3000 iterasi)}
+    \label{tab:sa}
 \end{table}
 
 Dengan \texttt{total\_value}, SA mencapai 335 pada \textit{seed} 11 dan 13 dan 320 pada \textit{seed} 12 (rata-rata 330). \textit{Seed} 12 berawal dari 285 dan menjadi \textit{state} awal tersulit bagi hampir semua algoritma; SA berhasil keluar dari \textit{local optimum} tersebut dan naik ke 320, lebih tinggi daripada \textit{steepest} dan \textit{sideways} (285) maupun \textit{stochastic} (290), tetapi belum mencapai 335. Riwayat nilai \textit{state} saat ini menunjukkan SA menerima \textit{state} yang jauh lebih buruk pada suhu tinggi (nilai minimum yang dikunjungi 245 pada \textit{seed} 12 dan 255 pada \textit{seed} 11) sebelum menyempit ke satu cekungan seiring pendinginan $0{,}995^{3000}\approx 3\times10^{-7}$. Hasil akhir adalah \textit{state} terbaik yang pernah dikunjungi, bukan \textit{state} saat pencarian berhenti. Jumlah kejadian \textit{stuck} (nilai terbaik tidak berubah selama 100 iterasi berturut-turut) rata-rata 2 per \textit{run} (2, 3, dan 1 pada \textit{seed} 11, 12, dan 13).
@@ -204,17 +204,17 @@ Dengan \texttt{total\_value}, SA mencapai 335 pada \textit{seed} 11 dan 13 dan 3
 Biayanya adalah durasi: SA selalu menjalankan seluruh 3000 iterasi tanpa kondisi berhenti dini, sehingga sekitar 0,4 detik per \textit{run}, kira-kira 2,5 kali \textit{random restart} dan 74 kali \textit{steepest}.
 
 \begin{figure}[H]
-\centering
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/base/sa-history-total_value-seed12.png}
-\caption{Nilai \textit{objective} (\textit{seed} 12)}
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/base/sa-acceptance-total_value-seed12.png}
-\caption{$e^{\Delta E/T}$ terhadap iterasi}
-\end{subfigure}
-\caption{\textit{Simulated annealing} dengan \texttt{total\_value} pada \textit{seed} 12}
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/base/sa-history-total_value-seed12.png}
+        \caption{Nilai \textit{objective} (\textit{seed} 12)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/base/sa-acceptance-total_value-seed12.png}
+        \caption{$e^{\Delta E/T}$ terhadap iterasi}
+    \end{subfigure}
+    \caption{\textit{Simulated annealing} dengan \texttt{total\_value} pada \textit{seed} 12}
 \end{figure}
 
 \subsubsection{Fungsi objektif \texttt{eta\_weighted\_value}}
@@ -224,9 +224,9 @@ Ketiga \textit{seed} menghasilkan 116,33 (simpangan baku 0), sama dengan nilai t
 Nilai akhir per \textit{seed} adalah 330,449; 330,410; dan 335,254 (rata-rata 332,04). Rata-rata kepadatan hasil SA naik dari 0,250 pada \texttt{total\_value} menjadi 0,375, sehingga bonus kepadatan menggeser penataan ke tumpukan yang lebih rendah; nilai total paketnya per \textit{seed} adalah 330, 330, dan 335 (rata-rata 331,67) dibandingkan 335, 320, dan 335 pada \texttt{total\_value}; selisih rata-rata 1,67 ini berbeda arah antar-\textit{seed} dan berada dalam \textit{noise}. Durasi rata-rata 0,568 detik, sekitar 46\% lebih lama dibanding 0,390 detik pada \texttt{total\_value} (selisih ini lebih dari simpangan baku keduanya; penyebabnya belum diselidiki).
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.85\textwidth]{figures/base/sa-objective-comparison.png}
-\caption{Perbandingan ketiga \textit{objective function} pada \textit{simulated annealing}}
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/sa-objective-comparison.png}
+    \caption{Perbandingan ketiga \textit{objective function} pada \textit{simulated annealing}}
 \end{figure}
 
 \subsection{Genetic Algorithm}
@@ -238,36 +238,36 @@ Baseline GA dijalankan pada seluruh 11 \textit{fixture} valid dengan \texttt{tot
 Tabel~\ref{tab:ga-fixture-baseline} merangkum nilai akhir, variasi antarseed, paket termuat, serta waktu pencarian. Nilai terbaik pada tabel adalah maksimum hasil run yang benar-benar diamati, bukan klaim optimum global. Kasus tanpa pemuatan layak dilaporkan sebagai pemeriksaan validitas, bukan sebagai perbandingan kualitas dengan kasus yang dapat dimuat.
 
 \begin{table}[H]
-\centering
-\small
-\caption{Baseline GA pada seluruh fixture valid; rata-rata dan simpangan baku sampel dari lima seed}
-\label{tab:ga-fixture-baseline}
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
-\textit{Fixture} & Rata-rata nilai $\pm$ SD & Terbaik & Paket termuat & Durasi (s) \\
-\midrule
-\texttt{base} & 331,00 $\pm$ 2,24 & 335 & 6,0 & 0,681 \\
-\texttt{tight-space} & 274,00 $\pm$ 10,84 & 290 & 5,0 & 0,543 \\
-\texttt{tight-capacity} & 174,00 $\pm$ 2,24 & 175 & 3,4 & 0,523 \\
-\texttt{infeasible} & 0,00 $\pm$ 0,00 & 0 & 0,0 & 0,205 \\
-\texttt{single-package} & 50,00 $\pm$ 0,00 & 50 & 1,0 & 0,041 \\
-\texttt{equal-fitness} & 40,00 $\pm$ 0,00 & 40 & 4,0 & 0,339 \\
-\texttt{exact-capacity} & 100,00 $\pm$ 0,00 & 100 & 3,0 & 0,170 \\
-\texttt{wall-touching} & 100,00 $\pm$ 0,00 & 100 & 4,0 & 0,233 \\
-\texttt{fragile-support} & 90,00 $\pm$ 0,00 & 90 & 2,0 & 0,177 \\
-\texttt{rotation-only} & 70,00 $\pm$ 0,00 & 70 & 1,0 & 0,108 \\
-\texttt{zero-value-weight} & 70,00 $\pm$ 0,00 & 70 & 3,0 & 0,163 \\
-\bottomrule
-\end{tabular}
+    \centering
+    \small
+    \caption{Baseline GA pada seluruh fixture valid; rata-rata dan simpangan baku sampel dari lima seed}
+    \label{tab:ga-fixture-baseline}
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        \textit{Fixture}           & Rata-rata nilai $\pm$ SD & Terbaik & Paket termuat & Durasi (s) \\
+        \midrule
+        \texttt{base}              & 331,00 $\pm$ 2,24        & 335     & 6,0           & 0,681      \\
+        \texttt{tight-space}       & 274,00 $\pm$ 10,84       & 290     & 5,0           & 0,543      \\
+        \texttt{tight-capacity}    & 174,00 $\pm$ 2,24        & 175     & 3,4           & 0,523      \\
+        \texttt{infeasible}        & 0,00 $\pm$ 0,00          & 0       & 0,0           & 0,205      \\
+        \texttt{single-package}    & 50,00 $\pm$ 0,00         & 50      & 1,0           & 0,041      \\
+        \texttt{equal-fitness}     & 40,00 $\pm$ 0,00         & 40      & 4,0           & 0,339      \\
+        \texttt{exact-capacity}    & 100,00 $\pm$ 0,00        & 100     & 3,0           & 0,170      \\
+        \texttt{wall-touching}     & 100,00 $\pm$ 0,00        & 100     & 4,0           & 0,233      \\
+        \texttt{fragile-support}   & 90,00 $\pm$ 0,00         & 90      & 2,0           & 0,177      \\
+        \texttt{rotation-only}     & 70,00 $\pm$ 0,00         & 70      & 1,0           & 0,108      \\
+        \texttt{zero-value-weight} & 70,00 $\pm$ 0,00         & 70      & 3,0           & 0,163      \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 Perbedaan terhadap kasus dasar terlihat pada ruang truk yang dipersempit: rata-rata \texttt{tight-space} turun dari 331 pada \texttt{base} menjadi 274, dan simpangan bakunya 10,84 merupakan yang terbesar di antara 11 fixture. Nilai terbaik yang ditemukan pada lima seed adalah 290. Sebaliknya, nilai pada \texttt{tight-capacity} mendekati batas nilai berbasis kapasitas 175, tetapi tidak semua seed mencapainya. Fixture batas berukuran kecil mencapai nilai yang sama pada kelima seed; konsistensi tersebut menunjukkan bahwa kasus-kasus sederhana ini terjangkau oleh konfigurasi GA, bukan bahwa algoritma selalu menemukan optimum pada instance lain.
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.92\textwidth]{figures/ga-analysis/fixture-summary.png}
-\caption{Rata-rata nilai terbaik yang ditemukan pada tiap fixture; batang galat menunjukkan satu simpangan baku sampel}
-\label{fig:ga-fixture-summary}
+    \centering
+    \includegraphics[width=0.92\textwidth]{figures/ga-analysis/fixture-summary.png}
+    \caption{Rata-rata nilai terbaik yang ditemukan pada tiap fixture; batang galat menunjukkan satu simpangan baku sampel}
+    \label{fig:ga-fixture-summary}
 \end{figure}
 
 \subsubsection{Contoh keluaran dan visualisasi state}
@@ -275,55 +275,55 @@ Perbedaan terhadap kasus dasar terlihat pada ruang truk yang dipersempit: rata-r
 Tabel~\ref{tab:ga-representative} memperlihatkan hasil konkret dari run dengan seed 11, satu run representatif yang dipilih konsisten sebelum melihat perbandingan antarparameter. Kolom paket menunjukkan assignment pada state akhir, bukan seluruh kandidat yang diperiksa GA. Pada \texttt{base}, nilai awal sudah 330 sehingga run tersebut tidak meningkat; pada \texttt{tight-space} dan \texttt{tight-capacity}, pencarian memperbaiki nilai awal. Kasus \texttt{rotation-only} memuat paket \texttt{long} setelah rotasi, sementara kasus \texttt{infeasible} tetap kosong.
 
 \begin{table}[H]
-\centering
-\small
-\caption{Keluaran aktual GA untuk seed 11 pada satu wakil tiap kategori dan kedua fixture kendala ketat}
-\label{tab:ga-representative}
-\begin{tabular}{@{}lrrrl@{}}
-\toprule
-Kasus & Nilai awal $\rightarrow$ akhir & Paket & Valid & Paket termuat pada hasil \\
-\midrule
-\texttt{base} & 330 $\rightarrow$ 330 & 6/10 & Ya & P01, P02, P04, P06, P08, P09 \\
-\texttt{tight-space} & 255 $\rightarrow$ 270 & 4/10 & Ya & P02, P04, P07, P09 \\
-\texttt{tight-capacity} & 155 $\rightarrow$ 175 & 3/10 & Ya & P02, P04, P06 \\
-\texttt{infeasible} & 0 $\rightarrow$ 0 & 0/10 & Ya & -- \\
-\texttt{rotation-only} & 30 $\rightarrow$ 70 & 1/2 & Ya & \texttt{long} \\
-\bottomrule
-\end{tabular}
+    \centering
+    \small
+    \caption{Keluaran aktual GA untuk seed 11 pada satu wakil tiap kategori dan kedua fixture kendala ketat}
+    \label{tab:ga-representative}
+    \begin{tabular}{@{}lrrrl@{}}
+        \toprule
+        Kasus                   & Nilai awal $\rightarrow$ akhir & Paket & Valid & Paket termuat pada hasil     \\
+        \midrule
+        \texttt{base}           & 330 $\rightarrow$ 330          & 6/10  & Ya    & P01, P02, P04, P06, P08, P09 \\
+        \texttt{tight-space}    & 255 $\rightarrow$ 270          & 4/10  & Ya    & P02, P04, P07, P09           \\
+        \texttt{tight-capacity} & 155 $\rightarrow$ 175          & 3/10  & Ya    & P02, P04, P06                \\
+        \texttt{infeasible}     & 0 $\rightarrow$ 0              & 0/10  & Ya    & --                           \\
+        \texttt{rotation-only}  & 30 $\rightarrow$ 70            & 1/2   & Ya    & \texttt{long}                \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 Gambar~\ref{fig:ga-state-examples} memperlihatkan perubahan penempatan sebelum dan sesudah pencarian pada empat kategori. Gambar~\ref{fig:ga-capacity-states} menambahkan visualisasi \texttt{tight-capacity}, sehingga kedua bentuk kendala ketat dapat dibandingkan. Gambar state untuk semua fixture dan seed pertama tersedia di \texttt{output/ga-analysis/figures/}.
 
 \begin{figure}[H]
-\centering
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/ga-analysis/base-states.png}
-\caption{Kasus dasar}
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/ga-analysis/tight-space-states.png}
-\caption{Ruang truk ketat}
-\end{subfigure}
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/ga-analysis/base-states.png}
+        \caption{Kasus dasar}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/ga-analysis/tight-space-states.png}
+        \caption{Ruang truk ketat}
+    \end{subfigure}
 
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/ga-analysis/infeasible-states.png}
-\caption{Tidak ada pemuatan layak}
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/ga-analysis/rotation-only-states.png}
-\caption{Paket hanya muat setelah rotasi}
-\end{subfigure}
-\caption{State awal dan state terbaik yang dikembalikan GA untuk seed 11}
-\label{fig:ga-state-examples}
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/ga-analysis/infeasible-states.png}
+        \caption{Tidak ada pemuatan layak}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/ga-analysis/rotation-only-states.png}
+        \caption{Paket hanya muat setelah rotasi}
+    \end{subfigure}
+    \caption{State awal dan state terbaik yang dikembalikan GA untuk seed 11}
+    \label{fig:ga-state-examples}
 \end{figure}
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.92\textwidth]{figures/ga-analysis/tight-capacity-states.png}
-\caption{State awal dan state akhir pada kasus kapasitas truk ketat (seed 11)}
-\label{fig:ga-capacity-states}
+    \centering
+    \includegraphics[width=0.92\textwidth]{figures/ga-analysis/tight-capacity-states.png}
+    \caption{State awal dan state akhir pada kasus kapasitas truk ketat (seed 11)}
+    \label{fig:ga-capacity-states}
 \end{figure}
 
 \subsubsection{Pengaruh parameter GA}
@@ -331,27 +331,27 @@ Gambar~\ref{fig:ga-state-examples} memperlihatkan perubahan penempatan sebelum d
 Pengaruh ukuran populasi, jumlah generasi, dan laju mutasi diuji secara terpisah pada \texttt{base}. Setiap nilai parameter dijalankan dengan lima seed yang sama dan derivasi state awal yang sama; parameter lain dipertahankan pada baseline. Tabel~\ref{tab:ga-parameter-sweeps} melaporkan rata-rata nilai terbaik yang ditemukan, simpangan baku sampel, maksimum hasil run, durasi, dan jumlah evaluasi.
 
 \begin{table}[H]
-\centering
-\small
-\caption{Sweep satu faktor GA pada fixture \texttt{base} (lima seed per nilai parameter)}
-\label{tab:ga-parameter-sweeps}
-\begin{tabular}{@{}llrrrr@{}}
-\toprule
-Parameter & Nilai & Rata-rata $\pm$ SD & Terbaik & Durasi (s) & Evaluasi \\
-\midrule
-Generasi & 20 & 330,00 $\pm$ 3,54 & 335 & 0,519 & 420 \\
-         & 40 & 331,00 $\pm$ 2,24 & 335 & 0,665 & 820 \\
-         & 80 & 331,00 $\pm$ 2,24 & 335 & 0,935 & 1.620 \\
-\midrule
-Populasi & 10 & 327,00 $\pm$ 6,71 & 335 & 0,295 & 410 \\
-         & 20 & 331,00 $\pm$ 2,24 & 335 & 0,672 & 820 \\
-         & 40 & 333,00 $\pm$ 2,74 & 335 & 1,553 & 1.640 \\
-\midrule
-\textit{Mutation rate} & 0,00 & 330,00 $\pm$ 0,00 & 330 & 0,623 & 820 \\
-                       & 0,05 & 331,00 $\pm$ 2,24 & 335 & 0,659 & 820 \\
-                       & 0,20 & 328,00 $\pm$ 4,47 & 330 & 0,809 & 820 \\
-\bottomrule
-\end{tabular}
+    \centering
+    \small
+    \caption{Sweep satu faktor GA pada fixture \texttt{base} (lima seed per nilai parameter)}
+    \label{tab:ga-parameter-sweeps}
+    \begin{tabular}{@{}llrrrr@{}}
+        \toprule
+        Parameter              & Nilai & Rata-rata $\pm$ SD & Terbaik & Durasi (s) & Evaluasi \\
+        \midrule
+        Generasi               & 20    & 330,00 $\pm$ 3,54  & 335     & 0,519      & 420      \\
+                               & 40    & 331,00 $\pm$ 2,24  & 335     & 0,665      & 820      \\
+                               & 80    & 331,00 $\pm$ 2,24  & 335     & 0,935      & 1.620    \\
+        \midrule
+        Populasi               & 10    & 327,00 $\pm$ 6,71  & 335     & 0,295      & 410      \\
+                               & 20    & 331,00 $\pm$ 2,24  & 335     & 0,672      & 820      \\
+                               & 40    & 333,00 $\pm$ 2,74  & 335     & 1,553      & 1.640    \\
+        \midrule
+        \textit{Mutation rate} & 0,00  & 330,00 $\pm$ 0,00  & 330     & 0,623      & 820      \\
+                               & 0,05  & 331,00 $\pm$ 2,24  & 335     & 0,659      & 820      \\
+                               & 0,20  & 328,00 $\pm$ 4,47  & 330     & 0,809      & 820      \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 Ukuran populasi memberi tren kualitas yang paling jelas pada rentang yang diuji: rata-rata naik dari 327 menjadi 333 saat populasi bertambah dari 10 ke 40, sementara durasi rata-rata meningkat sekitar lima kali (0,295 menjadi 1,553 detik). Namun, nilai terbaik yang pernah ditemukan tetap 335 pada ketiga ukuran populasi, sehingga keuntungan yang terlihat adalah konsistensi rata-rata, bukan batas solusi baru. Karena hanya lima seed yang diuji, tren ini bersifat deskriptif dan tidak membuktikan perbedaan statistik.
@@ -363,20 +363,20 @@ Laju mutasi 0,05 memberi rata-rata tertinggi (331) dan satu run mencapai 335; ta
 Gambar~\ref{fig:ga-parameter-sweeps} memperlihatkan hubungan kualitas dan biaya untuk ketiga sweep. Riwayat pencarian per run disimpan terpisah pada berkas JSON; grafik di sini menekankan nilai akhir dan durasi agar dampak parameter mudah dibandingkan.
 
 \begin{figure}[H]
-\centering
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/ga-analysis/population-sweep.png}
-\caption{Ukuran populasi}
-\end{subfigure}
-\hfill
-\begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/ga-analysis/generation-sweep.png}
-\caption{Jumlah generasi}
-\end{subfigure}
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/ga-analysis/population-sweep.png}
+        \caption{Ukuran populasi}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/ga-analysis/generation-sweep.png}
+        \caption{Jumlah generasi}
+    \end{subfigure}
 
-\includegraphics[width=0.78\textwidth]{figures/ga-analysis/mutation-sweep.png}
-\caption{Pengaruh parameter terhadap nilai terbaik dan durasi rata-rata (batang galat: $\pm1$ SD)}
-\label{fig:ga-parameter-sweeps}
+    \includegraphics[width=0.78\textwidth]{figures/ga-analysis/mutation-sweep.png}
+    \caption{Pengaruh parameter terhadap nilai terbaik dan durasi rata-rata (batang galat: $\pm1$ SD)}
+    \label{fig:ga-parameter-sweeps}
 \end{figure}
 
 Eksperimen ini menggunakan satu fixture untuk sweep parameter dan lima seed, sehingga hasilnya belum menunjukkan konfigurasi terbaik untuk semua kategori. Waktu yang dilaporkan adalah durasi algoritma pada lingkungan lokal yang sama, tetapi dapat berubah akibat beban mesin; seluruh 100 keluaran per-run, parameter, riwayat objective, dan state awal/akhir disimpan di \texttt{output/ga-analysis/}. Eksperimen dapat direproduksi dengan menjalankan \texttt{python -m src.experiments.ga.results\_analysis} dari root repositori.
@@ -388,63 +388,63 @@ Eksperimen ini menggunakan satu fixture untuk sweep parameter dan lima seed, seh
 Seluruh 330 \textit{run} \textit{benchmark} menghasilkan \textit{state} akhir yang valid menurut validator (proporsi valid 100\%), termasuk 30 \textit{run} pada \texttt{infeasible} yang seluruhnya berakhir dengan nol paket termuat dan nilai 0. Kualitas dibandingkan pada \textit{instance} yang dapat dimuat berikut; Tabel~\ref{tab:bench-main} merangkum kasus dasar dan kendala ketat, dan Tabel~\ref{tab:bench-boundary} merangkum kasus batas.
 
 \begin{table}[H]
-\centering
-\small
-\begin{tabular}{@{}lrrrrrrr@{}}
-\toprule
-\textit{Instance} & Terbaik & \textit{Steepest} & \textit{Sideways} & \textit{Stochastic} & \textit{Restart} & SA & GA \\
-\midrule
-\texttt{base}           & 335 & 303,0 (27,5) & 317,0 (20,5) & 305,0 (26,2) & 331,0 (6,5)  & 329,0 (8,2)  & 331,0 (2,2) \\
-\texttt{tight-space}    & 300 & 242,0 (26,8) & 255,0 (35,0) & 246,0 (34,4) & 280,0 (16,2) & 282,0 (8,4)  & 274,0 (10,8) \\
-\texttt{tight-capacity} & 175 & 158,0 (11,5) & 166,0 (2,2)  & 162,0 (5,7)  & 175,0 (0)    & 173,0 (2,7)  & 174,0 (2,2) \\
-\bottomrule
-\end{tabular}
-\caption{Rata-rata (simpangan baku) nilai akhir \texttt{total\_value}, lima \textit{seed}}
-\label{tab:bench-main}
+    \centering
+    \small
+    \begin{tabular}{@{}lrrrrrrr@{}}
+        \toprule
+        \textit{Instance}       & Terbaik & \textit{Steepest} & \textit{Sideways} & \textit{Stochastic} & \textit{Restart} & SA          & GA           \\
+        \midrule
+        \texttt{base}           & 335     & 303,0 (27,5)      & 317,0 (20,5)      & 305,0 (26,2)        & 331,0 (6,5)      & 329,0 (8,2) & 331,0 (2,2)  \\
+        \texttt{tight-space}    & 300     & 242,0 (26,8)      & 255,0 (35,0)      & 246,0 (34,4)        & 280,0 (16,2)     & 282,0 (8,4) & 274,0 (10,8) \\
+        \texttt{tight-capacity} & 175     & 158,0 (11,5)      & 166,0 (2,2)       & 162,0 (5,7)         & 175,0 (0)        & 173,0 (2,7) & 174,0 (2,2)  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Rata-rata (simpangan baku) nilai akhir \texttt{total\_value}, lima \textit{seed}}
+    \label{tab:bench-main}
 \end{table}
 
 Frekuensi mencapai nilai terbaik (dari lima \textit{seed}) pada \texttt{base} adalah 1, 2, 1, 3, 3, dan 1 untuk \textit{steepest}, \textit{sideways}, \textit{stochastic}, \textit{random restart}, SA, dan GA; pada \texttt{tight-space} adalah 0, 1, 1, 1, 0, dan 0; dan pada \texttt{tight-capacity} adalah 0, 0, 0, 5, 3, dan 4.
 
 \begin{table}[H]
-\centering
-\small
-\begin{tabular}{@{}lrrrrrrr@{}}
-\toprule
-\textit{Instance} & Terbaik & \textit{Steepest} & \textit{Sideways} & \textit{Stochastic} & \textit{Restart} & SA & GA \\
-\midrule
-\texttt{single-package}    & 50  & 50 & 50 & 50 & 50 & 50 & 50 \\
-\texttt{equal-fitness}     & 40  & 40 & 40 & 40 & 40 & 40 & 40 \\
-\texttt{exact-capacity}    & 100 & 99 & 100 & 100 & 100 & 100 & 100 \\
-\texttt{wall-touching}     & 100 & 74 & 98 & 74 & 100 & 100 & 100 \\
-\texttt{zero-value-weight} & 70  & 58 & 70 & 58 & 70 & 70 & 70 \\
-\texttt{fragile-support}   & 90  & 78 & 78 & 78 & 90 & 78 & 90 \\
-\texttt{rotation-only}     & 70  & 46 & 46 & 46 & 70 & 46 & 70 \\
-\bottomrule
-\end{tabular}
-\caption{Rata-rata nilai akhir \texttt{total\_value} pada kasus batas, lima \textit{seed}}
-\label{tab:bench-boundary}
+    \centering
+    \small
+    \begin{tabular}{@{}lrrrrrrr@{}}
+        \toprule
+        \textit{Instance}          & Terbaik & \textit{Steepest} & \textit{Sideways} & \textit{Stochastic} & \textit{Restart} & SA  & GA  \\
+        \midrule
+        \texttt{single-package}    & 50      & 50                & 50                & 50                  & 50               & 50  & 50  \\
+        \texttt{equal-fitness}     & 40      & 40                & 40                & 40                  & 40               & 40  & 40  \\
+        \texttt{exact-capacity}    & 100     & 99                & 100               & 100                 & 100              & 100 & 100 \\
+        \texttt{wall-touching}     & 100     & 74                & 98                & 74                  & 100              & 100 & 100 \\
+        \texttt{zero-value-weight} & 70      & 58                & 70                & 58                  & 70               & 70  & 70  \\
+        \texttt{fragile-support}   & 90      & 78                & 78                & 78                  & 90               & 78  & 90  \\
+        \texttt{rotation-only}     & 70      & 46                & 46                & 46                  & 70               & 46  & 70  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Rata-rata nilai akhir \texttt{total\_value} pada kasus batas, lima \textit{seed}}
+    \label{tab:bench-boundary}
 \end{table}
 
 \begin{table}[H]
-\centering
-\small
-\begin{tabular}{@{}lrrrrrr@{}}
-\toprule
- & \textit{Steepest} & \textit{Sideways} & \textit{Stochastic} & \textit{Restart} & SA & GA \\
-\midrule
-Evaluasi objektif (rata-rata) & 43 & 3085 & 1001 & 383 & 3001 & 820 \\
-Durasi (s) & 0,0056 & 0,4699 & 0,1432 & 0,1543 & 0,5654 & 0,4746 \\
-Durasi per evaluasi (ms) & 0,13 & 0,15 & 0,14 & 0,40 & 0,19 & 0,58 \\
-\bottomrule
-\end{tabular}
-\caption{Biaya pencarian pada \texttt{base} (lima \textit{seed})}
-\label{tab:bench-cost}
+    \centering
+    \small
+    \begin{tabular}{@{}lrrrrrr@{}}
+        \toprule
+                                      & \textit{Steepest} & \textit{Sideways} & \textit{Stochastic} & \textit{Restart} & SA     & GA     \\
+        \midrule
+        Evaluasi objektif (rata-rata) & 43                & 3085              & 1001                & 383              & 3001   & 820    \\
+        Durasi (s)                    & 0,0056            & 0,4699            & 0,1432              & 0,1543           & 0,5654 & 0,4746 \\
+        Durasi per evaluasi (ms)      & 0,13              & 0,15              & 0,14                & 0,40             & 0,19   & 0,58   \\
+        \bottomrule
+    \end{tabular}
+    \caption{Biaya pencarian pada \texttt{base} (lima \textit{seed})}
+    \label{tab:bench-cost}
 \end{table}
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/base/benchmark-summary.png}
-\caption{Rata-rata nilai akhir terhadap nilai terbaik pada tiap \textit{instance} dan algoritma}
+    \centering
+    \includegraphics[width=\textwidth]{figures/base/benchmark-summary.png}
+    \caption{Rata-rata nilai akhir terhadap nilai terbaik pada tiap \textit{instance} dan algoritma}
 \end{figure}
 
 Beberapa pola konsisten muncul.
@@ -472,48 +472,48 @@ Beberapa pola konsisten muncul.
 \textbf{Masukan tidak valid.} Seluruh delapan \textit{fixture} pada \texttt{invalid/} ditolak oleh \textit{loader} dengan \texttt{ValueError} dan pesan yang menyebut penyebabnya (Tabel~\ref{tab:invalid}); tidak ada yang lolos ke pencarian.
 
 \begin{table}[H]
-\centering
-\small
-\begin{tabular}{@{}p{5.2cm}p{9.5cm}@{}}
-\toprule
-\textit{Fixture} & Pesan galat \\
-\midrule
-\texttt{package-dimension-nonpositive} & \textit{package dimensions must contain three positive integers} \\
-\texttt{package-dimension-length}      & \textit{packages[0].dimensions must be a list of three integers} \\
-\texttt{package-dimension-noninteger}  & \textit{packages[0].dimensions must be a list of three integers} \\
-\texttt{truck-dimension-nonpositive}   & \textit{truck dimensions must contain three positive integers} \\
-\texttt{truck-capacity-negative}       & \textit{truck capacity must be a non-negative integer} \\
-\texttt{duplicate-ids}                 & \textit{package IDs must be unique} \\
-\texttt{empty-packages}                & \textit{problem must contain at least one package} \\
-\texttt{missing-field}                 & \textit{packages[0] is missing 'eta'} \\
-\bottomrule
-\end{tabular}
-\caption{Penolakan masukan tidak valid oleh \textit{loader}}
-\label{tab:invalid}
+    \centering
+    \small
+    \begin{tabular}{@{}p{5.2cm}p{9.5cm}@{}}
+        \toprule
+        \textit{Fixture}                       & Pesan galat                                                      \\
+        \midrule
+        \texttt{package-dimension-nonpositive} & \textit{package dimensions must contain three positive integers} \\
+        \texttt{package-dimension-length}      & \textit{packages[0].dimensions must be a list of three integers} \\
+        \texttt{package-dimension-noninteger}  & \textit{packages[0].dimensions must be a list of three integers} \\
+        \texttt{truck-dimension-nonpositive}   & \textit{truck dimensions must contain three positive integers}   \\
+        \texttt{truck-capacity-negative}       & \textit{truck capacity must be a non-negative integer}           \\
+        \texttt{duplicate-ids}                 & \textit{package IDs must be unique}                              \\
+        \texttt{empty-packages}                & \textit{problem must contain at least one package}               \\
+        \texttt{missing-field}                 & \textit{packages[0] is missing 'eta'}                            \\
+        \bottomrule
+    \end{tabular}
+    \caption{Penolakan masukan tidak valid oleh \textit{loader}}
+    \label{tab:invalid}
 \end{table}
 
 \subsection{Pengaruh Variasi \textit{Objective Function}}
 
 \begin{table}[H]
-\centering
-\small
-\begin{tabular}{@{}llrrrrr@{}}
-\toprule
-\textit{Instance} & Algoritma & \multicolumn{3}{c}{Nilai total paket rata-rata} & \multicolumn{2}{c}{Durasi (s)} \\
-\cmidrule(lr){3-5}\cmidrule(lr){6-7}
- & & \texttt{total} & \texttt{eta} & \texttt{compact} & \texttt{total} & \texttt{compact} \\
-\midrule
-\texttt{base} & \textit{Hill climbing} & 321,67 & 304,17 & 324,58 & 0,198 & 0,176 \\
- & SA & 330 & 305 & 331,67 & 0,390 & 0,568 \\
- & GA & 331,39 & 296,94 & 331,39 & 0,447 & 0,441 \\
-\midrule
-\texttt{tight-capacity} & \textit{Hill climbing} & 165 & 153,75 & 165,83 & 0,080 & 0,084 \\
- & SA & 173,33 & 170 & 171,67 & 0,285 & 0,314 \\
- & GA & 174,17 & 166,94 & 174,17 & 0,397 & 0,316 \\
-\bottomrule
-\end{tabular}
-\caption{Nilai total paket pada \textit{state} akhir menurut \textit{objective} yang dioptimalkan (\texttt{total} = \texttt{total\_value}, \texttt{eta} = \texttt{eta\_weighted\_value}, \texttt{compact} = \texttt{compact\_value}); durasi untuk \texttt{total\_value} dan \texttt{compact\_value}}
-\label{tab:objective}
+    \centering
+    \small
+    \begin{tabular}{@{}llrrrrr@{}}
+        \toprule
+        \textit{Instance}       & Algoritma              & \multicolumn{3}{c}{Nilai total paket rata-rata} & \multicolumn{2}{c}{Durasi (s)}                                                        \\
+        \cmidrule(lr){3-5}\cmidrule(lr){6-7}
+                                &                        & \texttt{total}                                  & \texttt{eta}                   & \texttt{compact} & \texttt{total} & \texttt{compact} \\
+        \midrule
+        \texttt{base}           & \textit{Hill climbing} & 321,67                                          & 304,17                         & 324,58           & 0,198          & 0,176            \\
+                                & SA                     & 330                                             & 305                            & 331,67           & 0,390          & 0,568            \\
+                                & GA                     & 331,39                                          & 296,94                         & 331,39           & 0,447          & 0,441            \\
+        \midrule
+        \texttt{tight-capacity} & \textit{Hill climbing} & 165                                             & 153,75                         & 165,83           & 0,080          & 0,084            \\
+                                & SA                     & 173,33                                          & 170                            & 171,67           & 0,285          & 0,314            \\
+                                & GA                     & 174,17                                          & 166,94                         & 174,17           & 0,397          & 0,316            \\
+        \bottomrule
+    \end{tabular}
+    \caption{Nilai total paket pada \textit{state} akhir menurut \textit{objective} yang dioptimalkan (\texttt{total} = \texttt{total\_value}, \texttt{eta} = \texttt{eta\_weighted\_value}, \texttt{compact} = \texttt{compact\_value}); durasi untuk \texttt{total\_value} dan \texttt{compact\_value}}
+    \label{tab:objective}
 \end{table}
 
 Nilai total paket pada Tabel~\ref{tab:objective} dihitung ulang dengan \texttt{total\_value} untuk seluruh \textit{state} akhir, sehingga ketiga \textit{objective} dapat dibandingkan pada satu skala. \texttt{eta\_weighted\_value} jelas mengubah himpunan paket: pada kedua \textit{instance} dan ketiga algoritma nilai total turun (misalnya GA pada \texttt{base} dari 331,39 menjadi 296,94, dan SA dari 330 menjadi 305), sedangkan skor ETA yang dioptimalkan naik (SA pada \texttt{base} dari 93,45 menjadi 116,33). \texttt{compact\_value} tidak mengorbankan nilai total dan nilai akhirnya sama dengan atau sedikit di atas \texttt{total\_value}; selisih kecil pada HC dan SA lebih mungkin berasal dari gradien kepadatan yang membantu pencarian melewati dataran (Tabel~\ref{tab:hc-compact}) daripada dari perubahan himpunan paket. Pada GA \texttt{compact\_value} memberi nilai total yang identik dengan \texttt{total\_value} (331,39 dan 174,17).
@@ -540,22 +540,22 @@ Dua \textit{objective function} tambahan, \texttt{eta\_weighted\_value} dan \tex
 Empat varian \textit{hill climbing} dibandingkan pada \textit{seed} dan \textit{state} awal yang sama. Tabel~\ref{tab:hc-variants} merangkum hasil \texttt{total\_value} pada dua \textit{instance}; hasil dua \textit{objective} lain untuk \texttt{base} ada pada Tabel~\ref{tab:hc-eta} dan Tabel~\ref{tab:hc-compact}.
 
 \begin{table}[H]
-\centering
-\small
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
- & \multicolumn{3}{c}{\texttt{base}} & \multicolumn{2}{c}{\texttt{tight-capacity}} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-6}
-Varian & Rata-rata & Iterasi & Durasi (s) & Rata-rata & Iterasi \\
-\midrule
-\textit{Steepest}       & 316,67 & 0,33   & 0,0053 & 160 & 0,33 \\
-\textit{Sideways}       & 318,33 & 100,67 & 0,4646 & 165 & 101 \\
-\textit{Stochastic}     & 318,33 & 1000   & 0,1703 & 160 & 1000 \\
-\textit{Random restart} & 333,33 & 1,67   & 0,1535 & 175 & 2,33 \\
-\bottomrule
-\end{tabular}
-\caption{Perbandingan empat varian \textit{hill climbing} dengan \texttt{total\_value} (rata-rata 3 \textit{seed})}
-\label{tab:hc-variants}
+    \centering
+    \small
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+                                & \multicolumn{3}{c}{\texttt{base}} & \multicolumn{2}{c}{\texttt{tight-capacity}}                                    \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-6}
+        Varian                  & Rata-rata                         & Iterasi                                     & Durasi (s) & Rata-rata & Iterasi \\
+        \midrule
+        \textit{Steepest}       & 316,67                            & 0,33                                        & 0,0053     & 160       & 0,33    \\
+        \textit{Sideways}       & 318,33                            & 100,67                                      & 0,4646     & 165       & 101     \\
+        \textit{Stochastic}     & 318,33                            & 1000                                        & 0,1703     & 160       & 1000    \\
+        \textit{Random restart} & 333,33                            & 1,67                                        & 0,1535     & 175       & 2,33    \\
+        \bottomrule
+    \end{tabular}
+    \caption{Perbandingan empat varian \textit{hill climbing} dengan \texttt{total\_value} (rata-rata 3 \textit{seed})}
+    \label{tab:hc-variants}
 \end{table}
 
 \begin{enumerate}
@@ -572,25 +572,25 @@ Varian & Rata-rata & Iterasi & Durasi (s) & Rata-rata & Iterasi \\
 Ablasi dilakukan pada \texttt{base} dengan \texttt{total\_value}, lima \textit{seed} (11--15), populasi 20, dan 50 generasi. Setiap varian hanya mengubah satu komponen terhadap \textit{baseline} (\textit{roulette-wheel}, \textit{single-point crossover}, mutasi 0,05): tanpa mutasi, tanpa \textit{crossover}, dan seleksi seragam sebagai pembanding \textit{roulette-wheel}.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-Varian & Rata-rata & Simpangan baku & Nilai per \textit{seed} (11--15) & Durasi (s) \\
-\midrule
-\textit{Baseline}          & 331 & 2,24 & 330, 335, 330, 330, 330 & 0,377 \\
-Tanpa mutasi               & 330 & 0    & 330, 330, 330, 330, 330 & 0,393 \\
-Tanpa \textit{crossover}   & 326 & 5,48 & 330, 320, 330, 330, 320 & 0,196 \\
-Seleksi seragam            & 327 & 6,71 & 335, 320, 330, 330, 320 & 0,345 \\
-\bottomrule
-\end{tabular}
-\caption{Hasil ablasi operator GA pada \texttt{base}}
-\label{tab:ablasi}
+    \centering
+    \begin{tabular}{@{}lrrrr@{}}
+        \toprule
+        Varian                   & Rata-rata & Simpangan baku & Nilai per \textit{seed} (11--15) & Durasi (s) \\
+        \midrule
+        \textit{Baseline}        & 331       & 2,24           & 330, 335, 330, 330, 330          & 0,377      \\
+        Tanpa mutasi             & 330       & 0              & 330, 330, 330, 330, 330          & 0,393      \\
+        Tanpa \textit{crossover} & 326       & 5,48           & 330, 320, 330, 330, 320          & 0,196      \\
+        Seleksi seragam          & 327       & 6,71           & 335, 320, 330, 330, 320          & 0,345      \\
+        \bottomrule
+    \end{tabular}
+    \caption{Hasil ablasi operator GA pada \texttt{base}}
+    \label{tab:ablasi}
 \end{table}
 
 \begin{figure}[H]
-\centering
-\includegraphics[width=0.85\textwidth]{figures/base/ga-ablation.png}
-\caption{Ablasi operator GA: nilai maksimum dan rata-rata populasi per generasi}
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/ga-ablation.png}
+    \caption{Ablasi operator GA: nilai maksimum dan rata-rata populasi per generasi}
 \end{figure}
 
 \begin{enumerate}
@@ -600,4 +600,106 @@ Seleksi seragam            & 327 & 6,71 & 335, 320, 330, 330, 320 & 0,345 \\
 \end{enumerate}
 
 \subsection{Multi-Truck}
+
+\subsubsection{Fixture Armada dan Protokol}
+
+Eksperimen memakai 11 fixture sintetis yang mengikuti kategori pengujian sebelumnya. Setiap fixture mempertahankan paket dan spesifikasi truk sumber, lalu menyediakan dua truk identik. Perbedaan hasil terutama mencerminkan pembagian paket ke lebih dari satu truk, bukan perubahan ukuran atau kapasitas truk. Fixture mencakup kasus dasar, ruang dan kapasitas ketat, kasus tanpa pemuatan layak, serta tujuh kasus batas.
+
+Setiap kombinasi fixture dan seed dijalankan dengan empat varian HC, SA, dan GA. Eksperimen memakai lima seed, yaitu 11 sampai 15, sehingga menghasilkan $11\times5\times6=330$ run. Untuk tiap fixture dan seed, seluruh metode menerima state awal yang sama. Seed pembentuk state awal diperoleh dengan XOR seed run dengan konstanta tetap $\texttt{0x5EED}$. Objective yang digunakan adalah \texttt{total\_value}.
+
+Parameter mengikuti baseline runner armada. HC memakai 30 neighbor per iterasi, paling banyak 1000 iterasi, 100 sideways move, dan 10 restart. SA memakai 2000 iterasi, temperatur awal 100, laju pendinginan 0,995, dan patience 100 iterasi. GA memakai populasi 20, 40 generasi, dan laju mutasi 0,05. Anggaran komputasi ketiga algoritma tidak setara. Perbandingan ini menggambarkan perilaku konfigurasi yang diuji dan tidak menyimpulkan keunggulan algoritma pada biaya komputasi yang sama.
+
+\subsubsection{State Awal sebagai Baseline}
+
+State awal dianalisis sebelum hasil akhir dibandingkan. Untuk setiap fixture, ringkasan memakai satu state per seed, bukan satu salinan untuk setiap algoritma. Analisis mencatat validitas, nilai paket yang telah dimuat, jumlah paket termuat dan belum termuat, serta jumlah dan nilai paket pada masing-masing truk. Perubahan nilai dan jumlah paket pada akhir pencarian kemudian dihitung terhadap baseline ini.
+
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Karakteristik state awal per fixture, rata-rata dan simpangan baku sampel dari lima seed}
+    \label{tab:fleet-initial-states}
+    \begin{tabular}{@{}lrrll@{}}
+        \toprule
+        Fixture                    & Nilai awal $\pm$ SD & Paket termuat & Truk 1 paket/nilai & Truk 2 paket/nilai \\
+        \midrule
+        \texttt{base}              & 568,0 $\pm$ 43,8    & 9,6           & 4,4 / 277,0        & 5,2 / 291,0        \\
+        \texttt{tight-space}       & 355,0 $\pm$ 60,3    & 6,8           & 3,4 / 175,0        & 3,4 / 180,0        \\
+        \texttt{tight-capacity}    & 300,0 $\pm$ 0,0     & 6,0           & 3,2 / 148,0        & 2,8 / 152,0        \\
+        \texttt{infeasible}        & 0,0 $\pm$ 0,0       & 0,0           & 0,0 / 0,0          & 0,0 / 0,0          \\
+        \texttt{equal-fitness}     & 60,0 $\pm$ 0,0      & 6,0           & 3,0 / 30,0         & 3,0 / 30,0         \\
+        \texttt{exact-capacity}    & 125,0 $\pm$ 0,0     & 4,0           & 1,8 / 55,0         & 2,2 / 70,0         \\
+        \texttt{fragile-support}   & 100,0 $\pm$ 0,0     & 3,0           & 1,4 / 36,0         & 1,6 / 64,0         \\
+        \texttt{rotation-only}     & 100,0 $\pm$ 0,0     & 2,0           & 1,0 / 46,0         & 1,0 / 54,0         \\
+        \texttt{single-package}    & 50,0 $\pm$ 0,0      & 1,0           & 0,4 / 20,0         & 0,6 / 30,0         \\
+        \texttt{wall-touching}     & 100,0 $\pm$ 0,0     & 4,0           & 2,0 / 56,0         & 2,0 / 44,0         \\
+        \texttt{zero-value-weight} & 70,0 $\pm$ 0,0      & 4,0           & 1,8 / 28,0         & 2,2 / 42,0         \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Pada \texttt{base}, state awal sudah memuat rata-rata 9,6 dari 10 paket dengan nilai 568. Dua seed yang nilainya 520 belum memuat paket P10. State awal \texttt{tight-space} lebih bervariasi, dengan nilai rata-rata 355 dan simpangan baku 60,3. Pada \texttt{tight-capacity}, seluruh seed mulai dari nilai 300 dan enam paket termuat. Pembagian muatan awal di dua truk relatif seimbang pada ketiga fixture tersebut. Karena state awal identik untuk semua metode pada seed yang sama, perbedaan hasil akhir bukan akibat perbedaan inisialisasi antaralgoritma.
+
+\subsubsection{Hasil Lintas Fixture}
+
+Tabel~\ref{tab:fleet-final-results} membandingkan rata-rata dan simpangan baku nilai akhir untuk setiap metode. Nilai awal pada Tabel~\ref{tab:fleet-initial-states} menjadi acuan untuk membaca perbaikan. Kasus \texttt{infeasible} hanya digunakan untuk memeriksa validitas keluaran, bukan untuk menentukan metode terbaik. Nilai maksimum yang muncul pada eksperimen merupakan hasil terbaik yang teramati dan tidak otomatis menjadi optimum global.
+
+\begin{table}[H]
+    \centering
+    \scriptsize
+    \caption{Nilai akhir rata-rata dan simpangan baku sampel dari lima seed, jumlah paket rata-rata dalam tanda kurung}
+    \label{tab:fleet-final-results}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{@{}lrrrrrr@{}}
+            \toprule
+            Fixture                    & HC steepest            & HC sideways            & HC stochastic          & HC random restart      & SA                     & GA                     \\
+            \midrule
+            \texttt{base}              & 568,0 $\pm$ 43,8 (9,6) & 600,0 $\pm$ 0,0 (10,0) & 568,0 $\pm$ 43,8 (9,6) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) \\
+            \texttt{tight-space}       & 366,0 $\pm$ 52,2 (7,0) & 423,0 $\pm$ 27,5 (7,8) & 366,0 $\pm$ 52,2 (7,0) & 442,0 $\pm$ 14,0 (8,0) & 464,0 $\pm$ 34,5 (8,2) & 472,0 $\pm$ 28,2 (8,2) \\
+            \texttt{tight-capacity}    & 300,0 $\pm$ 0,0 (6,0)  & 300,0 $\pm$ 0,0 (6,0)  & 300,0 $\pm$ 0,0 (6,0)  & 300,0 $\pm$ 0,0 (6,0)  & 323,0 $\pm$ 11,5 (6,0) & 300,0 $\pm$ 0,0 (6,0)  \\
+            \texttt{infeasible}        & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    \\
+            \texttt{equal-fitness}     & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   \\
+            \texttt{exact-capacity}    & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  \\
+            \texttt{fragile-support}   & 100,0 $\pm$ 0,0 (3,0)  & 100,0 $\pm$ 0,0 (3,0)  & 100,0 $\pm$ 0,0 (3,0)  & 100,0 $\pm$ 0,0 (3,0)  & 100,0 $\pm$ 0,0 (3,0)  & 100,0 $\pm$ 0,0 (3,0)  \\
+            \texttt{rotation-only}     & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  \\
+            \texttt{single-package}    & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   \\
+            \texttt{wall-touching}     & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  \\
+            \texttt{zero-value-weight} & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (3,8)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   \\
+            \bottomrule
+        \end{tabular}%
+    }
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fleet-analysis/summary.png}
+    \caption{Nilai akhir rata-rata per fixture dan metode dengan batang galat satu simpangan baku sampel}
+    \label{fig:fleet-summary}
+\end{figure}
+
+Perbedaan antarmetode tampak terutama pada tiga fixture utama. Pada \texttt{base}, empat metode mencapai nilai 600 pada seluruh seed kecuali HC steepest dan HC stochastic, yang tidak memperbaiki dua state awal bernilai 520. Karena total nilai seluruh paket adalah 600 dan seluruh paket termuat pada hasil bernilai 600, nilai tersebut merupakan batas atas yang diketahui untuk fixture ini. HC sideways dan random restart, SA, serta GA mencapai batas itu pada kelima seed.
+
+Pada \texttt{tight-space}, GA memiliki rata-rata tertinggi sebesar 472, disusul SA sebesar 464 dan HC random restart sebesar 442. GA dan SA sama-sama mencapai nilai terbaik teramati 520, tetapi sebaran hasil SA lebih besar. HC steepest dan stochastic menghasilkan rata-rata 366, sama dengan nilai awal rata-ratanya. Random restart memberi hasil lebih baik daripada tiga varian HC lain pada fixture ini, sementara sideways move membantu HC sideways memperbaiki sebagian seed.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/fleet-analysis/tight-space-ga.png}
+    \caption{State awal dan state akhir GA pada fixture \texttt{tight-space} untuk seed 11}
+    \label{fig:fleet-tight-space-state}
+\end{figure}
+
+Pada \texttt{tight-capacity}, nilai awal semua seed adalah 300. Empat varian HC dan GA tetap pada nilai itu, sedangkan SA mencapai rata-rata 323 dengan simpangan baku 11,5. Jumlah paket yang dimuat tetap enam pada seluruh hasil. Kenaikan nilai SA berasal dari perubahan paket yang dipilih, bukan dari bertambahnya jumlah paket. Pola ini sesuai dengan kemampuan SA menerima perpindahan yang sementara menurunkan nilai saat temperatur masih tinggi.
+
+Tujuh fixture batas menghasilkan nilai akhir yang sama untuk seluruh metode dan seed. Kesamaan ini memperlihatkan bahwa kasus batas tersebut sudah terjangkau dari state awal yang dibangkitkan. Seluruh 55 state awal dan 330 state akhir lolos validasi. Pada \texttt{infeasible}, seluruh 30 run mengembalikan state kosong yang valid. Kasus tersebut memeriksa penanganan paket yang tidak dapat dimuat dan tidak masuk peringkat kualitas.
+
+\subsubsection{Biaya Pencarian dan Karakteristik Algoritma}
+
+Biaya pencarian berbeda walaupun semua metode memakai state awal berpasangan. Pada \texttt{base}, HC steepest menggunakan rata-rata 31 evaluasi objektif dan selesai dalam 0,031 detik. HC stochastic menggunakan 1001 evaluasi dan 1,211 detik. HC sideways memakai 3043 evaluasi dan 3,103 detik, sedangkan random restart menggunakan 359 evaluasi dan 0,535 detik. SA menggunakan 2001 evaluasi dengan durasi 2,225 detik. GA memakai 820 evaluasi, tetapi durasi 2,436 detik. Jumlah evaluasi saja tidak menggambarkan biaya operasi setiap algoritma, sehingga durasi dilaporkan bersamanya.
+
+HC steepest dan stochastic berakhir pada nilai awal pada \texttt{base} untuk semua seed. Dua state awal bernilai 520 tidak membaik, sementara sideways dan random restart mencapai nilai 600 pada kedua seed tersebut. Sideways menghabiskan lebih banyak evaluasi untuk menerima gerakan setara. Random restart menemukan hasil yang sama dengan biaya evaluasi dan waktu lebih rendah pada konfigurasi ini. Pola ini tidak membuktikan bahwa random restart selalu lebih efisien pada instance lain.
+
+SA memberi hasil tertinggi pada \texttt{tight-capacity}, dengan rata-rata 323 dibanding 300 untuk metode lain. Jumlah paketnya tetap enam. Pada kelima seed, paket yang dipilih SA berbeda dari state awal. Riwayat SA mencatat nilai state saat ini turun di bawah 300 pada semua seed, hingga serendah 115, sebelum menghasilkan state terbaik dengan nilai 310 sampai 335. Pada \texttt{tight-space}, SA mencapai rata-rata 464 dan GA 472. Kedua algoritma pernah menghasilkan nilai 520, sedangkan simpangan baku GA lebih kecil. Lima seed belum cukup untuk menyebut selisih tersebut signifikan.
+
+GA mencapai rata-rata tertinggi pada \texttt{tight-space} dan 600 pada seluruh seed \texttt{base}. Namun, pada \texttt{tight-capacity}, nilai akhirnya tetap 300. Pada konfigurasi ini, populasi dan crossover belum memberi keuntungan pada semua struktur kasus. Biaya GA juga tidak berbanding lurus dengan banyak evaluasi. Pembentukan populasi, crossover, perbaikan konflik penempatan, dan validasi armada menambah pekerjaan di luar pemanggilan fungsi objektif.
+
+Eksperimen ini memakai paket sintetis dan dua truk identik pada setiap fixture. Hasilnya belum mengukur armada heterogen atau armada dengan lebih dari dua truk. Lima seed memberi gambaran awal tentang variasi, tetapi tidak cukup untuk menguji signifikansi perbedaan. Parameter hanya memakai satu konfigurasi baseline per algoritma, dan biaya komputasinya berbeda. Batas atas nilai 600 diketahui untuk \texttt{base} dari jumlah nilai seluruh paket. Nilai tertinggi pada fixture lain hanya disebut sebagai hasil terbaik yang ditemukan, bukan optimum global. Run dapat diulang dengan \texttt{python -m src.experiments.fleet.run\_benchmark}. Catatan run, ringkasan, dan visualisasi tersimpan di \texttt{output/fleet-analysis/}.
 

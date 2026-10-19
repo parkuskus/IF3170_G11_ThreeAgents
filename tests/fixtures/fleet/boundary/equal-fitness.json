@@ -1,0 +1,95 @@
+{
+  "description": "Two-truck counterpart of equal-fitness: Boundary: six identical packages; every selection is equally fit and only four unit cells exist.",
+  "packages": [
+    {
+      "id": "same-1",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 10,
+      "weight": 1,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "same-2",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 10,
+      "weight": 1,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "same-3",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 10,
+      "weight": 1,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "same-4",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 10,
+      "weight": 1,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "same-5",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 10,
+      "weight": 1,
+      "fragile": false,
+      "eta": 1
+    },
+    {
+      "id": "same-6",
+      "dimensions": [
+        1,
+        1,
+        1
+      ],
+      "value": 10,
+      "weight": 1,
+      "fragile": false,
+      "eta": 1
+    }
+  ],
+  "trucks": [
+    {
+      "dimensions": [
+        2,
+        2,
+        1
+      ],
+      "max_capacity": 100
+    },
+    {
+      "dimensions": [
+        2,
+        2,
+        1
+      ],
+      "max_capacity": 100
+    }
+  ]
+}
