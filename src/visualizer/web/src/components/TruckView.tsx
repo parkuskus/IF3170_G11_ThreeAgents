@@ -279,7 +279,8 @@ export default function TruckView({ trucks, packages, placements, colorMode, hov
     <div className="truck-canvas">
       <Canvas
         key={layout}
-        camera={{ position: [center[0] + reach * 0.5, maxH + reach * 0.9, sceneDepth / 2 + reach * 1.3], fov: 40 }}
+        // The canvas is much wider than tall, so a wide fleet fits from fairly close in.
+        camera={{ position: [center[0] + reach * 0.15, maxH + reach * 0.45, sceneDepth / 2 + reach * 0.85], fov: 40 }}
       >
         <ambientLight intensity={0.9} />
         <directionalLight position={[reach, reach * 2, reach]} intensity={1.2} />
