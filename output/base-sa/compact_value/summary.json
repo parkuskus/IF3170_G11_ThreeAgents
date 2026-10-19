@@ -1,0 +1,30 @@
+{
+  "objective_name": "compact_value",
+  "run_count": 3,
+  "seeds": [
+    11,
+    12,
+    13
+  ],
+  "parameters": {
+    "max_iterations": 3000,
+    "initial_temperature": 100.0,
+    "cooling_rate": 0.995,
+    "stuck_patience": 100
+  },
+  "final_objective_values": [
+    330.44916666666666,
+    330.41032894736844,
+    335.25353658536585
+  ],
+  "final_objective_mean": 332.0376773998003,
+  "final_objective_stdev": 2.7850834490459597,
+  "total_package_value_mean": 331.6666666666667,
+  "total_package_value_stdev": 2.8867513459481287,
+  "eta_weighted_value_mean": 102.66666666666667,
+  "compactness_mean": 0.37475831629661327,
+  "packages_inside_mean": 6,
+  "stuck_count_mean": 2.3333333333333335,
+  "duration_seconds_mean": 0.5681773333338546,
+  "duration_seconds_stdev": 0.04264712567982064
+}

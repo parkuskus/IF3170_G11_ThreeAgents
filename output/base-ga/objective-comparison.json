@@ -1,0 +1,26 @@
+[
+  {
+    "objective_name": "total_value",
+    "run_count": 18,
+    "total_package_value_mean": 331.3888888888889,
+    "total_package_value_stdev": 3.75951950761059,
+    "final_objective_mean": 331.3888888888889,
+    "duration_seconds_mean": 0.446722588888709
+  },
+  {
+    "objective_name": "eta_weighted_value",
+    "run_count": 18,
+    "total_package_value_mean": 296.94444444444446,
+    "total_package_value_stdev": 20.802918975674945,
+    "final_objective_mean": 113.71296296296296,
+    "duration_seconds_mean": 0.4545406888892103
+  },
+  {
+    "objective_name": "compact_value",
+    "run_count": 18,
+    "total_package_value_mean": 331.3888888888889,
+    "total_package_value_stdev": 3.75951950761059,
+    "final_objective_mean": 331.6516243918287,
+    "duration_seconds_mean": 0.4414176333335086
+  }
+]

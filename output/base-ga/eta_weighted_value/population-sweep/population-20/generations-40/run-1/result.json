@@ -1,0 +1,639 @@
+{
+  "experiment": "population-sweep",
+  "population_size": 20,
+  "generations": 40,
+  "run_index": 1,
+  "seed": 11,
+  "initial_state_seed": 24294,
+  "artifacts": {
+    "run_directory": "output\\base-ga\\eta_weighted_value\\population-sweep\\population-20\\generations-40\\run-1",
+    "objective_history": "output\\base-ga\\eta_weighted_value\\population-sweep\\population-20\\generations-40\\run-1\\objective-history.png",
+    "initial_final_states": "output\\base-ga\\eta_weighted_value\\population-sweep\\population-20\\generations-40\\run-1\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "eta_weighted_value",
+    "objective_value": 115.0,
+    "objective_history": [
+      115.0,
+      106.33333333333333,
+      113.33333333333333,
+      113.33333333333333,
+      113.33333333333333,
+      105.0,
+      98.69047619047619,
+      107.5,
+      105.0,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5,
+      107.5
+    ],
+    "duration_seconds": 0.5562316000014107,
+    "seed": 11,
+    "run_index": 1,
+    "parameters": {
+      "population_size": 20,
+      "generations": 40,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 40,
+      "population_size": 20,
+      "best_objective_history": [
+        115.0,
+        106.33333333333333,
+        113.33333333333333,
+        113.33333333333333,
+        113.33333333333333,
+        105.0,
+        98.69047619047619,
+        107.5,
+        105.0,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5,
+        107.5
+      ],
+      "average_objective_history": [
+        90.33571428571429,
+        87.27380952380952,
+        76.8404761904762,
+        78.40357142857142,
+        88.16428571428571,
+        80.57976190476191,
+        72.47738095238095,
+        83.48452380952381,
+        81.60833333333332,
+        85.19880952380952,
+        81.19285714285715,
+        86.84404761904761,
+        85.68333333333334,
+        85.42142857142858,
+        90.74761904761905,
+        91.475,
+        92.35,
+        96.75833333333334,
+        96.69166666666666,
+        97.91666666666666,
+        101.66666666666666,
+        102.91666666666667,
+        100.0,
+        100.35119047619048,
+        104.95833333333333,
+        104.95833333333333,
+        103.29166666666667,
+        100.375,
+        101.25,
+        98.75,
+        95.95833333333334,
+        95.20833333333334,
+        94.25,
+        97.41666666666666,
+        95.58333333333334,
+        94.04166666666666,
+        99.91666666666666,
+        102.41666666666667,
+        104.91666666666667,
+        106.83333333333333,
+        105.5
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          8,
+          6,
+          4
+        ],
+        "max_capacity": 30
+      },
+      "total_package_value": 330,
+      "packages": [
+        {
+          "id": "P01",
+          "dimensions": [
+            3,
+            2,
+            2
+          ],
+          "value": 60,
+          "weight": 6,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              0,
+              3,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              3,
+              2
+            ]
+          }
+        },
+        {
+          "id": "P02",
+          "dimensions": [
+            4,
+            3,
+            2
+          ],
+          "value": 100,
+          "weight": 9,
+          "fragile": false,
+          "eta": 5,
+          "placement": {
+            "coordinate": [
+              2,
+              1,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              4,
+              3
+            ]
+          }
+        },
+        {
+          "id": "P03",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 45,
+          "weight": 4,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "P04",
+          "dimensions": [
+            5,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 3,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              3,
+              0,
+              3
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              5,
+              1
+            ]
+          }
+        },
+        {
+          "id": "P05",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 90,
+          "weight": 10,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "P06",
+          "dimensions": [
+            2,
+            1,
+            4
+          ],
+          "value": 35,
+          "weight": 3,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              7,
+              3,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              1,
+              2,
+              4
+            ]
+          }
+        },
+        {
+          "id": "P07",
+          "dimensions": [
+            4,
+            4,
+            1
+          ],
+          "value": 55,
+          "weight": 7,
+          "fragile": false,
+          "eta": 6,
+          "placement": null
+        },
+        {
+          "id": "P08",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 20,
+          "weight": 1,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              5,
+              2,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "id": "P09",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 75,
+          "weight": 8,
+          "fragile": true,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              4,
+              4,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              3,
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "id": "P10",
+          "dimensions": [
+            6,
+            2,
+            2
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 7,
+          "placement": null
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          8,
+          6,
+          4
+        ],
+        "max_capacity": 30
+      },
+      "total_package_value": 315,
+      "packages": [
+        {
+          "id": "P01",
+          "dimensions": [
+            3,
+            2,
+            2
+          ],
+          "value": 60,
+          "weight": 6,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "P02",
+          "dimensions": [
+            4,
+            3,
+            2
+          ],
+          "value": 100,
+          "weight": 9,
+          "fragile": false,
+          "eta": 5,
+          "placement": {
+            "coordinate": [
+              4,
+              4,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              4,
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "id": "P03",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 45,
+          "weight": 4,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              5,
+              1,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "P04",
+          "dimensions": [
+            5,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 3,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              1,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              5,
+              1
+            ]
+          }
+        },
+        {
+          "id": "P05",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 90,
+          "weight": 10,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "P06",
+          "dimensions": [
+            2,
+            1,
+            4
+          ],
+          "value": 35,
+          "weight": 3,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              3,
+              3,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              4
+            ]
+          }
+        },
+        {
+          "id": "P07",
+          "dimensions": [
+            4,
+            4,
+            1
+          ],
+          "value": 55,
+          "weight": 7,
+          "fragile": false,
+          "eta": 6,
+          "placement": null
+        },
+        {
+          "id": "P08",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 20,
+          "weight": 1,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              1,
+              5,
+              1
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "P09",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 75,
+          "weight": 8,
+          "fragile": true,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              1
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              2
+            ]
+          }
+        },
+        {
+          "id": "P10",
+          "dimensions": [
+            6,
+            2,
+            2
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 7,
+          "placement": null
+        }
+      ]
+    }
+  }
+}
