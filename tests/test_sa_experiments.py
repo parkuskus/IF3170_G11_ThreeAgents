@@ -12,7 +12,7 @@ from src.model import Package, Truck
 from src.neighbors import random_initial_state
 from src.validation import validate_state
 
-FIXTURE = Path(__file__).parent / "fixtures" / "ga_hard_problem.json"
+FIXTURE = Path(__file__).parent / "fixtures" / "hard.json"
 
 
 class SAExperimentTests(unittest.TestCase):

@@ -23,7 +23,7 @@ def run_edge_case_comparison(
     seeds: tuple[int, int, int],
     population_size: int,
     generations: int,
-    output_dir: str | Path = "output/ga-edge-cases",
+    output_dir: str | Path = "tests/fixtures/edge-cases",
     mutation_rate: float = 0.05,
 ) -> tuple[dict[str, Any], ...]:
     """Run 3 seeds for baseline, tight-capacity, compact, and zero-capacity cases."""

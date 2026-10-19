@@ -12,7 +12,7 @@ from src.experiments.run_ga import main
 
 class GADataTests(unittest.TestCase):
     def test_loads_demo_problem(self):
-        path = Path(__file__).parents[1] / "examples" / "ga-demo.json"
+        path = Path(__file__).parents[1] / "tests" / "fixtures" / "demo.json"
         packages, truck = load_problem(path)
         self.assertEqual(len(packages), 5)
         self.assertEqual(truck.max_capacity, 12)
@@ -25,7 +25,7 @@ class GADataTests(unittest.TestCase):
                 load_problem(path)
 
     def test_cli_loads_problem_and_dispatches_runner(self):
-        problem = Path(__file__).parents[1] / "examples" / "ga-demo.json"
+        problem = Path(__file__).parents[1] / "tests" / "fixtures" / "demo.json"
         with patch("src.experiments.run_ga.run_ga_experiments", return_value=()) as runner:
             with redirect_stdout(io.StringIO()):
                 result = main(

@@ -11,7 +11,7 @@ from src.neighbors import random_initial_state
 from src.results import HillClimbingMetrics
 from src.validation import validate_state
 
-DEMO = Path(__file__).resolve().parent.parent / "examples" / "ga-demo.json"
+DEMO = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "demo.json"
 
 
 class HillClimbingTests(unittest.TestCase):
