@@ -1,0 +1,30 @@
+{
+  "objective_name": "total_value",
+  "run_count": 3,
+  "seeds": [
+    11,
+    12,
+    13
+  ],
+  "parameters": {
+    "max_iterations": 2000,
+    "initial_temperature": 100.0,
+    "cooling_rate": 0.995,
+    "stuck_patience": 100
+  },
+  "final_objective_values": [
+    130,
+    130,
+    140
+  ],
+  "final_objective_mean": 133.33333333333334,
+  "final_objective_stdev": 5.773502691896257,
+  "total_package_value_mean": 133.33333333333334,
+  "total_package_value_stdev": 5.773502691896257,
+  "eta_weighted_value_mean": 36.77777777777778,
+  "compactness_mean": 0.6329365079365079,
+  "packages_inside_mean": 2.6666666666666665,
+  "stuck_count_mean": 1,
+  "duration_seconds_mean": 0.21845653333487766,
+  "duration_seconds_stdev": 0.008885164452467694
+}
