@@ -1,0 +1,11 @@
+{
+  "description": "Boundary: 'long' (2x2x5) fits the 5x2x2 truck only after rotation; 'cube' is filler.",
+  "truck": {
+    "dimensions": [5, 2, 2],
+    "max_capacity": 10
+  },
+  "packages": [
+    {"id": "long", "dimensions": [2, 2, 5], "value": 70, "weight": 4, "fragile": false, "eta": 2},
+    {"id": "cube", "dimensions": [2, 2, 2], "value": 30, "weight": 2, "fragile": false, "eta": 1}
+  ]
+}

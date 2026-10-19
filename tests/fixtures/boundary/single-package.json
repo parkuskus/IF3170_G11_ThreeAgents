@@ -1,0 +1,10 @@
+{
+  "description": "Boundary: a single package that fits.",
+  "truck": {
+    "dimensions": [4, 4, 4],
+    "max_capacity": 10
+  },
+  "packages": [
+    {"id": "only", "dimensions": [2, 2, 2], "value": 50, "weight": 5, "fragile": false, "eta": 1}
+  ]
+}

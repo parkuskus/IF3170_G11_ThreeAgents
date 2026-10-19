@@ -1,0 +1,12 @@
+{
+  "description": "Boundary: a 2x2x2 truck holds two layers; a fragile package may sit on top of a non-fragile one but cannot support anything.",
+  "truck": {
+    "dimensions": [2, 2, 2],
+    "max_capacity": 10
+  },
+  "packages": [
+    {"id": "fragile", "dimensions": [2, 2, 1], "value": 50, "weight": 2, "fragile": true, "eta": 1},
+    {"id": "solid-a", "dimensions": [2, 2, 1], "value": 40, "weight": 2, "fragile": false, "eta": 1},
+    {"id": "solid-b", "dimensions": [2, 2, 1], "value": 10, "weight": 2, "fragile": false, "eta": 1}
+  ]
+}
