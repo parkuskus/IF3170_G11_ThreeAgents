@@ -7,7 +7,7 @@ from statistics import mean, stdev
 from typing import Any
 
 from src.algorithms.genetic_algorithm import genetic_algorithm
-from src.experiments.genetic_algorithm import _serialize_result
+from src.experiments.ga.experiments import _serialize_result
 from src.model import Package, Truck
 from src.neighbors import random_initial_state
 from src.visualization.genetic_algorithm import plot_ablation_comparison

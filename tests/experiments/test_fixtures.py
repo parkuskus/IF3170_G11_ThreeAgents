@@ -4,11 +4,11 @@ import unittest
 from itertools import combinations
 from pathlib import Path
 
-from src.experiments.data import load_problem
+from src.experiments.common.data import load_problem
 from src.model import ORIENTATIONS, Placement, State
 from src.validation import validate_state
 
-FIXTURES = Path(__file__).parent / "fixtures"
+FIXTURES = Path(__file__).resolve().parents[1] / "fixtures"
 
 
 def _fits_alone(package, truck):

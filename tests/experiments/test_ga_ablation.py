@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.experiments.ablation import run_ga_ablation
+from src.experiments.ga.ablation import run_ga_ablation
 from src.model import Package, Truck
 
 

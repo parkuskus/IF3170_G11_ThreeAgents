@@ -7,8 +7,8 @@ from random import Random
 from unittest.mock import patch
 
 from src.algorithms.genetic_algorithm import genetic_algorithm
-from src.experiments.genetic_algorithm import run_ga_experiments
-from src.experiments.edge_cases import run_edge_case_comparison
+from src.experiments.ga.experiments import run_ga_experiments
+from src.experiments.ga.edge_cases import run_edge_case_comparison
 from src.model import Package, Truck
 from src.neighbors import random_initial_state
 from src.visualization.genetic_algorithm import (
@@ -24,9 +24,9 @@ class GAExperimentTests(unittest.TestCase):
 
     def test_runner_executes_both_three_by_three_sweeps(self):
         with tempfile.TemporaryDirectory() as temporary_dir, patch(
-            "src.experiments.genetic_algorithm.plot_ga_history"
+            "src.experiments.ga.experiments.plot_ga_history"
         ) as history_plot, patch(
-            "src.experiments.genetic_algorithm.plot_state_comparison"
+            "src.experiments.ga.experiments.plot_state_comparison"
         ) as state_plot:
             records = run_ga_experiments(
                 self.packages,

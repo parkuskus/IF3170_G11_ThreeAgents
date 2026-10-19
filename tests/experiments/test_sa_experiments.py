@@ -7,12 +7,12 @@ from random import Random
 from src.algorithms.genetic_algorithm import genetic_algorithm
 from src.algorithms.simulated_annealing import simulated_annealing
 from src.experiments.run_sa import main
-from src.experiments.simulated_annealing import compare_objectives, run_sa_experiments
+from src.experiments.sa.experiments import compare_objectives, run_sa_experiments
 from src.model import Package, Truck
 from src.neighbors import random_initial_state
 from src.validation import validate_state
 
-FIXTURE = Path(__file__).parent / "fixtures" / "hard.json"
+FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "hard.json"
 
 
 class SAExperimentTests(unittest.TestCase):

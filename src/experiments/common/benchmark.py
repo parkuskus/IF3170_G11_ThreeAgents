@@ -10,7 +10,7 @@ from typing import Any
 from src.algorithms.genetic_algorithm import genetic_algorithm
 from src.algorithms.hill_climbing import VARIANTS, hill_climbing
 from src.algorithms.simulated_annealing import simulated_annealing
-from src.experiments.data import load_problem
+from src.experiments.common.data import load_problem
 from src.model import State
 from src.neighbors import random_initial_state
 from src.validation import validate_state

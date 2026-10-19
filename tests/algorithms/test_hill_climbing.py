@@ -6,15 +6,15 @@ from random import Random
 
 from src.algorithms.hill_climbing import VARIANTS, hill_climbing
 from src.contracts import SearchProblem
-from src.experiments.data import load_problem
-from src.experiments.hill_climbing import run_hc_experiments
+from src.experiments.common.data import load_problem
+from src.experiments.hc.experiments import run_hc_experiments
 from src.model import FleetState
 from src.neighbors import random_initial_state
 from src.results import HillClimbingMetrics
 from src.search_problems import search_problem_for_state
 from src.validation import validate_fleet_state, validate_state
 
-DEMO = Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "demo.json"
+DEMO = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "demo.json"
 
 
 class HillClimbingTests(unittest.TestCase):

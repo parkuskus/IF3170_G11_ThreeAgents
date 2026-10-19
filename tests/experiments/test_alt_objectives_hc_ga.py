@@ -3,13 +3,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from src.experiments.genetic_algorithm import compare_ga_objectives, run_ga_experiments
-from src.experiments.hill_climbing import compare_hc_objectives, run_hc_experiments
+from src.experiments.ga.experiments import compare_ga_objectives, run_ga_experiments
+from src.experiments.hc.experiments import compare_hc_objectives, run_hc_experiments
 from src.experiments.run_ga import main as run_ga_main
 from src.experiments.run_hill_climbing import main as run_hc_main
 from src.model import Package, Truck
 
-FIXTURE = Path(__file__).parent / "fixtures" / "hard.json"
+FIXTURE = Path(__file__).resolve().parents[1] / "fixtures" / "hard.json"
 OBJECTIVES = ("total_value", "eta_weighted_value", "compact_value")
 
 

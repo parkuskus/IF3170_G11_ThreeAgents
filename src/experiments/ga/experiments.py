@@ -7,9 +7,9 @@ from random import Random
 from typing import Any
 
 from src.algorithms.genetic_algorithm import genetic_algorithm
-from src.experiments.analysis import summarize_ga_runs
+from src.experiments.common.analysis import summarize_ga_runs
 from src.contracts import ObjectiveFunction
-from src.experiments.objective_comparison import (
+from src.experiments.common.objective_comparison import (
     aggregate_objective_runs,
     resolve_objective_fn,
     write_objective_comparison,

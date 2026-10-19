@@ -6,7 +6,7 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
-from src.experiments.data import load_fleet_problem, load_problem
+from src.experiments.common.data import load_fleet_problem, load_problem
 from src.experiments.run_ga import main
 
 
@@ -26,7 +26,7 @@ class GADataTests(unittest.TestCase):
         self.assertEqual([truck.dimensions for truck in trucks], [(3, 2, 1), (1, 1, 1)])
 
     def test_legacy_truck_can_be_replicated_and_count_is_validated(self):
-        problem = Path(__file__).parents[1] / "tests" / "fixtures" / "demo.json"
+        problem = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "demo.json"
         _, trucks = load_fleet_problem(problem, truck_count=2)
         self.assertEqual(len(trucks), 2)
         self.assertEqual(trucks[0], trucks[1])
@@ -45,7 +45,7 @@ class GADataTests(unittest.TestCase):
                 load_fleet_problem(path, truck_count=2)
 
     def test_loads_demo_problem(self):
-        path = Path(__file__).parents[1] / "tests" / "fixtures" / "demo.json"
+        path = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "demo.json"
         packages, truck = load_problem(path)
         self.assertEqual(len(packages), 5)
         self.assertEqual(truck.max_capacity, 12)
@@ -58,8 +58,8 @@ class GADataTests(unittest.TestCase):
                 load_problem(path)
 
     def test_cli_loads_problem_and_dispatches_runner(self):
-        problem = Path(__file__).parents[1] / "tests" / "fixtures" / "demo.json"
-        with patch("src.experiments.run_ga.run_ga_experiments", return_value=()) as runner:
+        problem = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "demo.json"
+        with patch("src.experiments.ga.run.run_ga_experiments", return_value=()) as runner:
             with redirect_stdout(io.StringIO()):
                 result = main(
                     [
