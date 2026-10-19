@@ -1,0 +1,394 @@
+{
+  "experiment": "baseline",
+  "category": "boundary",
+  "instance": "exact-capacity",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "population_size": 20,
+    "generations": 40,
+    "mutation_rate": 0.05
+  },
+  "seed": 11,
+  "initial_state_seed": 24294,
+  "loaded_packages": 3,
+  "valid": true,
+  "violations": [],
+  "evaluations": 820,
+  "duration_seconds": 0.17015159997390583,
+  "artifact_path": "output\\ga-analysis\\baseline\\exact-capacity\\baseline-all\\seed-11\\result.json",
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "total_value",
+    "objective_value": 100,
+    "objective_history": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "duration_seconds": 0.17015159997390583,
+    "seed": 11,
+    "run_index": 1,
+    "parameters": {
+      "population_size": 20,
+      "generations": 40,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 40,
+      "population_size": 20,
+      "best_objective_history": [
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100,
+        100
+      ],
+      "average_objective_history": [
+        95.75,
+        93.25,
+        89.5,
+        91.5,
+        91.0,
+        96.0,
+        98.0,
+        98.0,
+        96.0,
+        98.0,
+        98.0,
+        100.0,
+        98.5,
+        100.0,
+        97.0,
+        100.0,
+        100.0,
+        100.0,
+        98.5,
+        98.5,
+        98.0,
+        98.0,
+        96.5,
+        92.5,
+        96.0,
+        98.0,
+        98.0,
+        100.0,
+        100.0,
+        100.0,
+        98.5,
+        97.0,
+        98.5,
+        98.5,
+        100.0,
+        100.0,
+        98.5,
+        100.0,
+        100.0,
+        96.5,
+        96.5
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          10
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 95,
+      "packages": [
+        {
+          "id": "w4",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "w3a",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 30,
+          "weight": 3,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "w3b",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 30,
+          "weight": 3,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              6,
+              5,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "w2",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 25,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              8,
+              8,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          10
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 100,
+      "packages": [
+        {
+          "id": "w4",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              2,
+              8,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "w3a",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 30,
+          "weight": 3,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              7,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "w3b",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 30,
+          "weight": 3,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              8,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "w2",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 25,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        }
+      ]
+    }
+  }
+}

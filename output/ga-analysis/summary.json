@@ -1,0 +1,453 @@
+{
+  "seeds": [
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "baseline": {
+    "population_size": 20,
+    "generations": 40,
+    "mutation_rate": 0.05
+  },
+  "sweeps": {
+    "population_size": [
+      10,
+      20,
+      40
+    ],
+    "generations": [
+      20,
+      40,
+      80
+    ],
+    "mutation_rate": [
+      0.0,
+      0.05,
+      0.2
+    ]
+  },
+  "summary": [
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 331,
+      "final_value_stdev": 2.23606797749979,
+      "final_value_best": 335,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.6809710799949243,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "equal-fitness",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 40,
+      "final_value_stdev": 0.0,
+      "final_value_best": 40,
+      "loaded_packages_mean": 4,
+      "duration_seconds_mean": 0.3390808200114407,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "exact-capacity",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 100,
+      "final_value_stdev": 0.0,
+      "final_value_best": 100,
+      "loaded_packages_mean": 3,
+      "duration_seconds_mean": 0.17049099998548628,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "fragile-support",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 90,
+      "final_value_stdev": 0.0,
+      "final_value_best": 90,
+      "loaded_packages_mean": 2,
+      "duration_seconds_mean": 0.17676774001447484,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "infeasible",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 0,
+      "final_value_stdev": 0.0,
+      "final_value_best": 0,
+      "loaded_packages_mean": 0,
+      "duration_seconds_mean": 0.20533252001041546,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "rotation-only",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 70,
+      "final_value_stdev": 0.0,
+      "final_value_best": 70,
+      "loaded_packages_mean": 1,
+      "duration_seconds_mean": 0.10763840000145138,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "single-package",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 50,
+      "final_value_stdev": 0.0,
+      "final_value_best": 50,
+      "loaded_packages_mean": 1,
+      "duration_seconds_mean": 0.040948259993456304,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "tight-capacity",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 174,
+      "final_value_stdev": 2.23606797749979,
+      "final_value_best": 175,
+      "loaded_packages_mean": 3.4,
+      "duration_seconds_mean": 0.5234446999966167,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "tight-space",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 274,
+      "final_value_stdev": 10.8397416943394,
+      "final_value_best": 290,
+      "loaded_packages_mean": 5,
+      "duration_seconds_mean": 0.5433914600056596,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "wall-touching",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 100,
+      "final_value_stdev": 0.0,
+      "final_value_best": 100,
+      "loaded_packages_mean": 4,
+      "duration_seconds_mean": 0.23266327996971087,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "baseline",
+      "factor": "baseline",
+      "factor_value": "all",
+      "instance": "zero-value-weight",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 70,
+      "final_value_stdev": 0.0,
+      "final_value_best": 70,
+      "loaded_packages_mean": 3,
+      "duration_seconds_mean": 0.1630500599858351,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "generation-sweep",
+      "factor": "generations",
+      "factor_value": 20,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 330,
+      "final_value_stdev": 3.5355339059327378,
+      "final_value_best": 335,
+      "loaded_packages_mean": 5.8,
+      "duration_seconds_mean": 0.518530859996099,
+      "evaluations_mean": 420
+    },
+    {
+      "experiment": "generation-sweep",
+      "factor": "generations",
+      "factor_value": 40,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 331,
+      "final_value_stdev": 2.23606797749979,
+      "final_value_best": 335,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.6646303799934685,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "generation-sweep",
+      "factor": "generations",
+      "factor_value": 80,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 331,
+      "final_value_stdev": 2.23606797749979,
+      "final_value_best": 335,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.935312999994494,
+      "evaluations_mean": 1620
+    },
+    {
+      "experiment": "mutation-sweep",
+      "factor": "mutation_rate",
+      "factor_value": 0.0,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 330,
+      "final_value_stdev": 0.0,
+      "final_value_best": 330,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.6232359599904157,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "mutation-sweep",
+      "factor": "mutation_rate",
+      "factor_value": 0.05,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 331,
+      "final_value_stdev": 2.23606797749979,
+      "final_value_best": 335,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.6591566600021906,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "mutation-sweep",
+      "factor": "mutation_rate",
+      "factor_value": 0.2,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 328,
+      "final_value_stdev": 4.47213595499958,
+      "final_value_best": 330,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.8087938999873586,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "population-sweep",
+      "factor": "population_size",
+      "factor_value": 10,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 327,
+      "final_value_stdev": 6.708203932499369,
+      "final_value_best": 335,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.2953172400011681,
+      "evaluations_mean": 410
+    },
+    {
+      "experiment": "population-sweep",
+      "factor": "population_size",
+      "factor_value": 20,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 331,
+      "final_value_stdev": 2.23606797749979,
+      "final_value_best": 335,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 0.6720769199775531,
+      "evaluations_mean": 820
+    },
+    {
+      "experiment": "population-sweep",
+      "factor": "population_size",
+      "factor_value": 40,
+      "instance": "base",
+      "run_count": 5,
+      "seeds": [
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "valid_rate": 1.0,
+      "final_value_mean": 333,
+      "final_value_stdev": 2.7386127875258306,
+      "final_value_best": 335,
+      "loaded_packages_mean": 6,
+      "duration_seconds_mean": 1.5533549600047991,
+      "evaluations_mean": 1640
+    }
+  ]
+}

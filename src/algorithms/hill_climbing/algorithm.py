@@ -1,12 +1,12 @@
 from math import isfinite
 from random import Random
 from time import perf_counter
+from typing import TypeVar
 
-from src.contracts import ObjectiveFunction, resolve_objective
-from src.model import State
-from src.neighbors import random_initial_state, random_neighbor
+from src.contracts import ObjectiveFunction, SearchProblem
 from src.results import HillClimbingMetrics, ObjectiveValue, SearchResult
 
+StateT = TypeVar("StateT")
 VARIANTS = ("steepest", "sideways", "stochastic", "random_restart")
 
 
@@ -15,7 +15,7 @@ def _check_int(value, name: str, minimum: int) -> None:
         raise ValueError(f"{name} must be an integer >= {minimum}")
 
 
-def _score(objective: ObjectiveFunction[State], state: State) -> ObjectiveValue:
+def _score(objective: ObjectiveFunction[StateT], state: StateT) -> ObjectiveValue:
     score = objective(state)
     if isinstance(score, bool) or not isinstance(score, (int, float)) or not isfinite(score):
         raise ValueError("objective_fn harus mengembalikan finite integer atau float values")
@@ -23,15 +23,16 @@ def _score(objective: ObjectiveFunction[State], state: State) -> ObjectiveValue:
 
 
 def _climb(
-    start: State,
-    objective: ObjectiveFunction[State],
+    start: StateT,
+    problem: SearchProblem[StateT],
+    objective: ObjectiveFunction[StateT],
     rng: Random,
     *,
     variant: str,
     neighbors_per_iteration: int,
     max_iterations: int,
     max_sideways: int,
-) -> tuple[State, ObjectiveValue, list[ObjectiveValue], int, int]:
+) -> tuple[StateT, ObjectiveValue, list[ObjectiveValue], int, int]:
 
     current, current_score = start, _score(objective, start)
     history = [current_score]
@@ -39,9 +40,11 @@ def _climb(
 
     while iterations < max_iterations:
         if variant == "stochastic":
-            candidates = [random_neighbor(current, rng)]
+            candidates = [problem.neighbor(current, rng)]
         else:
-            candidates = [random_neighbor(current, rng) for _ in range(neighbors_per_iteration)]
+            candidates = [problem.neighbor(current, rng) for _ in range(neighbors_per_iteration)]
+        if any(not problem.is_valid(candidate) for candidate in candidates):
+            raise ValueError("neighbor operator returned invalid state")
         scored = [(_score(objective, c), c) for c in candidates]
         best_score, best = max(scored, key=lambda pair: pair[0])
 
@@ -63,10 +66,11 @@ def _climb(
 
 
 def hill_climbing(
-    initial_state: State,
+    initial_state: StateT,
     *,
     seed: int,
-    objective_fn: ObjectiveFunction[State] | None = None,
+    objective_fn: ObjectiveFunction[StateT] | None = None,
+    search_problem: SearchProblem[StateT] | None = None,
     variant: str = "steepest",
     neighbors_per_iteration: int = 30,
     max_iterations: int = 1000,
@@ -74,7 +78,7 @@ def hill_climbing(
     max_restarts: int = 10,
     objective_name: str | None = None,
     run_index: int = 1,
-) -> SearchResult[State]:
+) -> SearchResult[StateT]:
     if variant not in VARIANTS:
         raise ValueError(f"variant harus salah satu dari {VARIANTS}")
     if type(seed) is not int:
@@ -87,7 +91,12 @@ def hill_climbing(
 
     started_at = perf_counter()
     rng = Random(seed)
-    objective = resolve_objective(initial_state, objective_fn)
+    from src.search_problems import search_problem_for_state
+
+    problem = search_problem or search_problem_for_state(initial_state, objective_fn)
+    objective = objective_fn if objective_fn is not None else problem.objective_fn
+    if not problem.is_valid(initial_state):
+        raise ValueError("initial_state is invalid")
     climb_kwargs = dict(
         variant="steepest" if variant == "random_restart" else variant,
         neighbors_per_iteration=neighbors_per_iteration,
@@ -103,9 +112,13 @@ def hill_climbing(
             start = (
                 initial_state
                 if restart == 0
-                else random_initial_state(initial_state.packages, initial_state.truck, rng)
+                else problem.random_state(rng)
             )
-            state, score, hist, iters, _ = _climb(start, objective, rng, **climb_kwargs)
+            if not problem.is_valid(start):
+                raise ValueError("initial-state operator returned invalid state")
+            state, score, hist, iters, _ = _climb(
+                start, problem, objective, rng, **climb_kwargs
+            )
             history.extend(hist)
             per_restart.append(iters)
             if best_score is None or score > best_score:
@@ -115,7 +128,7 @@ def hill_climbing(
         restarts = max_restarts
     else:
         final_state, final_score, history, iterations, sideways = _climb(
-            initial_state, objective, rng, **climb_kwargs
+            initial_state, problem, objective, rng, **climb_kwargs
         )
         per_restart, restarts = [], 0
 
@@ -132,7 +145,9 @@ def hill_climbing(
 
     return SearchResult(
         algorithm=f"hill_climbing_{variant}",
-        objective_name=objective_name or ("total_value" if objective_fn is None else "custom"),
+        objective_name=objective_name or (
+            "custom" if objective_fn is not None else problem.objective_name
+        ),
         initial_state=initial_state,
         final_state=final_state,
         objective_value=final_score,
@@ -153,17 +168,17 @@ def hill_climbing(
     )
 
 
-def steepest_ascent_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+def steepest_ascent_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="steepest", **kw)
 
 
-def sideways_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+def sideways_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="sideways", **kw)
 
 
-def stochastic_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+def stochastic_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="stochastic", **kw)
 
 
-def random_restart_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+def random_restart_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="random_restart", **kw)

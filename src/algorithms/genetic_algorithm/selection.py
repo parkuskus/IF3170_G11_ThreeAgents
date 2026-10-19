@@ -3,13 +3,14 @@
 from collections.abc import Sequence
 from math import isfinite
 from random import Random
+from typing import TypeVar
 
-from src.model import State
+StateT = TypeVar("StateT")
 
 
 def roulette_wheel_select(
-    population: Sequence[State], fitnesses: Sequence[float], rng: Random
-) -> State:
+    population: Sequence[StateT], fitnesses: Sequence[float], rng: Random
+) -> StateT:
     """Select one parent with probability proportional to its fitness."""
     if not population or len(population) != len(fitnesses):
         raise ValueError("population and fitnesses must have the same non-zero length")
