@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import type { Dim3, Example, PackageSpec, Problem } from "../types";
+import type { Dim3, Example, PackageSpec, Problem, TruckSpec } from "../types";
 
 interface Props {
   problem: Problem;
@@ -18,19 +18,24 @@ function nextId(packages: PackageSpec[]): string {
 
 function parseProblem(text: string): Problem {
   const data = JSON.parse(text);
-  if (!data || typeof data !== "object" || !data.truck || !Array.isArray(data.packages))
-    throw new Error('JSON must contain a "truck" object and a "packages" list');
-  return { truck: data.truck, packages: data.packages };
+  if (!data || typeof data !== "object" || !Array.isArray(data.packages))
+    throw new Error('JSON must contain a "packages" list');
+  // A fixture has one "truck"; a fleet has a "trucks" list.
+  const trucks = Array.isArray(data.trucks) ? data.trucks : data.truck ? [data.truck] : null;
+  if (!trucks || trucks.length === 0) throw new Error('JSON must contain a "truck" object or a "trucks" list');
+  return { trucks, packages: data.packages };
 }
 
 export default function ProblemEditor({ problem, examples, onChange, onError }: Props) {
   const fileInput = useRef<HTMLInputElement>(null);
-  const { truck, packages } = problem;
+  const { trucks, packages } = problem;
 
-  const setTruckDim = (axis: number, value: number) => {
-    const dimensions = [...truck.dimensions] as Dim3;
+  const setTruck = (index: number, patch: Partial<TruckSpec>) =>
+    onChange({ ...problem, trucks: trucks.map((t, i) => (i === index ? { ...t, ...patch } : t)) });
+  const setTruckDim = (index: number, axis: number, value: number) => {
+    const dimensions = [...trucks[index].dimensions] as Dim3;
     dimensions[axis] = value;
-    onChange({ ...problem, truck: { ...truck, dimensions } });
+    setTruck(index, { dimensions });
   };
   const setPackage = (index: number, patch: Partial<PackageSpec>) =>
     onChange({
@@ -53,7 +58,17 @@ export default function ProblemEditor({ problem, examples, onChange, onError }: 
 
   const exportFile = () => {
     const url = URL.createObjectURL(
-      new Blob([JSON.stringify(problem, null, 2)], { type: "application/json" }),
+      new Blob(
+        [
+          JSON.stringify(
+            // One truck keeps the fixture shape so the file works with the CLI runners too.
+            trucks.length === 1 ? { truck: trucks[0], packages } : { trucks, packages },
+            null,
+            2,
+          ),
+        ],
+        { type: "application/json" },
+      ),
     );
     const link = document.createElement("a");
     link.href = url;
@@ -102,30 +117,69 @@ export default function ProblemEditor({ problem, examples, onChange, onError }: 
         </div>
       </div>
 
-      <h3>Truck</h3>
-      <div className="row truck-row">
-        {(["Width (x)", "Length (y)", "Height (z)"] as const).map((label, axis) => (
-          <label key={label} className="field">
-            <span>{label}</span>
-            <input
-              type="number"
-              min={1}
-              value={truck.dimensions[axis]}
-              onChange={(e) => setTruckDim(axis, num(e.target.value))}
-            />
-          </label>
-        ))}
-        <label className="field">
-          <span>Max weight</span>
-          <input
-            type="number"
-            min={0}
-            value={truck.max_capacity}
-            onChange={(e) =>
-              onChange({ ...problem, truck: { ...truck, max_capacity: num(e.target.value) } })
-            }
-          />
-        </label>
+      <div className="card-head">
+        <h3>Trucks ({trucks.length})</h3>
+        <button
+          type="button"
+          onClick={() =>
+            // A new truck starts as a copy of the last one.
+            onChange({ ...problem, trucks: [...trucks, structuredClone(trucks[trucks.length - 1])] })
+          }
+        >
+          + Add truck
+        </button>
+      </div>
+      <div className="table-wrap">
+        <table className="packages">
+          <thead>
+            <tr>
+              <th />
+              <th>Width (x)</th>
+              <th>Length (y)</th>
+              <th>Height (z)</th>
+              <th>Max weight</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {trucks.map((truck, i) => (
+              <tr key={i}>
+                <td>Truck {i + 1}</td>
+                {[0, 1, 2].map((axis) => (
+                  <td key={axis}>
+                    <input
+                      type="number"
+                      min={1}
+                      aria-label={`Truck ${i + 1} ${["width", "length", "height"][axis]}`}
+                      value={truck.dimensions[axis]}
+                      onChange={(e) => setTruckDim(i, axis, num(e.target.value))}
+                    />
+                  </td>
+                ))}
+                <td>
+                  <input
+                    type="number"
+                    min={0}
+                    aria-label={`Truck ${i + 1} max weight`}
+                    value={truck.max_capacity}
+                    onChange={(e) => setTruck(i, { max_capacity: num(e.target.value) })}
+                  />
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="icon-btn"
+                    aria-label={`Remove truck ${i + 1}`}
+                    disabled={trucks.length === 1}
+                    onClick={() => onChange({ ...problem, trucks: trucks.filter((_, j) => j !== i) })}
+                  >
+                    ×
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <div className="card-head">
