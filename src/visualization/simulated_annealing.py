@@ -116,7 +116,9 @@ def plot_sa_runs_summary(
 
 
 def plot_objective_comparison(
-    comparisons: Sequence[dict[str, Any]], destination: str | Path
+    comparisons: Sequence[dict[str, Any]],
+    destination: str | Path,
+    title: str = "SA final total package value by objective function (mean ± 1 SD)",
 ) -> None:
     """Bar chart of the final total package value reached under each objective."""
     if not comparisons:
@@ -128,7 +130,7 @@ def plot_objective_comparison(
     bars = ax.bar(names, means, yerr=spreads, capsize=6, color="#1f6feb", alpha=0.8)
     ax.bar_label(bars, labels=[f"{value:g}" for value in means], padding=3)
     ax.set(
-        title="SA final total package value by objective function (mean ± 1 SD)",
+        title=title,
         xlabel="Objective function optimised",
         ylabel="Total package value in truck",
     )

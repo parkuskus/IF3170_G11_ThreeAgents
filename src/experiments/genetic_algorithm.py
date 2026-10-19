@@ -9,6 +9,11 @@ from typing import Any
 from src.algorithms.genetic_algorithm import genetic_algorithm
 from src.experiments.analysis import summarize_ga_runs
 from src.contracts import ObjectiveFunction
+from src.experiments.objective_comparison import (
+    aggregate_objective_runs,
+    resolve_objective_fn,
+    write_objective_comparison,
+)
 from src.model import Package, State, Truck
 from src.neighbors import random_initial_state
 from src.results import SearchResult
@@ -166,6 +171,7 @@ def run_ga_experiments(
     if len(seeds) != 3 or any(type(seed) is not int for seed in seeds) or len(set(seeds)) != 3:
         raise ValueError("seeds must contain three distinct integers")
 
+    objective_fn = resolve_objective_fn(objective_fn, objective_name)
     output_dir = Path(output_dir)
     packages = tuple(packages)
     records = []
@@ -210,3 +216,32 @@ def run_ga_experiments(
             summaries, experiment, output_dir / f"summary-{experiment}.png"
         )
     return tuple(records)
+
+
+def compare_ga_objectives(
+    packages: Sequence[Package],
+    truck: Truck,
+    *,
+    objective_names: Sequence[str],
+    output_dir: str | Path = "output/ga",
+    **ga_parameters: Any,
+) -> tuple[dict[str, Any], ...]:
+    """Run both GA sweeps once per objective with identical seeds/parameters."""
+    output_dir = Path(output_dir)
+    comparisons = []
+    for objective_name in objective_names:
+        records = run_ga_experiments(
+            packages,
+            truck,
+            objective_name=objective_name,
+            output_dir=output_dir / objective_name,
+            **ga_parameters,
+        )
+        comparisons.append(aggregate_objective_runs(objective_name, records))
+    output_dir.mkdir(parents=True, exist_ok=True)
+    write_objective_comparison(
+        comparisons,
+        output_dir,
+        "GA final total package value by objective function (mean ± 1 SD)",
+    )
+    return tuple(comparisons)

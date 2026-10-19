@@ -1,0 +1,301 @@
+{
+  "experiment": "generation-sweep",
+  "population_size": 6,
+  "generations": 8,
+  "run_index": 2,
+  "seed": 42,
+  "initial_state_seed": 24263,
+  "artifacts": {
+    "run_directory": "output\\ga-demo\\compact_value\\generation-sweep\\population-6\\generations-8\\run-2",
+    "objective_history": "output\\ga-demo\\compact_value\\generation-sweep\\population-6\\generations-8\\run-2\\objective-history.png",
+    "initial_final_states": "output\\ga-demo\\compact_value\\generation-sweep\\population-6\\generations-8\\run-2\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "compact_value",
+    "objective_value": 130.75428571428571,
+    "objective_history": [
+      130.75428571428571,
+      130.75428571428571,
+      130.75428571428571,
+      130.58928571428572,
+      130.58928571428572,
+      130.58928571428572,
+      130.54214285714286,
+      130.54214285714286,
+      130.51857142857142
+    ],
+    "duration_seconds": 0.01819090000003598,
+    "seed": 42,
+    "run_index": 2,
+    "parameters": {
+      "population_size": 6,
+      "generations": 8,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 8,
+      "population_size": 6,
+      "best_objective_history": [
+        130.75428571428571,
+        130.75428571428571,
+        130.75428571428571,
+        130.58928571428572,
+        130.58928571428572,
+        130.58928571428572,
+        130.54214285714286,
+        130.54214285714286,
+        130.51857142857142
+      ],
+      "average_objective_history": [
+        128.95011904761904,
+        113.97761904761904,
+        123.93636904761905,
+        130.53428571428572,
+        130.54214285714286,
+        130.53035714285713,
+        130.5225,
+        125.51857142857142,
+        130.51857142857142
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          6
+        ],
+        "max_capacity": 12
+      },
+      "total_package_value": 130,
+      "packages": [
+        {
+          "id": "Box-A",
+          "dimensions": [
+            2,
+            3,
+            1
+          ],
+          "value": 60,
+          "weight": 5,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "Box-B",
+          "dimensions": [
+            3,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              4,
+              7,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              3,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "Fragile-C",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 8,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              5,
+              4,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "Box-D",
+          "dimensions": [
+            1,
+            2,
+            1
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "Box-E",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 80,
+          "weight": 7,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          10,
+          10,
+          6
+        ],
+        "max_capacity": 12
+      },
+      "total_package_value": 130,
+      "packages": [
+        {
+          "id": "Box-A",
+          "dimensions": [
+            2,
+            3,
+            1
+          ],
+          "value": 60,
+          "weight": 5,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              6,
+              9,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              3,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "Box-B",
+          "dimensions": [
+            3,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              4,
+              2,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              3,
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "id": "Fragile-C",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 8,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "Box-D",
+          "dimensions": [
+            1,
+            2,
+            1
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": {
+            "coordinate": [
+              8,
+              5,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "Box-E",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 80,
+          "weight": 7,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,523 @@
+{
+  "experiment": "population-sweep",
+  "population_size": 40,
+  "generations": 40,
+  "run_index": 1,
+  "seed": 11,
+  "initial_state_seed": 24294,
+  "artifacts": {
+    "run_directory": "output\\ga-hard\\compact_value\\population-sweep\\population-40\\generations-40\\run-1",
+    "objective_history": "output\\ga-hard\\compact_value\\population-sweep\\population-40\\generations-40\\run-1\\objective-history.png",
+    "initial_final_states": "output\\ga-hard\\compact_value\\population-sweep\\population-40\\generations-40\\run-1\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "compact_value",
+    "objective_value": 200.27401785714287,
+    "objective_history": [
+      200.27401785714287,
+      195.40891304347826,
+      195.46271739130435,
+      195.46271739130435,
+      195.46271739130435,
+      195.4896195652174,
+      195.4896195652174,
+      195.4896195652174,
+      195.44119565217392,
+      195.41967391304348,
+      195.41967391304348,
+      195.41967391304348,
+      195.4304347826087,
+      195.44657608695653,
+      195.4304347826087,
+      195.45195652173913,
+      195.41967391304348,
+      195.4304347826087,
+      195.4304347826087,
+      195.4304347826087,
+      195.4304347826087,
+      195.4304347826087,
+      195.45195652173913,
+      195.45195652173913,
+      195.4358152173913,
+      195.44119565217392,
+      195.4304347826087,
+      195.4304347826087,
+      195.4304347826087,
+      195.4304347826087,
+      195.4304347826087,
+      195.44119565217392,
+      195.44119565217392,
+      195.44119565217392,
+      195.44119565217392,
+      195.53266304347827,
+      195.53266304347827,
+      195.53266304347827,
+      195.53266304347827,
+      195.53266304347827,
+      195.53266304347827
+    ],
+    "duration_seconds": 0.44069629999989957,
+    "seed": 11,
+    "run_index": 1,
+    "parameters": {
+      "population_size": 40,
+      "generations": 40,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 40,
+      "population_size": 40,
+      "best_objective_history": [
+        200.27401785714287,
+        195.40891304347826,
+        195.46271739130435,
+        195.46271739130435,
+        195.46271739130435,
+        195.4896195652174,
+        195.4896195652174,
+        195.4896195652174,
+        195.44119565217392,
+        195.41967391304348,
+        195.41967391304348,
+        195.41967391304348,
+        195.4304347826087,
+        195.44657608695653,
+        195.4304347826087,
+        195.45195652173913,
+        195.41967391304348,
+        195.4304347826087,
+        195.4304347826087,
+        195.4304347826087,
+        195.4304347826087,
+        195.4304347826087,
+        195.45195652173913,
+        195.45195652173913,
+        195.4358152173913,
+        195.44119565217392,
+        195.4304347826087,
+        195.4304347826087,
+        195.4304347826087,
+        195.4304347826087,
+        195.4304347826087,
+        195.44119565217392,
+        195.44119565217392,
+        195.44119565217392,
+        195.44119565217392,
+        195.53266304347827,
+        195.53266304347827,
+        195.53266304347827,
+        195.53266304347827,
+        195.53266304347827,
+        195.53266304347827
+      ],
+      "average_objective_history": [
+        184.8741100905036,
+        171.398682898885,
+        181.36550044174342,
+        191.01413486225638,
+        191.25307938545848,
+        193.41721790667165,
+        195.0347778532609,
+        192.15263344019235,
+        192.48462364130435,
+        194.98067798913044,
+        194.9980804347826,
+        194.71738220108696,
+        194.97319592391304,
+        195.2302347826087,
+        194.9894,
+        194.73843029891304,
+        194.46300529891306,
+        192.96642674689443,
+        194.9898543478261,
+        193.62879992987376,
+        193.6475016654979,
+        190.1633881486676,
+        193.66700574158486,
+        192.31029270186337,
+        190.55694215838508,
+        189.78648253105592,
+        192.41770040447807,
+        192.30904367236025,
+        194.07024475931678,
+        194.03302368012424,
+        193.50098505434784,
+        195.2643796195652,
+        195.2575883152174,
+        195.2664660326087,
+        195.28718070652172,
+        193.42326542777,
+        194.55402635869567,
+        193.78945516304347,
+        191.58156929347825,
+        188.58425951086957,
+        191.8200258152174
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 200,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              2,
+              3,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              1,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              4,
+              4,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              3,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 200,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              4,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              4,
+              3
+            ]
+          }
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              4,
+              4,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

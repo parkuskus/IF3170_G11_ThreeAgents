@@ -8,6 +8,11 @@ from typing import Any
 from src.algorithms.hill_climbing import VARIANTS, hill_climbing
 from src.contracts import ObjectiveFunction
 from src.experiments.genetic_algorithm import _serialize_state
+from src.experiments.objective_comparison import (
+    aggregate_objective_runs,
+    resolve_objective_fn,
+    write_objective_comparison,
+)
 from src.model import Package, State, Truck
 from src.neighbors import random_initial_state
 from src.results import SearchResult
@@ -81,6 +86,7 @@ def run_hc_experiments(
     if unknown:
         raise ValueError(f"varian tidak dikenal: {unknown}")
 
+    objective_fn = resolve_objective_fn(objective_fn, objective_name)
     output_dir, packages = Path(output_dir), tuple(packages)
     records = []
     for variant in variants:
@@ -126,3 +132,32 @@ def run_hc_experiments(
     (output_dir / "summary.json").write_text(json.dumps(summaries, indent=2), encoding="utf-8")
     plot_hc_summary(summaries, output_dir / "summary.png")
     return tuple(records)
+
+
+def compare_hc_objectives(
+    packages: Sequence[Package],
+    truck: Truck,
+    *,
+    objective_names: Sequence[str],
+    output_dir: str | Path = "output/hill-climbing",
+    **hc_parameters: Any,
+) -> tuple[dict[str, Any], ...]:
+    """Run every HC variant once per objective with identical seeds/parameters."""
+    output_dir = Path(output_dir)
+    comparisons = []
+    for objective_name in objective_names:
+        records = run_hc_experiments(
+            packages,
+            truck,
+            objective_name=objective_name,
+            output_dir=output_dir / objective_name,
+            **hc_parameters,
+        )
+        comparisons.append(aggregate_objective_runs(objective_name, records))
+    output_dir.mkdir(parents=True, exist_ok=True)
+    write_objective_comparison(
+        comparisons,
+        output_dir,
+        "Hill-climbing final total package value by objective function (mean ± 1 SD)",
+    )
+    return tuple(comparisons)
