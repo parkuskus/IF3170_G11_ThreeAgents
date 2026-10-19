@@ -495,7 +495,134 @@ def random_restart_hill_climbing(initial_state: State, **kw) -> SearchResult[Sta
 \subsection{Pelaksana Eksperimen dan Visualisasi}
 Berkas \texttt{src/\allowbreak experiments/\allowbreak hill\_\allowbreak climbing.py} menjalankan setiap varian sebanyak tiga kali dengan tiga \textit{seed} berbeda. \textit{State} awal setiap \textit{run} dibangkitkan secara acak dari \textit{seed} tersebut. Untuk setiap \textit{run}, program menyimpan berkas \texttt{result.json}, plot nilai \textit{objective function} terhadap iterasi, dan visualisasi tiga dimensi \textit{state} awal dan akhir. Ringkasan lintas \textit{run} (rata-rata dan simpangan baku nilai akhir, durasi, dan iterasi) disimpan pada \texttt{summary.json} dan \texttt{summary.png}. Program dijalankan melalui \texttt{src/\allowbreak experiments/\allowbreak run\_\allowbreak hill\_\allowbreak climbing.py}.
 
-\section{Implementasi Simullated Annealing}
+\section{Implementasi Simulated Annealing}
+
+Implementasi \textit{Simulated Annealing} (SA) berada pada berkas \texttt{src/\allowbreak algorithms/\allowbreak simulated\_\allowbreak annealing/\allowbreak algorithm.py}. Algoritma ini memakai representasi \texttt{State}, validator \textit{constraint}, dan fungsi \texttt{random\_neighbor} yang sama dengan \textit{hill climbing} dan \textit{genetic algorithm}, serta mengembalikan objek \texttt{SearchResult} yang seragam. Seluruh fungsi pada algoritma ini terdapat dalam satu fungsi \texttt{simulated\_annealing}; uraian berikut mengikuti urutan eksekusinya.
+
+\subsection{Parameter dan Validasi Masukan}
+
+Pemanggil menyediakan \textit{state} awal, \textit{seed}, jumlah iterasi maksimum, temperatur awal, dan laju pendinginan. Fungsi objektif dapat berupa \texttt{State.objective} atau fungsi lain yang diberikan pemanggil. Fungsi memeriksa bahwa \textit{seed} berupa bilangan bulat, \texttt{max\_iterations} tidak negatif, \texttt{initial\_temperature} bernilai hingga dan positif, serta \texttt{cooling\_rate} berada pada rentang $(0,1]$. Pelanggaran memunculkan \texttt{ValueError} sebelum pencarian dimulai.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}p{4.7cm}p{2.3cm}p{6.5cm}@{}}
+        \toprule
+        Parameter                  & Bawaan CLI & Keterangan                                                                      \\
+        \midrule
+        \texttt{max\_iterations}   & 2000       & Jumlah iterasi; satu-satunya kondisi berhenti                                   \\
+        \texttt{initial\_temperature} & 100,0   & Temperatur awal $T_0$                                                           \\
+        \texttt{cooling\_rate}     & 0,995      & Faktor pengali temperatur setiap iterasi ($\alpha$)                             \\
+        \texttt{stuck\_patience}   & 100        & Jumlah iterasi tanpa perbaikan terbaik hingga dihitung sebagai \textit{stuck}   \\
+        \texttt{seed}              & ---        & \textit{Seed} pembangkit acak agar eksperimen dapat diulang                     \\
+        \bottomrule
+    \end{tabular}
+    \caption{Parameter algoritma \textit{simulated annealing}}
+\end{table}
+
+\subsection{Skema Pendinginan dan Probabilitas Penerimaan}
+
+Temperatur diturunkan secara geometris. Pada iterasi ke-$t$, temperatur adalah
+\begin{equation}
+    T_t = T_0\,\alpha^{t},
+    \label{eq:sa-cooling}
+\end{equation}
+dengan $T_0$ sebagai temperatur awal dan $\alpha$ sebagai \texttt{cooling\_rate}. Karena persoalan ini adalah maksimisasi, selisih nilai kandidat terhadap \textit{state} saat ini ditulis $\Delta E=f(S')-f(S)$. Kandidat yang tidak lebih buruk ($\Delta E\ge 0$) selalu diterima, sedangkan kandidat yang lebih buruk diterima dengan peluang
+\begin{equation}
+    P(\text{terima})=
+    \begin{cases}
+        1                  & \Delta E \ge 0, \\
+        e^{\Delta E/T_t}   & \Delta E < 0.
+    \end{cases}
+    \label{eq:sa-acceptance}
+\end{equation}
+Semakin rendah temperatur atau semakin besar penurunan nilai, semakin kecil peluang menerima langkah yang memburuk. Kode~\ref{lst:sa-acceptance} menunjukkan fungsi bantu yang menghitung peluang ini.
+
+\begin{lstlisting}[language=Python, caption={Peluang penerimaan kandidat},label={lst:sa-acceptance}]
+def _acceptance_probability(delta, temperature):
+    if delta >= 0:
+        return 1.0
+    if temperature <= 0:
+        return 0.0
+    return exp(delta / temperature)
+\end{lstlisting}
+
+\subsection{Loop Pencarian}
+
+Pencarian dimulai dari \textit{state} awal yang diberikan. Pada setiap iterasi, satu \textit{neighbor} valid dibangkitkan oleh \texttt{random\_neighbor}, nilainya dievaluasi, lalu peluang pada Persamaan~\ref{eq:sa-acceptance} dicatat. Kandidat diterima jika $\Delta E\ge 0$ atau jika bilangan acak seragam pada $[0,1)$ lebih kecil daripada peluang tersebut. Setelah itu, temperatur dikalikan dengan \texttt{cooling\_rate}. Selain \textit{state} saat ini, algoritma menyimpan \textit{state} terbaik yang pernah dijumpai sehingga langkah yang memburuk tidak menghilangkan solusi terbaik.
+
+\begin{lstlisting}[language=Python, caption={Loop utama \textit{simulated annealing}},label={lst:sa-loop}]
+rng = Random(seed)
+objective = resolve_objective(initial_state, objective_fn)
+current = best = initial_state
+current_score = best_score = _validate_objective(objective(current))
+temperature = float(initial_temperature)
+
+for _ in range(max_iterations):
+    candidate = random_neighbor(current, rng)
+    candidate_score = _validate_objective(objective(candidate))
+    delta = candidate_score - current_score
+    acceptance_probability = _acceptance_probability(delta, temperature)
+    acceptance_history.append(acceptance_probability)
+    temperature_history.append(temperature)
+
+    if delta >= 0 or rng.random() < acceptance_probability:
+        current, current_score = candidate, candidate_score
+
+    if current_score > best_score:
+        best, best_score = current, current_score
+        stalled_iterations = 0
+        plateau_counted = False
+    else:
+        stalled_iterations += 1
+        if stalled_iterations >= stuck_patience and not plateau_counted:
+            stuck_count += 1
+            plateau_counted = True
+    objective_history.append(best_score)
+    current_history.append(current_score)
+    temperature *= cooling_rate
+\end{lstlisting}
+
+Pengujian \texttt{delta >= 0} sebelum pemanggilan \texttt{rng.random()} berarti kandidat yang tidak lebih buruk tidak mengonsumsi bilangan acak, sehingga urutan keputusan acak tetap deterministik untuk \textit{seed} yang sama. Karena \texttt{random\_neighbor} mengembalikan \textit{state} asal ketika tidak menemukan kandidat valid, iterasi tersebut menghasilkan $\Delta E=0$ dan \textit{state} tidak berubah.
+
+\subsection{Deteksi \textit{Stuck} pada Optimum Lokal}
+
+Spesifikasi meminta frekuensi algoritma terjebak pada optimum lokal. Implementasi mengukurnya melalui \texttt{stuck\_count}, yaitu banyaknya plateau terpisah tempat nilai terbaik tidak membaik selama \texttt{stuck\_patience} iterasi berturut-turut. Penghitung \texttt{stalled\_iterations} direset setiap kali nilai terbaik meningkat, dan penanda \texttt{plateau\_counted} mencegah satu plateau panjang dihitung berulang kali. Dengan demikian, satu plateau yang berlangsung ratusan iterasi hanya menambah \texttt{stuck\_count} sebanyak satu, dan plateau baru hanya dihitung setelah ada perbaikan terbaik yang baru.
+
+\subsection{Metrik dan Hasil}
+
+Setelah iterasi selesai, algoritma mengemas \textit{state} terbaik dan metrik ke dalam \texttt{SearchResult}. \texttt{SimulatedAnnealingMetrics} memuat jumlah iterasi, \texttt{stuck\_count} beserta ambangnya, riwayat nilai \textit{state} saat ini, riwayat temperatur, dan riwayat $e^{\Delta E/T}$ (peluang penerimaan) pada setiap iterasi. Riwayat objektif pada \texttt{objective\_history} menyimpan nilai terbaik sejauh ini, dengan elemen pertama berupa nilai \textit{state} awal, sedangkan riwayat nilai \textit{state} saat ini disimpan terpisah agar dapat memperlihatkan langkah yang memburuk. Karena \texttt{final\_state} adalah \textit{state} terbaik yang pernah dijumpai, nilainya tidak pernah lebih rendah daripada nilai \textit{state} awal.
+
+\begin{lstlisting}[language=Python, caption={Mengemas solusi dan metrik hasil pencarian SA},label={lst:sa-result}]
+return SearchResult(
+    algorithm="simulated_annealing",
+    objective_name=objective_name or ("total_value" if objective_fn is None else "custom"),
+    initial_state=initial_state,
+    final_state=best,
+    objective_value=best_score,
+    objective_history=tuple(objective_history),
+    duration_seconds=perf_counter() - started_at,
+    metrics=SimulatedAnnealingMetrics(
+        iterations=max_iterations,
+        exp_delta_e_over_temperature=tuple(acceptance_history),
+        stuck_count=stuck_count,
+        stuck_patience=stuck_patience,
+        current_objective_history=tuple(current_history),
+        temperature_history=tuple(temperature_history),
+    ),
+    seed=seed,
+    run_index=run_index,
+    parameters={
+        "max_iterations": max_iterations,
+        "initial_temperature": initial_temperature,
+        "cooling_rate": cooling_rate,
+        "stuck_patience": stuck_patience,
+    },
+)
+\end{lstlisting}
+
+\subsection{Pelaksana Eksperimen dan Visualisasi}
+
+Berkas \texttt{src/\allowbreak experiments/\allowbreak simulated\_\allowbreak annealing.py} menjalankan SA satu kali untuk setiap \textit{seed}, sehingga tiga \textit{seed} menghasilkan tiga \textit{run} per konfigurasi. \textit{State} awal setiap \textit{run} dibangkitkan dengan \texttt{random\_initial\_state} dari \textit{seed} yang diturunkan melalui operasi XOR dengan \texttt{0x5EED}, turunan yang sama dengan pelaksana GA sehingga kedua algoritma dapat dimulai dari \textit{state} yang identik. Untuk setiap \textit{run}, program menyimpan \texttt{result.json}, plot riwayat nilai objektif, plot $e^{\Delta E/T}$ terhadap iterasi, dan visualisasi tiga dimensi \textit{state} awal dan akhir. Ringkasan lintas \textit{run} (rata-rata dan simpangan baku nilai akhir, durasi, dan \texttt{stuck\_count}) disimpan pada \texttt{summary.json} dan \texttt{summary-runs.png}. Fungsi \texttt{compare\_objectives} dapat mengulang eksperimen untuk beberapa fungsi objektif dengan \textit{seed} dan parameter yang sama, lalu menulis perbandingannya. Program dijalankan melalui \texttt{src/\allowbreak experiments/\allowbreak run\_\allowbreak sa.py}.
 
 \section{Implementasi Genetic Algorithm}
 
@@ -708,6 +835,40 @@ Seed acak diberikan pada generator \texttt{Random}, sehingga konfigurasi seed ya
 
 \subsection{\textit{Extra} Objective Function}
 
+Dua \textit{objective function} tambahan diimplementasikan pada \texttt{src/\allowbreak objectives.py}. Keduanya hanya memakai variabel masalah yang sudah ada (nilai, ETA, penempatan, dan ukuran truk), tidak menambah data baru, dan didaftarkan bersama \texttt{total\_value} pada kamus \texttt{OBJECTIVES} sehingga dapat dipilih dengan nama dari runner eksperimen.
+
+\begin{itemize}
+    \item \texttt{eta\_weighted\_value}\,$=\sum_{i\in\text{truk}} \dfrac{v_i}{e_i+1}$, dengan $v_i$ nilai dan $e_i$ ETA paket $i$. Paket yang mendesak ($e_i$ kecil) memberi kontribusi lebih besar: paket dengan ETA 0 bernilai penuh, sedangkan paket dengan ETA 3 hanya seperempatnya.
+    \item \texttt{compact\_value}\,$=\text{total\_value} + 0{,}99\cdot\left(1-\dfrac{\sum_i (z_i+h_i)\,V_i}{H\sum_i V_i}\right)$, dengan $z_i$ koordinat vertikal, $h_i$ tinggi terorientasi, $V_i$ volume paket, dan $H$ tinggi truk. Suku kedua bernilai di bawah satu satuan nilai, sehingga \textit{state} dengan nilai total lebih besar selalu menang dan suku ini hanya berperan sebagai pemecah seri yang mengarahkan tumpukan ke bawah. Dengan demikian dataran pada \texttt{total\_value} (gerakan atau rotasi yang mempertahankan himpunan paket) berubah menjadi gradien.
+\end{itemize}
+
+\begin{lstlisting}[language=Python, caption={Fungsi \textit{objective} tambahan pada \texttt{objectives.py}}]
+_COMPACTNESS_SCALE = 0.99
+
+
+def eta_weighted_value(state: State) -> float:
+    return sum(
+        package.value / (package.eta + 1)
+        for package in state.packages
+        if state.placements[package.id] is not None
+    )
+
+
+def compact_value(state: State) -> float:
+    return state.objective() + _COMPACTNESS_SCALE * compactness(state)
+
+
+OBJECTIVES = {
+    "total_value": total_value,
+    "eta_weighted_value": eta_weighted_value,
+    "compact_value": compact_value,
+}
+\end{lstlisting}
+
+Fungsi \texttt{compactness} menghitung satu dikurangi rata-rata tinggi puncak paket yang dibobot volume dan dinormalisasi terhadap tinggi truk, sehingga bernilai dalam $[0,1]$ dan bernilai 0 untuk truk kosong. Setiap algoritma menerima \textit{objective} melalui parameter \texttt{objective\_fn} pada kontrak yang sama, dan \texttt{src/\allowbreak experiments/\allowbreak objective\_comparison.py} menyediakan fungsi bersama untuk memilih \textit{objective} berdasarkan nama serta menilai ulang setiap \textit{state} akhir dengan \texttt{total\_value} agar perbandingan antar-\textit{objective} adil.
+
 \subsection{All-variant Hill Climbing Algorithm}
+
+Keempat varian \textit{hill climbing} (\textit{steepest}, \textit{sideways}, \textit{stochastic}, dan \textit{random restart}) sudah dijelaskan beserta kode sumbernya pada bagian Implementasi \textit{Hill Climbing}. Seluruhnya berbagi satu fungsi \texttt{hill\_climbing} dengan parameter \texttt{variant} dan satu fungsi pendakian \texttt{\_climb}, sehingga perbedaan hasil antar-varian hanya berasal dari aturan penerimaan \textit{neighbor} dan kondisi berhenti. Varian tersebut dapat dijalankan bersamaan dengan salah satu dari tiga \textit{objective function} melalui parameter \texttt{objective\_fn}.
 
 \subsection{Multi-Truck}
