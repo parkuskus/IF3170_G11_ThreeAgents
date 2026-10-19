@@ -567,6 +567,8 @@ Varian & Rata-rata & Iterasi & Durasi (s) & Rata-rata & Iterasi \\
 
 \textit{Steepest} dan \textit{sideways} pada implementasi ini memakai sampel 30 \textit{neighbor} acak per iterasi, bukan seluruh ruang \textit{neighbor}, sehingga hasil di atas hanya berlaku untuk pengaturan tersebut.
 
+Dua catatan agar perbandingan tidak disalahartikan. Pertama, \textit{random restart} menjalankan 11 pendakian (pendakian dari \textit{state} awal ditambah sepuluh \textit{restart}), sedangkan varian lain hanya satu, sehingga keunggulannya sebagian berasal dari anggaran pencarian yang lebih besar dan bukan semata dari aturan penerimaan; durasinya tetap rendah (0,1535 detik pada \texttt{base}) karena sebagian besar pendakian segera berhenti. Kedua, durasi \textit{sideways} yang tinggi sebagian berasal dari \textit{sideways move} yang tidak mengubah \textit{state}: \texttt{random\_neighbor} dapat mengembalikan \textit{state} asal, kandidat itu bernilai sama, dan ia menghabiskan jatah \textit{sideways} tanpa menjelajah. Pada percobaan tambahan di \texttt{base}, sekitar 18--24 dari 100 \textit{sideways move} berupa \textit{no-op}, sehingga manfaat \textit{sideways} pada Tabel~\ref{tab:hc-variants} kemungkinan lebih kecil daripada yang ditunjukkan jatah 100 langkahnya.
+
 \subsection{Studi Ablasi Operator GA}
 
 Ablasi dilakukan pada \texttt{base} dengan \texttt{total\_value}, lima \textit{seed} (11--15), populasi 20, dan 50 generasi. Setiap varian hanya mengubah satu komponen terhadap \textit{baseline} (\textit{roulette-wheel}, \textit{single-point crossover}, mutasi 0,05): tanpa mutasi, tanpa \textit{crossover}, dan seleksi seragam sebagai pembanding \textit{roulette-wheel}.

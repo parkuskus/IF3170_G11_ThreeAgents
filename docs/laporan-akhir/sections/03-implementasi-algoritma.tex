@@ -275,10 +275,10 @@ Karena paket diproses satu per satu dengan jumlah percobaan terbatas, hasil stat
 
 \section{Implementasi Hill Climbing}
 
-Seluruh varian \textit{hill climbing} diimplementasikan pada berkas \texttt{src/\allowbreak algorithms/\allowbreak hill\_\allowbreak climbing/\allowbreak algorithm.py} di atas representasi \textit{state}, validator \textit{constraint}, dan fungsi \textit{neighbor} yang sama dengan algoritma lainnya (\texttt{State}, \texttt{validate\_state}, dan \texttt{random\_neighbor}). Dengan demikian seluruh algoritma menerima masukan dan mengembalikan keluaran yang seragam, yaitu objek \texttt{SearchResult} yang memuat \textit{state} awal, \textit{state} akhir, nilai \textit{objective function} akhir, riwayat nilai per iterasi, durasi pencarian, dan metrik khusus algoritma.
+Seluruh varian \textit{hill climbing} diimplementasikan pada berkas \texttt{src/\allowbreak algorithms/\allowbreak hill\_\allowbreak climbing/\allowbreak algorithm.py}. Algoritma ditulis generik terhadap tipe \textit{state}: seluruh operasi yang bergantung pada domain (nilai \textit{objective}, validasi, pembangkitan \textit{state} acak, dan pembangkitan \textit{neighbor}) diterima melalui objek \texttt{SearchProblem} pada \texttt{src/\allowbreak contracts.py}. Fungsi \texttt{search\_problem\_for\_state} pada \texttt{src/\allowbreak search\_problems.py} memasangkan objek tersebut sesuai tipe \textit{state}: untuk \texttt{State} (satu truk) dipakai \texttt{validate\_state}, \texttt{random\_initial\_state}, dan \texttt{random\_neighbor}, sedangkan untuk \texttt{FleetState} (multi-truk) dipakai padanan versi armada. Dengan demikian satu implementasi \textit{hill climbing} dapat dipakai pada kedua jenis \textit{state}, dan semua algoritma menerima masukan serta mengembalikan keluaran yang seragam, yaitu objek \texttt{SearchResult} yang memuat \textit{state} awal, \textit{state} akhir, nilai \textit{objective function} akhir, riwayat nilai per iterasi, durasi pencarian, dan metrik khusus algoritma.
 
 \subsection{Pembangkitan \textit{Neighbor} dan Heuristik}
-Ruang \textit{neighbor} pada permasalahan ini sangat besar karena koordinat paket berupa bilangan bulat, sehingga seluruh \textit{neighbor} tidak dapat dienumerasi pada setiap iterasi. Sebagai gantinya, setiap \textit{neighbor} dibangkitkan oleh \texttt{random\_neighbor}, yang secara acak memilih salah satu dari tiga operasi (menukar dua paket, memindahkan paket ke koordinat lain, atau merotasi paket $90^{\circ}$) dan hanya mengembalikan \textit{state} yang lolos validasi \textit{constraint}.
+Ruang \textit{neighbor} pada permasalahan ini sangat besar karena koordinat paket berupa bilangan bulat, sehingga seluruh \textit{neighbor} tidak dapat dienumerasi pada setiap iterasi. Sebagai gantinya, setiap \textit{neighbor} dibangkitkan lewat \texttt{problem.neighbor}. Pada satu truk fungsi ini adalah \texttt{random\_neighbor}, yang secara acak memilih salah satu dari tiga operasi (menukar dua paket, memindahkan paket ke koordinat lain, atau merotasi paket $90^{\circ}$) dan hanya mengembalikan \textit{state} yang lolos validasi \textit{constraint}; bila tidak ada kandidat valid dalam batas percobaan, fungsi mengembalikan \textit{state} asal. Sebelum dievaluasi, setiap kandidat diperiksa ulang dengan \texttt{problem.is\_valid}, dan \texttt{ValueError} dilempar jika operator \textit{neighbor} menghasilkan \textit{state} yang tidak valid.
 
 Heuristik yang kami gunakan adalah \textit{steepest} berbasis sampel: pada setiap iterasi dibangkitkan \texttt{neighbors\_per\_iteration} (bawaan 30) \textit{neighbor} valid, kemudian \textit{neighbor} dengan nilai terbaik dianggap sebagai \textit{neighbor} terbaik. Konsekuensinya, varian \textit{steepest} dan \textit{sideways} tidak menjamin menemukan \textit{neighbor} terbaik yang sesungguhnya, tetapi peluangnya naik seiring bertambahnya ukuran sampel. Varian \textit{stochastic} memakai tepat satu \textit{neighbor} per iterasi.
 
@@ -311,18 +311,18 @@ Heuristik yang kami gunakan adalah \textit{steepest} berbasis sampel: pada setia
 Setiap \textit{run} mengembalikan \texttt{HillClimbingMetrics} yang berisi varian yang dipakai, banyak iterasi hingga berhenti, jumlah dan batas \textit{sideways move}, jumlah dan batas \textit{restart}, serta banyak iterasi pada setiap \textit{restart}. Riwayat nilai \textit{objective function} dicatat pada setiap iterasi (elemen pertama adalah nilai \textit{state} awal) dan digunakan untuk membuat plot nilai \textit{objective function} terhadap banyak iterasi. Durasi pencarian diukur dengan \texttt{perf\_counter}.
 
 \subsection{\textit{Source Code}}
-Fungsi \texttt{\_climb} menjalankan satu pendakian untuk varian \textit{steepest}, \textit{sideways}, atau \textit{stochastic}. Fungsi \texttt{hill\_climbing} memvalidasi parameter, memilih varian, menangani pengulangan pada \textit{random restart}, lalu menyusun \texttt{SearchResult}.
+Fungsi \texttt{\_climb} menjalankan satu pendakian untuk varian \textit{steepest}, \textit{sideways}, atau \textit{stochastic}. Fungsi \texttt{hill\_climbing} memvalidasi parameter, memasang \texttt{SearchProblem} dan \textit{objective}, memeriksa \textit{state} awal, memilih varian, menangani pengulangan pada \textit{random restart}, lalu menyusun \texttt{SearchResult}. Listing berikut disalin dari \texttt{algorithm.py}.
 
-\begin{lstlisting}[language=Python, caption={Fungsi bantu dan \texttt{\_climb} pada \texttt{algorithm.py}}]
+\begin{lstlisting}[language=Python, caption={Fungsi bantu dan \texttt{\_climb} pada \texttt{algorithm.py}}, label={lst:hc-climb}]
 from math import isfinite
 from random import Random
 from time import perf_counter
+from typing import TypeVar
 
-from src.contracts import ObjectiveFunction, resolve_objective
-from src.model import State
-from src.neighbors import random_initial_state, random_neighbor
+from src.contracts import ObjectiveFunction, SearchProblem
 from src.results import HillClimbingMetrics, ObjectiveValue, SearchResult
 
+StateT = TypeVar("StateT")
 VARIANTS = ("steepest", "sideways", "stochastic", "random_restart")
 
 
@@ -331,36 +331,36 @@ def _check_int(value, name: str, minimum: int) -> None:
         raise ValueError(f"{name} must be an integer >= {minimum}")
 
 
-def _score(objective: ObjectiveFunction[State], state: State) -> ObjectiveValue:
+def _score(objective: ObjectiveFunction[StateT], state: StateT) -> ObjectiveValue:
     score = objective(state)
     if isinstance(score, bool) or not isinstance(score, (int, float)) or not isfinite(score):
-        raise ValueError("objective_fn must return finite integer or float values")
+        raise ValueError("objective_fn harus mengembalikan finite integer atau float values")
     return score
 
 
 def _climb(
-    start: State,
-    objective: ObjectiveFunction[State],
+    start: StateT,
+    problem: SearchProblem[StateT],
+    objective: ObjectiveFunction[StateT],
     rng: Random,
     *,
     variant: str,
     neighbors_per_iteration: int,
     max_iterations: int,
     max_sideways: int,
-) -> tuple[State, ObjectiveValue, list[ObjectiveValue], int, int]:
-    """One climb. Returns (state, score, history, iterations, sideways_moves).
+) -> tuple[StateT, ObjectiveValue, list[ObjectiveValue], int, int]:
 
-    history[0] is the start score; one entry is appended per iteration.
-    """
     current, current_score = start, _score(objective, start)
     history = [current_score]
     iterations = sideways = 0
 
     while iterations < max_iterations:
         if variant == "stochastic":
-            candidates = [random_neighbor(current, rng)]
+            candidates = [problem.neighbor(current, rng)]
         else:
-            candidates = [random_neighbor(current, rng) for _ in range(neighbors_per_iteration)]
+            candidates = [problem.neighbor(current, rng) for _ in range(neighbors_per_iteration)]
+        if any(not problem.is_valid(candidate) for candidate in candidates):
+            raise ValueError("neighbor operator returned invalid state")
         scored = [(_score(objective, c), c) for c in candidates]
         best_score, best = max(scored, key=lambda pair: pair[0])
 
@@ -370,23 +370,24 @@ def _climb(
             current = best
             sideways += 1
         elif variant == "stochastic":
-            iterations += 1  # a rejected random neighbor still costs an iteration
+            iterations += 1
             history.append(current_score)
             continue
         else:
-            break  # local optimum (or sideways budget exhausted)
+            break
         iterations += 1
         history.append(current_score)
 
     return current, current_score, history, iterations, sideways
 \end{lstlisting}
 
-\begin{lstlisting}[language=Python, caption={Fungsi \texttt{hill\_climbing} pada \texttt{algorithm.py}}]
+\begin{lstlisting}[language=Python, caption={Fungsi \texttt{hill\_climbing} pada \texttt{algorithm.py}}, label={lst:hc-main}]
 def hill_climbing(
-    initial_state: State,
+    initial_state: StateT,
     *,
     seed: int,
-    objective_fn: ObjectiveFunction[State] | None = None,
+    objective_fn: ObjectiveFunction[StateT] | None = None,
+    search_problem: SearchProblem[StateT] | None = None,
     variant: str = "steepest",
     neighbors_per_iteration: int = 30,
     max_iterations: int = 1000,
@@ -394,12 +395,11 @@ def hill_climbing(
     max_restarts: int = 10,
     objective_name: str | None = None,
     run_index: int = 1,
-) -> SearchResult[State]:
-    """Run one hill-climbing variant and return a shared-contract SearchResult."""
+) -> SearchResult[StateT]:
     if variant not in VARIANTS:
-        raise ValueError(f"variant must be one of {VARIANTS}")
+        raise ValueError(f"variant harus salah satu dari {VARIANTS}")
     if type(seed) is not int:
-        raise ValueError("seed must be an integer")
+        raise ValueError("seed harus berupa bilangan bulat")
     _check_int(neighbors_per_iteration, "neighbors_per_iteration", 1)
     _check_int(max_iterations, "max_iterations", 0)
     _check_int(max_sideways, "max_sideways", 0)
@@ -408,7 +408,12 @@ def hill_climbing(
 
     started_at = perf_counter()
     rng = Random(seed)
-    objective = resolve_objective(initial_state, objective_fn)
+    from src.search_problems import search_problem_for_state
+
+    problem = search_problem or search_problem_for_state(initial_state, objective_fn)
+    objective = objective_fn if objective_fn is not None else problem.objective_fn
+    if not problem.is_valid(initial_state):
+        raise ValueError("initial_state is invalid")
     climb_kwargs = dict(
         variant="steepest" if variant == "random_restart" else variant,
         neighbors_per_iteration=neighbors_per_iteration,
@@ -417,7 +422,6 @@ def hill_climbing(
     )
 
     if variant == "random_restart":
-        # Restart 0 uses the supplied initial state; each later one a fresh random state.
         best_state, best_score = initial_state, None
         history: list[ObjectiveValue] = []
         per_restart: list[int] = []
@@ -425,9 +429,13 @@ def hill_climbing(
             start = (
                 initial_state
                 if restart == 0
-                else random_initial_state(initial_state.packages, initial_state.truck, rng)
+                else problem.random_state(rng)
             )
-            state, score, hist, iters, _ = _climb(start, objective, rng, **climb_kwargs)
+            if not problem.is_valid(start):
+                raise ValueError("initial-state operator returned invalid state")
+            state, score, hist, iters, _ = _climb(
+                start, problem, objective, rng, **climb_kwargs
+            )
             history.extend(hist)
             per_restart.append(iters)
             if best_score is None or score > best_score:
@@ -437,7 +445,7 @@ def hill_climbing(
         restarts = max_restarts
     else:
         final_state, final_score, history, iterations, sideways = _climb(
-            initial_state, objective, rng, **climb_kwargs
+            initial_state, problem, objective, rng, **climb_kwargs
         )
         per_restart, restarts = [], 0
 
@@ -454,7 +462,9 @@ def hill_climbing(
 
     return SearchResult(
         algorithm=f"hill_climbing_{variant}",
-        objective_name=objective_name or ("total_value" if objective_fn is None else "custom"),
+        objective_name=objective_name or (
+            "custom" if objective_fn is not None else problem.objective_name
+        ),
         initial_state=initial_state,
         final_state=final_state,
         objective_value=final_score,
@@ -475,25 +485,25 @@ def hill_climbing(
     )
 \end{lstlisting}
 
-\begin{lstlisting}[language=Python, caption={Fungsi pembungkus tiap varian pada \texttt{algorithm.py}}]
-def steepest_ascent_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+\begin{lstlisting}[language=Python, caption={Fungsi pembungkus tiap varian pada \texttt{algorithm.py}}, label={lst:hc-wrappers}]
+def steepest_ascent_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="steepest", **kw)
 
 
-def sideways_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+def sideways_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="sideways", **kw)
 
 
-def stochastic_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+def stochastic_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="stochastic", **kw)
 
 
-def random_restart_hill_climbing(initial_state: State, **kw) -> SearchResult[State]:
+def random_restart_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="random_restart", **kw)
 \end{lstlisting}
 
 \subsection{Pelaksana Eksperimen dan Visualisasi}
-Berkas \texttt{src/\allowbreak experiments/\allowbreak hill\_\allowbreak climbing.py} menjalankan setiap varian sebanyak tiga kali dengan tiga \textit{seed} berbeda. \textit{State} awal setiap \textit{run} dibangkitkan secara acak dari \textit{seed} tersebut. Untuk setiap \textit{run}, program menyimpan berkas \texttt{result.json}, plot nilai \textit{objective function} terhadap iterasi, dan visualisasi tiga dimensi \textit{state} awal dan akhir. Ringkasan lintas \textit{run} (rata-rata dan simpangan baku nilai akhir, durasi, dan iterasi) disimpan pada \texttt{summary.json} dan \texttt{summary.png}. Program dijalankan melalui \texttt{src/\allowbreak experiments/\allowbreak run\_\allowbreak hill\_\allowbreak climbing.py}.
+Pelaksana eksperimen \textit{hill climbing} berada pada \texttt{src/\allowbreak experiments/\allowbreak hc/\allowbreak experiments.py}, dengan antarmuka baris perintah pada \texttt{src/\allowbreak experiments/\allowbreak hc/\allowbreak run.py}; \texttt{src/\allowbreak experiments/\allowbreak run\_\allowbreak hill\_\allowbreak climbing.py} hanya meneruskan ke \textit{entry point} tersebut. Fungsi \texttt{run\_hc\_experiments} menjalankan setiap varian sebanyak tiga kali dengan tiga \textit{seed} berbeda. \textit{State} awal setiap \textit{run} dibangkitkan secara acak dari \textit{seed} yang dikenai XOR dengan konstanta tetap (\texttt{seed \^{} 0x5EED}), sehingga seluruh varian dan seluruh \textit{objective function} yang dibandingkan memulai dari \textit{state} awal yang sama. Untuk setiap \textit{run}, program menyimpan berkas \texttt{result.json}, plot nilai \textit{objective function} terhadap iterasi, dan visualisasi tiga dimensi \textit{state} awal dan akhir. Ringkasan lintas \textit{run} (rata-rata, simpangan baku, dan nilai terbaik \textit{objective}, serta rata-rata durasi dan iterasi) disimpan pada \texttt{summary.json} dan \texttt{summary.png}. Program dijalankan melalui \texttt{python -m src.experiments.run\_hill\_climbing}.
 
 \section{Implementasi Simulated Annealing}
 
