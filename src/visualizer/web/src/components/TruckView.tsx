@@ -1,15 +1,15 @@
-import { OrbitControls } from "@react-three/drei";
+import { Html, OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useLayoutEffect, useMemo, useRef } from "react";
 import { BoxGeometry, type Group, Matrix3, Matrix4, Quaternion, Vector3 } from "three";
-import type { Dim3, PackageSpec, Placement } from "../types";
+import type { Dim3, PackageSpec, Placement, Placements } from "../types";
 
 export type ColorMode = "eta" | "value" | "fragile";
 
 interface Props {
-  truck: Dim3;
+  trucks: Dim3[];
   packages: PackageSpec[];
-  placements: Record<string, Placement | null>;
+  placements: Placements;
   colorMode: ColorMode;
   hovered: string | null;
   /** Length of one animation step; a package's move finishes within it. */
@@ -54,9 +54,22 @@ function orientationQuaternion(orientation: Dim3): Quaternion {
 
 const IDENTITY_ORIENTATION: Dim3 = [0, 1, 2];
 
-/** Where packages wait outside the truck: shelves along the truck's +x side. */
-function stagingSpots(packages: PackageSpec[], truck: Dim3) {
-  const [W, L] = truck;
+const TRUCK_GAP = 2;
+
+/** Left edge of each truck when the fleet is laid out side by side along x. */
+function truckOffsets(trucks: Dim3[]): number[] {
+  const offsets: number[] = [];
+  let x = 0;
+  for (const [width] of trucks) {
+    offsets.push(x);
+    x += width + TRUCK_GAP;
+  }
+  return offsets;
+}
+
+/** Where packages wait outside the trucks: shelves along the fleet's +x side. */
+function stagingSpots(packages: PackageSpec[], fleetWidth: number, L: number) {
+  const W = fleetWidth;
   const gap = 0.6;
   const spots = new Map<string, Vector3>();
   // Shelves are as long as the truck, or longer when many packages would
@@ -106,7 +119,8 @@ interface Tween {
 
 interface Motion {
   tween: Tween | null;
-  inside: boolean | null;
+  /** Truck the package was last heading to (null = waiting area); undefined before the first render. */
+  truck: number | null | undefined;
 }
 
 // Within one step the work is staged so each kind of change reads on its own:
@@ -143,6 +157,8 @@ function makeTween(
 function PackageBox({
   pkg,
   placement,
+  truckIndex,
+  offsetX,
   stage,
   liftY,
   stepSeconds,
@@ -153,6 +169,10 @@ function PackageBox({
 }: {
   pkg: PackageSpec;
   placement: Placement | null;
+  /** Which truck the placement is in; null when the package is not loaded. */
+  truckIndex: number | null;
+  /** Where that truck's left edge sits in the scene. */
+  offsetX: number;
   stage: Vector3;
   liftY: number;
   stepSeconds: number;
@@ -162,7 +182,7 @@ function PackageBox({
   onHover: (id: string | null) => void;
 }) {
   const group = useRef<Group>(null);
-  const motion = useRef<Motion>({ tween: null, inside: null });
+  const motion = useRef<Motion>({ tween: null, truck: undefined });
   // Read at the moment a step starts, so changing the speed never restarts a move.
   const step = useRef(stepSeconds);
   step.current = stepSeconds;
@@ -171,38 +191,37 @@ function PackageBox({
   const size = useMemo<Dim3>(() => [d0, d2, d1], [d0, d1, d2]);
 
   const key = placement
-    ? `${placement.coordinate.join()}|${placement.orientation.join()}`
+    ? `${truckIndex}|${placement.coordinate.join()}|${placement.orientation.join()}`
     : "outside";
 
   useLayoutEffect(() => {
     const g = group.current;
     if (!g) return;
     const m = motion.current;
-    const inside = placement !== null;
     const target = placement
       ? toScene(
-          placement.coordinate[0] + placement.dimensions[0] / 2,
+          offsetX + placement.coordinate[0] + placement.dimensions[0] / 2,
           placement.coordinate[1] + placement.dimensions[1] / 2,
           placement.coordinate[2] + placement.dimensions[2] / 2,
         )
       : stage;
     const quaternion = orientationQuaternion(placement ? placement.orientation : IDENTITY_ORIENTATION);
 
-    if (m.inside === null) {
+    if (m.truck === undefined) {
       // First render: appear in place rather than flying in.
       g.position.copy(target);
       g.quaternion.copy(quaternion);
     } else {
       const here = g.position.clone();
-      const crossing = m.inside !== inside;
-      const phase = !crossing ? "move" : inside ? "enter" : "exit";
-      // Crossing the truck boundary: rise clear of the walls, travel across, then settle.
+      const crossing = m.truck !== truckIndex;
+      const phase = !crossing ? "move" : truckIndex === null ? "exit" : m.truck === null ? "enter" : "move";
+      // Leaving, entering, or changing truck: rise clear of the walls, travel across, then settle.
       const points = crossing
         ? [here, new Vector3(here.x, liftY, here.z), new Vector3(target.x, liftY, target.z), target]
         : [here, target];
       m.tween = makeTween(points, g.quaternion, quaternion, phase, step.current);
     }
-    m.inside = inside;
+    m.truck = truckIndex;
   }, [key, stage, liftY]);
 
   useFrame((_, delta) => {
@@ -240,47 +259,68 @@ function PackageBox({
   );
 }
 
-export default function TruckView({ truck, packages, placements, colorMode, hovered, stepSeconds, onHover }: Props) {
-  const [W, L, H] = truck;
-  const { spots, maxX, maxZ } = useMemo(() => stagingSpots(packages, truck), [packages, truck]);
-  const liftY = H + Math.max(...packages.flatMap((p) => p.dimensions), 1) / 2 + 1;
+export default function TruckView({ trucks, packages, placements, colorMode, hovered, stepSeconds, onHover }: Props) {
+  const offsets = useMemo(() => truckOffsets(trucks), [trucks]);
+  const fleetWidth = offsets[offsets.length - 1] + trucks[trucks.length - 1][0];
+  const maxL = Math.max(...trucks.map((t) => t[1]));
+  const maxH = Math.max(...trucks.map((t) => t[2]));
+  const { spots, maxX, maxZ } = useMemo(
+    () => stagingSpots(packages, fleetWidth, maxL),
+    [packages, fleetWidth, maxL],
+  );
+  const liftY = maxH + Math.max(...packages.flatMap((p) => p.dimensions), 1) / 2 + 1;
 
-  const sceneWidth = Math.max(maxX, W);
-  const sceneDepth = Math.max(maxZ, L);
-  const reach = Math.max(sceneWidth, sceneDepth, H);
-  const center: Dim3 = [sceneWidth / 2, H / 2, sceneDepth / 2];
+  const sceneWidth = Math.max(maxX, fleetWidth);
+  const sceneDepth = Math.max(maxZ, maxL);
+  const reach = Math.max(sceneWidth, sceneDepth, maxH);
+  const center: Dim3 = [sceneWidth / 2, maxH / 2, sceneDepth / 2];
+  const layout = `${trucks.map((t) => t.join("x")).join("+")}:${sceneWidth}x${sceneDepth}`;
   return (
     <div className="truck-canvas">
       <Canvas
-        key={`${W}x${L}x${H}:${sceneWidth}x${sceneDepth}`}
-        camera={{ position: [center[0] + reach * 0.5, H + reach * 0.9, sceneDepth / 2 + reach * 1.3], fov: 40 }}
+        key={layout}
+        camera={{ position: [center[0] + reach * 0.5, maxH + reach * 0.9, sceneDepth / 2 + reach * 1.3], fov: 40 }}
       >
         <ambientLight intensity={0.9} />
         <directionalLight position={[reach, reach * 2, reach]} intensity={1.2} />
-        <WireBox size={[W, H, L]} position={[W / 2, H / 2, L / 2]} color="#8b95a1" />
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[W / 2, -0.01, L / 2]}>
-          <planeGeometry args={[W, L]} />
-          <meshBasicMaterial color="#8b95a1" transparent opacity={0.12} />
-        </mesh>
-        {/* Waiting area for packages that are not in the truck. */}
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[(W + 1 + maxX) / 2, -0.01, maxZ / 2]}>
-          <planeGeometry args={[maxX - W - 1, maxZ]} />
+        {trucks.map(([W, L, H], i) => (
+          <group key={i}>
+            <WireBox size={[W, H, L]} position={[offsets[i] + W / 2, H / 2, L / 2]} color="#8b95a1" />
+            <mesh rotation={[-Math.PI / 2, 0, 0]} position={[offsets[i] + W / 2, -0.01, L / 2]}>
+              <planeGeometry args={[W, L]} />
+              <meshBasicMaterial color="#8b95a1" transparent opacity={0.12} />
+            </mesh>
+            {trucks.length > 1 && (
+              <Html position={[offsets[i] + W / 2, H + 0.4, L / 2]} center>
+                <span className="truck-label">Truck {i + 1}</span>
+              </Html>
+            )}
+          </group>
+        ))}
+        {/* Waiting area for packages that are not in any truck. */}
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[(fleetWidth + 1 + maxX) / 2, -0.01, maxZ / 2]}>
+          <planeGeometry args={[maxX - fleetWidth - 1, maxZ]} />
           <meshBasicMaterial color="#8b95a1" transparent opacity={0.06} />
         </mesh>
-        {packages.map((pkg) => (
-          <PackageBox
-            key={pkg.id}
-            pkg={pkg}
-            placement={placements[pkg.id]}
-            stage={spots.get(pkg.id)!}
-            liftY={liftY}
-            stepSeconds={stepSeconds}
-            color={colorFor(pkg, colorMode, packages)}
-            active={hovered === pkg.id}
-            dimmed={hovered !== null && hovered !== pkg.id}
-            onHover={onHover}
-          />
-        ))}
+        {packages.map((pkg) => {
+          const truckIndex = placements.findIndex((truck) => truck[pkg.id] != null);
+          return (
+            <PackageBox
+              key={pkg.id}
+              pkg={pkg}
+              placement={truckIndex >= 0 ? placements[truckIndex][pkg.id] : null}
+              truckIndex={truckIndex >= 0 ? truckIndex : null}
+              offsetX={truckIndex >= 0 ? offsets[truckIndex] : 0}
+              stage={spots.get(pkg.id)!}
+              liftY={liftY}
+              stepSeconds={stepSeconds}
+              color={colorFor(pkg, colorMode, packages)}
+              active={hovered === pkg.id}
+              dimmed={hovered !== null && hovered !== pkg.id}
+              onHover={onHover}
+            />
+          );
+        })}
         <OrbitControls makeDefault target={center} />
       </Canvas>
     </div>

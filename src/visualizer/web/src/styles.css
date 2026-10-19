@@ -385,3 +385,15 @@ table.packages tr.muted td {
   gap: 6px;
   font-size: 13px;
 }
+.truck-label {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
