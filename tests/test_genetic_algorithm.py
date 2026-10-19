@@ -14,7 +14,9 @@ from src.algorithms.genetic_algorithm.fleet import (
     mutate_fleet_individual,
     random_initial_fleet_state,
 )
+from src.contracts import SearchProblem
 from src.model import FleetState, Package, Placement, State, Truck
+from src.search_problems import search_problem_for_state
 from src.validation import validate_fleet_state, validate_state
 
 
@@ -320,6 +322,23 @@ class FleetGeneticAlgorithmTests(unittest.TestCase):
         self.assertEqual(validate_fleet_state(result.final_state), [])
         self.assertEqual(result.objective_value, result.final_state.objective())
         self.assertEqual(result.final_state.objective(), 10)
+        self.assertEqual(result.algorithm, "fleet_genetic_algorithm")
+        self.assertEqual(result.parameters["truck_count"], 2)
+
+    def test_generic_ga_uses_fleet_search_problem(self):
+        package = Package("a", (1, 1, 1), 10, 1, False, 0)
+        trucks = (Truck((1, 1, 1), 1), Truck((1, 1, 1), 1))
+        initial = FleetState((package,), trucks, ({"a": None}, {"a": None}))
+        result = genetic_algorithm(
+            initial,
+            seed=7,
+            population_size=4,
+            generations=2,
+            search_problem=search_problem_for_state(initial),
+        )
+        self.assertEqual(validate_fleet_state(result.final_state), [])
+        self.assertEqual(result.objective_value, 10)
+
 
     def test_fleet_initializer_rejects_no_trucks(self):
         with self.assertRaises(ValueError):
@@ -328,6 +347,63 @@ class FleetGeneticAlgorithmTests(unittest.TestCase):
     @staticmethod
     def initial_packages():
         return (Package("a", (1, 1, 1), 10, 1, False, 0),)
+
+
+class GenericGeneticAlgorithmTests(unittest.TestCase):
+    def test_generic_ga_runs_on_custom_state_contract(self):
+        problem = SearchProblem(
+            objective_fn=lambda state: state,
+            is_valid=lambda state: state >= 0,
+            random_state=lambda rng: 0,
+            neighbor=lambda state, rng: state,
+            crossover=lambda parent_a, parent_b, rng: max(parent_a, parent_b),
+            mutate=lambda state, rng: state + 1,
+        )
+        result = genetic_algorithm(
+            0,
+            seed=5,
+            population_size=3,
+            generations=2,
+            mutation_rate=1,
+            search_problem=problem,
+        )
+        self.assertEqual(result.final_state, 2)
+        self.assertEqual(result.objective_value, 2)
+
+    def test_generic_ga_requires_crossover_when_enabled(self):
+        problem = SearchProblem(
+            objective_fn=lambda state: state,
+            is_valid=lambda state: state >= 0,
+            random_state=lambda rng: 0,
+            neighbor=lambda state, rng: state,
+        )
+        with self.assertRaisesRegex(ValueError, "crossover"):
+            genetic_algorithm(
+                0,
+                seed=5,
+                population_size=2,
+                generations=1,
+                search_problem=problem,
+            )
+
+    def test_generic_ga_rejects_invalid_operator_result(self):
+        problem = SearchProblem(
+            objective_fn=lambda state: state,
+            is_valid=lambda state: state >= 0,
+            random_state=lambda rng: 0,
+            neighbor=lambda state, rng: state,
+            crossover=lambda parent_a, parent_b, rng: -1,
+            mutate=lambda state, rng: state,
+        )
+        with self.assertRaisesRegex(ValueError, "crossover.*invalid"):
+            genetic_algorithm(
+                0,
+                seed=5,
+                population_size=2,
+                generations=1,
+                mutation_rate=0,
+                search_problem=problem,
+            )
 
 
 if __name__ == "__main__":

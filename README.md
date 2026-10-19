@@ -28,6 +28,7 @@ Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm suda
 │   ├── validation.py           # Pemeriksaan constraint state satu truk dan armada
 │   ├── neighbors.py            # State awal acak dan move neighbor yang valid
 │   ├── contracts.py            # Interface pemanggilan algoritma dan objective
+│   ├── search_problems.py       # Adapter operasi State dan FleetState ke SearchProblem
 │   ├── results.py              # SearchResult dan metrik khusus tiap algoritma
 │   ├── algorithms/
 │   │   └── genetic_algorithm/
@@ -78,6 +79,24 @@ algorithm(
 - Simpan parameter algoritma yang digunakan di `SearchResult.parameters`.
 - Kembalikan `SearchResult` dengan state awal/akhir terbaik, nilai objective, riwayat objective per iterasi atau generasi, durasi, dan metrik khusus algoritma.
 
+Untuk state/domain baru, pasangkan operasi domain lewat `SearchProblem` satu kali, lalu gunakan kontrak yang sama pada HC, SA, atau GA:
+
+```python
+from src.contracts import SearchProblem
+
+problem = SearchProblem(
+    objective_fn=score,
+    is_valid=is_valid,
+    random_state=random_state,
+    neighbor=neighbor,
+    crossover=crossover,  # opsional; dipakai GA
+    mutate=mutate,        # opsional; dipakai GA
+)
+result = simulated_annealing(initial_state, seed=41, search_problem=problem, ...)
+```
+
+`search_problem_for_state(state)` menyediakan adapter bawaan untuk `State` dan `FleetState`. Karena itu state armada dapat dipakai langsung oleh HC dan SA; GA memakai operasi crossover/mutasi armada dari adapter yang sama. Panggilan lama tanpa `search_problem` tetap didukung untuk state bawaan.
+
 ### Fondasi yang tersedia
 
 - `model.py`: orientasi direpresentasikan oleh permutasi indeks dimensi dan dimensi terpasang. Paket di luar truk memiliki penempatan `None`.
@@ -113,6 +132,15 @@ Untuk dimensi dan kapasitas yang berbeda per truk, gunakan `trucks` sebagai daft
 ```
 
 Jangan berikan `--truck-count` jika JSON sudah memakai daftar `trucks`. GA mencari konfigurasi dengan total value armada setinggi mungkin secara heuristik (tidak menjamin global optimum) dan memastikan tiap paket paling banyak masuk ke satu truk. Operasi tambahan yang terlibat: inisialisasi mencari truk yang muat untuk tiap paket; gen GA menyimpan assignment truk beserta koordinat/orientasinya; crossover mencoba mempertahankan placement warisan, memperbaikinya di truk asal, lalu mencoba truk lain; mutasi dapat memindah, merotasi, memindahkan paket ke truk lain, atau mengeluarkannya. Constraint ruang, support, kerapuhan, dan kapasitas tetap divalidasi per truk. Paket yang tidak mendapat penempatan valid tetap di luar armada. Hasil JSON mencatat muatan per truk, total value, serta state awal/akhir; dua plot disimpan di folder output.
+
+HC dan SA juga dapat dijalankan satu kali pada format JSON armada yang sama:
+
+```bash
+python -m src.experiments.run_fleet_hc --input tests/fixtures/demo.json --truck-count 3 --variants steepest random_restart --seeds 41 42 43 --objectives total_value eta_weighted_value compact_value --output output/fleet-hc-demo
+python -m src.experiments.run_fleet_sa --input tests/fixtures/demo.json --truck-count 3 --max-iterations 2000 --seeds 41 42 43 --objectives total_value eta_weighted_value compact_value --output output/fleet-sa-demo
+```
+
+Keduanya menerima daftar `trucks` heterogen atau `--truck-count` untuk menduplikasi `truck` lama. `--seeds` menjalankan tiga seed berbeda; jika tidak diberikan, `--seed` (default 41) menjalankan satu kali. Beberapa objective menghasilkan ringkasan dan perbandingan total value. Objective armada menghitung nilai/ETA untuk semua paket yang termuat; `compact_value` menambahkan bonus kekompakan berbobot volume lintas truk. Hasil mencakup JSON per run dan ringkasan, plot state awal/akhir, serta riwayat objective; SA juga menyimpan grafik probabilitas penerimaan.
 
 #### Fixture dan benchmark lintas algoritma
 

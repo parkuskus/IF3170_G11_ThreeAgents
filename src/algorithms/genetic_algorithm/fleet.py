@@ -1,14 +1,12 @@
 """Fleet-aware initialization and genetic operators for the multi-truck bonus."""
 
-from math import isfinite
+from dataclasses import replace
 from random import Random
-from time import perf_counter
 
 from src.algorithms.genetic_algorithm._placement import random_valid_placement
-from src.algorithms.genetic_algorithm.selection import roulette_wheel_select
-from src.contracts import ObjectiveFunction, resolve_objective
+from src.contracts import ObjectiveFunction
 from src.model import ORIENTATIONS, FleetState, Package, Placement, State, Truck
-from src.results import GeneticAlgorithmMetrics, ObjectiveValue, SearchResult
+from src.results import SearchResult
 from src.validation import validate_fleet_state
 
 
@@ -195,85 +193,22 @@ def fleet_genetic_algorithm(
     objective_fn: ObjectiveFunction[FleetState] | None = None,
     objective_name: str | None = None,
 ) -> SearchResult[FleetState]:
-    """Run the existing GA strategy with fleet-aware individuals and operators."""
-    if validate_fleet_state(initial_state):
-        raise ValueError("initial_state is invalid")
-    if type(seed) is not int:
-        raise ValueError("seed must be an integer")
-    if type(population_size) is not int or population_size < 1:
-        raise ValueError("population_size must be a positive integer")
-    if type(generations) is not int or generations < 0:
-        raise ValueError("generations must be a non-negative integer")
-    if (
-        isinstance(mutation_rate, bool)
-        or not isinstance(mutation_rate, (int, float))
-        or not isfinite(mutation_rate)
-        or not 0 <= mutation_rate <= 1
-    ):
-        raise ValueError("mutation_rate must be a finite number between 0 and 1")
-    if objective_name is not None and (not isinstance(objective_name, str) or not objective_name):
-        raise ValueError("objective_name must be a non-empty string")
+    """Compatibility wrapper for the universal GA loop and fleet operators."""
+    from src.algorithms.genetic_algorithm.algorithm import genetic_algorithm
+    from src.search_problems import search_problem_for_state
 
-    started_at = perf_counter()
-    rng = Random(seed)
-    objective = resolve_objective(initial_state, objective_fn)
-    population = (initial_state,) + tuple(
-        random_initial_fleet_state(initial_state.packages, initial_state.trucks, rng)
-        for _ in range(population_size - 1)
-    )
-    best_history: list[ObjectiveValue] = []
-    average_history: list[float] = []
-    best_state = initial_state
-    best_score: ObjectiveValue | None = None
-
-    for generation in range(generations + 1):
-        scores = tuple(objective(state) for state in population)
-        if any(
-            isinstance(score, bool)
-            or not isinstance(score, (int, float))
-            or not isfinite(score)
-            for score in scores
-        ):
-            raise ValueError("objective_fn must return finite integer or float values")
-        best_index = max(range(len(population)), key=scores.__getitem__)
-        generation_best = scores[best_index]
-        best_history.append(generation_best)
-        average_history.append(sum(scores) / len(scores))
-        if best_score is None or generation_best > best_score:
-            best_state, best_score = population[best_index], generation_best
-        if generation == generations:
-            break
-
-        next_population = []
-        while len(next_population) < population_size:
-            parent_a = roulette_wheel_select(population, scores, rng)
-            parent_b = roulette_wheel_select(population, scores, rng)
-            child = fleet_single_point_crossover(parent_a, parent_b, rng)
-            if rng.random() < mutation_rate:
-                child = mutate_fleet_individual(child, rng)
-            next_population.append(child)
-        population = tuple(next_population)
-
-    assert best_score is not None
-    return SearchResult(
-        algorithm="fleet_genetic_algorithm",
-        objective_name=objective_name or ("total_value" if objective_fn is None else "custom"),
-        initial_state=initial_state,
-        final_state=best_state,
-        objective_value=best_score,
-        objective_history=tuple(best_history),
-        duration_seconds=perf_counter() - started_at,
-        metrics=GeneticAlgorithmMetrics(
-            generations=generations,
-            population_size=population_size,
-            best_objective_history=tuple(best_history),
-            average_objective_history=tuple(average_history),
-        ),
+    result = genetic_algorithm(
+        initial_state,
         seed=seed,
-        parameters={
-            "population_size": population_size,
-            "generations": generations,
-            "mutation_rate": mutation_rate,
-            "truck_count": len(initial_state.trucks),
-        },
+        population_size=population_size,
+        generations=generations,
+        mutation_rate=mutation_rate,
+        objective_fn=objective_fn,
+        objective_name=objective_name,
+        search_problem=search_problem_for_state(initial_state, objective_fn),
+    )
+    return replace(
+        result,
+        algorithm="fleet_genetic_algorithm",
+        parameters={**result.parameters, "truck_count": len(initial_state.trucks)},
     )

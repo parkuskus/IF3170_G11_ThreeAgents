@@ -3,18 +3,18 @@
 from math import isfinite
 from random import Random
 from time import perf_counter
+from typing import TypeVar
 
-from src.algorithms.genetic_algorithm.crossover import single_point_crossover
-from src.algorithms.genetic_algorithm.mutation import mutate_individual
-from src.algorithms.genetic_algorithm.population import initialize_population
 from src.algorithms.genetic_algorithm.selection import roulette_wheel_select
-from src.contracts import ObjectiveFunction, resolve_objective
-from src.model import State
+from src.contracts import ObjectiveFunction, SearchProblem
 from src.results import GeneticAlgorithmMetrics, ObjectiveValue, SearchResult
 
 
+StateT = TypeVar("StateT")
+
+
 def _evaluate_population(
-    population: tuple[State, ...], objective_fn: ObjectiveFunction[State]
+    population: tuple[StateT, ...], objective_fn: ObjectiveFunction[StateT]
 ) -> tuple[ObjectiveValue, ...]:
     scores = tuple(objective_fn(individual) for individual in population)
     if any(
@@ -28,10 +28,11 @@ def _evaluate_population(
 
 
 def genetic_algorithm(
-    initial_state: State,
+    initial_state: StateT,
     *,
     seed: int,
-    objective_fn: ObjectiveFunction[State] | None = None,
+    objective_fn: ObjectiveFunction[StateT] | None = None,
+    search_problem: SearchProblem[StateT] | None = None,
     population_size: int,
     generations: int,
     mutation_rate: float = 0.05,
@@ -39,12 +40,14 @@ def genetic_algorithm(
     crossover_enabled: bool = True,
     objective_name: str | None = None,
     run_index: int = 1,
-) -> SearchResult[State]:
+) -> SearchResult[StateT]:
     """Run GA and return the best-so-far state plus per-generation metrics."""
     if type(seed) is not int:
         raise ValueError("seed must be an integer")
     if type(generations) is not int or generations < 0:
         raise ValueError("generations must be a non-negative integer")
+    if type(population_size) is not int or population_size < 1:
+        raise ValueError("population_size must be a positive integer")
     if (
         isinstance(mutation_rate, bool)
         or not isinstance(mutation_rate, (int, float))
@@ -63,8 +66,21 @@ def genetic_algorithm(
 
     started_at = perf_counter()
     rng = Random(seed)
-    objective = resolve_objective(initial_state, objective_fn)
-    population = initialize_population(initial_state, population_size, rng)
+    from src.search_problems import search_problem_for_state
+
+    problem = search_problem or search_problem_for_state(initial_state, objective_fn)
+    objective = objective_fn if objective_fn is not None else problem.objective_fn
+    if not problem.is_valid(initial_state):
+        raise ValueError("initial_state is invalid")
+    if generations > 0 and crossover_enabled and problem.crossover is None:
+        raise ValueError("search_problem must provide crossover when crossover is enabled")
+    if generations > 0 and mutation_rate > 0 and problem.mutate is None:
+        raise ValueError("search_problem must provide mutate when mutation_rate is positive")
+    population = (initial_state,) + tuple(
+        problem.random_state(rng) for _ in range(population_size - 1)
+    )
+    if any(not problem.is_valid(individual) for individual in population):
+        raise ValueError("initial-state operator returned invalid state")
     best_history = []
     average_history = []
     best_state = initial_state
@@ -93,19 +109,26 @@ def genetic_algorithm(
                 parent_a = roulette_wheel_select(population, fitnesses, rng)
                 parent_b = roulette_wheel_select(population, fitnesses, rng)
             child = (
-                single_point_crossover(parent_a, parent_b, rng)
+                problem.crossover(parent_a, parent_b, rng)
                 if crossover_enabled
                 else parent_a
             )
+            if not problem.is_valid(child):
+                raise ValueError("crossover operator returned invalid state")
             if rng.random() < mutation_rate:
-                child = mutate_individual(child, rng)
+                assert problem.mutate is not None
+                child = problem.mutate(child, rng)
+                if not problem.is_valid(child):
+                    raise ValueError("mutation operator returned invalid state")
             next_population.append(child)
         population = tuple(next_population)
 
     assert best_score is not None
     return SearchResult(
         algorithm="genetic_algorithm",
-        objective_name=objective_name or ("total_value" if objective_fn is None else "custom"),
+        objective_name=objective_name or (
+            "custom" if objective_fn is not None else problem.objective_name
+        ),
         initial_state=initial_state,
         final_state=best_state,
         objective_value=best_score,

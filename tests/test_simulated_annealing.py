@@ -1,8 +1,10 @@
 import unittest
 
 from src.algorithms.simulated_annealing.algorithm import simulated_annealing
-from src.model import Package, Placement, State, Truck
-from src.validation import validate_state
+from src.contracts import SearchProblem
+from src.model import FleetState, Package, Placement, State, Truck
+from src.search_problems import search_problem_for_state
+from src.validation import validate_fleet_state, validate_state
 
 
 class SimulatedAnnealingTests(unittest.TestCase):
@@ -68,6 +70,42 @@ class SimulatedAnnealingTests(unittest.TestCase):
         for overrides in invalid_parameters:
             with self.subTest(overrides=overrides), self.assertRaises(ValueError):
                 self.run_algorithm(**overrides)
+
+    def test_simulated_annealing_accepts_fleet_search_problem(self):
+        fleet = FleetState(
+            self.initial_state.packages,
+            (self.initial_state.truck, self.initial_state.truck),
+            (
+                {"a": self.initial_state.placements["a"], "b": None},
+                {"a": None, "b": None},
+            ),
+        )
+        result = simulated_annealing(
+            fleet,
+            seed=3,
+            max_iterations=5,
+            initial_temperature=2,
+            cooling_rate=0.8,
+            search_problem=search_problem_for_state(fleet),
+        )
+        self.assertEqual(validate_fleet_state(result.final_state), [])
+
+    def test_simulated_annealing_rejects_invalid_problem_neighbor(self):
+        problem = SearchProblem(
+            objective_fn=lambda state: state,
+            is_valid=lambda state: state >= 0,
+            random_state=lambda rng: 0,
+            neighbor=lambda state, rng: -1,
+        )
+        with self.assertRaisesRegex(ValueError, "neighbor.*invalid"):
+            simulated_annealing(
+                0,
+                seed=1,
+                max_iterations=1,
+                initial_temperature=2,
+                cooling_rate=0.9,
+                search_problem=problem,
+            )
 
     def test_records_current_history_and_temperature_schedule(self):
         result = self.run_algorithm()
