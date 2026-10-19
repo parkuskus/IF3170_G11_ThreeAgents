@@ -141,6 +141,9 @@ def mutate_fleet_individual(
     for _ in range(attempts):
         operation = rng.choice(operations)
         if operation == "remove":
+            # Removing a package can leave one stacked on it unsupported.
+            if validate_fleet_state(base):
+                continue
             return base
         if operation == "rotate":
             assert old is not None and old_truck is not None
