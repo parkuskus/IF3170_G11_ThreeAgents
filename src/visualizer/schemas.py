@@ -3,11 +3,11 @@
 from dataclasses import asdict
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr, model_validator
 
-from src.model import Package, Truck
+from src.model import FleetState, Package, State, Truck
 from src.results import SearchResult
-from src.validation import validate_state
+from src.validation import validate_fleet_state, validate_state
 
 
 class _Strict(BaseModel):
@@ -30,8 +30,19 @@ class TruckIn(_Strict):
 
 class ProblemIn(BaseModel):
     # Fixture metadata such as "description" is tolerated and ignored.
-    truck: TruckIn
+    trucks: list[TruckIn]
     packages: list[PackageIn]
+
+    @model_validator(mode="before")
+    @classmethod
+    def _single_truck_shorthand(cls, data: Any) -> Any:
+        """Accept the single-truck `truck` key, as in the fixture files."""
+        if isinstance(data, dict) and "truck" in data:
+            if "trucks" in data:
+                raise ValueError("give either truck or trucks, not both")
+            data = {**data, "trucks": [data["truck"]]}
+            del data["truck"]
+        return data
 
 
 class RunRequest(_Strict):
@@ -44,42 +55,56 @@ class RunRequest(_Strict):
     animate: StrictBool = False
 
 
-def build_problem(problem: ProblemIn) -> tuple[tuple[Package, ...], Truck]:
+def build_problem(problem: ProblemIn) -> tuple[tuple[Package, ...], tuple[Truck, ...]]:
     """Build domain objects; raises ValueError on any domain-rule violation."""
     if not problem.packages:
         raise ValueError("problem must contain at least one package")
+    if not problem.trucks:
+        raise ValueError("problem must contain at least one truck")
     packages = tuple(
         Package(p.id, tuple(p.dimensions), p.value, p.weight, p.fragile, p.eta)
         for p in problem.packages
     )
     if len({p.id for p in packages}) != len(packages):
         raise ValueError("package IDs must be unique")
-    truck = Truck(tuple(problem.truck.dimensions), problem.truck.max_capacity)
-    return packages, truck
+    trucks = tuple(Truck(tuple(t.dimensions), t.max_capacity) for t in problem.trucks)
+    return packages, trucks
 
 
-def placements_json(state) -> dict[str, dict[str, Any] | None]:
-    return {
-        package_id: (
-            None
-            if placement is None
-            else {
-                "coordinate": list(placement.coordinate),
-                "dimensions": list(placement.oriented_dimensions),
-                "orientation": list(placement.orientation),
-            }
-        )
-        for package_id, placement in state.placements.items()
-    }
+def _truck_maps(state: State | FleetState):
+    """One placement map per truck; a single-truck State is a fleet of one."""
+    return (state.placements,) if isinstance(state, State) else state.placements
 
 
-def _state_json(state) -> dict[str, Any]:
+def placements_json(state: State | FleetState) -> list[dict[str, dict[str, Any] | None]]:
+    return [
+        {
+            package_id: (
+                None
+                if placement is None
+                else {
+                    "coordinate": list(placement.coordinate),
+                    "dimensions": list(placement.oriented_dimensions),
+                    "orientation": list(placement.orientation),
+                }
+            )
+            for package_id, placement in truck_placements.items()
+        }
+        for truck_placements in _truck_maps(state)
+    ]
+
+
+def _state_json(state: State | FleetState) -> dict[str, Any]:
+    violations = (
+        validate_state(state) if isinstance(state, State) else validate_fleet_state(state)
+    )
     return {
         "placements": placements_json(state),
-        "placedWeight": sum(
-            p.weight for p in state.packages if state.placements[p.id] is not None
-        ),
-        "violations": validate_state(state),
+        "placedWeight": [
+            sum(p.weight for p in state.packages if truck_placements[p.id] is not None)
+            for truck_placements in _truck_maps(state)
+        ],
+        "violations": violations,
     }
 
 

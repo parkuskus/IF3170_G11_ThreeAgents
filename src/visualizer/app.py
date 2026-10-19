@@ -8,7 +8,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from src.experiments.data import load_problem
+from src.algorithms.genetic_algorithm.fleet import random_initial_fleet_state
+from src.experiments.common.data import load_fleet_problem
 from src.neighbors import random_initial_state
 from src.objectives import OBJECTIVES
 from src.visualizer.recording import FrameRecorder
@@ -27,23 +28,50 @@ def get_catalogue():
     return catalogue()
 
 
+# Fixtures that also get a multi-truck variant: (name, number of identical trucks).
+FLEET_VARIANTS = (("base", 2), ("hard", 3))
+
+
+def _example(name: str, description: str, packages, trucks) -> dict:
+    return {
+        "name": name,
+        "description": description,
+        "problem": {
+            "trucks": [
+                {"dimensions": list(t.dimensions), "max_capacity": t.max_capacity} for t in trucks
+            ],
+            "packages": [
+                {
+                    "id": p.id,
+                    "dimensions": list(p.dimensions),
+                    "value": p.value,
+                    "weight": p.weight,
+                    "fragile": p.fragile,
+                    "eta": p.eta,
+                }
+                for p in packages
+            ],
+        },
+    }
+
+
 @app.get("/api/examples")
 def get_examples():
     """Fixture problems that load cleanly, offered as presets."""
     examples = []
     for path in sorted(FIXTURES.glob("*.json")):
         try:
-            load_problem(path)
+            packages, trucks = load_fleet_problem(path)
         except ValueError:
             continue
-        data = json.loads(path.read_text(encoding="utf-8"))
-        examples.append(
-            {
-                "name": path.stem,
-                "description": data.get("description", ""),
-                "problem": {"truck": data["truck"], "packages": data["packages"]},
-            }
-        )
+        description = json.loads(path.read_text(encoding="utf-8")).get("description", "")
+        examples.append(_example(path.stem, description, packages, trucks))
+        for name, count in FLEET_VARIANTS:
+            if path.stem == name:
+                packages, trucks = load_fleet_problem(path, truck_count=count)
+                examples.append(
+                    _example(f"{name}-{count}-trucks", f"{description} ({count} identical trucks)", packages, trucks)
+                )
     return examples
 
 
@@ -58,9 +86,14 @@ def run(request: RunRequest):
     if objective is None:
         raise HTTPException(422, f"unknown objective {request.objective!r}")
     try:
-        packages, truck = build_problem(request.problem)
+        packages, trucks = build_problem(request.problem)
         parameters = spec.coerce(request.parameters)
-        initial = random_initial_state(packages, truck, Random(request.seed))
+        rng = Random(request.seed)
+        initial = (
+            random_initial_state(packages, trucks[0], rng)
+            if len(trucks) == 1
+            else random_initial_fleet_state(packages, trucks, rng)
+        )
         recorder = FrameRecorder(objective, initial) if request.animate else None
         result = spec.run(
             initial,
@@ -86,7 +119,9 @@ def run(request: RunRequest):
         }
         for p in packages
     ]
-    payload["truck"] = {"dimensions": list(truck.dimensions), "maxCapacity": truck.max_capacity}
+    payload["trucks"] = [
+        {"dimensions": list(t.dimensions), "maxCapacity": t.max_capacity} for t in trucks
+    ]
     return payload
 
 
