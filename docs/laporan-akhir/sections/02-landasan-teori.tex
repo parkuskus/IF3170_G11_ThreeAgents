@@ -24,23 +24,23 @@ Algoritma menjalankan \textit{steepest ascent hill climbing} berulang kali, seti
 \begingroup
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
-\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Steepest-Ascent Hill Climbing\label{alg:steepest-ascent-hill-climbing}\par
-\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
-\begin{algorithmic}
-\REQUIRE Konfigurasi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$
-\ENSURE Konfigurasi optimum lokal $s$
-\STATE $s \gets s_0$
-\WHILE{$N(s) \neq \emptyset$}
-    \STATE $s' \gets \arg\max_{u \in N(s)} f(u)$
-    \IF{$f(s') \leq f(s)$}
-        \RETURN $s$
-    \ENDIF
-    \STATE $s \gets s'$
-\ENDWHILE
-\RETURN $s$
-\end{algorithmic}
-\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+          \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+          \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Steepest-Ascent Hill Climbing\label{alg:steepest-ascent-hill-climbing}\par
+          \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+          \begin{algorithmic}
+              \REQUIRE Konfigurasi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$
+              \ENSURE Konfigurasi optimum lokal $s$
+              \STATE $s \gets s_0$
+              \WHILE{$N(s) \neq \emptyset$}
+              \STATE $s' \gets \arg\max_{u \in N(s)} f(u)$
+              \IF{$f(s') \leq f(s)$}
+              \RETURN $s$
+              \ENDIF
+              \STATE $s \gets s'$
+              \ENDWHILE
+              \RETURN $s$
+          \end{algorithmic}
+          \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
 \end{list}
 \endgroup
 
@@ -75,65 +75,36 @@ Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika tempera
 \begingroup
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
-          \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-          \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
-          \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
-          \begin{algorithmic}
-              \REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, parameter $T_0>T_{\min}>0$ dan $0<\alpha<1$
-              \ENSURE Solusi terbaik yang ditemukan $s_{\text{best}}$
-              \STATE $s \gets s_0$, $s_{\text{best}} \gets s_0$, $T \gets T_0$
-              \WHILE{$T > T_{\min}$}
-              \IF{$N(s) = \emptyset$}
-              \RETURN $s_{\text{best}}$
-              \ENDIF
-              \STATE Pilih $s'$ secara acak dari $N(s)$
-              \STATE $\Delta E \gets f(s') - f(s)$
-              \IF{$\Delta E \geq 0$}
-              \STATE $s \gets s'$
-              \ELSE
-              \STATE Bangkitkan $u$ secara acak dari $[0,1]$
-              \IF{$u < \exp(\Delta E/T)$}
-              \STATE $s \gets s'$
-              \ENDIF
-              \ENDIF
-              \IF{$f(s) > f(s_{\text{best}})$}
-              \STATE $s_{\text{best}} \gets s$
-              \ENDIF
-              \STATE $T \gets \alpha T$
-              \ENDWHILE
-              \RETURN $s_{\text{best}}$
-          \end{algorithmic}
-          \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
-\begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
 \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
-\REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, parameter $T_0>T_{\min}>0$ dan $0<\alpha<1$
-\ENSURE Solusi terbaik yang ditemukan $s_{\text{best}}$
-\STATE $s \gets s_0$, $s_{\text{best}} \gets s_0$, $T \gets T_0$
-\WHILE{$T > T_{\min}$}
+    \REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, parameter $T_0>T_{\min}>0$ dan $0<\alpha<1$
+    \ENSURE Solusi terbaik yang ditemukan $s_{\text{best}}$
+    \STATE $s \gets s_0$, $s_{\text{best}} \gets s_0$, $T \gets T_0$
+    \WHILE{$T > T_{\min}$}
     \IF{$N(s) = \emptyset$}
-        \RETURN $s_{\text{best}}$
+    \RETURN $s_{\text{best}}$
     \ENDIF
     \STATE Pilih $s'$ secara acak dari $N(s)$
     \STATE $\Delta E \gets f(s') - f(s)$
     \IF{$\Delta E \geq 0$}
-        \STATE $s \gets s'$
+    \STATE $s \gets s'$
     \ELSE
-        \STATE Bangkitkan $u$ secara acak dari $[0,1]$
-        \IF{$u < \exp(\Delta E/T)$}
-            \STATE $s \gets s'$
-        \ENDIF
+    \STATE Bangkitkan $u$ secara acak dari $[0,1]$
+    \IF{$u < \exp(\Delta E/T)$}
+    \STATE $s \gets s'$
+    \ENDIF
     \ENDIF
     \IF{$f(s) > f(s_{\text{best}})$}
-        \STATE $s_{\text{best}} \gets s$
+    \STATE $s_{\text{best}} \gets s$
     \ENDIF
     \STATE $T \gets \alpha T$
-\ENDWHILE
-\RETURN $s_{\text{best}}$
+    \ENDWHILE
+    \RETURN $s_{\text{best}}$
 \end{algorithmic}
 \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+
 \end{list}
 \endgroup
 
@@ -159,62 +130,34 @@ Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan per
 \begingroup
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
-          \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-          \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
-          \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
-          \begin{algorithmic}
-              \REQUIRE Solusi awal valid $s_0$, fungsi objektif $f$, ukuran populasi $n$, jumlah generasi $G$, laju mutasi $\mu$
-              \ENSURE Individu terbaik yang ditemukan $s_{\text{best}}$
-              \STATE $P \gets$ populasi valid berukuran $n$ yang memuat $s_0$
-              \STATE $s_{\text{best}} \gets s_0$, $f_{\text{best}} \gets -\infty$
-              \FOR{$g \gets 0$ sampai $G$}
-              \STATE Evaluasi $f(x)$ untuk setiap $x \in P$
-              \STATE $x_{\text{best}} \gets \arg\max_{x \in P} f(x)$
-              \IF{$f(x_{\text{best}}) > f_{\text{best}}$}
-              \STATE $s_{\text{best}} \gets x_{\text{best}}$, $f_{\text{best}} \gets f(x_{\text{best}})$
-              \ENDIF
-              \IF{$g < G$}
-              \STATE $P_{\text{baru}} \gets \emptyset$
-              \WHILE{$|P_{\text{baru}}| < n$}
-              \STATE Pilih induk $p_1$ dan $p_2$ dari $P$ dengan seleksi roulette
-              \STATE $c \gets$ crossover satu titik $(p_1,p_2)$ dan perbaiki agar valid
-              \STATE Dengan peluang $\mu$, mutasikan satu gen pada $c$ dan pertahankan validitasnya
-              \STATE Tambahkan $c$ ke $P_{\text{baru}}$
-              \ENDWHILE
-              \STATE $P \gets P_{\text{baru}}$
-              \ENDIF
-              \ENDFOR
-              \RETURN $s_{\text{best}}$
-          \end{algorithmic}
-          \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
-\begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
 \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
-\REQUIRE Solusi awal valid $s_0$, fungsi objektif $f$, ukuran populasi $n$, jumlah generasi $G$, laju mutasi $\mu$
-\ENSURE Individu terbaik yang ditemukan $s_{\text{best}}$
-\STATE $P \gets$ populasi valid berukuran $n$ yang memuat $s_0$
-\STATE $s_{\text{best}} \gets s_0$, $f_{\text{best}} \gets -\infty$
-\FOR{$g \gets 0$ sampai $G$}
+    \REQUIRE Solusi awal valid $s_0$, fungsi objektif $f$, ukuran populasi $n$, jumlah generasi $G$, laju mutasi $\mu$
+    \ENSURE Individu terbaik yang ditemukan $s_{\text{best}}$
+    \STATE $P \gets$ populasi valid berukuran $n$ yang memuat $s_0$
+    \STATE $s_{\text{best}} \gets s_0$, $f_{\text{best}} \gets -\infty$
+    \FOR{$g \gets 0$ sampai $G$}
     \STATE Evaluasi $f(x)$ untuk setiap $x \in P$
     \STATE $x_{\text{best}} \gets \arg\max_{x \in P} f(x)$
     \IF{$f(x_{\text{best}}) > f_{\text{best}}$}
-        \STATE $s_{\text{best}} \gets x_{\text{best}}$, $f_{\text{best}} \gets f(x_{\text{best}})$
+    \STATE $s_{\text{best}} \gets x_{\text{best}}$, $f_{\text{best}} \gets f(x_{\text{best}})$
     \ENDIF
     \IF{$g < G$}
-        \STATE $P_{\text{baru}} \gets \emptyset$
-        \WHILE{$|P_{\text{baru}}| < n$}
-            \STATE Pilih induk $p_1$ dan $p_2$ dari $P$ dengan seleksi roulette
-            \STATE $c \gets$ crossover satu titik $(p_1,p_2)$ dan perbaiki agar valid
-            \STATE Dengan peluang $\mu$, mutasikan satu gen pada $c$ dan pertahankan validitasnya
-            \STATE Tambahkan $c$ ke $P_{\text{baru}}$
-        \ENDWHILE
-        \STATE $P \gets P_{\text{baru}}$
+    \STATE $P_{\text{baru}} \gets \emptyset$
+    \WHILE{$|P_{\text{baru}}| < n$}
+    \STATE Pilih induk $p_1$ dan $p_2$ dari $P$ dengan seleksi roulette
+    \STATE $c \gets$ crossover satu titik $(p_1,p_2)$ dan perbaiki agar valid
+    \STATE Dengan peluang $\mu$, mutasikan satu gen pada $c$ dan pertahankan validitasnya
+    \STATE Tambahkan $c$ ke $P_{\text{baru}}$
+    \ENDWHILE
+    \STATE $P \gets P_{\text{baru}}$
     \ENDIF
-\ENDFOR
-\RETURN $s_{\text{best}}$
+    \ENDFOR
+    \RETURN $s_{\text{best}}$
 \end{algorithmic}
 \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+
 \end{list}
 \endgroup
