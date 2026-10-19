@@ -1,6 +1,6 @@
 import unittest
 
-from src.model import ORIENTATIONS, Package, Placement, State, Truck
+from src.model import FleetState, ORIENTATIONS, Package, Placement, State, Truck
 
 
 class DomainModelTests(unittest.TestCase):
@@ -21,6 +21,26 @@ class DomainModelTests(unittest.TestCase):
             placements={"box": Placement((0, 0, 0), (2, 3, 4)), "outside": None},
         )
         self.assertEqual(state.objective(), 60)
+
+    def test_fleet_objective_sums_packages_across_trucks(self):
+        outside = Package("outside", (1, 1, 1), 10, 1, False, 1)
+        fleet = FleetState(
+            (self.package, outside),
+            (Truck((10, 20, 5), 500), Truck((5, 5, 5), 10)),
+            (
+                {"box": Placement((0, 0, 0), (2, 3, 4)), "outside": None},
+                {"box": None, "outside": Placement((0, 0, 0), (1, 1, 1))},
+            ),
+        )
+        self.assertEqual(fleet.objective(), 70)
+
+    def test_fleet_requires_a_placement_map_per_truck(self):
+        with self.assertRaises(ValueError):
+            FleetState((self.package,), (Truck((3, 3, 3), 5),), ())
+
+    def test_fleet_requires_at_least_one_truck(self):
+        with self.assertRaisesRegex(ValueError, "at least one truck"):
+            FleetState((self.package,), (), ())
 
     def test_state_requires_placement_for_every_package(self):
         with self.assertRaises(ValueError):

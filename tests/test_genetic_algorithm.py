@@ -8,13 +8,31 @@ from src.algorithms.genetic_algorithm import (
     roulette_wheel_select,
     single_point_crossover,
 )
-from src.model import Package, Placement, State, Truck
-from src.validation import validate_state
+from src.algorithms.genetic_algorithm.fleet import (
+    fleet_genetic_algorithm,
+    fleet_single_point_crossover,
+    mutate_fleet_individual,
+    random_initial_fleet_state,
+)
+from src.model import FleetState, Package, Placement, State, Truck
+from src.validation import validate_fleet_state, validate_state
 
 
 class FixedPointRandom(Random):
     def randrange(self, start, stop=None, step=1):
         return 1
+
+
+class FixedCutRandom(Random):
+    def randrange(self, start, stop=None, step=1):
+        return start
+
+
+class ReassignRandom(Random):
+    def choice(self, sequence):
+        if sequence == ("move", "rotate", "reassign", "remove"):
+            return "reassign"
+        return sequence[0]
 
 
 class RecordingRandom(Random):
@@ -226,6 +244,90 @@ class GeneticAlgorithmFoundationTests(unittest.TestCase):
         for parameters in invalid_parameters:
             with self.subTest(parameters=parameters), self.assertRaises(ValueError):
                 genetic_algorithm(self.initial_state, **parameters)
+
+
+class FleetGeneticAlgorithmTests(unittest.TestCase):
+    def test_fleet_initialization_is_seeded_and_valid(self):
+        packages = (
+            Package("a", (1, 1, 1), 10, 1, False, 0),
+            Package("b", (1, 1, 1), 20, 1, False, 0),
+        )
+        trucks = (Truck((2, 1, 1), 1), Truck((1, 1, 1), 1))
+        first = random_initial_fleet_state(packages, trucks, Random(13))
+        second = random_initial_fleet_state(packages, trucks, Random(13))
+        self.assertEqual(first, second)
+        self.assertEqual(validate_fleet_state(first), [])
+
+    def test_crossover_reassigns_a_conflicting_gene_to_another_truck(self):
+        packages = (
+            Package("a", (1, 1, 1), 10, 1, False, 0),
+            Package("b", (1, 1, 1), 20, 1, False, 0),
+        )
+        trucks = (Truck((2, 1, 1), 1), Truck((1, 1, 1), 1))
+        parent_a = FleetState(
+            packages,
+            trucks,
+            (
+                {"a": Placement((0, 0, 0), (1, 1, 1)), "b": None},
+                {"a": None, "b": None},
+            ),
+        )
+        parent_b = FleetState(
+            packages,
+            trucks,
+            (
+                {"a": None, "b": Placement((0, 0, 0), (1, 1, 1))},
+                {"a": None, "b": None},
+            ),
+        )
+        child = fleet_single_point_crossover(parent_a, parent_b, FixedCutRandom(1))
+        self.assertEqual(validate_fleet_state(child), [])
+        self.assertEqual(child.objective(), 30)
+        self.assertIsNotNone(child.placements[1]["b"])
+
+    def test_fleet_mutation_keeps_assignments_valid(self):
+        package = Package("a", (1, 1, 1), 10, 1, False, 0)
+        trucks = (Truck((2, 1, 1), 1), Truck((1, 1, 1), 1))
+        fleet = FleetState(
+            (package,),
+            trucks,
+            ({"a": Placement((0, 0, 0), (1, 1, 1))}, {"a": None}),
+        )
+        mutated = mutate_fleet_individual(fleet, ReassignRandom(41))
+        self.assertEqual(validate_fleet_state(mutated), [])
+        self.assertIsNone(mutated.placements[0]["a"])
+        self.assertIsNotNone(mutated.placements[1]["a"])
+
+    def test_unfittable_package_stays_outside_all_trucks(self):
+        packages = (
+            Package("fits", (1, 1, 1), 10, 1, False, 0),
+            Package("oversized", (3, 3, 3), 100, 1, False, 0),
+        )
+        fleet = random_initial_fleet_state(
+            packages, (Truck((1, 1, 1), 2), Truck((2, 2, 2), 2)), Random(3)
+        )
+        self.assertEqual(validate_fleet_state(fleet), [])
+        self.assertTrue(all(m["oversized"] is None for m in fleet.placements))
+        self.assertTrue(any(m["fits"] is not None for m in fleet.placements))
+
+    def test_fleet_ga_returns_valid_best_state(self):
+        package = Package("a", (1, 1, 1), 10, 1, False, 0)
+        trucks = (Truck((1, 1, 1), 1), Truck((1, 1, 1), 1))
+        initial = FleetState((package,), trucks, ({"a": None}, {"a": None}))
+        result = fleet_genetic_algorithm(
+            initial, seed=7, population_size=4, generations=2
+        )
+        self.assertEqual(validate_fleet_state(result.final_state), [])
+        self.assertEqual(result.objective_value, result.final_state.objective())
+        self.assertEqual(result.final_state.objective(), 10)
+
+    def test_fleet_initializer_rejects_no_trucks(self):
+        with self.assertRaises(ValueError):
+            random_initial_fleet_state(self.initial_packages(), (), Random(1))
+
+    @staticmethod
+    def initial_packages():
+        return (Package("a", (1, 1, 1), 10, 1, False, 0),)
 
 
 if __name__ == "__main__":

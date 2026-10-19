@@ -100,3 +100,28 @@ class State:
             for package in self.packages
             if self.placements[package.id] is not None
         )
+
+
+@dataclass(frozen=True, slots=True)
+class FleetState:
+    """A package-loading solution across trucks; each placement map is one truck."""
+
+    packages: tuple[Package, ...]
+    trucks: tuple[Truck, ...]
+    placements: tuple[Mapping[str, Placement | None], ...]
+
+    def __post_init__(self) -> None:
+        if not self.trucks:
+            raise ValueError("fleet must contain at least one truck")
+        if len(self.placements) != len(self.trucks):
+            raise ValueError("fleet must have one placement map per truck")
+        for truck, placements in zip(self.trucks, self.placements):
+            State(self.packages, truck, placements)
+
+    def objective(self) -> int:
+        """Return the total value of all packages loaded anywhere in the fleet."""
+        return sum(
+            package.value
+            for package in self.packages
+            if any(placements[package.id] is not None for placements in self.placements)
+        )
