@@ -32,3 +32,42 @@ def plot_benchmark_summary(summaries: Sequence[dict[str, Any]], destination: str
     destination.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(destination, dpi=150)
     plt.close(fig)
+
+
+def plot_fleet_benchmark_summary(
+    summaries: Sequence[dict[str, Any]], destination: str | Path
+) -> None:
+    """Compare method means and sample spreads separately for each fleet fixture."""
+    if not summaries:
+        raise ValueError("at least one fleet benchmark summary is required")
+
+    fixtures = list(dict.fromkeys(row["instance"] for row in summaries))
+    methods = list(dict.fromkeys(row["method"] for row in summaries))
+    lookup = {(row["instance"], row["method"]): row for row in summaries}
+    columns = min(4, len(fixtures))
+    rows = (len(fixtures) + columns - 1) // columns
+    fig, axes = plt.subplots(rows, columns, figsize=(4.25 * columns, 3.7 * rows), squeeze=False)
+    colors = plt.get_cmap("tab10")
+
+    for axis, fixture in zip(axes.flat, fixtures):
+        rows = [lookup[(fixture, method)] for method in methods]
+        axis.bar(
+            range(len(rows)),
+            [row["final_value_mean"] for row in rows],
+            yerr=[row["final_value_stdev"] for row in rows],
+            color=[colors(index % 10) for index in range(len(rows))],
+            capsize=3,
+        )
+        axis.set_title(fixture)
+        axis.set_xticks(range(len(rows)), methods, rotation=55, ha="right", fontsize=7)
+        axis.grid(True, axis="y", alpha=0.25)
+
+    for axis in axes.flat[len(fixtures):]:
+        axis.set_visible(False)
+    fig.supylabel("Final total package value (mean ± 1 SD)")
+    fig.suptitle("Multi-truck benchmark by fixture")
+    fig.tight_layout()
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(destination, dpi=150)
+    plt.close(fig)

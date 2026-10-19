@@ -159,6 +159,16 @@ python -m src.experiments.run_benchmark --output output/benchmark
 
 Perintah ini menjalankan empat varian HC, SA, dan GA pada semua fixture valid dengan seed 11-15 (state awal dan seed yang sama untuk semua algoritma), memvalidasi tiap state akhir, mencatat jumlah evaluasi objective dan durasi, serta memeriksa bahwa fixture `invalid/` ditolak. Hasil: `runs.json`, `summary.json`, dan `summary.png`.
 
+#### Benchmark armada multi-truk
+
+Fixture di `tests/fixtures/fleet/` mengikuti 11 kasus valid yang sama, tetapi setiap JSON memiliki dua truk identik. Paket dan karakter kasus sumber dipertahankan agar pengaruh assignment lintas truk dapat diamati tanpa mengubah kapasitas atau dimensi truk.
+
+```bash
+python -m src.experiments.fleet.run_benchmark
+```
+
+Perintah tersebut menjalankan empat varian HC, SA, dan GA untuk lima seed yang sama. Dalam setiap pasangan kasus dan seed, semua metode memakai state awal yang sama. Parameter mengikuti baseline runner armada, sehingga jumlah iterasi atau evaluasinya tidak setara antaralgoritma. Hasil berada di `output/fleet-analysis/`, termasuk `runs.json`, `summary.json`, grafik per fixture, serta visualisasi state awal dan akhir untuk seed pertama pada kasus `tight-space`.
+
 #### Studi ablasi operator GA
 
 ```bash
