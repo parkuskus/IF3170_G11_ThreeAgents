@@ -8,6 +8,8 @@
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usepackage{subcaption}
 \usepackage{float}
 \bibliographystyle{IEEEtran}
@@ -15,12 +17,23 @@
 \tcbuselibrary{listings}
 \usepackage{listings}
 \lstset{
+  language=Python,
   basicstyle=\ttfamily\footnotesize,
   columns=fullflexible,
   keepspaces=true,
   breaklines=true,
+  frame=single,
+  framerule=0.5pt,
+  framesep=5pt,
+  rulecolor=\color{black},
+  keywordstyle=\color{blue}\bfseries,
+  stringstyle=\color{red},
+  commentstyle=\color{gray}\itshape,
+  emph={self},
+  emphstyle=\color{red},
   literate={-}{{-}}1
 }
+\renewcommand{\lstlistingname}{Kode}
 \usepackage{forest}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
@@ -34,6 +47,8 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage[table]{xcolor}
+\renewcommand{\algorithmicrequire}{\textbf{Data:}}
+\renewcommand{\algorithmicensure}{\textbf{Result:}}
 \usepackage{tocloft}
 \setlength{\cftbeforechapskip}{4pt}
 \setlength{\cftbeforesecskip}{1pt}
@@ -45,7 +60,7 @@
 
 \setlength{\headsep}{30pt}
 \setlength{\footskip}{20pt}
-\usepackage[a4paper,top=2.5cm,bottom=2cm,left=2cm,right=2cm]{geometry}
+\usepackage[a4paper,top=2.5cm,bottom=2cm,left=2cm,right=2cm,includefoot]{geometry}
 \setlength{\headheight}{50pt}
 
 \setlength{\parindent}{0pt}
@@ -154,8 +169,11 @@
 \chapter{Hasil Eksperimen dan Analisis}
 \input{sections/04-hasil-eksperimen-dan-analisis.tex}
 
-\chapter{Kesimpulan dan Hasil}
+\chapter{Kesimpulan dan Saran}
 \input{sections/05-kesimpulan-dan-saran.tex}
+
+\chapter{Lampiran}
+\input{sections/06-lampiran.tex}
 
 
 \nocite{*}

@@ -1,12 +1,277 @@
 \section{Representasi State}
 
+State merepresentasikan satu konfigurasi pemuatan paket pada sebuah truk. Implementasi menyimpan data paket dan truk secara terpisah, lalu menghubungkan setiap paket dengan posisinya melalui pemetaan dari ID paket ke objek penempatan. Nilai penempatan \texttt{None} menandakan paket berada di luar truk, sehingga state tetap mencatat seluruh paket, baik yang dimuat maupun tidak.
+
+Objek \texttt{Package} menyimpan ID, dimensi awal, nilai, berat, status mudah pecah, dan ETA. Dimensi disimpan sebagai tiga bilangan bulat, sedangkan orientasi adalah permutasi indeks dimensi yang menentukan urutan ukuran setelah rotasi. Ada enam kemungkinan orientasi, sesuai seluruh permutasi indeks tiga dimensi. Objek \texttt{Truck} menyimpan dimensi ruang muat serta kapasitas berat maksimum. Objek \texttt{Placement} menggabungkan koordinat sudut paket, dimensi setelah orientasi diterapkan, dan orientasinya. Kode~\ref{lst:state-model} memperlihatkan struktur data inti dari \texttt{src/model.py}; pemeriksaan validasi dihilangkan dari cuplikan agar fokus pada field representasinya.
+
+\begin{samepage}
+    \begin{lstlisting}[caption={Struktur inti model state},label={lst:state-model}]
+from dataclasses import dataclass
+from itertools import permutations
+from typing import Mapping, TypeAlias
+Dimensions: TypeAlias = tuple[int, int, int]
+Coordinate: TypeAlias = tuple[int, int, int]
+Orientation: TypeAlias = tuple[int, int, int]
+ORIENTATIONS = tuple(permutations((0, 1, 2)))
+@dataclass(frozen=True, slots=True)
+class Package:
+    id: str
+    dimensions: Dimensions
+    value: int
+    weight: int
+    fragile: bool
+    eta: int
+@dataclass(frozen=True, slots=True)
+class Truck:
+    dimensions: Dimensions
+    max_capacity: int
+@dataclass(frozen=True, slots=True)
+class Placement:
+    coordinate: Coordinate
+    oriented_dimensions: Dimensions
+    orientation: Orientation = (0, 1, 2)
+@dataclass(frozen=True, slots=True)
+class State:
+    packages: tuple[Package, ...]
+    truck: Truck
+    placements: Mapping[str, Placement | None]
+\end{lstlisting}
+\end{samepage}
+
+Secara matematis, satu state dituliskan sebagai $S=(P,T,\phi)$, dengan $P=(p_1,\ldots,p_n)$ sebagai kumpulan paket, $T=(\mathbf{L},C)$ sebagai truk berdimensi $\mathbf{L}$ dan berkapasitas maksimum $C$, serta $\phi$ sebagai pemetaan penempatan. Jika paket $p_i$ memiliki ID $\operatorname{id}_i$ dan dimensi $\mathbf{d}_i$, maka representasinya adalah
+
+\begin{equation}
+    \begin{aligned}
+        I                    & = \{\operatorname{id}_1,\ldots,\operatorname{id}_n\}, \\
+        \phi                 & : I \longrightarrow \{\bot\} \cup
+        \left\{(\mathbf{x}_i,\mathbf{d}_i^{\pi_i},\pi_i)\;\middle|\;
+        \mathbf{x}_i \in \mathbb{Z}_{\geq 0}^{3},\; \pi_i \in S_3\right\},           \\
+        \mathbf{d}_i^{\pi_i} & = (d_{i,\pi_i(1)},d_{i,\pi_i(2)},d_{i,\pi_i(3)}).
+    \end{aligned}
+    \label{eq:state-representation}
+\end{equation}
+
+Di sini $\bot$ menyatakan paket tidak dimuat, $\mathbf{x}_i$ adalah koordinat sudut paket di dalam truk, dan $S_3$ adalah himpunan enam permutasi sumbu yang merepresentasikan orientasi. Domain $I$ memastikan setiap paket memiliki tepat satu entri penempatan. Persamaan~\ref{eq:state-representation} menjelaskan bentuk representasi; batas ruang, kapasitas, dan batasan fisik lainnya menentukan apakah state tersebut layak.
+
+Pemetaan \texttt{placements} harus memiliki tepat satu entri untuk setiap ID paket. Konstruktor \texttt{State} memeriksa keunikan ID, kelengkapan kunci pemetaan, dan kecocokan dimensi hasil orientasi dengan dimensi paket. Fungsi objektif state menjumlahkan nilai paket yang memiliki penempatan, sehingga paket di luar truk tidak berkontribusi terhadap nilai solusi.
+
+Contoh berikut menunjukkan sebuah paket di dalam truk dan satu paket yang tidak dimuat. Koordinat menggunakan urutan sumbu $x$, $y$, dan $z$, sedangkan koordinat $(0,0,0)$ menandakan sudut bawah paket berada di titik asal ruang muat.
+
+\begin{lstlisting}[caption={Contoh pembentukan state pemuatan},label={lst:state-example}]
+from src.model import Package, Placement, State, Truck
+
+package = Package("P001", (3, 4, 1), 60, 5, False, 3)
+outside_package = Package("P002", (1, 1, 1), 10, 2, False, 1)
+truck = Truck((10, 20, 5), 500)
+
+state = State(
+    packages=(package, outside_package),
+    truck=truck,
+    placements={
+        "P001": Placement((0, 0, 0), (3, 4, 1)),
+        "P002": None,
+    },
+)
+\end{lstlisting}
+
 \section{\textit{Constraint} Permasalahan}
 
-\section{\textit{Succesor Function}}
+State layak apabila seluruh syarat berikut terpenuhi. Misalkan $I^+=\{i\in I\mid\phi(i)\neq\bot\}$ adalah himpunan ID paket yang dimuat. Untuk setiap $i\in I^+$, penempatannya ditulis sebagai $\phi(i)=(\mathbf{x}_i,\mathbf{d}_i,\pi_i)$, dengan $\mathbf{x}_i=(x_i,y_i,z_i)$ sebagai koordinat dan $\mathbf{d}_i=(w_i,d_i,h_i)$ sebagai dimensi setelah rotasi. Syarat kelayakan dituliskan dalam enumerasi berikut.
+
+\begin{enumerate}
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \item Setiap paket harus seluruhnya berada di dalam ruang muat truk:
+          \begin{equation*}
+              \mathbf{0}\leq\mathbf{x}_i,\qquad \mathbf{x}_i+\mathbf{d}_i\leq\mathbf{L},\qquad \forall i\in I^+.
+          \end{equation*}
+
+    \item Setiap pasangan paket harus terpisah pada setidaknya satu sumbu, sehingga keduanya tidak saling bertumpang tindih. Di sini $d_{i,k}$ adalah ukuran paket $i$ pada sumbu $k$:
+          \begin{equation*}
+              \exists k\in\{x,y,z\}:\quad x_{i,k}+d_{i,k}\leq x_{j,k}\ \lor\ x_{j,k}+d_{j,k}\leq x_{i,k},\qquad \forall i,j\in I^+,\ i\neq j.
+          \end{equation*}
+
+    \item Jumlah berat semua paket yang dimuat tidak boleh melebihi kapasitas truk $C$. Simbol $w_i^{\text{paket}}$ menyatakan berat paket, bukan ukuran pada sumbu $x$:
+          \begin{equation*}
+              \sum_{i\in I^+}w_i^{\text{paket}}\leq C.
+          \end{equation*}
+
+    \item Paket yang berada di atas lantai truk harus ditopang oleh setidaknya satu paket lain yang tidak rapuh. Bagian atas paket penopang harus sejajar dengan dasar paket yang ditopang, dan proyeksi alas keduanya harus beririsan:
+          \begin{equation*}
+              \begin{aligned}
+                  z_i>0 & \Rightarrow \exists j\in I^+,\ j\neq i:                                                                       \\
+                        & z_j+h_j=z_i,\quad \neg\operatorname{rapuh}(j),\quad \operatorname{overlap}_{xy}(i,j),\qquad \forall i\in I^+.
+              \end{aligned}
+          \end{equation*}
+\end{enumerate}
+
+Predikat $\operatorname{overlap}_{xy}$ bernilai benar ketika proyeksi alas dua paket beririsan dengan luas positif. Karena itu, implementasi tidak menganggap kontak yang hanya terjadi pada tepi atau satu titik sebagai dukungan, meskipun spesifikasi menyebut dukungan pada setidaknya satu titik alas. Paket di lantai truk ($z_i=0$) tidak memerlukan paket penopang. Kode~\ref{lst:state-validation} menunjukkan pemeriksaan yang dipakai oleh \texttt{validate\_state}; fungsi bantu irisan satu dimensi dan alas juga disertakan.
+
+\begin{lstlisting}[caption={Validasi batas ruang, tabrakan, kapasitas, dan dukungan},label={lst:state-validation}]
+from itertools import combinations
+
+from src.model import Package, Placement, State
+
+def _overlap_1d(start_a, size_a, start_b, size_b):
+    return start_a < start_b + size_b and start_b < start_a + size_a
+
+def _overlap_xy(a, b):
+    return (
+        _overlap_1d(a.coordinate[0], a.oriented_dimensions[0],
+                    b.coordinate[0], b.oriented_dimensions[0])
+        and _overlap_1d(a.coordinate[1], a.oriented_dimensions[1],
+                        b.coordinate[1], b.oriented_dimensions[1])
+    )
+
+def _overlap_3d(a, b):
+    return _overlap_xy(a, b) and _overlap_1d(
+        a.coordinate[2], a.oriented_dimensions[2],
+        b.coordinate[2], b.oriented_dimensions[2]
+    )
+
+def validate_state(state):
+    errors = []
+    placed = [
+        (package, placement)
+        for package in state.packages
+        if (placement := state.placements[package.id]) is not None
+    ]
+
+    for package, placement in placed:
+        if any(
+            position + size > limit
+            for position, size, limit in zip(
+                placement.coordinate, placement.oriented_dimensions,
+                state.truck.dimensions
+            )
+        ):
+            errors.append(f"package {package.id!r} is outside the truck")
+
+    for (package_a, placement_a), (package_b, placement_b) in combinations(placed, 2):
+        if _overlap_3d(placement_a, placement_b):
+            errors.append(f"packages {package_a.id!r} and {package_b.id!r} overlap")
+
+    total_weight = sum(package.weight for package, _ in placed)
+    if total_weight > state.truck.max_capacity:
+        errors.append("truck capacity is exceeded")
+
+    for package, placement in placed:
+        if placement.coordinate[2] == 0:
+            continue
+        supported = any(
+            not support_package.fragile
+            and support_placement.coordinate[2]
+                + support_placement.oriented_dimensions[2]
+                == placement.coordinate[2]
+            and _overlap_xy(placement, support_placement)
+            for support_package, support_placement in placed
+            if support_package.id != package.id
+        )
+        if not supported:
+            errors.append(f"package {package.id!r} is unsupported")
+
+    return errors
+\end{lstlisting}
+
+\section{\textit{Successor Function}}
+
+Fungsi suksesor membangkitkan kandidat dengan menerapkan salah satu operator berikut secara acak:
+
+\begin{enumerate}
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \item \textit{Move} memilih satu paket. Jika paket sudah dimuat, orientasinya dipertahankan; jika masih di luar truk, orientasi dipilih secara acak. Paket kemudian ditempatkan pada koordinat baru yang masih berada dalam rentang truk.
+    \item \textit{Rotate} memilih satu paket yang sedang dimuat, lalu menukar dua sumbu orientasinya (rotasi 90 derajat) tanpa mengubah koordinat paket.
+    \item \textit{Swap} memilih dua paket dan menukar status pemuatan atau posisi keduanya. Dimensi penempatan disesuaikan dengan ukuran dan orientasi masing-masing paket.
+\end{enumerate}
+
+Operator \textit{swap} hanya tersedia jika state memiliki setidaknya dua paket. Misalkan $\mathcal{O}(S)$ adalah himpunan operator yang tersedia pada state $S$. Himpunan suksesor layak didefinisikan sebagai
+
+\begin{equation}
+    N(S)=\{S'\mid S'=o(S),\ o\in\mathcal{O}(S),\ S'\neq S,\ \operatorname{validate}(S')=\emptyset\}.
+    \label{eq:successor-function}
+\end{equation}
+
+Pada operator \textit{move}, ketinggian dipilih dari lantai truk atau permukaan atas paket lain. Setiap kandidat harus berbeda dari state asal dan lolos validasi. Implementasi mencoba paling banyak 100 kandidat, lalu mengembalikan kandidat layak pertama; jika tidak ada paket atau tidak ditemukan kandidat yang layak, fungsi mengembalikan state asal. Cuplikan~\ref{lst:random-neighbor} memperlihatkan pemilihan operator dan penyaringan tersebut.
+
+\begin{lstlisting}[caption={Pemilihan kandidat suksesor yang valid},label={lst:random-neighbor}]
+from random import Random
+
+def random_neighbor(state, rng=None, max_attempts=100):
+    if max_attempts < 1 or not state.packages:
+        return state
+    rng = rng or Random()
+    operations = [_move_candidate, _rotate_candidate]
+    if len(state.packages) > 1:
+        operations.append(_swap_candidate)
+
+    for _ in range(max_attempts):
+        candidate = rng.choice(operations)(state, rng)
+        if candidate is not state and _valid(candidate):
+            return candidate
+    return state
+\end{lstlisting}
 
 \section{\textit{Objective Function}}
 
+Fungsi objektif memberi nilai pada state berdasarkan total nilai paket yang berhasil dimuat. Untuk state $S=(P,T,\phi)$, definisikan $I^+(S)=\{i\in P\mid\phi(i)\neq\bot\}$ sebagai paket yang berada di dalam truk. Nilai state dan tujuan optimasinya adalah
+
+\begin{align}
+    f(S) & = \sum_{i\in I^+(S)} v_i,
+    \label{eq:objective-value}                                  \\
+    S^*  & \in \operatorname*{arg\,max}_{S\in\mathcal{F}} f(S),
+    \label{eq:objective-max}
+\end{align}
+
+dengan $v_i$ adalah nilai paket $i$ dan $\mathcal{F}$ adalah himpunan state yang memenuhi seluruh constraint pada bagian sebelumnya. Dengan demikian, paket yang berada di luar truk tidak menyumbang nilai, sementara paket dengan nilai lebih tinggi meningkatkan nilai objektif jika dapat dimuat tanpa melanggar constraint. Fungsi ini tidak memberi bonus langsung untuk ruang kosong atau penalti berat; berat hanya membatasi state melalui constraint kapasitas. Implementasi menghitung jumlah nilai paket yang memiliki penempatan, seperti ditunjukkan pada Kode~\ref{lst:objective-function}.
+
+\begin{lstlisting}[caption={Perhitungan nilai objektif sebuah state},label={lst:objective-function}]
+def objective(self):
+    return sum(
+        package.value
+        for package in self.packages
+        if self.placements[package.id] is not None
+    )
+\end{lstlisting}
+
 \section{Formulasi \textit{Initial State}}
+
+Program membentuk state awal secara konstruktif dan acak, bukan dengan mengambil sampel seragam dari seluruh state layak. Mula-mula semua paket dianggap berada di luar truk, kemudian paket diproses dalam urutan acak. Proses untuk paket ke-$k$ dapat diringkas sebagai
+
+\begin{enumerate}
+    \renewcommand{\labelenumi}{(\arabic{enumi})}
+    \item Atur penempatan awal setiap paket menjadi $\bot$, yang menandakan paket berada di luar truk.
+    \item Acak urutan paket yang akan dicoba.
+    \item Untuk setiap paket, coba hingga 50 kali secara default. Pada tiap percobaan, pilih orientasi secara acak, lalu pilih koordinat yang muat di dalam truk.
+    \item Terima penempatan pertama yang menghasilkan state valid. Jika semua percobaan gagal, biarkan paket tersebut di luar truk dan lanjutkan ke paket berikutnya.
+\end{enumerate}
+
+Secara formal, jika $\sigma$ adalah urutan acak paket, penempatan dimulai dengan $\phi_0(i)=\bot$ untuk setiap $i\in P$. Pada langkah $k$, kandidat $\phi_k'$ mengganti penempatan paket $\sigma_k$; kandidat diterima hanya jika $\operatorname{validate}(P,T,\phi_k')=\emptyset$. Setelah seluruh paket diproses, pemetaan yang terbentuk menjadi state awal $S_0=(P,T,\phi)$. Koordinat horizontal dipilih acak dari rentang integer yang muat, sedangkan koordinat $z$ dipilih dari lantai truk atau ketinggian permukaan atas paket yang sudah ditempatkan. Kode~\ref{lst:initial-state} memperlihatkan inti proses tersebut.
+
+\begin{lstlisting}[caption={Pembentukan state awal acak yang valid},label={lst:initial-state}]
+def random_initial_state(packages, truck, rng=None, attempts_per_package=50):
+    rng = rng or Random()
+    placements = {package.id: None for package in packages}
+    order = list(packages)
+    rng.shuffle(order)
+
+    for package in order:
+        for _ in range(attempts_per_package):
+            orientation = rng.choice(ORIENTATIONS)
+            dimensions = package.oriented_dimensions(orientation)
+            if any(size > limit for size, limit in zip(dimensions, truck.dimensions)):
+                continue
+            candidate_placements = placements.copy()
+            candidate_placements[package.id] = _candidate_position(
+                package, orientation, truck, placements, rng
+            )
+            candidate = _make_state(packages, truck, candidate_placements)
+            if _valid(candidate):
+                placements = candidate_placements
+                break
+
+    return _make_state(packages, truck, placements)
+\end{lstlisting}
+
+Karena paket diproses satu per satu dengan jumlah percobaan terbatas, hasil state awal bergantung pada urutan dan bilangan acak yang digunakan; paket yang gagal ditempatkan tidak menghalangi paket berikutnya untuk dicoba. Strategi ini selalu mempertahankan state valid, tetapi tidak menjamin nilai awal maksimum atau bahwa setiap paket yang sebenarnya dapat dimuat akan berhasil ditempatkan.
 
 \section{Implementasi Hill Climbing}
 
@@ -19,20 +284,20 @@ Heuristik yang kami gunakan adalah \textit{steepest} berbasis sampel: pada setia
 
 \subsection{Parameter dan Kondisi Berhenti}
 \begin{table}[h]
-\centering
-\begin{tabular}{@{}p{4.7cm}p{2.3cm}p{6.5cm}@{}}
-\toprule
-Parameter & Bawaan & Keterangan \\
-\midrule
-\texttt{variant} & \texttt{steepest} & \texttt{steepest}, \texttt{sideways}, \texttt{stochastic}, atau \texttt{random\_restart} \\
-\texttt{neighbors\_per\_iteration} & 30 & Jumlah \textit{neighbor} yang disampel per iterasi (tidak dipakai \textit{stochastic}) \\
-\texttt{max\_iterations} & 1000 & Batas iterasi; menjadi kondisi berhenti pada \textit{stochastic} dan batas pengaman pada varian lain \\
-\texttt{max\_sideways} & 100 & Batas \textit{sideways move} (varian \textit{sideways}) \\
-\texttt{max\_restarts} & 10 & Jumlah \textit{restart} setelah percobaan pertama (varian \textit{random restart}) \\
-\texttt{seed} & --- & Seed pembangkit acak agar eksperimen dapat diulang \\
-\bottomrule
-\end{tabular}
-\caption{Parameter algoritma \textit{hill climbing}}
+    \centering
+    \begin{tabular}{@{}p{4.7cm}p{2.3cm}p{6.5cm}@{}}
+        \toprule
+        Parameter                          & Bawaan            & Keterangan                                                                                           \\
+        \midrule
+        \texttt{variant}                   & \texttt{steepest} & \texttt{steepest}, \texttt{sideways}, \texttt{stochastic}, atau \texttt{random\_restart}             \\
+        \texttt{neighbors\_per\_iteration} & 30                & Jumlah \textit{neighbor} yang disampel per iterasi (tidak dipakai \textit{stochastic})               \\
+        \texttt{max\_iterations}           & 1000              & Batas iterasi; menjadi kondisi berhenti pada \textit{stochastic} dan batas pengaman pada varian lain \\
+        \texttt{max\_sideways}             & 100               & Batas \textit{sideways move} (varian \textit{sideways})                                              \\
+        \texttt{max\_restarts}             & 10                & Jumlah \textit{restart} setelah percobaan pertama (varian \textit{random restart})                   \\
+        \texttt{seed}                      & ---               & Seed pembangkit acak agar eksperimen dapat diulang                                                   \\
+        \bottomrule
+    \end{tabular}
+    \caption{Parameter algoritma \textit{hill climbing}}
 \end{table}
 
 \begin{itemize}
@@ -234,5 +499,215 @@ Berkas \texttt{src/\allowbreak experiments/\allowbreak hill\_\allowbreak climbin
 
 \section{Implementasi Genetic Algorithm}
 
+Implementasi Genetic Algorithm pada proyek ini menyimpan tiap individu sebagai objek \texttt{State}. Karena itu, satu gen berkorespondensi dengan penempatan satu paket, termasuk status paket di luar truk. Alur algoritma dipisah ke beberapa modul agar pembentukan populasi, seleksi, crossover, mutasi, dan loop generasi dapat dijelaskan serta diuji secara terpisah. Uraian berikut mengikuti urutan eksekusi \texttt{genetic\_algorithm}.
+
+\subsection{Konfigurasi dan Generator Acak}
+
+Pemanggil menyediakan state awal, seed, ukuran populasi, dan jumlah generasi. Laju mutasi secara default adalah $0{,}05$, seleksi default menggunakan \textit{roulette wheel}, dan crossover diaktifkan. Seed dipakai untuk menginisialisasi satu generator acak yang digunakan bersama oleh seluruh tahap, sehingga run dengan masukan dan seed yang sama dapat direproduksi. Fungsi objektif dapat menggunakan metode \texttt{State.objective} atau fungsi objektif lain yang diberikan pemanggil.
+
+\begin{lstlisting}[caption={Menyiapkan pencarian GA},label={lst:ga-setup}]
+rng = Random(seed)
+objective = resolve_objective(initial_state, objective_fn)
+population = initialize_population(initial_state, population_size, rng)
+\end{lstlisting}
+
+\subsection{Inisialisasi Populasi}
+
+Populasi pertama harus berisi state valid dan selalu menyertakan \texttt{initial\_state} sebagai individu pertama. Anggota lainnya dibentuk menggunakan generator state awal acak yang dijelaskan sebelumnya. Dengan cara ini, algoritma memulai pencarian dari solusi yang diberikan sekaligus mempertimbangkan konfigurasi alternatif. Fungsi \texttt{initialize\_population} memastikan ukuran populasi positif dan menolak state awal yang melanggar constraint.
+
+\begin{lstlisting}[caption={Membangun populasi awal},label={lst:ga-initialize-population}]
+def initialize_population(initial_state, population_size, rng):
+    if type(population_size) is not int or population_size < 1:
+        raise ValueError("population_size must be a positive integer")
+    violations = validate_state(initial_state)
+    if violations:
+        raise ValueError(f"initial_state is invalid: {'; '.join(violations)}")
+
+    return (
+        initial_state,
+        *(
+            random_initial_state(initial_state.packages, initial_state.truck, rng)
+            for _ in range(population_size - 1)
+        ),
+    )
+\end{lstlisting}
+
+\subsection{Evaluasi \textit{Fitness} dan Penyimpanan Individu Terbaik}
+
+Pada awal setiap generasi, nilai objektif setiap individu dihitung sebagai \textit{fitness}. Implementasi juga memastikan setiap nilai berupa bilangan hingga. Individu dengan nilai tertinggi pada generasi tersebut dicatat, begitu pula rata-rata fitness populasi. Di luar populasi yang sedang berjalan, \texttt{best\_state} dan \texttt{best\_score} menyimpan solusi terbaik yang pernah ditemukan, sehingga solusi tersebut tetap dapat dikembalikan walaupun tidak terpilih menjadi induk atau tidak muncul pada generasi berikutnya.
+
+\begin{lstlisting}[caption={Evaluasi populasi dan pembaruan solusi terbaik},label={lst:ga-evaluate}]
+fitnesses = _evaluate_population(population, objective)
+generation_best_index = max(
+    range(len(population)), key=fitnesses.__getitem__
+)
+generation_best_score = fitnesses[generation_best_index]
+best_history.append(generation_best_score)
+average_history.append(sum(fitnesses) / len(fitnesses))
+
+if best_score is None or generation_best_score > best_score:
+    best_state = population[generation_best_index]
+    best_score = generation_best_score
+\end{lstlisting}
+
+\subsection{Seleksi Induk dengan \textit{Roulette Wheel}}
+
+Untuk menghasilkan anak, program memilih dua induk dari populasi saat ini. Pada konfigurasi standar, seleksi menggunakan \textit{roulette wheel}: individu dengan fitness lebih tinggi mendapat peluang lebih besar untuk dipilih, tetapi individu lain tetap berpeluang terpilih. Karena fungsi objektif pemuatan paket bernilai nonnegatif, nilainya langsung digunakan sebagai bobot. Implementasi juga menangani fitness negatif dengan menggeser bobot, dan memilih secara seragam apabila semua bobot bernilai nol. Mode seleksi seragam tersedia sebagai opsi eksperimen.
+
+\begin{lstlisting}[caption={Pemilihan induk secara roulette},label={lst:ga-selection}]
+minimum = min(fitnesses)
+weights = [fitness - minimum if minimum < 0 else fitness
+           for fitness in fitnesses]
+if sum(weights) == 0:
+    return rng.choice(population)
+return rng.choices(population, weights=weights, k=1)[0]
+\end{lstlisting}
+
+\subsection{Crossover Satu Titik dan Perbaikan Kelayakan}
+
+Setelah dua induk dipilih, \textit{single-point crossover} mengambil gen sebelum titik potong dari induk pertama dan gen setelahnya dari induk kedua. Urutan gen mengikuti urutan paket dalam state. Anak mula-mula dibuat dengan semua paket di luar truk, lalu paket-paket yang diwarisi dalam keadaan termuat dicoba satu per satu dari ketinggian terendah. Jika penempatan warisan membuat anak melanggar constraint, program mencoba mencari penempatan valid baru untuk paket itu; jika pencarian perbaikan gagal, paket tetap di luar truk. Dengan demikian, anak yang dihasilkan tetap layak.
+
+\begin{lstlisting}[caption={Mengambil gen dari dua induk pada satu titik potong},label={lst:ga-crossover-gene}]
+cut = rng.randrange(1, len(packages)) if len(packages) > 1 else 1
+inherited = {
+    package.id: (
+        parent_a.placements[package.id]
+        if index < cut
+        else parent_b.placements[package.id]
+    )
+    for index, package in enumerate(packages)
+}
+\end{lstlisting}
+
+Cuplikan tersebut menentukan pewarisan gen. Tahap berikutnya membangun state anak dan memvalidasi setiap penempatan yang diwarisi. Kode di bawah menunjukkan penanganan gen yang tidak dapat langsung dipasang secara valid.
+
+\begin{lstlisting}[caption={Mempertahankan validitas anak hasil crossover},label={lst:ga-crossover-repair}]
+candidate = State(packages, parent_a.truck, placements)
+if not validate_state(candidate):
+    child = candidate
+else:
+    repaired = random_valid_placement(child, package, rng)
+    if repaired is not None:
+        placements = dict(child.placements)
+        placements[package.id] = repaired
+        child = State(packages, parent_a.truck, placements)
+\end{lstlisting}
+
+\subsection{Mutasi Anak}
+
+Setiap anak kemudian mengalami mutasi dengan peluang \texttt{mutation\_rate}, yang secara default bernilai $0{,}05$. Artinya, peluang tersebut diterapkan pada setiap anak yang dibentuk, bukan secara terpisah pada setiap paket. Jika mutasi terpilih, satu paket dipilih secara acak. Paket yang belum dimuat dicoba untuk dimasukkan; paket yang sudah dimuat dapat dipindahkan, dirotasi, atau dikeluarkan. Kandidat mutasi hanya diterima jika berbeda dari penempatan lama dan seluruh state tetap valid. Fungsi mencoba paling banyak 50 kandidat; jika tidak menemukan mutasi valid, individu tidak berubah.
+
+\begin{lstlisting}[caption={Peluang mutasi pada setiap anak},label={lst:ga-mutation-rate}]
+if rng.random() < mutation_rate:
+    child = mutate_individual(child, rng)
+next_population.append(child)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Memilih satu paket dan jenis mutasinya},label={lst:ga-mutation-operator}]
+package = rng.choice(individual.packages)
+old = individual.placements[package.id]
+operations = ("insert",) if old is None else ("move", "rotate", "remove")
+for _ in range(attempts):
+    operation = rng.choice(operations)
+    if operation == "remove":
+        placement = None
+    elif operation == "rotate":
+        assert old is not None
+        placement = random_valid_placement(
+            individual, package, rng,
+            orientation=rng.choice(tuple(o for o in ORIENTATIONS if o != old.orientation)),
+            coordinate=old.coordinate, attempts=1,
+        )
+    else:
+        placement = random_valid_placement(
+            individual, package, rng,
+            orientation=old.orientation if old is not None else None,
+            attempts=1,
+        )
+    if placement == old:
+        continue
+    placements = dict(individual.placements)
+    placements[package.id] = placement
+    candidate = State(individual.packages, individual.truck, placements)
+    if not validate_state(candidate):
+        return candidate
+return individual
+\end{lstlisting}
+
+\subsection{Pembentukan Generasi Berikutnya dan Terminasi}
+
+Anak-anak dibuat berulang kali sampai jumlahnya sama dengan \texttt{population\_size}. Populasi baru kemudian menggantikan populasi lama secara generasional; individu terbaik tidak otomatis disalin ke generasi berikutnya, tetapi solusi terbaik global tetap tersimpan dalam \texttt{best\_state}. Loop mengevaluasi generasi awal bernomor nol hingga generasi ke-$G$, sehingga menghasilkan $G+1$ catatan fitness. Setelah generasi terakhir dievaluasi, pencarian berhenti dan hasil akhirnya memuat state dengan fitness terbaik yang pernah dijumpai, riwayat fitness terbaik dan rata-rata per generasi, durasi, seed, serta parameter pencarian.
+
+\begin{lstlisting}[caption={Loop generasi dan pembentukan populasi baru},label={lst:ga-generation-loop}]
+best_history = []
+average_history = []
+best_state = initial_state
+best_score = None
+
+for generation in range(generations + 1):
+    fitnesses = _evaluate_population(population, objective)
+    best_index = max(range(len(population)), key=fitnesses.__getitem__)
+    generation_best = fitnesses[best_index]
+    best_history.append(generation_best)
+    average_history.append(sum(fitnesses) / len(fitnesses))
+    if best_score is None or generation_best > best_score:
+        best_state = population[best_index]
+        best_score = generation_best
+    if generation == generations:
+        break
+
+    next_population = []
+    while len(next_population) < population_size:
+        if selection_mode == "uniform":
+            parent_a = rng.choice(population)
+            parent_b = rng.choice(population)
+        else:
+            parent_a = roulette_wheel_select(population, fitnesses, rng)
+            parent_b = roulette_wheel_select(population, fitnesses, rng)
+        child = (single_point_crossover(parent_a, parent_b, rng)
+                 if crossover_enabled else parent_a)
+        if rng.random() < mutation_rate:
+            child = mutate_individual(child, rng)
+        next_population.append(child)
+    population = tuple(next_population)
+\end{lstlisting}
+
+Setelah generasi terakhir dievaluasi, algoritma mengemas solusi terbaik dan metrik pencarian ke dalam objek \texttt{SearchResult}. Seed, indeks run, dan parameter pencarian turut dicatat agar hasil eksperimen dapat ditelusuri.
+
+\begin{lstlisting}[caption={Mengemas solusi dan metrik hasil pencarian},label={lst:ga-result}]
+return SearchResult(
+    algorithm="genetic_algorithm",
+    objective_name=objective_name or ("total_value" if objective_fn is None else "custom"),
+    initial_state=initial_state,
+    final_state=best_state,
+    objective_value=best_score,
+    objective_history=tuple(best_history),
+    duration_seconds=perf_counter() - started_at,
+    metrics=GeneticAlgorithmMetrics(
+        generations=generations,
+        population_size=population_size,
+        best_objective_history=tuple(best_history),
+        average_objective_history=tuple(average_history),
+    ),
+    seed=seed,
+    run_index=run_index,
+    parameters={
+        "population_size": population_size,
+        "generations": generations,
+        "mutation_rate": mutation_rate,
+        "selection_mode": selection_mode,
+        "crossover_enabled": crossover_enabled,
+    },
+)
+\end{lstlisting}
+
+Seed acak diberikan pada generator \texttt{Random}, sehingga konfigurasi seed yang sama dapat mereproduksi urutan keputusan acak yang sama. Sebagai catatan implementasi, riwayat fitness terbaik menyimpan nilai terbaik pada masing-masing generasi, sedangkan \texttt{final\_state} menyimpan individu terbaik sepanjang seluruh generasi. Karena tidak ada elitisme, nilai terbaik per generasi dapat turun meskipun solusi terbaik global yang dikembalikan tetap dipertahankan.
 
 
+\section{Implementasi Spesifikasi Bonus}
+
+\subsection{\textit{Extra} Objective Function}
+
+\subsection{All-variant Hill Climbing Algorithm}
+
+\subsection{Multi-Truck}
