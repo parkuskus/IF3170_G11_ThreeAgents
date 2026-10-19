@@ -6,11 +6,44 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
-from src.experiments.data import load_problem
+from src.experiments.data import load_fleet_problem, load_problem
 from src.experiments.run_ga import main
 
 
 class GADataTests(unittest.TestCase):
+    def test_loads_heterogeneous_fleet_trucks(self):
+        with tempfile.TemporaryDirectory() as temporary_dir:
+            path = Path(temporary_dir) / "fleet.json"
+            path.write_text(json.dumps({
+                "packages": [{"id": "p", "dimensions": [1, 1, 1], "value": 1, "weight": 1, "fragile": False, "eta": 0}],
+                "trucks": [
+                    {"dimensions": [3, 2, 1], "max_capacity": 5},
+                    {"dimensions": [1, 1, 1], "max_capacity": 1},
+                ],
+            }), encoding="utf-8")
+            packages, trucks = load_fleet_problem(path)
+        self.assertEqual(len(packages), 1)
+        self.assertEqual([truck.dimensions for truck in trucks], [(3, 2, 1), (1, 1, 1)])
+
+    def test_legacy_truck_can_be_replicated_and_count_is_validated(self):
+        problem = Path(__file__).parents[1] / "tests" / "fixtures" / "demo.json"
+        _, trucks = load_fleet_problem(problem, truck_count=2)
+        self.assertEqual(len(trucks), 2)
+        self.assertEqual(trucks[0], trucks[1])
+        for invalid_count in (0, -1, True, 1.5):
+            with self.subTest(count=invalid_count), self.assertRaises(ValueError):
+                load_fleet_problem(problem, truck_count=invalid_count)
+
+    def test_truck_count_cannot_override_explicit_fleet(self):
+        with tempfile.TemporaryDirectory() as temporary_dir:
+            path = Path(temporary_dir) / "fleet.json"
+            path.write_text(json.dumps({
+                "packages": [{"id": "p", "dimensions": [1, 1, 1], "value": 1, "weight": 1, "fragile": False, "eta": 0}],
+                "trucks": [{"dimensions": [1, 1, 1], "max_capacity": 1}],
+            }), encoding="utf-8")
+            with self.assertRaises(ValueError):
+                load_fleet_problem(path, truck_count=2)
+
     def test_loads_demo_problem(self):
         path = Path(__file__).parents[1] / "tests" / "fixtures" / "demo.json"
         packages, truck = load_problem(path)

@@ -1,8 +1,8 @@
-"""Constraint checks for a single-truck loading state."""
+"""Constraint checks for single-truck and fleet loading states."""
 
 from itertools import combinations
 
-from src.model import Package, Placement, State
+from src.model import FleetState, Package, Placement, State
 
 
 def _overlap_1d(start_a: int, size_a: int, start_b: int, size_b: int) -> bool:
@@ -61,4 +61,23 @@ def validate_state(state: State) -> list[str]:
         if not supported:
             errors.append(f"package {package.id!r} is unsupported")
 
+    return errors
+
+
+def validate_fleet_state(state: FleetState) -> list[str]:
+    """Validate each truck and ensure no package is assigned more than once."""
+    errors = []
+    loaded_by: dict[str, int] = {}
+    for truck_index, (truck, placements) in enumerate(zip(state.trucks, state.placements)):
+        errors.extend(
+            f"truck {truck_index}: {error}"
+            for error in validate_state(State(state.packages, truck, placements))
+        )
+        for package_id, placement in placements.items():
+            if placement is None:
+                continue
+            if package_id in loaded_by:
+                errors.append(f"package {package_id!r} is assigned to more than one truck")
+            else:
+                loaded_by[package_id] = truck_index
     return errors

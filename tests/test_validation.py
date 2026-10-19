@@ -1,7 +1,7 @@
 import unittest
 
-from src.model import Package, Placement, State, Truck
-from src.validation import validate_state
+from src.model import FleetState, Package, Placement, State, Truck
+from src.validation import validate_fleet_state, validate_state
 
 
 def package(package_id, *, size=(2, 2, 1), weight=1, fragile=False):
@@ -13,6 +13,46 @@ def state(packages, placements, *, truck_size=(6, 6, 6), capacity=10):
 
 
 class StateValidationTests(unittest.TestCase):
+    def test_fleet_rejects_package_placed_in_multiple_trucks(self):
+        item = package("p", size=(1, 1, 1))
+        fleet = FleetState(
+            (item,),
+            (Truck((2, 2, 2), 2), Truck((3, 3, 3), 2)),
+            (
+                {"p": Placement((0, 0, 0), (1, 1, 1))},
+                {"p": Placement((0, 0, 0), (1, 1, 1))},
+            ),
+        )
+        self.assertTrue(any("more than one truck" in error for error in validate_fleet_state(fleet)))
+
+    def test_fleet_validates_each_heterogeneous_truck_independently(self):
+        item = package("p", size=(2, 1, 1), weight=2)
+        fleet = FleetState(
+            (item,),
+            (Truck((1, 1, 1), 2), Truck((3, 2, 2), 2)),
+            ({"p": None}, {"p": Placement((0, 0, 0), (2, 1, 1))}),
+        )
+        self.assertEqual(validate_fleet_state(fleet), [])
+
+    def test_fleet_reports_invalid_geometry_on_affected_truck(self):
+        item = package("p", size=(2, 1, 1), weight=2)
+        fleet = FleetState(
+            (item,),
+            (Truck((3, 2, 2), 2), Truck((1, 1, 1), 2)),
+            ({"p": None}, {"p": Placement((0, 0, 0), (2, 1, 1))}),
+        )
+        errors = validate_fleet_state(fleet)
+        self.assertTrue(any("truck 1" in error and "outside" in error for error in errors))
+
+    def test_fleet_reports_over_capacity_on_affected_truck(self):
+        item = package("p", size=(1, 1, 1), weight=3)
+        fleet = FleetState(
+            (item,),
+            (Truck((1, 1, 1), 5), Truck((1, 1, 1), 2)),
+            ({"p": None}, {"p": Placement((0, 0, 0), (1, 1, 1))}),
+        )
+        self.assertIn("truck 1: truck capacity is exceeded", validate_fleet_state(fleet))
+
     def test_valid_grounded_state(self):
         packages = (package("base"), package("top"))
         candidate = state(

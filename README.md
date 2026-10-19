@@ -24,13 +24,14 @@ Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm suda
 ```text
 .
 ├── src/
-│   ├── model.py                # Model Package, Truck, Placement, dan State
-│   ├── validation.py           # Pemeriksaan seluruh constraint state satu truk
+│   ├── model.py                # Model Package, Truck, Placement, State, dan FleetState
+│   ├── validation.py           # Pemeriksaan constraint state satu truk dan armada
 │   ├── neighbors.py            # State awal acak dan move neighbor yang valid
 │   ├── contracts.py            # Interface pemanggilan algoritma dan objective
 │   ├── results.py              # SearchResult dan metrik khusus tiap algoritma
 │   ├── algorithms/
 │   │   └── genetic_algorithm/
+│   │       ├── fleet.py         # Inisialisasi, crossover, mutasi, dan GA multi-truk
 │   │       ├── population.py    # Pembentukan populasi awal
 │   │       ├── selection.py     # Roulette-wheel selection
 │   │       ├── crossover.py     # Single-point crossover dan repair
@@ -40,6 +41,7 @@ Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm suda
 │   ├── experiments/
 │   │   ├── data.py              # Loader problem dari JSON
 │   │   ├── run_ga.py            # CLI runner
+│   │   ├── run_fleet_ga.py      # CLI GA multi-truk
 │   │   ├── run_ga_ablation.py   # CLI studi ablasi GA
 │   │   ├── genetic_algorithm.py # Dua sweep parameter dan hasil per run
 │   │   └── analysis.py          # Ringkasan lintas run
@@ -92,6 +94,25 @@ python -m src.experiments.run_ga --input tests/fixtures/demo.json --generation-v
 ```
 
 Contoh tersebut memakai **data sintetis** untuk demo. Untuk eksperimen laporan, siapkan JSON dengan data paket tugas yang sebenarnya, pilih nilai parameter lewat pilot, lalu jalankan dengan lokasi input dan output yang sesuai. Runner menghasilkan 18 run, `results.json`, `summary.json` (mean dan simpangan baku), plot ringkasan tiap sweep, serta JSON dan visualisasi state/objective untuk setiap run.
+
+#### Bonus multi-truk
+
+Jalankan GA untuk tiga salinan dari truk pada JSON lama:
+
+```bash
+python -m src.experiments.run_fleet_ga --input tests/fixtures/demo.json --truck-count 3 --population-size 20 --generations 50 --seed 41 --output output/fleet-ga-demo
+```
+
+Untuk dimensi dan kapasitas yang berbeda per truk, gunakan `trucks` sebagai daftar pada JSON, dengan format atribut truk yang sama:
+
+```json
+"trucks": [
+  {"dimensions": [10, 20, 5], "max_capacity": 500},
+  {"dimensions": [6, 8, 4], "max_capacity": 180}
+]
+```
+
+Jangan berikan `--truck-count` jika JSON sudah memakai daftar `trucks`. GA mencari konfigurasi dengan total value armada setinggi mungkin secara heuristik (tidak menjamin global optimum) dan memastikan tiap paket paling banyak masuk ke satu truk. Operasi tambahan yang terlibat: inisialisasi mencari truk yang muat untuk tiap paket; gen GA menyimpan assignment truk beserta koordinat/orientasinya; crossover mencoba mempertahankan placement warisan, memperbaikinya di truk asal, lalu mencoba truk lain; mutasi dapat memindah, merotasi, memindahkan paket ke truk lain, atau mengeluarkannya. Constraint ruang, support, kerapuhan, dan kapasitas tetap divalidasi per truk. Paket yang tidak mendapat penempatan valid tetap di luar armada. Hasil JSON mencatat muatan per truk, total value, serta state awal/akhir; dua plot disimpan di folder output.
 
 #### Fixture dan benchmark lintas algoritma
 

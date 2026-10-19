@@ -11,7 +11,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-from src.model import State
+from src.model import FleetState, State
 from src.results import GeneticAlgorithmMetrics, SearchResult
 
 
@@ -54,7 +54,7 @@ def _box_faces(x: int, y: int, z: int, width: int, length: int, height: int):
     )
 
 
-def _draw_state(ax, state: State, title: str) -> None:
+def _draw_state(ax, state: State, title: str, outside_label: str = "Outside") -> None:
     width, length, height = state.truck.dimensions
     corners = (
         (0, 0, 0), (width, 0, 0), (width, length, 0), (0, length, 0),
@@ -95,7 +95,7 @@ def _draw_state(ax, state: State, title: str) -> None:
     ax.view_init(elev=24, azim=-55)
     outside_text = ", ".join(outside) if outside else "none"
     ax.set_title(
-        f"{title}\nTotal package value: {state.objective()} | Outside: {outside_text}"
+        f"{title}\nTotal package value: {state.objective()} | {outside_label}: {outside_text}"
     )
 
 
@@ -108,6 +108,27 @@ def plot_state_comparison(
     fig = plt.figure(figsize=(13, 6))
     _draw_state(fig.add_subplot(1, 2, 1, projection="3d"), initial_state, "Initial state")
     _draw_state(fig.add_subplot(1, 2, 2, projection="3d"), final_state, "Best final state")
+    fig.tight_layout()
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(destination, dpi=150)
+    plt.close(fig)
+
+
+def plot_fleet_state_comparison(
+    initial_state: FleetState, final_state: FleetState, destination: str | Path
+) -> None:
+    """Save initial/final 3D views for every truck in a fleet."""
+    if initial_state.trucks != final_state.trucks or initial_state.packages != final_state.packages:
+        raise ValueError("fleet states must describe the same packages and trucks")
+    truck_count = len(initial_state.trucks)
+    fig = plt.figure(figsize=(6 * truck_count, 10))
+    for row, fleet in enumerate((initial_state, final_state)):
+        row_title = "Initial state" if row == 0 else "Best final state"
+        for truck_index, (truck, placements) in enumerate(zip(fleet.trucks, fleet.placements)):
+            state = State(fleet.packages, truck, placements)
+            ax = fig.add_subplot(2, truck_count, row * truck_count + truck_index + 1, projection="3d")
+            _draw_state(ax, state, f"{row_title} — Truck {truck_index + 1}", "Not in this truck")
     fig.tight_layout()
     destination = Path(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
