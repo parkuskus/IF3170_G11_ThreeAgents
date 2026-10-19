@@ -37,6 +37,15 @@ function charts(result: RunResult) {
         xLabel="iteration"
         series={[{ name: "temperature", values: asNumbers(m.temperature_history), color: TERTIARY }]}
       />,
+      <LineChart
+        key="acceptance"
+        title="Acceptance probability e^(ΔE/T)"
+        xLabel="iteration"
+        yDomain={[0, 1]}
+        series={[
+          { name: "e^(ΔE/T), capped at 1", values: asNumbers(m.exp_delta_e_over_temperature), color: SECONDARY, dots: true },
+        ]}
+      />,
     ];
   }
   return [
@@ -45,8 +54,18 @@ function charts(result: RunResult) {
       title="Objective per iteration"
       xLabel="iteration"
       series={[{ name: "current", values: result.objectiveHistory, color: BEST }]}
+      markers={restartBoundaries(asNumbers(m.iterations_per_restart))}
+      markerLabel="restart"
     />,
   ];
+}
+
+/** History indices where each restart after the first begins; each climb logs its start plus one point per iteration. */
+function restartBoundaries(iterationsPerRestart: number[]): number[] {
+  const boundaries: number[] = [];
+  let index = 0;
+  for (const n of iterationsPerRestart.slice(0, -1)) boundaries.push((index += n + 1));
+  return boundaries;
 }
 
 /** Index of the truck holding the package, or -1 when it is left out. */
@@ -122,6 +141,7 @@ export default function ResultPanel({ result }: { result: RunResult }) {
   const scalarMetrics = Object.entries(result.metrics).filter(
     ([, v]) => v !== null && !Array.isArray(v),
   );
+  const iterationsPerRestart = asNumbers(result.metrics.iterations_per_restart);
 
   return (
     <div className="results">
@@ -168,6 +188,18 @@ export default function ResultPanel({ result }: { result: RunResult }) {
               <dd>{String(value)}</dd>
             </div>
           ))}
+          {iterationsPerRestart.length > 0 && (
+            <div className="wide">
+              <dt>Iterations per restart</dt>
+              <dd>
+                {iterationsPerRestart.map((n, i) => (
+                  <span key={i} className="chip" title={i === 0 ? "initial climb" : `restart ${i}`}>
+                    {i === 0 ? "start" : `#${i}`}: {n}
+                  </span>
+                ))}
+              </dd>
+            </div>
+          )}
         </dl>
         {(["initial", "final"] as const).map(
           (k) =>
