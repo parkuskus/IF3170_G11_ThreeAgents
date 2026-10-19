@@ -11,36 +11,118 @@ Kelemahan utama \textit{hill climbing} adalah tidak adanya mekanisme untuk kelua
 Keempat varian berikut dibuat untuk mengurangi kelemahan tersebut dengan cara yang berbeda.
 
 \subsection{\textit{Steepest Ascent Hill Climbing}}
-Pada setiap iterasi, algoritma mengevaluasi sekumpulan \textit{neighbor} dan memilih \textit{neighbor} dengan nilai terbaik. Algoritma berpindah ke \textit{neighbor} tersebut hanya jika nilainya \textit{strictly} lebih besar daripada nilai \textit{state} saat ini; jika tidak, algoritma berhenti karena telah mencapai \textit{local optimum}. Varian ini deterministik terhadap pilihan langkahnya dan berhenti paling cepat, tetapi paling mudah terjebak pada \textit{local maximum} dan \textit{plateau}.
+Pada setiap iterasi, algoritma mengevaluasi sekumpulan \textit{neighbor} dan memilih \textit{neighbor} dengan nilai terbaik. Algoritma berpindah ke \textit{neighbor} tersebut hanya jika nilainya \textit{strictly} lebih besar daripada nilai \textit{state} saat ini; jika tidak, algoritma berhenti karena telah mencapai \textit{local optimum}. Pemilihan langkah terbaik deterministik untuk sampel yang dievaluasi, tetapi karena sampel \textit{neighbor} dibangkitkan secara acak, hasil pencarian dapat berbeda antarpercobaan. Varian ini dapat terjebak pada \textit{local maximum} dan \textit{plateau}.
+
+\begingroup
+\setlength{\parskip}{0pt}
+\begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
+\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Steepest-Ascent Hill Climbing\label{alg:steepest-ascent-hill-climbing}\par
+\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+\begin{algorithmic}
+    \REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, jumlah sampel $m$, batas iterasi $I_{\max}$
+    \ENSURE Optimum lokal hasil pencarian $s$
+    \STATE $s \gets s_0$, $i \gets 0$
+    \WHILE{$i < I_{\max}$}
+    \STATE Bangkitkan $m$ \textit{neighbor} valid dari $N(s)$
+    \STATE $s' \gets \arg\max_{u \in N(s)} f(u)$ dari sampel tersebut
+    \IF{$f(s') \leq f(s)$}
+    \RETURN $s$
+    \ENDIF
+    \STATE $s \gets s'$, $i \gets i+1$
+    \ENDWHILE
+    \RETURN $s$
+\end{algorithmic}
+\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+\end{list}
+\endgroup
 
 \subsection{\textit{Hill Climbing with Sideways Move}}
-Varian ini sama dengan \textit{steepest ascent}, tetapi juga mengizinkan perpindahan ke \textit{neighbor} yang nilainya sama dengan \textit{state} saat ini (\textit{sideways move}). Dengan cara ini algoritma dapat menyeberangi \textit{plateau} dan \textit{shoulder}. Agar tidak berputar tanpa akhir pada \textit{plateau} yang tidak memiliki jalan keluar, jumlah \textit{sideways move} dibatasi oleh parameter \textit{maximum sideways move}. Pencarian dihentikan ketika jumlah \textit{sideways move} mencapai batas tersebut.
+Varian ini sama dengan \textit{steepest ascent}, tetapi juga mengizinkan perpindahan ke \textit{neighbor} yang nilainya sama dengan \textit{state} saat ini (\textit{sideways move}). Dengan cara ini algoritma dapat menyeberangi \textit{plateau} dan \textit{shoulder}. Agar tidak berputar tanpa akhir pada \textit{plateau} yang tidak memiliki jalan keluar, jumlah \textit{sideways move} dibatasi oleh parameter \textit{maximum sideways move}. Jika tidak ada peningkatan dan batas perpindahan setara telah tercapai, pencarian berhenti.
+
+\begingroup
+\setlength{\parskip}{0pt}
+\begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
+\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Hill Climbing with Sideways Move\label{alg:sideways-hill-climbing}\par
+\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+\begin{algorithmic}
+    \REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, jumlah sampel $m$, batas iterasi $I_{\max}$, batas \textit{sideways} $L$
+    \ENSURE Solusi akhir $s$
+    \STATE $s \gets s_0$, $i \gets 0$, $q \gets 0$
+    \WHILE{$i < I_{\max}$}
+    \STATE Bangkitkan $m$ \textit{neighbor} valid dari $N(s)$
+    \STATE $s' \gets \arg\max_{u \in N(s)} f(u)$ dari sampel tersebut
+    \IF{$f(s') > f(s)$}
+    \STATE $s \gets s'$
+    \ELSE
+    \IF{$f(s') = f(s)$ \AND $q < L$}
+    \STATE $s \gets s'$, $q \gets q+1$
+    \ELSE
+    \RETURN $s$
+    \ENDIF
+    \ENDIF
+    \STATE $i \gets i+1$
+    \ENDWHILE
+    \RETURN $s$
+\end{algorithmic}
+\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+\end{list}
+\endgroup
 
 \subsection{\textit{Stochastic Hill Climbing}}
 Algoritma memilih satu \textit{neighbor} secara acak pada setiap iterasi dan berpindah ke \textit{neighbor} tersebut hanya jika nilainya lebih baik. Varian ini tidak perlu mengevaluasi seluruh \textit{neighbor} dalam satu iterasi sehingga setiap iterasinya lebih murah, dan sifat acaknya membuat jalur pencarian lebih bervariasi. Karena tidak ada kondisi ``tidak ada \textit{neighbor} yang lebih baik'' yang dapat dipastikan dari satu sampel, pencarian dihentikan setelah jumlah iterasi maksimum tercapai.
 
-\subsection{\textit{Random Restart Hill Climbing}}
-Algoritma menjalankan \textit{steepest ascent hill climbing} berulang kali, setiap kali dimulai dari \textit{state} awal acak yang baru, dan menyimpan hasil terbaik dari seluruh percobaan. Peluang menemukan \textit{global optimum} meningkat seiring bertambahnya jumlah \textit{restart}, karena setiap \textit{restart} mengeksplorasi daerah ruang pencarian yang berbeda. Pencarian dihentikan ketika jumlah \textit{restart} mencapai \textit{maximum restart}. Kelemahannya adalah biaya komputasi yang bertambah sebanding dengan jumlah \textit{restart}.
 \begingroup
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
-          \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-          \noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Steepest-Ascent Hill Climbing\label{alg:steepest-ascent-hill-climbing}\par
-          \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
-          \begin{algorithmic}
-              \REQUIRE Konfigurasi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$
-              \ENSURE Konfigurasi optimum lokal $s$
-              \STATE $s \gets s_0$
-              \WHILE{$N(s) \neq \emptyset$}
-              \STATE $s' \gets \arg\max_{u \in N(s)} f(u)$
-              \IF{$f(s') \leq f(s)$}
-              \RETURN $s$
-              \ENDIF
-              \STATE $s \gets s'$
-              \ENDWHILE
-              \RETURN $s$
-          \end{algorithmic}
-          \par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Stochastic Hill Climbing\label{alg:stochastic-hill-climbing}\par
+\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+\begin{algorithmic}
+    \REQUIRE Solusi awal $s_0$, fungsi tetangga acak $N$, fungsi objektif $f$, batas iterasi $I_{\max}$
+    \ENSURE Solusi akhir $s$
+    \STATE $s \gets s_0$, $i \gets 0$
+    \WHILE{$i < I_{\max}$}
+    \STATE Pilih satu \textit{neighbor} valid $s'$ secara acak dari $N(s)$
+    \IF{$f(s') > f(s)$}
+    \STATE $s \gets s'$
+    \ENDIF
+    \STATE $i \gets i+1$
+    \ENDWHILE
+    \RETURN $s$
+\end{algorithmic}
+\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
+\end{list}
+\endgroup
+
+\subsection{\textit{Random Restart Hill Climbing}}
+Algoritma menjalankan \textit{steepest ascent hill climbing} dari \textit{state} awal yang diberikan, kemudian mengulanginya dari \textit{state} awal acak yang baru dan menyimpan hasil terbaik dari seluruh pendakian. Peluang menemukan \textit{global optimum} meningkat seiring bertambahnya jumlah \textit{restart}, karena setiap \textit{restart} mengeksplorasi daerah ruang pencarian yang berbeda. Parameter \textit{maximum restart} membatasi pengulangan setelah pendakian pertama, sehingga jumlah total pendakian adalah satu ditambah jumlah \textit{restart}. Kelemahannya adalah biaya komputasi yang bertambah sebanding dengan jumlah pendakian.
+
+\begingroup
+\setlength{\parskip}{0pt}
+\begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
+\noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Random-Restart Hill Climbing\label{alg:random-restart-hill-climbing}\par
+\vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
+\begin{algorithmic}
+    \REQUIRE Solusi awal $s_0$, pembangkit solusi acak $R$, fungsi tetangga $N$, fungsi objektif $f$, jumlah sampel $m$, batas iterasi per pendakian $I_{\max}$, batas \textit{restart} $K$
+    \ENSURE Solusi terbaik yang ditemukan $s_{\text{best}}$
+    \STATE $s_{\text{best}} \gets s_0$, $f_{\text{best}} \gets -\infty$
+    \FOR{$r \gets 0$ sampai $K$}
+    \IF{$r=0$}
+    \STATE $s \gets s_0$
+    \ELSE
+    \STATE $s \gets R()$
+    \ENDIF
+    \STATE Jalankan \textit{steepest-ascent} dari $s$ hingga berhenti atau mencapai $I_{\max}$; hasilnya $s_r$
+    \IF{$f(s_r) > f_{\text{best}}$}
+    \STATE $s_{\text{best}} \gets s_r$, $f_{\text{best}} \gets f(s_r)$
+    \ENDIF
+    \ENDFOR
+    \RETURN $s_{\text{best}}$
+\end{algorithmic}
+\par\vspace{1pt}\noindent\rule{\linewidth}{0.8pt}
 \end{list}
 \endgroup
 
