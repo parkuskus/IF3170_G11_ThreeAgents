@@ -9,7 +9,7 @@ from src.experiments.run_ga import main as run_ga_main
 from src.experiments.run_hill_climbing import main as run_hc_main
 from src.model import Package, Truck
 
-FIXTURE = Path(__file__).parent.parent / "examples" / "ga-hard.json"
+FIXTURE = Path(__file__).parent / "fixtures" / "hard.json"
 OBJECTIVES = ("total_value", "eta_weighted_value", "compact_value")
 
 
