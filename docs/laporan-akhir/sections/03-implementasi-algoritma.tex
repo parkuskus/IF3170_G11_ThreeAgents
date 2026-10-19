@@ -875,7 +875,7 @@ Keempat varian \textit{hill climbing} (\textit{steepest}, \textit{sideways}, \te
 
 \subsubsection{Representasi \textit{State} Armada}
 
-Representasi satu truk tidak cukup untuk memodelkan keputusan penugasan paket ke beberapa truk. Karena itu, implementasi menambahkan \texttt{FleetState}: satu kumpulan paket dan truk disimpan bersama sejumlah peta penempatan, dengan satu peta untuk setiap truk. Untuk $n$ paket dan $m$ truk, misalkan $I=\{1,\ldots,n\}$ adalah indeks paket dan $J=\{1,\ldots,m\}$ adalah indeks truk. State armada ditulis sebagai
+Representasi satu truk tidak cukup untuk memodelkan penugasan paket ke beberapa truk. Implementasi menggunakan \texttt{FleetState} untuk menyimpan kumpulan paket, daftar truk, dan satu peta penempatan untuk setiap truk. Untuk $n$ paket dan $m$ truk, misalkan $I=\{1,\ldots,n\}$ adalah indeks paket dan $J=\{1,\ldots,m\}$ adalah indeks truk. State armada ditulis sebagai
 
 \begin{equation}
     S_F = (P, (T_j)_{j\in J}, (\phi_j)_{j\in J}),
@@ -884,7 +884,9 @@ Representasi satu truk tidak cukup untuk memodelkan keputusan penugasan paket ke
     \label{eq:fleet-state}
 \end{equation}
 
-di mana $P$ adalah kumpulan paket, $T_j$ adalah truk ke-$j$, dan $\mathcal{P}_j$ adalah himpunan penempatan yang mungkin pada truk tersebut. Nilai $\phi_j(i)=\bot$ berarti paket $i$ tidak ditempatkan pada truk $j$; selain itu, nilainya memuat koordinat, dimensi setelah rotasi, dan orientasi paket. Secara internal, $\phi_j$ direpresentasikan oleh kamus dari ID paket ke objek \texttt{Placement | None}. Tuple kamus tersebut disimpan pada \texttt{FleetState.placements}, sejajar dengan tuple \texttt{trucks}.
+Notasi $P$ menyatakan kumpulan paket, $T_j$ menyatakan truk ke-$j$, dan $\mathcal{P}_j$ menyatakan himpunan penempatan yang mungkin pada truk tersebut. Nilai $\phi_j(i)=\bot$ berarti paket $i$ tidak ditempatkan pada truk $j$. Jika paket ditempatkan, nilainya memuat koordinat, dimensi setelah rotasi, dan orientasi paket. Secara internal, $\phi_j$ direpresentasikan oleh kamus dari ID paket ke objek \texttt{Placement | None}. Tuple kamus tersebut disimpan pada \texttt{FleetState.placements}, sejajar dengan tuple \texttt{trucks}.
+
+Satu \textit{state} armada berisi daftar paket, daftar truk, dan tabel penempatan untuk setiap truk. Tiap sel pada tabel menunjukkan apakah sebuah paket berada di truk tersebut. Jika paket dimuat, sel itu juga menyimpan posisi dan orientasinya.
 
 Setiap paket boleh tidak dimuat atau ditempatkan pada tepat satu truk. Dengan fungsi indikator $\mathbf{1}[\cdot]$, batasan keunikan assignment dirumuskan sebagai
 
@@ -894,7 +896,9 @@ Setiap paket boleh tidak dimuat atau ditempatkan pada tepat satu truk. Dengan fu
     \label{eq:fleet-unique-assignment}
 \end{equation}
 
-Dengan representasi ini, paket yang tidak memperoleh penempatan valid tetap tercatat pada kumpulan $P$, tetapi seluruh entri penempatannya bernilai $\bot$. Cuplikan~\ref{lst:fleet-state} menunjukkan struktur data yang digunakan.
+Untuk setiap paket, jumlah truk yang memuatnya harus nol atau satu. Nilai nol berarti paket belum termuat, sedangkan nilai satu berarti paket ditugaskan ke sebuah truk. Nilai lebih dari satu menunjukkan bahwa paket yang sama tercatat ganda.
+
+Paket yang tidak memperoleh penempatan valid tetap tercatat pada kumpulan $P$. Seluruh entri penempatannya bernilai $\bot$. Cuplikan~\ref{lst:fleet-state} menunjukkan struktur data tersebut.
 
 \begin{lstlisting}[language=Python, caption={Representasi state armada pada \texttt{model.py}},label={lst:fleet-state}]
 @dataclass(frozen=True, slots=True)
@@ -924,7 +928,9 @@ Sebuah state armada layak apabila setiap truk memenuhi constraint satu truk dan 
     \label{eq:fleet-feasible-set}
 \end{equation}
 
-Dengan demikian, batas dimensi, tabrakan, kapasitas berat, dan dukungan paket diperiksa secara lokal pada truk masing-masing; keunikan penugasan diperiksa pada tingkat armada. Implementasi menggunakan kembali \texttt{validate\_state} untuk setiap truk, kemudian menandai ID paket yang telah ditugaskan untuk mendeteksi duplikasi:
+Sebuah armada layak hanya jika dua syarat terpenuhi. Setiap truk harus memenuhi aturan pemuatan satu truk, dan setiap paket hanya boleh tercatat pada satu truk. Karena itu, paket yang muat secara geometris tetap membuat armada tidak layak jika tercatat ganda.
+
+Batas dimensi, tabrakan, kapasitas berat, dan dukungan paket diperiksa pada masing-masing truk. Validator armada juga memeriksa keunikan penugasan dengan menggunakan kembali \texttt{validate\_state} dan menandai ID paket yang sudah ditempatkan.
 
 \begin{lstlisting}[language=Python, caption={Validasi lokal dan keunikan paket pada armada},label={lst:fleet-validation}]
 for truck_index, (truck, placements) in enumerate(
@@ -942,7 +948,7 @@ for truck_index, (truck, placements) in enumerate(
             loaded_by[package_id] = truck_index
 \end{lstlisting}
 
-Fungsi objektif wajib tetap memaksimalkan total nilai paket yang berhasil dimuat di seluruh armada. Karena Persamaan~\ref{eq:fleet-unique-assignment} membatasi satu penempatan per paket, nilai paket dijumlahkan satu kali saja:
+Fungsi objektif memaksimalkan total nilai paket yang berhasil dimuat di seluruh armada. Persamaan~\ref{eq:fleet-unique-assignment} memastikan setiap paket hanya dihitung satu kali.
 
 \begin{equation}
     f_F(S_F) = \sum_{i\in I} v_i\,
@@ -952,13 +958,15 @@ Fungsi objektif wajib tetap memaksimalkan total nilai paket yang berhasil dimuat
     \label{eq:fleet-objective}
 \end{equation}
 
-Implementasi \texttt{FleetState.objective()} menghitung persamaan tersebut. Objective alternatif ETA dan kekompakan juga menerima \texttt{FleetState}; objective ETA menghitung kontribusi setiap paket yang ditempatkan pada armada, sedangkan kekompakan mengagregasi penempatan di seluruh truk.
+$v_i$ menyatakan nilai paket ke-$i$. Indikator bernilai satu jika paket itu dimuat pada salah satu truk dan nol jika tidak. Fungsi objektif menjumlahkan nilai paket yang berhasil dimuat. Optimasi kemudian mencari state armada layak dengan jumlah nilai terbesar. Setiap paket termuat dihitung satu kali, dan $S_F^*$ menyatakan salah satu state dengan nilai tertinggi.
+
+Implementasi \texttt{FleetState.objective()} menghitung nilai tersebut. Objective ETA dan kekompakan juga menerima \texttt{FleetState}. Objective ETA menghitung kontribusi setiap paket yang ditempatkan pada armada, sedangkan objective kekompakan mengagregasi penempatan seluruh truk.
 
 \subsubsection{Pembentukan \textit{Initial State}}
 
-State awal armada dibentuk secara konstruktif dan stokastik. Mula-mula semua paket dianggap belum dimuat pada semua truk. Paket kemudian diproses menurut urutan masukan; untuk setiap paket, urutan truk diacak. Pada setiap truk, implementasi mencoba orientasi, koordinat, dan ketinggian kandidat secara terbatas. Penempatan diterima jika state pada truk tersebut valid; paket lalu tidak dicoba pada truk lain. Jika tidak ada penempatan yang ditemukan pada seluruh truk, paket tetap berada di luar armada.
+State awal dibentuk dengan menempatkan paket satu per satu. Semua paket mula-mula belum dimuat. Paket diproses sesuai urutan masukan, sementara urutan truk untuk setiap paket diacak. Pada tiap truk, algoritma mencoba orientasi, koordinat, dan ketinggian dalam jumlah terbatas. Penempatan diterima jika state truk valid. Setelah berhasil ditempatkan, paket tidak dicoba pada truk lain. Jika seluruh percobaan gagal, paket dibiarkan di luar armada.
 
-Secara formal, untuk paket $i$ yang sedang diproses, implementasi mengambil permutasi acak $\pi$ dari $J$ dan memilih truk pertama yang menyediakan kandidat $p\in\mathcal{P}_j$ sehingga penggantian $\phi_j(i)\leftarrow p$ mempertahankan kelayakan lokal. Pencarian kandidat penempatan dibatasi hingga 50 percobaan per truk secara bawaan; dengan demikian, kegagalan menemukan penempatan tidak membuktikan bahwa paket tersebut mustahil dimuat. Cuplikan~\ref{lst:fleet-initialization} merangkum proses ini.
+Untuk paket $i$ yang sedang diproses, implementasi mengacak urutan truk $J$ dan memilih truk pertama yang menyediakan kandidat $p\in\mathcal{P}_j$ sehingga penggantian $\phi_j(i)\leftarrow p$ tetap memenuhi kelayakan lokal. Pencarian dibatasi hingga 50 percobaan per truk. Jika semua percobaan gagal, paket dibiarkan di luar armada. Kegagalan ini tidak membuktikan bahwa paket mustahil dimuat. Cuplikan~\ref{lst:fleet-initialization} menunjukkan prosesnya.
 
 \begin{lstlisting}[language=Python, caption={Inisialisasi state armada secara acak},label={lst:fleet-initialization}]
 placements = tuple(
@@ -994,9 +1002,11 @@ Pada HC dan SA, satu langkah pencarian armada mengubah assignment paling banyak 
     \label{eq:fleet-neighbor}
 \end{equation}
 
-di mana $\gamma_i(S_F)$ menyatakan assignment paket $i$: $\bot$ jika tidak dimuat, atau pasangan truk dan penempatannya jika dimuat. Implementasi tidak mengenumerasi seluruh $N_F(S_F)$; ia memilih satu paket secara acak, memilih operasi yang sesuai, lalu menyampel kandidat valid. Jika tidak ditemukan kandidat dalam batas percobaan, operator mengembalikan state asal.
+Di sini, $\gamma_i(S_F)$ menunjukkan assignment paket $i$. Nilainya $\bot$ jika paket tidak dimuat, atau pasangan truk dan penempatannya jika paket dimuat. Implementasi tidak mengenumerasi semua anggota $N_F(S_F)$. Algoritma memilih satu paket secara acak, menentukan operasi yang sesuai, lalu mengambil sampel kandidat valid. Jika tidak menemukan kandidat dalam batas percobaan, operator mengembalikan state asal.
 
-Operasi bergantung pada status paket yang dipilih. Paket yang belum dimuat hanya dapat dicoba untuk dimasukkan ke salah satu truk. Paket yang telah dimuat dapat dipindahkan di truk yang sama, diputar pada koordinat yang sama, dipindahkan ke truk lain, atau dikeluarkan dari armada. Kandidat move, rotate, dan reassign diterima hanya jika valid pada truk tujuan; validator armada memastikan batasan assignment global tetap terjaga. Operator mencoba paling banyak 50 kandidat dan mengembalikan state asal apabila semua percobaan gagal.
+State kandidat menjadi tetangga jika tetap layak dan paling banyak satu paket berubah status atau penempatannya. Satu langkah dapat memindahkan paket ke truk lain atau ke koordinat baru, mengubah orientasinya, memasukkannya, atau mengeluarkannya. Perubahan dua paket sekaligus bukan bagian dari neighborhood satu langkah ini.
+
+Operasi bergantung pada status paket yang dipilih. Paket yang belum dimuat hanya dapat dimasukkan ke salah satu truk. Paket yang sudah dimuat dapat dipindahkan di truk yang sama, diputar pada koordinatnya, dipindahkan ke truk lain, atau dikeluarkan dari armada. Operasi move, rotate, dan reassign hanya diterima jika penempatan pada truk tujuan valid. Validator armada juga memeriksa keunikan assignment. Operator mencoba paling banyak 50 kandidat dan mengembalikan state asal jika semua percobaan gagal.
 
 \begin{lstlisting}[language=Python, caption={Pemilihan operasi mutasi/neighbor armada},label={lst:fleet-neighbor-operator}]
 operations = ("insert",) if old is None else (
@@ -1016,11 +1026,11 @@ rng.shuffle(truck_order)
 
 Cuplikan tersebut diambil dari awal proses mutasi. Untuk operasi selain \texttt{remove}, implementasi mencoba penempatan pada truk dalam \texttt{truck\_order}, membangun \texttt{FleetState} kandidat, lalu mengembalikannya hanya apabila berbeda dari state asal dan \texttt{validate\_fleet\_state} tidak menemukan pelanggaran.
 
-Fungsi \texttt{\_fleet\_neighbor} pada \texttt{search\_problems.py} menggunakan operator ini sebagai fungsi neighbor satu langkah. Dengan demikian, loop HC dan SA generik tetap sama; perbedaan untuk armada berada pada adapter state dan operasi neighbor yang dipasangkan kepadanya. HC menerima kandidat menurut varian yang dipilih, sedangkan SA dapat menerima kandidat yang lebih buruk dengan probabilitas sesuai temperatur.
+Fungsi \texttt{\_fleet\_neighbor} pada \texttt{search\_problems.py} memakai operator ini untuk membentuk neighbor satu langkah. Loop HC dan SA tetap menggunakan implementasi generik yang sama. Adapter armada menentukan cara membentuk kandidat. HC menerima kandidat sesuai variannya, sedangkan SA juga dapat menerima kandidat yang lebih buruk dengan probabilitas yang bergantung pada temperatur.
 
 \subsubsection{Operator \textit{Genetic Algorithm} Armada}
 
-Pada GA, satu gen merepresentasikan assignment satu paket, termasuk pilihan truk dan penempatannya. Crossover satu titik memilih gen dari induk pertama sebelum titik potong dan dari induk kedua sesudahnya. Anak dimulai sebagai armada kosong; gen yang diwarisi diproses menurut indeks truk dan ketinggian penempatan. Implementasi mula-mula mencoba mempertahankan truk, koordinat, dan orientasi yang diwarisi. Jika penempatan tersebut berbenturan dengan gen yang sudah dipasang, operator mencoba memperbaikinya pada truk asal, lalu mencoba truk lain. Gen yang tidak dapat ditempatkan secara valid dibiarkan di luar armada.
+Pada GA, satu gen merepresentasikan assignment sebuah paket, termasuk truk dan penempatannya. Crossover satu titik mengambil gen dari induk pertama sebelum titik potong dan dari induk kedua setelahnya. Anak dibangun dari armada kosong. Gen yang diwarisi diproses menurut truk dan ketinggian penempatan. Operator terlebih dahulu mencoba mempertahankan truk, koordinat, dan orientasi asal. Jika penempatan itu berbenturan dengan gen yang sudah dipasang, operator mencari posisi lain pada truk asal, lalu mencoba truk lain. Paket yang tetap tidak dapat ditempatkan dibiarkan di luar armada.
 
 Mutasi memilih satu paket. Untuk paket yang belum dimuat, mutasi mencoba insert. Untuk paket yang sudah dimuat, mutasi dapat memilih move, rotate, reassign, atau remove. Perubahan assignment dibangun melalui state sementara dengan paket tersebut dikeluarkan terlebih dahulu, lalu kandidat penempatan diperiksa terhadap constraint truk tujuan. Desain ini membuat mutasi satu-paket tidak perlu memodifikasi gen lain secara langsung, sekaligus menjaga keunikan assignment.
 
@@ -1038,15 +1048,15 @@ for package_index, package in enumerate(packages):
     )
 \end{lstlisting}
 
-Setelah pewarisan gen, implementasi membangun anak dari peta penempatan kosong. Untuk setiap gen termuat, urutan percobaan dimulai dari truk yang diwarisi; jika penempatan persisnya tidak dapat dipertahankan, operator mencari posisi valid lain pada truk itu, lalu mencoba truk lain. Jika seluruh percobaan gagal, paket tetap tidak dimuat.
+Setelah mewarisi gen, implementasi membangun anak dari peta penempatan kosong. Untuk setiap paket yang diwarisi dalam keadaan termuat, operator lebih dahulu mencoba truk asalnya. Jika posisi dan orientasi asal tidak dapat dipertahankan, operator mencari posisi lain pada truk tersebut, kemudian mencoba truk lain. Paket yang gagal ditempatkan setelah semua percobaan tetap tidak dimuat.
 
-Loop GA sendiri memakai implementasi generik \texttt{genetic\_algorithm}. Adapter armada menyediakan pembangkit populasi, crossover, mutasi, objective, dan validator; state awal yang diberikan tetap menjadi individu pertama populasi. Karena populasi generasi berikutnya dibentuk tanpa elitisme, individu terbaik tidak harus muncul pada generasi selanjutnya, tetapi loop generik menyimpan individu terbaik sepanjang pencarian untuk hasil akhir.
+Loop GA memakai implementasi generik \texttt{genetic\_algorithm}. Adapter armada menyediakan pembangkit populasi, crossover, mutasi, objective, dan validator. State awal tetap menjadi individu pertama dalam populasi. Populasi generasi berikutnya tidak memakai elitisme, sehingga individu terbaik dapat hilang dari generasi berikutnya. Loop GA tetap menyimpan solusi terbaik yang ditemukan untuk dikembalikan sebagai hasil akhir.
 
 \subsubsection{Kontrak Pencarian, Masukan, dan Keluaran}
 
-Pemilihan operasi berdasarkan tipe state dilakukan oleh \texttt{search\_problem\_for\_state}. Untuk \texttt{FleetState}, adapter memasangkan objective dan validator armada, pembangkit state awal armada, neighbor berbasis mutasi, serta operator crossover dan mutasi GA. Akibatnya, algoritma HC, SA, dan GA dapat menggunakan tipe state yang sama tanpa menyalin loop pencarian masing-masing.
+\texttt{search\_problem\_for\_state} memilih operasi berdasarkan tipe state. Untuk \texttt{FleetState}, adapter menyediakan objective, validator armada, pembangkit state awal, neighbor berbasis mutasi, serta operator crossover dan mutasi GA. HC, SA, dan GA pun menggunakan tipe state yang sama tanpa perlu menyalin loop pencarian.
 
-Masukan armada dapat memakai field JSON \texttt{trucks} berupa daftar dimensi dan kapasitas yang dapat berbeda-beda. Untuk kompatibilitas dengan format lama, field \texttt{truck} tunggal juga dapat direplikasi melalui argumen CLI \texttt{--truck-count}. Contoh bentuk armada heterogen adalah:
+Masukan armada dapat memakai field JSON \texttt{trucks} untuk mencantumkan truk dengan dimensi dan kapasitas berbeda. Untuk data lama, field \texttt{truck} tunggal dapat direplikasi melalui argumen CLI \texttt{--truck-count}. Contoh konfigurasi armada heterogen ditampilkan berikut ini.
 
 \begin{lstlisting}[language=Python, caption={Contoh konfigurasi truk heterogen dalam JSON},label={lst:fleet-json}]
 "trucks": [
@@ -1055,6 +1065,6 @@ Masukan armada dapat memakai field JSON \texttt{trucks} berupa daftar dimensi da
 ]
 \end{lstlisting}
 
-Runner fleet berada di \texttt{src/experiments/fleet/}. Hasil JSON menyimpan nilai total armada, konfigurasi dan muatan setiap truk, paket yang tidak termuat, seed, parameter, riwayat objective, dan durasi. Runner juga menyimpan visualisasi state awal dan akhir; SA menyimpan tambahan riwayat probabilitas penerimaan. Tes pada \texttt{tests/fleet/} memeriksa CLI, serialisasi, visualisasi, seed jamak, objective alternatif, serta konfigurasi truk heterogen.
+Runner armada berada di \texttt{src/experiments/fleet/}. Hasil JSON mencatat nilai total, konfigurasi dan muatan setiap truk, paket yang tidak termuat, seed, parameter, riwayat objective, serta durasi. Runner juga menyimpan visualisasi state awal dan akhir. Runner SA turut menyimpan riwayat probabilitas penerimaan. Tes di \texttt{tests/fleet/} mencakup CLI, serialisasi, visualisasi, banyak seed, objective alternatif, dan truk heterogen.
 
-Secara keseluruhan, ekstensi multi-truk mempertahankan constraint pemuatan pada tingkat tiap truk dan menambahkan constraint assignment pada tingkat armada. Inisialisasi dan operator pencarian bersifat stokastik dengan percobaan terbatas, sehingga hasil tetap heuristik dan tidak menjamin optimum global atau bahwa seluruh paket yang sebenarnya dapat dimuat akan ditemukan.
+Ekstensi multi-truk tetap memeriksa batas pemuatan pada setiap truk dan menambahkan pemeriksaan assignment pada tingkat armada. Inisialisasi dan operator pencarian memakai proses acak dengan jumlah percobaan terbatas. Karena itu, hasilnya bersifat heuristik dan tidak menjamin optimum global atau keberhasilan menemukan semua paket yang sebenarnya dapat dimuat.
