@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { Frame, PackageSpec, RunResult, StateResult } from "../types";
+import type { Frame, PackageSpec, Placements, RunResult, StateResult } from "../types";
 import LineChart, { type Series } from "./LineChart";
 import TruckView, { colorFor, type ColorMode } from "./TruckView";
 
@@ -49,8 +49,14 @@ function charts(result: RunResult) {
   ];
 }
 
+/** Index of the truck holding the package, or -1 when it is left out. */
+const truckOf = (placements: Placements, id: string) => placements.findIndex((truck) => truck[id] != null);
+
+const loadedCount = (state: StateResult, packages: PackageSpec[]) =>
+  packages.filter((p) => truckOf(state.placements, p.id) >= 0).length;
+
 function totalValue(state: StateResult, packages: PackageSpec[]) {
-  return packages.reduce((sum, p) => sum + (state.placements[p.id] ? p.value : 0), 0);
+  return packages.reduce((sum, p) => sum + (truckOf(state.placements, p.id) >= 0 ? p.value : 0), 0);
 }
 
 const fmt = (value: number) => Math.round(value * 1000) / 1000;
@@ -75,7 +81,7 @@ function visibleFrames(frames: Frame[], onlyBests: boolean): Frame[] {
 const STEP_SECONDS = 1.3;
 
 export default function ResultPanel({ result }: { result: RunResult }) {
-  const { packages, truck } = result;
+  const { packages, trucks } = result;
   const [onlyBests, setOnlyBests] = useState(false);
   const frames = useMemo(() => visibleFrames(result.frames, onlyBests), [result.frames, onlyBests]);
   const hasReplay = result.frames.length > 1;
@@ -103,7 +109,7 @@ export default function ResultPanel({ result }: { result: RunResult }) {
   const frame = frames[Math.min(frameIndex, frames.length - 1)];
   const placements =
     view === "replay" && frame ? frame.placements : result[view === "initial" ? "initial" : "final"].placements;
-  const placedCount = packages.filter((p) => placements[p.id]).length;
+  const placedCount = packages.filter((p) => truckOf(placements, p.id) >= 0).length;
 
   const showView = (next: typeof view) => {
     setView(next);
@@ -135,16 +141,19 @@ export default function ResultPanel({ result }: { result: RunResult }) {
           <div>
             <dt>Packages loaded</dt>
             <dd>
-              {packages.filter((p) => result.initial.placements[p.id]).length} →{" "}
-              <strong>{packages.filter((p) => result.final.placements[p.id]).length}</strong> / {packages.length}
+              {loadedCount(result.initial, packages)} → <strong>{loadedCount(result.final, packages)}</strong> /{" "}
+              {packages.length}
             </dd>
           </div>
-          <div>
-            <dt>Weight</dt>
-            <dd>
-              {result.initial.placedWeight} → <strong>{result.final.placedWeight}</strong> / {truck.maxCapacity}
-            </dd>
-          </div>
+          {trucks.map((truck, i) => (
+            <div key={i}>
+              <dt>{trucks.length > 1 ? `Truck ${i + 1} weight` : "Weight"}</dt>
+              <dd>
+                {result.initial.placedWeight[i]} → <strong>{result.final.placedWeight[i]}</strong> /{" "}
+                {truck.maxCapacity}
+              </dd>
+            </div>
+          ))}
           <div>
             <dt>Duration</dt>
             <dd>{result.durationSeconds.toFixed(3)} s</dd>
@@ -189,7 +198,7 @@ export default function ResultPanel({ result }: { result: RunResult }) {
           </div>
         </div>
         <TruckView
-          truck={truck.dimensions}
+          trucks={trucks.map((t) => t.dimensions)}
           packages={packages}
           placements={placements}
           colorMode={colorMode}
@@ -262,7 +271,8 @@ export default function ResultPanel({ result }: { result: RunResult }) {
             </thead>
             <tbody>
               {packages.map((p) => {
-                const placement = placements[p.id];
+                const truckIndex = truckOf(placements, p.id);
+                const placement = truckIndex >= 0 ? placements[truckIndex][p.id] : null;
                 return (
                   <tr
                     key={p.id}
@@ -274,7 +284,7 @@ export default function ResultPanel({ result }: { result: RunResult }) {
                       <i className="swatch" style={{ background: colorFor(p, colorMode, packages) }} />
                     </td>
                     <td>{p.id}</td>
-                    <td>{placement ? "loaded" : "left out"}</td>
+                    <td>{placement ? (trucks.length > 1 ? `Truck ${truckIndex + 1}` : "loaded") : "left out"}</td>
                     <td>{placement ? placement.coordinate.join(", ") : "–"}</td>
                     <td>{placement ? placement.dimensions.join(" × ") : "–"}</td>
                     <td>{p.value}</td>
