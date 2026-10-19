@@ -143,10 +143,14 @@ Pada setiap iterasi, algoritma memilih satu solusi tetangga dan menghitung perub
 
 Temperatur mengendalikan tingkat eksplorasi algoritma. Pada temperatur tinggi, penurunan nilai objektif masih mungkin diterima sehingga pencarian dapat menjelajahi ruang solusi dengan lebih luas. Ketika temperatur diturunkan, peluang menerima perpindahan yang lebih buruk ikut mengecil dan pencarian semakin berfokus pada perbaikan. Salah satu jadwal pendinginan yang umum digunakan adalah pendinginan geometris, dengan $0<\alpha<1$ sebagai faktor pendinginan \cite{russell2021artificial}.
 
+Sebagai contoh, jika kandidat menurunkan nilai objektif sebesar 10, maka pada $T=10$ peluang penerimaannya adalah $e^{-1}\approx0{,}37$, sedangkan pada $T=5$ peluangnya menjadi $e^{-2}\approx0{,}14$. Dalam implementasi, algoritma membandingkan peluang tersebut dengan bilangan acak antara 0 dan 1; kandidat yang lebih buruk tetap diterima jika bilangan acaknya lebih kecil. Jadi, penurunan besar atau temperatur rendah membuat algoritma semakin jarang mengambil langkah mundur.
+
 \begin{equation}
     T_{k+1}=\alpha T_k, \qquad 0<\alpha<1.
     \label{eq:sa-cooling}
 \end{equation}
+
+Rumus ini berarti setiap iterasi mengalikan temperatur saat ini dengan faktor yang sama, bukan menguranginya dengan nilai tetap. Misalnya, jika $T_0=100$ dan $\alpha=0{,}995$, temperatur turun sekitar 0,5\% per iterasi dan setelah 100 iterasi menjadi sekitar 60,6. Penurunan bertahap ini membuat langkah eksplorasi yang awalnya cukup longgar menjadi semakin selektif.
 
 Keunggulan Simulated Annealing adalah kemampuannya melewati optimum lokal dengan menerima perpindahan yang sesaat menurunkan nilai objektif, tanpa harus menyimpan banyak kandidat solusi. Namun, kualitas hasil dan waktu pencarian sensitif terhadap temperatur awal, faktor pendinginan, temperatur minimum, serta mekanisme pembentukan tetangga. Jika temperatur turun terlalu cepat, pencarian masih dapat terjebak pada optimum lokal; frekuensi kondisi ini menjadi salah satu metrik evaluasi algoritma. Karena itu, algoritma ini tidak menjamin solusi global terbaik untuk jadwal pendinginan berdurasi terbatas dan hasilnya dapat berbeda antarpercobaan \cite{russell2021artificial,kirkpatrick1983optimization}.
 
@@ -200,6 +204,8 @@ Karakteristik Genetic Algorithm adalah pencarian atas banyak kandidat secara ber
     P(i)=\frac{w_i}{\sum_{j=1}^{n} w_j}.
     \label{eq:ga-selection}
 \end{equation}
+
+Pembilang adalah bobot individu yang sedang dihitung, sedangkan penyebut menjumlahkan bobot seluruh individu agar semua peluang berjumlah satu. Sebagai contoh, jika dua individu memiliki bobot 10 dan 20, peluang terpilihnya masing-masing adalah $1/3$ dan $2/3$. Pada implementasi, peluang itu diwujudkan sebagai pemilihan berbobot: individu berbobot 20 kira-kira dua kali lebih sering terpilih daripada individu berbobot 10, tetapi individu lain tetap mungkin terpilih.
 
 Untuk persoalan pemuatan paket dengan nilai objektif nonnegatif, bobot seleksi dapat menggunakan nilai objektif. Jika seluruh bobot bernilai nol, seleksi dilakukan secara seragam. Crossover satu titik menggabungkan gen dari dua induk, sementara mutasi mengubah satu gen dengan peluang tertentu. Kedua operator harus menghasilkan individu yang memenuhi batasan pemuatan paket \cite{goldberg1989genetic}.
 
