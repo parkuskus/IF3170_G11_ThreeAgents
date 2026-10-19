@@ -9,8 +9,13 @@ export interface PackageSpec {
   eta: number;
 }
 
+export interface TruckSpec {
+  dimensions: Dim3;
+  max_capacity: number;
+}
+
 export interface Problem {
-  truck: { dimensions: Dim3; max_capacity: number };
+  trucks: TruckSpec[];
   packages: PackageSpec[];
 }
 
@@ -52,9 +57,12 @@ export interface Placement {
   orientation: Dim3;
 }
 
+/** One map per truck, from package ID to where it sits (null = not in that truck). */
+export type Placements = Record<string, Placement | null>[];
+
 export interface StateResult {
-  placements: Record<string, Placement | null>;
-  placedWeight: number;
+  placements: Placements;
+  placedWeight: number[]; // per truck
   violations: string[];
 }
 
@@ -63,7 +71,7 @@ export interface Frame {
   // Score of the state shown, and the best score seen up to this point.
   objective: number;
   best: number;
-  placements: Record<string, Placement | null>;
+  placements: Placements;
 }
 
 export interface RunResult {
@@ -81,7 +89,7 @@ export interface RunResult {
   // Sampled search trajectory for replay; empty unless the run asked for animation.
   frames: Frame[];
   packages: PackageSpec[];
-  truck: { dimensions: Dim3; maxCapacity: number };
+  trucks: { dimensions: Dim3; maxCapacity: number }[];
 }
 
 export interface RunRequest {

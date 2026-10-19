@@ -6,7 +6,7 @@ import SolverPanel from "./components/SolverPanel";
 import type { AlgorithmSpec, Catalogue, Example, ParamValue, Problem, RunResult } from "./types";
 
 const EMPTY_PROBLEM: Problem = {
-  truck: { dimensions: [10, 10, 6], max_capacity: 20 },
+  trucks: [{ dimensions: [10, 10, 6], max_capacity: 20 }],
   packages: [],
 };
 
