@@ -1,3 +1,47 @@
 \section{Kesimpulan}
 
+Tugas besar ini mengimplementasikan empat varian \textit{hill climbing}, \textit{simulated annealing}, dan \textit{genetic algorithm} untuk persoalan pemuatan paket tiga dimensi pada truk, di atas representasi \textit{state}, validator \textit{constraint}, dan fungsi \textit{neighbor} yang sama. Dari eksperimen pada Bab~4, diperoleh kesimpulan berikut.
+
+\begin{enumerate}
+    \item \textbf{Seluruh algoritma menghasilkan \textit{state} yang valid.} Seluruh 330 \textit{run} \textit{benchmark} satu truk dan 330 \textit{run} armada dua truk berakhir pada \textit{state} yang lolos validator. Pada \texttt{infeasible}, setiap \textit{run} mengembalikan \textit{state} kosong dengan nilai 0, dan kedelapan masukan tidak valid ditolak \textit{loader} sebelum pencarian dimulai. Representasi yang mengizinkan paket berada di luar truk membuat \textit{state} kosong selalu layak, sehingga pencarian tidak pernah kehilangan solusi yang valid.
+
+    \item \textbf{\textit{Random restart}, SA, dan GA memberi kualitas yang setara dan lebih baik daripada varian \textit{hill climbing} lain.} Pada \texttt{base} dan \texttt{tight-capacity}, rata-rata ketiganya berada dalam sekitar 2\% dari optimum (335 dan 175) dan dalam sekitar 1\% satu sama lain, sedangkan \textit{steepest}, \textit{sideways}, dan \textit{stochastic} tertinggal 5--10\% dengan simpangan baku yang jauh lebih besar. Dengan lima \textit{seed}, selisih di antara ketiga algoritma terbaik lebih kecil daripada simpangan bakunya, sehingga tidak ada satu algoritma yang dapat dinyatakan paling unggul.
+
+    \item \textbf{Dari sisi biaya, \textit{random restart} paling efisien pada konfigurasi yang diuji.} \textit{Random restart} mencapai kualitas yang sebanding dengan SA dan GA dengan 383 evaluasi objektif, dibandingkan 3001 pada SA dan 820 pada GA. \textit{Steepest} paling murah (43 evaluasi), tetapi hasilnya sangat bergantung pada \textit{state} awal. Durasi per evaluasi GA paling tinggi karena \textit{crossover}, perbaikan konflik, dan validasi turut dihitung, sehingga jumlah evaluasi saja bukan ukuran biaya yang adil antaralgoritma.
+
+    \item \textbf{Kemampuan keluar dari \textit{local optimum} adalah pembeda utama.} \textit{State} awal \textit{seed} 12 pada \texttt{base} (bernilai 285) sudah merupakan \textit{local optimum} bagi \textit{steepest} dan \textit{sideways}. SA keluar darinya dengan menerima gerakan yang memburuk pada suhu tinggi (naik ke 320), sedangkan \textit{random restart} dan GA keluar dengan membangkitkan \textit{state} baru. Kasus \texttt{rotation-only} menunjukkan bahwa sebagian \textit{local optimum} berasal dari operator \textit{neighbor}: \textit{move} tidak pernah mengeluarkan paket dari truk dan \textit{swap} selalu memberi orientasi awal, sehingga dari beberapa \textit{state} tidak ada jalur ke \textit{state} yang lebih baik.
+
+    \item \textbf{Kendala ruang lebih sulit daripada kendala kapasitas.} Pada \texttt{tight-space}, tidak ada algoritma yang rata-ratanya mencapai nilai terbaik teramati (300), padahal batas atas \textit{knapsack} berbasis berat adalah 335. Kesulitannya terletak pada penataan geometris, bukan pada pemilihan paket. Sebaliknya, \texttt{tight-capacity} hampir selalu diselesaikan secara optimal oleh \textit{random restart}, SA, dan GA.
+
+    \item \textbf{Perbedaan antarvarian \textit{hill climbing} sesuai dengan mekanismenya.} \textit{Sideways move} membantu bila ada dataran yang dapat dilalui (misalnya pada \texttt{compact\_value} dan \texttt{tight-capacity}), tetapi 56--88 kali lebih lambat daripada \textit{steepest}, dan sekitar 18--24\% gerakannya tidak mengubah \textit{state}. \textit{Stochastic} hampir tidak lebih baik daripada \textit{steepest} meskipun sekitar 32 kali lebih lambat. Sebagian keunggulan \textit{random restart} berasal dari anggaran sebelas pendakian, bukan semata dari aturan penerimaannya.
+
+    \item \textbf{Pada GA, ukuran populasi paling berpengaruh dan operatornya memberi manfaat kecil.} Menaikkan populasi dari 10 ke 40 menaikkan rata-rata dari 327 ke 333 dengan durasi sekitar lima kali, sedangkan menambah generasi di atas 40 tidak mengubah hasil. Laju mutasi 0,05 memberi rata-rata tertinggi; tanpa mutasi seluruh \textit{run} berhenti pada 330, dan laju 0,20 memperlebar sebaran. Ablasi menunjukkan bahwa menghilangkan \textit{crossover} atau mengganti \textit{roulette-wheel} dengan seleksi seragam menurunkan rata-rata 4--5 poin, sementara \textit{crossover} beserta \textit{repair} adalah bagian termahal dari satu generasi.
+
+    \item \textbf{Pilihan \textit{objective function} menentukan solusi yang dicari.} \texttt{eta\_weighted\_value} memilih himpunan paket yang lebih mendesak dengan mengorbankan nilai total (misalnya SA pada \texttt{base}: nilai total turun dari 330 ke 305, skor ETA naik sekitar 24\%). \texttt{compact\_value} terutama mengubah penataan menjadi tumpukan yang lebih rendah tanpa mengurangi nilai total, dan gradien kecilnya membantu varian \textit{hill climbing} melewati dataran.
+
+    \item \textbf{Pada armada dua truk, pola utamanya bertahan dengan perbedaan pada kasus ketat.} Pada \texttt{base} armada, semua metode kecuali \textit{steepest} dan \textit{stochastic} mencapai batas atas 600 pada kelima \textit{seed}. GA memberi rata-rata tertinggi pada \texttt{tight-space} (472), sedangkan SA adalah satu-satunya metode yang memperbaiki \texttt{tight-capacity} (rata-rata 323 dari nilai awal 300) dengan menukar paket yang dipilih.
+\end{enumerate}
+
+Secara keseluruhan, tidak ada satu algoritma yang unggul di semua kasus. \textit{Random restart hill climbing} memberi keseimbangan kualitas dan biaya terbaik pada \textit{instance} kecil yang diuji, SA paling mampu memperbaiki \textit{state} yang terjebak melalui gerakan memburuk, dan GA paling konsisten pada \texttt{base} serta paling kuat pada \texttt{tight-space} armada. Kesimpulan ini berlaku untuk \textit{instance} sintetis berukuran 1--10 paket, satu konfigurasi parameter per algoritma, dan tiga sampai lima \textit{seed}.
+
 \section{Saran}
+
+Berdasarkan hasil dan keterbatasan eksperimen, beberapa pengembangan berikut disarankan.
+
+\begin{enumerate}
+    \item \textbf{Memperbaiki operator \textit{neighbor}.} Operator \textit{move} sebaiknya dapat mengeluarkan paket dari truk, dan \textit{swap} sebaiknya mencoba seluruh orientasi paket yang masuk, bukan hanya orientasi awal. Perubahan ini menghilangkan \textit{local optimum} buatan seperti pada \texttt{rotation-only}. Selain itu, \texttt{random\_neighbor} sebaiknya tidak mengembalikan \textit{state} asal agar jatah \textit{sideways move} tidak terbuang untuk gerakan \textit{no-op}.
+
+    \item \textbf{Menyamakan anggaran pencarian.} Perbandingan berikutnya sebaiknya memberi setiap algoritma jumlah evaluasi objektif atau batas waktu yang sama, termasuk menyamakan jumlah pendakian \textit{random restart} dengan anggaran algoritma lain. Dengan begitu, keunggulan suatu algoritma dapat dipisahkan dari besarnya anggaran yang diterimanya.
+
+    \item \textbf{Menambah pengulangan dan uji statistik.} Jumlah \textit{seed} perlu ditambah, misalnya menjadi 30, dan perbandingan berpasangan diuji dengan uji nonparametrik seperti Wilcoxon \textit{signed-rank}. Dengan lima \textit{seed}, selisih antara \textit{random restart}, SA, dan GA belum dapat dibedakan dari \textit{noise}.
+
+    \item \textbf{Menyetel parameter secara sistematis.} Suhu awal SA sebaiknya disesuaikan dengan skala \textit{objective}, misalnya dari rata-rata $|\Delta E|$ pada beberapa gerakan awal, karena skala \texttt{eta\_weighted\_value} jauh lebih kecil daripada \texttt{total\_value}. Sweep GA dapat diperluas ke kombinasi populasi dan laju mutasi serta dijalankan pada lebih dari satu \textit{instance}, dan SA dapat diberi kondisi berhenti dini agar tidak selalu menjalankan seluruh iterasi.
+
+    \item \textbf{Memakai \textit{instance} yang lebih besar dan optimum yang diketahui.} \textit{Instance} dengan puluhan hingga ratusan paket diperlukan untuk menguji skalabilitas. Untuk kasus yang dibatasi ruang seperti \texttt{tight-space}, optimum sebenarnya dapat dihitung dengan solver eksak, misalnya formulasi \textit{integer programming}, agar kualitas solusi dapat diukur terhadap acuan, bukan hanya terhadap nilai terbaik yang ditemukan.
+
+    \item \textbf{Mencoba pendekatan hibrida.} Hasil menunjukkan bahwa algoritma yang membangkitkan \textit{state} baru dan algoritma yang menerima gerakan memburuk sama-sama efektif keluar dari \textit{local optimum}. Kombinasi keduanya, seperti GA yang menjalankan \textit{hill climbing} singkat pada anak (\textit{memetic algorithm}) atau SA dengan \textit{restart}, layak diuji.
+
+    \item \textbf{Memperluas eksperimen armada.} Eksperimen armada baru mencakup dua truk identik. Pengujian berikutnya dapat memakai truk dengan ukuran dan kapasitas berbeda serta lebih dari dua truk, dan menambahkan operator yang memindahkan paket antartruk secara langsung.
+
+    \item \textbf{Menelusuri temuan yang belum dijelaskan.} Dua temuan belum diselidiki penyebabnya: SA dengan \texttt{compact\_value} sekitar 46\% lebih lambat pada \texttt{base}, dan \textit{random restart} kalah dari \textit{sideways} pada \texttt{eta\_weighted\_value}. Profil waktu dan eksperimen dengan lebih banyak \textit{seed} dapat memastikan apakah keduanya nyata atau hanya \textit{noise}.
+\end{enumerate}
