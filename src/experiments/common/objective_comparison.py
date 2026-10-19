@@ -7,7 +7,7 @@ from statistics import mean
 from typing import Any
 
 from src.contracts import ObjectiveFunction
-from src.experiments.analysis import _spread
+from src.experiments.common.analysis import _spread
 from src.model import State
 from src.objectives import OBJECTIVES
 from src.visualization.simulated_annealing import plot_objective_comparison

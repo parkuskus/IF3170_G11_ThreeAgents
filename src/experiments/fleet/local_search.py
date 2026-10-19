@@ -10,8 +10,11 @@ from typing import Any
 from src.algorithms.hill_climbing import VARIANTS, hill_climbing
 from src.algorithms.simulated_annealing import simulated_annealing
 from src.algorithms.genetic_algorithm.fleet import random_initial_fleet_state
-from src.experiments.fleet_genetic_algorithm import _serialize_fleet_state
-from src.experiments.objective_comparison import aggregate_objective_runs, write_objective_comparison
+from src.experiments.common.objective_comparison import (
+    aggregate_objective_runs,
+    write_objective_comparison,
+)
+from src.experiments.fleet.ga import _serialize_fleet_state
 from src.model import FleetState, Package, Truck
 from src.objectives import OBJECTIVES
 from src.results import SearchResult

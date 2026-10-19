@@ -17,7 +17,7 @@ Jalankan tes fondasi dari root repository:
 python -m unittest discover -s tests -v
 ```
 
-Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm sudah memiliki loop, runner eksperimen, serta visualisasi.
+Hill-climbing, Simulated Annealing, dan Genetic Algorithm memiliki loop dan runner eksperimen; ketiganya mendukung problem multi-truk melalui kontrak bersama.
 
 ## Struktur direktori
 
@@ -40,15 +40,20 @@ Hill-climbing dan Simulated Annealing masih dikembangkan. Genetic Algorithm suda
 │   │       ├── _placement.py    # Helper placement valid untuk operator
 │   │       └── algorithm.py     # Loop Genetic Algorithm
 │   ├── experiments/
-│   │   ├── data.py              # Loader problem dari JSON
-│   │   ├── run_ga.py            # CLI runner
-│   │   ├── run_fleet_ga.py      # CLI GA multi-truk
-│   │   ├── run_ga_ablation.py   # CLI studi ablasi GA
-│   │   ├── genetic_algorithm.py # Dua sweep parameter dan hasil per run
-│   │   └── analysis.py          # Ringkasan lintas run
+│   │   ├── common/              # Loader, analisis, benchmark, objective comparison
+│   │   ├── ga/                  # Eksperimen, ablasi, kasus tepi, runner GA
+│   │   ├── hc/                  # Eksperimen dan runner Hill-climbing
+│   │   ├── sa/                  # Eksperimen dan runner Simulated Annealing
+│   │   ├── fleet/               # Eksperimen dan runner multi-truk HC/SA/GA
+│   │   └── run_*.py             # Entry point kompatibel untuk perintah CLI lama
 │   └── visualization/
 │       └── genetic_algorithm.py # Plot riwayat dan tampilan state 3D
-├── tests/                      # Tes fondasi, eksperimen, dan kasus GA kompleks
+├── tests/
+│   ├── core/                   # Tes model dan kontrak
+│   ├── algorithms/             # Tes algoritma
+│   ├── experiments/            # Tes runner dan analisis
+│   ├── fleet/                  # Tes multi-truk
+│   └── fixtures/               # Data uji
 ├── docs/
 │   └── laporan-akhir/          # Sumber dan hasil laporan
 ├── output/                     # Hasil run, data eksperimen, dan visualisasi
@@ -119,7 +124,7 @@ Contoh tersebut memakai **data sintetis** untuk demo. Untuk eksperimen laporan, 
 Jalankan GA untuk tiga salinan dari truk pada JSON lama:
 
 ```bash
-python -m src.experiments.run_fleet_ga --input tests/fixtures/demo.json --truck-count 3 --population-size 20 --generations 50 --seed 41 --output output/fleet-ga-demo
+python -m src.experiments.run_fleet_ga --input tests/fixtures/demo.json --truck-count 3 --population-size 20 --generations 50 --seeds 41 42 43 --objectives total_value eta_weighted_value compact_value --output output/fleet-ga-demo
 ```
 
 Untuk dimensi dan kapasitas yang berbeda per truk, gunakan `trucks` sebagai daftar pada JSON, dengan format atribut truk yang sama:
@@ -133,7 +138,9 @@ Untuk dimensi dan kapasitas yang berbeda per truk, gunakan `trucks` sebagai daft
 
 Jangan berikan `--truck-count` jika JSON sudah memakai daftar `trucks`. GA mencari konfigurasi dengan total value armada setinggi mungkin secara heuristik (tidak menjamin global optimum) dan memastikan tiap paket paling banyak masuk ke satu truk. Operasi tambahan yang terlibat: inisialisasi mencari truk yang muat untuk tiap paket; gen GA menyimpan assignment truk beserta koordinat/orientasinya; crossover mencoba mempertahankan placement warisan, memperbaikinya di truk asal, lalu mencoba truk lain; mutasi dapat memindah, merotasi, memindahkan paket ke truk lain, atau mengeluarkannya. Constraint ruang, support, kerapuhan, dan kapasitas tetap divalidasi per truk. Paket yang tidak mendapat penempatan valid tetap di luar armada. Hasil JSON mencatat muatan per truk, total value, serta state awal/akhir; dua plot disimpan di folder output.
 
-HC dan SA juga dapat dijalankan satu kali pada format JSON armada yang sama:
+GA menjalankan satu seed dengan `--seed` (default 41), atau tiga seed berbeda dengan `--seeds`. `--objectives` dapat memilih objective yang sama seperti HC/SA; hasil berisi JSON dan visualisasi tiap run, `summary.json`, serta perbandingan objective lintas seed jika dipilih lebih dari satu objective.
+
+HC dan SA juga dapat dijalankan pada format JSON armada yang sama:
 
 ```bash
 python -m src.experiments.run_fleet_hc --input tests/fixtures/demo.json --truck-count 3 --variants steepest random_restart --seeds 41 42 43 --objectives total_value eta_weighted_value compact_value --output output/fleet-hc-demo

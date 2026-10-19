@@ -7,8 +7,8 @@ from typing import Any
 
 from src.algorithms.hill_climbing import VARIANTS, hill_climbing
 from src.contracts import ObjectiveFunction
-from src.experiments.genetic_algorithm import _serialize_state
-from src.experiments.objective_comparison import (
+from src.experiments.ga.experiments import _serialize_state
+from src.experiments.common.objective_comparison import (
     aggregate_objective_runs,
     resolve_objective_fn,
     write_objective_comparison,

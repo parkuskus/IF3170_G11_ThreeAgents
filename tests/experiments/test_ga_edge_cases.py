@@ -7,7 +7,7 @@ from src.algorithms.genetic_algorithm import (
     initialize_population,
     single_point_crossover,
 )
-from src.experiments.data import load_problem
+from src.experiments.common.data import load_problem
 from src.model import Package, Placement, State, Truck
 from src.neighbors import random_initial_state
 from src.validation import validate_state
@@ -15,7 +15,7 @@ from src.validation import validate_state
 
 class GeneticAlgorithmEdgeCaseTests(unittest.TestCase):
     def test_complex_fixture_population_and_search_stay_valid(self):
-        problem = Path(__file__).parent / "fixtures" / "hard.json"
+        problem = Path(__file__).resolve().parents[1] / "fixtures" / "hard.json"
         packages, truck = load_problem(problem)
         initial = random_initial_state(packages, truck, Random(103), attempts_per_package=100)
         population = initialize_population(initial, 8, Random(104))

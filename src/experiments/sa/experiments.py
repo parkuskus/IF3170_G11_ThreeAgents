@@ -8,8 +8,8 @@ from statistics import mean
 from typing import Any
 
 from src.algorithms.simulated_annealing import simulated_annealing
-from src.experiments.analysis import _spread
-from src.experiments.genetic_algorithm import _serialize_state
+from src.experiments.common.analysis import _spread
+from src.experiments.ga.experiments import _serialize_state
 from src.model import Package, State, Truck
 from src.neighbors import random_initial_state
 from src.objectives import OBJECTIVES, compactness, eta_weighted_value
