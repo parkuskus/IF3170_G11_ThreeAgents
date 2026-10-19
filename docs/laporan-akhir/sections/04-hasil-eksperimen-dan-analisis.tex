@@ -69,12 +69,13 @@ Masukan tidak valid & \texttt{invalid/} (8 berkas) & --- & --- & Dimensi paket n
 \label{tab:fixtures}
 \end{table}
 
-Setiap algoritma dijalankan pada tiga \textit{objective function}: \texttt{total\_value} (fungsi wajib), \texttt{eta\_weighted\_value} (nilai paket dibagi $\text{ETA}+1$, sehingga paket yang mendesak bernilai lebih besar), dan \texttt{compact\_value} (nilai total ditambah bonus kurang dari satu satuan untuk penumpukan yang rendah). Eksperimen dibagi menjadi tiga rangkaian.
+Setiap algoritma dijalankan pada tiga \textit{objective function}: \texttt{total\_value} (fungsi wajib), \texttt{eta\_weighted\_value} (nilai paket dibagi $\text{ETA}+1$, sehingga paket yang mendesak bernilai lebih besar), dan \texttt{compact\_value} (nilai total ditambah bonus kurang dari satu satuan untuk penumpukan yang rendah). Eksperimen dibagi menjadi empat rangkaian.
 
 \begin{enumerate}
     \renewcommand{\labelenumi}{(\arabic{enumi})}
     \item \textbf{\textit{Benchmark} lintas kategori} (\texttt{src/experiments/run\_benchmark.py}): seluruh algoritma pada seluruh \textit{fixture} valid dengan \texttt{total\_value}, lima \textit{seed} (11--15) dan satu konfigurasi parameter tetap, sehingga $11\ \text{instance} \times 5\ \textit{seed} \times 6\ \text{algoritma} = 330$ \textit{run}. Setiap \textit{run} mencatat validitas \textit{state} akhir, jumlah paket termuat, jumlah evaluasi objektif, dan durasi pencarian. Delapan \textit{fixture} tidak valid diberikan ke \textit{loader} data pada rangkaian yang sama.
     \item \textbf{Eksperimen per algoritma} pada \texttt{base} dengan ketiga \textit{objective} dan tiga \textit{seed} (11--13), sesuai kebutuhan evaluasi tugas: empat varian \textit{hill climbing}, tiga \textit{run} SA, serta dua \textit{sweep} GA (generasi dan populasi). Perbandingan antar-\textit{objective} diulang pada \texttt{tight-capacity} dengan konfigurasi yang sama untuk melihat apakah kesimpulannya bergantung pada \textit{instance}.
+    \item \textbf{Analisis GA lintas fixture dan parameter} pada \texttt{total\_value}: baseline untuk seluruh 11 fixture valid dan tiga \textit{sweep} satu-faktor-pada-satu-waktu pada \texttt{base}, masing-masing memakai lima \textit{seed} (11--15). Baseline memakai populasi 20, 40 generasi, dan laju mutasi 0,05; parameter yang disapu adalah ukuran populasi $\{10,20,40\}$, jumlah generasi $\{20,40,80\}$, dan laju mutasi $\{0;0,05;0,20\}$.
     \item \textbf{Studi ablasi GA} pada \texttt{base} dengan \texttt{total\_value} dan lima \textit{seed} (11--15).
 \end{enumerate}
 
@@ -86,7 +87,7 @@ Algoritma & Parameter \\
 \midrule
 \textit{Hill climbing} & 4 varian; \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, \texttt{max\_restarts}\,=\,10 \\
 \textit{Simulated annealing} & \texttt{max\_iterations}\,=\,3000, $T_0=100$, \texttt{cooling\_rate}\,=\,0,995, \texttt{stuck\_patience}\,=\,100 \\
-\textit{Genetic algorithm} & \textit{Benchmark}: populasi 20, 40 generasi. \textit{Sweep}: generasi $\{20,40,80\}$ dengan populasi 20 dan populasi $\{10,20,40\}$ dengan 40 generasi. \textit{Mutation rate} 0,05; seleksi \textit{roulette-wheel}. Ablasi: populasi 20, 50 generasi \\
+\textit{Genetic algorithm} & Baseline: populasi 20, 40 generasi, \textit{mutation rate} 0,05. \textit{Sweep} terpisah: populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, dan \textit{mutation rate} $\{0;0,05;0,20\}$, dengan parameter lain tetap pada baseline; seleksi \textit{roulette-wheel}. Ablasi: populasi 20, 50 generasi \\
 \bottomrule
 \end{tabular}
 \caption{Konfigurasi parameter eksperimen}
@@ -99,7 +100,7 @@ Nilai optimum sebagai acuan: relaksasi yang hanya memperhatikan kapasitas berat 
 
 \section{Hasil Eksperimen dan Analisis tiap Algoritma}
 
-Seluruh angka pada bagian ini berasal dari \textit{instance} \texttt{base} dengan tiga \textit{seed} (11--13), kecuali bila disebut lain.
+Hasil \textit{hill climbing} dan SA pada bagian ini menggunakan \texttt{base} dengan tiga \textit{seed} (11--13), kecuali bila disebut lain. Protokol GA dijelaskan dan dilaporkan tersendiri karena mencakup seluruh kategori fixture serta lima seed (11--15).
 
 \subsection{Hill Climbing}
 
@@ -230,93 +231,155 @@ Nilai akhir per \textit{seed} adalah 330,449; 330,410; dan 335,254 (rata-rata 33
 
 \subsection{Genetic Algorithm}
 
-\subsubsection{Fungsi objektif \texttt{total\_value}}
+\subsubsection{Protokol dan hasil baseline lintas kasus}
+
+Baseline GA dijalankan pada seluruh 11 \textit{fixture} valid dengan \texttt{total\_value}, populasi 20, 40 generasi, \textit{mutation rate} 0,05, dan lima \textit{seed} (11--15), menghasilkan 55 \textit{run}. Untuk setiap pasangan fixture--seed, state awal dibuat dengan seed turunan yang sama, $s_0=s\oplus\texttt{0x5EED}$. Evaluasi objektif berjumlah 820 per run, sesuai $(40+1)\times20$. Seluruh state akhir lolos validasi (100\%); pada fixture \texttt{infeasible}, kelima run mengembalikan state kosong yang valid dengan nilai 0 dan nol paket termuat.
+
+Tabel~\ref{tab:ga-fixture-baseline} merangkum nilai akhir, variasi antarseed, paket termuat, serta waktu pencarian. Nilai terbaik pada tabel adalah maksimum hasil run yang benar-benar diamati, bukan klaim optimum global. Kasus tanpa pemuatan layak dilaporkan sebagai pemeriksaan validitas, bukan sebagai perbandingan kualitas dengan kasus yang dapat dimuat.
+
 \begin{table}[H]
 \centering
-\begin{tabular}{@{}llrrr@{}}
+\small
+\caption{Baseline GA pada seluruh fixture valid; rata-rata dan simpangan baku sampel dari lima seed}
+\label{tab:ga-fixture-baseline}
+\begin{tabular}{@{}lrrrrr@{}}
 \toprule
-\textit{Sweep} & Nilai parameter & Rata-rata akhir & Simpangan baku & Durasi rata-rata (s) \\
+\textit{Fixture} & Rata-rata nilai $\pm$ SD & Terbaik & Paket termuat & Durasi (s) \\
 \midrule
-Generasi (populasi 20) & 20 & 331,67 & 2,89 & 0,295 \\
-                       & 40 & 331,67 & 2,89 & 0,398 \\
-                       & 80 & 331,67 & 2,89 & 0,622 \\
-\midrule
-Populasi (40 generasi) & 10 & 328,33 & 7,64 & 0,176 \\
-                       & 20 & 331,67 & 2,89 & 0,353 \\
-                       & 40 & 333,33 & 2,89 & 0,837 \\
+\texttt{base} & 331,00 $\pm$ 2,24 & 335 & 6,0 & 0,681 \\
+\texttt{tight-space} & 274,00 $\pm$ 10,84 & 290 & 5,0 & 0,543 \\
+\texttt{tight-capacity} & 174,00 $\pm$ 2,24 & 175 & 3,4 & 0,523 \\
+\texttt{infeasible} & 0,00 $\pm$ 0,00 & 0 & 0,0 & 0,205 \\
+\texttt{single-package} & 50,00 $\pm$ 0,00 & 50 & 1,0 & 0,041 \\
+\texttt{equal-fitness} & 40,00 $\pm$ 0,00 & 40 & 4,0 & 0,339 \\
+\texttt{exact-capacity} & 100,00 $\pm$ 0,00 & 100 & 3,0 & 0,170 \\
+\texttt{wall-touching} & 100,00 $\pm$ 0,00 & 100 & 4,0 & 0,233 \\
+\texttt{fragile-support} & 90,00 $\pm$ 0,00 & 90 & 2,0 & 0,177 \\
+\texttt{rotation-only} & 70,00 $\pm$ 0,00 & 70 & 1,0 & 0,108 \\
+\texttt{zero-value-weight} & 70,00 $\pm$ 0,00 & 70 & 3,0 & 0,163 \\
 \bottomrule
 \end{tabular}
-\caption{Hasil \textit{genetic algorithm} dengan \texttt{total\_value} (\texttt{base})}
-\label{tab:ga-total}
 \end{table}
 
-Dari 18 \textit{run}, nilai akhir hanya berupa 320, 330, atau 335. Menambah generasi dari 20 menjadi 80 tidak mengubah hasil pada satu \textit{seed} pun (330, 335, dan 330 pada \textit{seed} 11, 12, dan 13 untuk ketiga jumlah generasi); tambahan generasi hanya menaikkan durasi dari 0,295 menjadi 0,622 detik. Karena \textit{seed} yang sama menghasilkan 20 generasi pertama yang sama pada \textit{run} yang lebih panjang, hasil yang identik berarti tidak ada perbaikan setelah generasi ke-20. Kurva memperlihatkan alasannya: rata-rata nilai individu terbaik per generasi turun dari 326,67 pada generasi awal menjadi 306,67 pada generasi ke-20 dan ke-80 (minimum 291,67 pada \textit{sweep} 80 generasi). Implementasi membentuk populasi baru tiap generasi tanpa \textit{elitism}, sehingga individu terbaik tidak dijamin bertahan, sedangkan hasil yang dilaporkan adalah \textit{state} terbaik sepanjang pencarian (\textit{best-so-far}). Populasi tidak membaik seiring generasi pada konfigurasi ini, dan hasil akhir hanya mencerminkan individu terbaik yang muncul pada awal pencarian.
+Perbedaan terhadap kasus dasar terlihat pada ruang truk yang dipersempit: rata-rata \texttt{tight-space} turun dari 331 pada \texttt{base} menjadi 274, dan simpangan bakunya 10,84 merupakan yang terbesar di antara 11 fixture. Nilai terbaik yang ditemukan pada lima seed adalah 290. Sebaliknya, nilai pada \texttt{tight-capacity} mendekati batas nilai berbasis kapasitas 175, tetapi tidak semua seed mencapainya. Fixture batas berukuran kecil mencapai nilai yang sama pada kelima seed; konsistensi tersebut menunjukkan bahwa kasus-kasus sederhana ini terjangkau oleh konfigurasi GA, bukan bahwa algoritma selalu menemukan optimum pada instance lain.
 
-Pada \textit{sweep} populasi, rata-rata naik dengan ukuran populasi (328,33; 331,67; 333,33) dan simpangan baku terbesar ada pada populasi 10 (7,64), tetapi dengan tiga \textit{seed} selisih 5 poin antara populasi 10 dan 40 masih berada dalam sebaran simpangan baku dan tidak dapat dinyatakan signifikan. Durasi tumbuh kira-kira linear terhadap ukuran populasi (0,176; 0,353; 0,837 detik). Hanya populasi 40 yang mencapai 335 pada dua \textit{seed}; populasi 10 sempat jatuh ke 320 pada satu \textit{seed}.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/ga-analysis/fixture-summary.png}
+\caption{Rata-rata nilai terbaik yang ditemukan pada tiap fixture; batang galat menunjukkan satu simpangan baku sampel}
+\label{fig:ga-fixture-summary}
+\end{figure}
+
+\subsubsection{Contoh keluaran dan visualisasi state}
+
+Tabel~\ref{tab:ga-representative} memperlihatkan hasil konkret dari run dengan seed 11, satu run representatif yang dipilih konsisten sebelum melihat perbandingan antarparameter. Kolom paket menunjukkan assignment pada state akhir, bukan seluruh kandidat yang diperiksa GA. Pada \texttt{base}, nilai awal sudah 330 sehingga run tersebut tidak meningkat; pada \texttt{tight-space} dan \texttt{tight-capacity}, pencarian memperbaiki nilai awal. Kasus \texttt{rotation-only} memuat paket \texttt{long} setelah rotasi, sementara kasus \texttt{infeasible} tetap kosong.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Keluaran aktual GA untuk seed 11 pada satu wakil tiap kategori dan kedua fixture kendala ketat}
+\label{tab:ga-representative}
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Kasus & Nilai awal $\rightarrow$ akhir & Paket & Valid & Paket termuat pada hasil \\
+\midrule
+\texttt{base} & 330 $\rightarrow$ 330 & 6/10 & Ya & P01, P02, P04, P06, P08, P09 \\
+\texttt{tight-space} & 255 $\rightarrow$ 270 & 4/10 & Ya & P02, P04, P07, P09 \\
+\texttt{tight-capacity} & 155 $\rightarrow$ 175 & 3/10 & Ya & P02, P04, P06 \\
+\texttt{infeasible} & 0 $\rightarrow$ 0 & 0/10 & Ya & -- \\
+\texttt{rotation-only} & 30 $\rightarrow$ 70 & 1/2 & Ya & \texttt{long} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Gambar~\ref{fig:ga-state-examples} memperlihatkan perubahan penempatan sebelum dan sesudah pencarian pada empat kategori. Gambar~\ref{fig:ga-capacity-states} menambahkan visualisasi \texttt{tight-capacity}, sehingga kedua bentuk kendala ketat dapat dibandingkan. Gambar state untuk semua fixture dan seed pertama tersedia di \texttt{output/ga-analysis/figures/}.
 
 \begin{figure}[H]
 \centering
 \begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/base/ga-generation-sweep-total_value.png}
-\caption{\textit{Sweep} generasi}
+\includegraphics[width=\textwidth]{figures/ga-analysis/base-states.png}
+\caption{Kasus dasar}
 \end{subfigure}
 \hfill
 \begin{subfigure}[t]{0.49\textwidth}
-\includegraphics[width=\textwidth]{figures/base/ga-population-sweep-total_value.png}
-\caption{\textit{Sweep} populasi}
+\includegraphics[width=\textwidth]{figures/ga-analysis/tight-space-states.png}
+\caption{Ruang truk ketat}
 \end{subfigure}
-\caption{Ringkasan \textit{genetic algorithm} dengan \texttt{total\_value}}
+
+\begin{subfigure}[t]{0.49\textwidth}
+\includegraphics[width=\textwidth]{figures/ga-analysis/infeasible-states.png}
+\caption{Tidak ada pemuatan layak}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+\includegraphics[width=\textwidth]{figures/ga-analysis/rotation-only-states.png}
+\caption{Paket hanya muat setelah rotasi}
+\end{subfigure}
+\caption{State awal dan state terbaik yang dikembalikan GA untuk seed 11}
+\label{fig:ga-state-examples}
 \end{figure}
-
-\subsubsection{Fungsi objektif \texttt{eta\_weighted\_value}}
-\begin{table}[H]
-\centering
-\begin{tabular}{@{}llrrr@{}}
-\toprule
-\textit{Sweep} & Nilai parameter & Rata-rata akhir & Simpangan baku & Durasi rata-rata (s) \\
-\midrule
-Generasi (populasi 20) & 20 & 113,89 & 0,96 & 0,353 \\
-                       & 40 & 113,89 & 0,96 & 0,356 \\
-                       & 80 & 113,89 & 0,96 & 0,525 \\
-\midrule
-Populasi (40 generasi) & 10 & 110,83 & 3,82 & 0,167 \\
-                       & 20 & 113,89 & 0,96 & 0,420 \\
-                       & 40 & 115,89 & 0,77 & 0,907 \\
-\bottomrule
-\end{tabular}
-\caption{Hasil \textit{genetic algorithm} dengan \texttt{eta\_weighted\_value} (\texttt{base})}
-\label{tab:ga-eta}
-\end{table}
-
-Polanya sama dengan \texttt{total\_value}: generasi tidak berpengaruh dan populasi yang lebih besar memberi rata-rata lebih tinggi dan sebaran lebih kecil (110,83 pada populasi 10 menjadi 115,89 pada populasi 40, dibandingkan nilai terbaik 116,33). Pada \textit{sweep} populasi, populasi 40 paling dekat ke nilai terbaik pada ketiga \textit{objective}.
-
-\subsubsection{Fungsi objektif \texttt{compact\_value}}
-\begin{table}[H]
-\centering
-\begin{tabular}{@{}llrrr@{}}
-\toprule
-\textit{Sweep} & Nilai parameter & Rata-rata akhir & Simpangan baku & Durasi rata-rata (s) \\
-\midrule
-Generasi (populasi 20) & 20 & 331,915 & 2,833 & 0,294 \\
-                       & 40 & 331,915 & 2,833 & 0,382 \\
-                       & 80 & 331,915 & 2,833 & 0,542 \\
-\midrule
-Populasi (40 generasi) & 10 & 328,585 & 7,596 & 0,155 \\
-                       & 20 & 331,915 & 2,833 & 0,400 \\
-                       & 40 & 333,664 & 2,906 & 0,876 \\
-\bottomrule
-\end{tabular}
-\caption{Hasil \textit{genetic algorithm} dengan \texttt{compact\_value} (\texttt{base})}
-\label{tab:ga-compact}
-\end{table}
-
-Hasil \texttt{compact\_value} hampir identik dengan \texttt{total\_value} ditambah selisih kecil yang berasal dari bonus kepadatan (331,915 dibanding 331,667; 333,664 dibanding 333,333). Bonus kurang dari satu satuan tidak mengubah \textit{state} mana yang dipilih sebagai terbaik; ia hanya menentukan penataan di dalam himpunan paket yang sama, sehingga kesimpulan tentang generasi dan populasi tidak berubah.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/base/ga-objective-comparison.png}
-\caption{Perbandingan ketiga \textit{objective function} pada \textit{genetic algorithm}}
+\includegraphics[width=0.92\textwidth]{figures/ga-analysis/tight-capacity-states.png}
+\caption{State awal dan state akhir pada kasus kapasitas truk ketat (seed 11)}
+\label{fig:ga-capacity-states}
 \end{figure}
+
+\subsubsection{Pengaruh parameter GA}
+
+Pengaruh ukuran populasi, jumlah generasi, dan laju mutasi diuji secara terpisah pada \texttt{base}. Setiap nilai parameter dijalankan dengan lima seed yang sama dan derivasi state awal yang sama; parameter lain dipertahankan pada baseline. Tabel~\ref{tab:ga-parameter-sweeps} melaporkan rata-rata nilai terbaik yang ditemukan, simpangan baku sampel, maksimum hasil run, durasi, dan jumlah evaluasi.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Sweep satu faktor GA pada fixture \texttt{base} (lima seed per nilai parameter)}
+\label{tab:ga-parameter-sweeps}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+Parameter & Nilai & Rata-rata $\pm$ SD & Terbaik & Durasi (s) & Evaluasi \\
+\midrule
+Generasi & 20 & 330,00 $\pm$ 3,54 & 335 & 0,519 & 420 \\
+         & 40 & 331,00 $\pm$ 2,24 & 335 & 0,665 & 820 \\
+         & 80 & 331,00 $\pm$ 2,24 & 335 & 0,935 & 1.620 \\
+\midrule
+Populasi & 10 & 327,00 $\pm$ 6,71 & 335 & 0,295 & 410 \\
+         & 20 & 331,00 $\pm$ 2,24 & 335 & 0,672 & 820 \\
+         & 40 & 333,00 $\pm$ 2,74 & 335 & 1,553 & 1.640 \\
+\midrule
+\textit{Mutation rate} & 0,00 & 330,00 $\pm$ 0,00 & 330 & 0,623 & 820 \\
+                       & 0,05 & 331,00 $\pm$ 2,24 & 335 & 0,659 & 820 \\
+                       & 0,20 & 328,00 $\pm$ 4,47 & 330 & 0,809 & 820 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ukuran populasi memberi tren kualitas yang paling jelas pada rentang yang diuji: rata-rata naik dari 327 menjadi 333 saat populasi bertambah dari 10 ke 40, sementara durasi rata-rata meningkat sekitar lima kali (0,295 menjadi 1,553 detik). Namun, nilai terbaik yang pernah ditemukan tetap 335 pada ketiga ukuran populasi, sehingga keuntungan yang terlihat adalah konsistensi rata-rata, bukan batas solusi baru. Karena hanya lima seed yang diuji, tren ini bersifat deskriptif dan tidak membuktikan perbedaan statistik.
+
+Menambah generasi dari 20 menjadi 40 menaikkan rata-rata hanya satu poin (330 ke 331), sedangkan dari 40 ke 80 tidak menambah rata-rata maupun nilai terbaik; durasi naik dari 0,665 menjadi 0,935 detik. Ini menunjukkan stagnasi hasil pada seed dan rentang generasi ini, bukan bahwa tambahan generasi tidak pernah berguna. Jumlah evaluasi bertambah proporsional dengan ukuran populasi dan banyak generasi karena setiap generasi mengevaluasi seluruh populasi.
+
+Laju mutasi 0,05 memberi rata-rata tertinggi (331) dan satu run mencapai 335; tanpa mutasi seluruh lima run berakhir pada 330. Laju 0,20 menurunkan rata-rata menjadi 328 dan menghasilkan sebaran lebih lebar (SD 4,47). Pada instance ini, hasil konsisten dengan mutasi moderat membantu mempertahankan variasi yang berguna, sedangkan laju lebih tinggi dapat mengganggu kombinasi yang baik; lima seed belum cukup untuk menyimpulkan hubungan umum.
+
+Gambar~\ref{fig:ga-parameter-sweeps} memperlihatkan hubungan kualitas dan biaya untuk ketiga sweep. Riwayat pencarian per run disimpan terpisah pada berkas JSON; grafik di sini menekankan nilai akhir dan durasi agar dampak parameter mudah dibandingkan.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+\includegraphics[width=\textwidth]{figures/ga-analysis/population-sweep.png}
+\caption{Ukuran populasi}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+\includegraphics[width=\textwidth]{figures/ga-analysis/generation-sweep.png}
+\caption{Jumlah generasi}
+\end{subfigure}
+
+\includegraphics[width=0.78\textwidth]{figures/ga-analysis/mutation-sweep.png}
+\caption{Pengaruh parameter terhadap nilai terbaik dan durasi rata-rata (batang galat: $\pm1$ SD)}
+\label{fig:ga-parameter-sweeps}
+\end{figure}
+
+Eksperimen ini menggunakan satu fixture untuk sweep parameter dan lima seed, sehingga hasilnya belum menunjukkan konfigurasi terbaik untuk semua kategori. Waktu yang dilaporkan adalah durasi algoritma pada lingkungan lokal yang sama, tetapi dapat berubah akibat beban mesin; seluruh 100 keluaran per-run, parameter, riwayat objective, dan state awal/akhir disimpan di \texttt{output/ga-analysis/}. Eksperimen dapat direproduksi dengan menjalankan \texttt{python -m src.experiments.ga.results\_analysis} dari root repositori.
 
 \section{Analisis Keseluruhan}
 

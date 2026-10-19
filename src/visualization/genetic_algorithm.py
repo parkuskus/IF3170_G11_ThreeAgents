@@ -93,7 +93,9 @@ def _draw_state(ax, state: State, title: str, outside_label: str = "Outside") ->
     ax.set(xlim=(0, width), ylim=(0, length), zlim=(0, height), xlabel="Width (x)", ylabel="Length (y)", zlabel="Height (z)")
     ax.set_box_aspect(state.truck.dimensions)
     ax.view_init(elev=24, azim=-55)
-    outside_text = ", ".join(outside) if outside else "none"
+    outside_text = (
+        ", ".join(outside) if len(outside) <= 5 else f"{len(outside)} packages"
+    ) if outside else "none"
     ax.set_title(
         f"{title}\nTotal package value: {state.objective()} | {outside_label}: {outside_text}"
     )

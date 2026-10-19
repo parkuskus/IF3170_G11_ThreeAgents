@@ -1,0 +1,278 @@
+{
+  "experiment": "baseline",
+  "category": "boundary",
+  "instance": "rotation-only",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "population_size": 20,
+    "generations": 40,
+    "mutation_rate": 0.05
+  },
+  "seed": 11,
+  "initial_state_seed": 24294,
+  "loaded_packages": 1,
+  "valid": true,
+  "violations": [],
+  "evaluations": 820,
+  "duration_seconds": 0.09539040003437549,
+  "artifact_path": "output\\ga-analysis\\baseline\\rotation-only\\baseline-all\\seed-11\\result.json",
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "total_value",
+    "objective_value": 70,
+    "objective_history": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ],
+    "duration_seconds": 0.09539040003437549,
+    "seed": 11,
+    "run_index": 1,
+    "parameters": {
+      "population_size": 20,
+      "generations": 40,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 40,
+      "population_size": 20,
+      "best_objective_history": [
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70,
+        70
+      ],
+      "average_objective_history": [
+        48.0,
+        36.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        66.5,
+        70.0,
+        66.5,
+        70.0,
+        70.0,
+        70.0,
+        66.5,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        66.5,
+        70.0,
+        66.5,
+        70.0,
+        70.0,
+        63.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        63.0,
+        66.5,
+        70.0,
+        70.0,
+        70.0,
+        70.0,
+        70.0
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          5,
+          2,
+          2
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 30,
+      "packages": [
+        {
+          "id": "long",
+          "dimensions": [
+            2,
+            2,
+            5
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "cube",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          5,
+          2,
+          2
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 70,
+      "packages": [
+        {
+          "id": "long",
+          "dimensions": [
+            2,
+            2,
+            5
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              5,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        }
+      ]
+    }
+  }
+}

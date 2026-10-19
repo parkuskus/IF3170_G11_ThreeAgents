@@ -1,0 +1,252 @@
+{
+  "experiment": "baseline",
+  "category": "boundary",
+  "instance": "single-package",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "population_size": 20,
+    "generations": 40,
+    "mutation_rate": 0.05
+  },
+  "seed": 12,
+  "initial_state_seed": 24289,
+  "loaded_packages": 1,
+  "valid": true,
+  "violations": [],
+  "evaluations": 820,
+  "duration_seconds": 0.042395500000566244,
+  "artifact_path": "output\\ga-analysis\\baseline\\single-package\\baseline-all\\seed-12\\result.json",
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "total_value",
+    "objective_value": 50,
+    "objective_history": [
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50,
+      50
+    ],
+    "duration_seconds": 0.042395500000566244,
+    "seed": 12,
+    "run_index": 2,
+    "parameters": {
+      "population_size": 20,
+      "generations": 40,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 40,
+      "population_size": 20,
+      "best_objective_history": [
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50,
+        50
+      ],
+      "average_objective_history": [
+        50.0,
+        47.5,
+        45.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        47.5,
+        50.0,
+        50.0,
+        45.0,
+        47.5,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        47.5,
+        50.0,
+        50.0,
+        47.5,
+        50.0,
+        50.0,
+        50.0,
+        50.0,
+        47.5,
+        50.0,
+        50.0,
+        47.5,
+        50.0,
+        50.0,
+        50.0,
+        47.5,
+        50.0,
+        47.5
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          4,
+          4,
+          4
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 50,
+      "packages": [
+        {
+          "id": "only",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 50,
+          "weight": 5,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          4,
+          4,
+          4
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 50,
+      "packages": [
+        {
+          "id": "only",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 50,
+          "weight": 5,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

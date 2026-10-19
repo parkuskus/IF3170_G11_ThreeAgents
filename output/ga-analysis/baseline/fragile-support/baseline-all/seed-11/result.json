@@ -1,0 +1,336 @@
+{
+  "experiment": "baseline",
+  "category": "boundary",
+  "instance": "fragile-support",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "population_size": 20,
+    "generations": 40,
+    "mutation_rate": 0.05
+  },
+  "seed": 11,
+  "initial_state_seed": 24294,
+  "loaded_packages": 2,
+  "valid": true,
+  "violations": [],
+  "evaluations": 820,
+  "duration_seconds": 0.16686570004094392,
+  "artifact_path": "output\\ga-analysis\\baseline\\fragile-support\\baseline-all\\seed-11\\result.json",
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "total_value",
+    "objective_value": 90,
+    "objective_history": [
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90
+    ],
+    "duration_seconds": 0.16686570004094392,
+    "seed": 11,
+    "run_index": 1,
+    "parameters": {
+      "population_size": 20,
+      "generations": 40,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 40,
+      "population_size": 20,
+      "best_objective_history": [
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90,
+        90
+      ],
+      "average_objective_history": [
+        67.0,
+        56.0,
+        57.0,
+        58.5,
+        55.0,
+        63.0,
+        72.0,
+        78.5,
+        84.0,
+        90.0,
+        85.5,
+        74.5,
+        90.0,
+        90.0,
+        83.5,
+        82.5,
+        87.5,
+        90.0,
+        88.0,
+        90.0,
+        90.0,
+        90.0,
+        87.5,
+        85.0,
+        87.5,
+        87.5,
+        86.0,
+        88.0,
+        86.0,
+        87.5,
+        90.0,
+        90.0,
+        88.0,
+        85.5,
+        88.0,
+        86.0,
+        84.0,
+        74.5,
+        84.0,
+        88.0,
+        90.0
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          2,
+          2,
+          2
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 90,
+      "packages": [
+        {
+          "id": "fragile",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 2,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "solid-a",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "solid-b",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 10,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          2,
+          2,
+          2
+        ],
+        "max_capacity": 10
+      },
+      "total_package_value": 90,
+      "packages": [
+        {
+          "id": "fragile",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 2,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "solid-a",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "solid-b",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 10,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        }
+      ]
+    }
+  }
+}
