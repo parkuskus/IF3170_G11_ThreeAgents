@@ -1,0 +1,436 @@
+{
+  "variant": "random_restart",
+  "run_index": 3,
+  "seed": 13,
+  "initial_state_seed": 24288,
+  "artifacts": {
+    "run_directory": "output\\hc-hard\\compact_value\\random_restart\\run-3",
+    "objective_history": "output\\hc-hard\\compact_value\\random_restart\\run-3\\objective-history.png",
+    "initial_final_states": "output\\hc-hard\\compact_value\\random_restart\\run-3\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "hill_climbing_random_restart",
+    "objective_name": "compact_value",
+    "objective_value": 200.29169642857144,
+    "objective_history": [
+      140.15286764705883,
+      140.34941176470588,
+      195.27440217391305,
+      195.29054347826087,
+      195.3013043478261,
+      195.09146739130435,
+      155.2695,
+      155.2805,
+      195.16141304347826,
+      195.1183695652174,
+      195.2475,
+      195.3766304347826,
+      195.38739130434783,
+      195.4304347826087,
+      195.41967391304348,
+      195.44119565217392,
+      160.2475,
+      200.23866071428571,
+      200.29169642857144,
+      195.11298913043478,
+      195.15065217391304,
+      195.17217391304348,
+      195.19369565217391,
+      160.14208333333335,
+      160.15583333333333,
+      160.165
+    ],
+    "duration_seconds": 0.10362630000008721,
+    "seed": 13,
+    "run_index": 3,
+    "parameters": {
+      "variant": "random_restart",
+      "max_iterations": 1000,
+      "neighbors_per_iteration": 30,
+      "max_restarts": 10
+    },
+    "metrics": {
+      "variant": "random_restart",
+      "iterations": 15,
+      "sideways_moves": 0,
+      "maximum_sideways_moves": null,
+      "restarts": 10,
+      "maximum_restarts": 10,
+      "iterations_per_restart": [
+        1,
+        2,
+        0,
+        1,
+        0,
+        4,
+        1,
+        2,
+        0,
+        2,
+        2
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 140,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              4,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              3,
+              4,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              5,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              3,
+              2,
+              1
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 200,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              4,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              4,
+              3
+            ]
+          }
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              2,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              4,
+              0,
+              0
+            ],
+            "orientation": [
+              2,
+              1,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              2,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

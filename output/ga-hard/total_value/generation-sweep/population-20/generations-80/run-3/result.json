@@ -1,0 +1,643 @@
+{
+  "experiment": "generation-sweep",
+  "population_size": 20,
+  "generations": 80,
+  "run_index": 3,
+  "seed": 13,
+  "initial_state_seed": 24288,
+  "artifacts": {
+    "run_directory": "output\\ga-hard\\total_value\\generation-sweep\\population-20\\generations-80\\run-3",
+    "objective_history": "output\\ga-hard\\total_value\\generation-sweep\\population-20\\generations-80\\run-3\\objective-history.png",
+    "initial_final_states": "output\\ga-hard\\total_value\\generation-sweep\\population-20\\generations-80\\run-3\\initial-final-states.png"
+  },
+  "result": {
+    "algorithm": "genetic_algorithm",
+    "objective_name": "total_value",
+    "objective_value": 200,
+    "objective_history": [
+      195,
+      200,
+      200,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195,
+      195
+    ],
+    "duration_seconds": 0.27921250000008513,
+    "seed": 13,
+    "run_index": 3,
+    "parameters": {
+      "population_size": 20,
+      "generations": 80,
+      "mutation_rate": 0.05,
+      "selection_mode": "roulette",
+      "crossover_enabled": true
+    },
+    "metrics": {
+      "generations": 80,
+      "population_size": 20,
+      "best_objective_history": [
+        195,
+        200,
+        200,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195,
+        195
+      ],
+      "average_objective_history": [
+        171.25,
+        155.5,
+        155.25,
+        152.0,
+        161.5,
+        160.5,
+        164.0,
+        179.5,
+        175.25,
+        175.25,
+        178.5,
+        185.0,
+        188.25,
+        195.0,
+        192.0,
+        189.5,
+        192.0,
+        194.5,
+        192.0,
+        194.0,
+        194.0,
+        193.5,
+        194.0,
+        194.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        189.25,
+        186.75,
+        181.75,
+        185.0,
+        186.75,
+        187.5,
+        190.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        191.75,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        195.0,
+        191.75,
+        192.5,
+        195.0,
+        194.5,
+        193.0,
+        193.0,
+        192.5,
+        193.0,
+        193.0,
+        192.0,
+        193.0,
+        188.25,
+        190.5,
+        188.0,
+        189.0
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 140,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              4,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              3,
+              4,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              5,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              3,
+              2,
+              1
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          6,
+          5,
+          4
+        ],
+        "max_capacity": 15
+      },
+      "total_package_value": 200,
+      "packages": [
+        {
+          "id": "rotation-only-fit",
+          "dimensions": [
+            4,
+            2,
+            3
+          ],
+          "value": 70,
+          "weight": 4,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              0,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              0,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              4,
+              3
+            ]
+          }
+        },
+        {
+          "id": "fragile-base",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 50,
+          "weight": 3,
+          "fragile": true,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              2,
+              1,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "id": "small-top",
+          "dimensions": [
+            1,
+            1,
+            2
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "wide-low",
+          "dimensions": [
+            5,
+            3,
+            1
+          ],
+          "value": 65,
+          "weight": 5,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "over-capacity",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 90,
+          "weight": 16,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "zero-value",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 0,
+          "weight": 0,
+          "fragile": false,
+          "eta": 0,
+          "placement": {
+            "coordinate": [
+              4,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "too-wide",
+          "dimensions": [
+            7,
+            1,
+            1
+          ],
+          "value": 100,
+          "weight": 1,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "bulky",
+          "dimensions": [
+            3,
+            3,
+            3
+          ],
+          "value": 80,
+          "weight": 8,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              2,
+              2,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              3,
+              3,
+              3
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
