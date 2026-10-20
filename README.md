@@ -2,28 +2,61 @@
 
 Implementasi Tugas Besar 1 IF3170 Inteligensi Artifisial: pencarian konfigurasi paket pada truk menggunakan Hill-climbing, Simulated Annealing, dan Genetic Algorithm.
 
-## Persiapan
+![Truck Loading Visualizer](docs/laporan-akhir/figures/visualizer/result-tab.png)
+
+## Overview
+
+Program ini mencari konfigurasi pemuatan paket tiga dimensi ke dalam truk dengan *local search*. Setiap paket memiliki dimensi, nilai, berat, ETA, dan status *fragile*; program memilih paket yang dimuat beserta posisi dan orientasinya sehingga total nilai maksimal tanpa melanggar batas ruang truk, kapasitas berat, penopang (*support*), dan aturan paket *fragile*. Pencarian dilakukan dengan Hill-climbing, Simulated Annealing, dan Genetic Algorithm di atas representasi state, validator, dan fungsi neighbor yang sama.
+
+## Program Features
+
+- **Hill-climbing** dengan empat varian: steepest ascent, sideways move, stochastic, dan random restart.
+- **Simulated Annealing** dengan pendinginan geometrik, probabilitas penerimaan $e^{\Delta E/T}$, dan deteksi *stuck*.
+- **Genetic Algorithm** dengan roulette-wheel selection, single-point crossover beserta repair, dan mutasi.
+- **Tiga objective function**: `total_value`, `eta_weighted_value`, dan `compact_value`.
+- **Multi-truk**: HC, SA, dan GA berjalan pada armada truk identik maupun heterogen.
+- **Runner eksperimen dan benchmark** yang mencatat seed, parameter, riwayat objective, durasi, serta visualisasi state awal dan akhir.
+- **Visualizer web**: editor problem, pemilihan algoritma dan parameter, tampilan 3D truk, grafik progres pencarian, dan animasi proses solving.
+
+## Dependencies & Prerequisites
 
 - Python **3.10 atau lebih baru**.
-- Install dependency plot dan visualisasi:
+- Dependency eksperimen dan plot (`matplotlib`) di `requirements.txt`.
+- Untuk visualizer web: dependency server (FastAPI dan uvicorn) di `requirements-visualizer.txt` (sudah mencakup `requirements.txt`), serta **Node.js 20.19+ atau 22.12+** dengan npm untuk membangun UI.
 
 ```bash
 python -m pip install -r requirements.txt
+python -m pip install -r requirements-visualizer.txt   # opsional, untuk visualizer
 ```
 
-- Untuk visualizer web, install juga dependency servernya (sudah mencakup `requirements.txt`) dan lihat `src/visualizer/README.md` untuk build UI:
+## How to Run the Program
+
+Semua perintah dijalankan dari root repository.
+
+**Visualizer web**
 
 ```bash
-python -m pip install -r requirements-visualizer.txt
+cd src/visualizer/web && npm install && npm run build && cd ../../..
+python -m src.visualizer            # buka http://127.0.0.1:8000
 ```
 
-Jalankan tes fondasi dari root repository:
+Pilih contoh dari `tests/fixtures/` atau impor problem JSON sendiri pada tab Problem, atur algoritma, objective, seed, dan parameter pada panel Solver, lalu tekan **Run**. Tab Result menampilkan ringkasan, state awal/akhir dalam 3D beserta replay pencarian, dan grafik progres. Detail pengembangan ada di `src/visualizer/README.md`.
+
+![Tab Problem pada visualizer](docs/laporan-akhir/figures/visualizer/problem-tab.png)
+
+**Benchmark dan eksperimen**
+
+```bash
+python -m src.experiments.run_benchmark --output output/benchmark
+```
+
+Perintah tersebut menjalankan keempat varian HC, SA, dan GA pada seluruh fixture valid. Runner per algoritma, multi-truk, dan ablasi dijelaskan di [Panduan pengembangan](#panduan-pengembangan).
+
+**Tes**
 
 ```bash
 python -m unittest discover -s tests -v
 ```
-
-Hill-climbing, Simulated Annealing, dan Genetic Algorithm memiliki loop dan runner eksperimen; ketiganya mendukung problem multi-truk melalui kontrak bersama.
 
 ## Struktur direktori
 
@@ -193,16 +226,6 @@ python -m src.experiments.run_ga_ablation --input tests/fixtures/demo.json --out
 
 Runner membandingkan baseline GA dengan tiga ablasi satu-komponen: tanpa mutasi, tanpa crossover, dan seleksi uniform sebagai pembanding roulette-wheel. Secara default tiap varian dijalankan dengan 5 seed yang sama, populasi 20, 50 generasi, dan mutation rate baseline 0,05. Parameter bersama bisa diubah lewat opsi CLI. Hasilnya mencakup `runs.json`, `summary.json` (mean dan simpangan baku objective/durasi per varian), dan plot objective maksimum serta rata-rata populasi. Gunakan dataset dan parameter tetap untuk membandingkan semua varian. Contoh di atas memakai data sintetis demo; hasil laporan harus memakai problem kelompok. Ablasi ini eksperimen tambahan dan tidak menggantikan 18 run sweep wajib.
 
-### Menjalankan visualizer
-
-```bash
-python -m pip install -r requirements-visualizer.txt
-cd src/visualizer/web && npm install && npm run build && cd ../../..
-python -m src.visualizer            # http://127.0.0.1:8000
-```
-
-Visualizer web memuat contoh dari `tests/fixtures/` atau problem JSON sendiri (satu atau beberapa truk), menjalankan HC, SA, atau GA dengan objective, seed, dan parameter yang dipilih, lalu menampilkan ringkasan hasil, tampilan 3D truk, grafik progres pencarian, dan animasi proses solving. Detail pengembangan ada di `src/visualizer/README.md`.
-
 ### Alur kerja
 
 1. Buat branch sesuai jenis perubahan: `feat/...` untuk fitur, `fix/...` untuk perbaikan, `docs/...` untuk dokumentasi, atau `test/...` untuk tes. Contoh: `feat/hill-climbing`, `feat/simulated-annealing`, `docs/readme`.
@@ -213,8 +236,10 @@ Visualizer web memuat contoh dari `tests/fixtures/` atau problem JSON sendiri (s
 
 Gunakan semantic commit yang sesuai dengan branch, misalnya `feat: add hill-climbing` atau `docs: update development guide`. Pastikan hasil eksperimen, pembahasan, dan pembagian tugas diperbarui pada laporan di `docs/laporan-akhir/`.
 
-## Pembagian tugas
+## Development Team
 
-- **Aufar:** kontrak dan fondasi bersama, Genetic Algorithm, serta bonus multi-truk.
-- **Arin:** Hill-climbing wajib dan seluruh variannya sebagai bonus.
-- **Mike:** Simulated Annealing wajib dan objective function alternatif sebagai bonus, serta visualizer web server.
+| Nama | NIM | Kontribusi |
+| --- | --- | --- |
+| Muhammad Aufar Rizqi Kusuma | 13524061 | Kontrak dan fondasi bersama, Genetic Algorithm, serta bonus multi-truk |
+| Arina Azka | 13524049 | Hill-climbing wajib dan seluruh variannya sebagai bonus |
+| Michael James Liman | 13524106 | Simulated Annealing wajib dan objective function alternatif sebagai bonus, serta visualizer web server |
