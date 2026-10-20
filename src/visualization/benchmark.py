@@ -37,13 +37,14 @@ def plot_benchmark_summary(summaries: Sequence[dict[str, Any]], destination: str
 def plot_fleet_benchmark_summary(
     summaries: Sequence[dict[str, Any]], destination: str | Path
 ) -> None:
-    """Compare method means and sample spreads separately for each fleet fixture."""
+    """Compare methods per fixture, showing spread only when repeated runs exist."""
     if not summaries:
         raise ValueError("at least one fleet benchmark summary is required")
 
     fixtures = list(dict.fromkeys(row["instance"] for row in summaries))
     methods = list(dict.fromkeys(row["method"] for row in summaries))
     lookup = {(row["instance"], row["method"]): row for row in summaries}
+    show_spread = any(row.get("runs", 1) > 1 for row in summaries)
     columns = min(4, len(fixtures))
     rows = (len(fixtures) + columns - 1) // columns
     fig, axes = plt.subplots(rows, columns, figsize=(4.25 * columns, 3.7 * rows), squeeze=False)
@@ -51,20 +52,20 @@ def plot_fleet_benchmark_summary(
 
     for axis, fixture in zip(axes.flat, fixtures):
         rows = [lookup[(fixture, method)] for method in methods]
-        axis.bar(
-            range(len(rows)),
-            [row["final_value_mean"] for row in rows],
-            yerr=[row["final_value_stdev"] for row in rows],
-            color=[colors(index % 10) for index in range(len(rows))],
-            capsize=3,
-        )
+        bars = {
+            "color": [colors(index % 10) for index in range(len(rows))],
+        }
+        if show_spread:
+            bars.update(yerr=[row["final_value_stdev"] for row in rows], capsize=3)
+        axis.bar(range(len(rows)), [row["final_value_mean"] for row in rows], **bars)
         axis.set_title(fixture)
         axis.set_xticks(range(len(rows)), methods, rotation=55, ha="right", fontsize=7)
         axis.grid(True, axis="y", alpha=0.25)
 
     for axis in axes.flat[len(fixtures):]:
         axis.set_visible(False)
-    fig.supylabel("Final total package value (mean ± 1 SD)")
+    spread_label = "mean ± 1 SD" if show_spread else "single observation"
+    fig.supylabel(f"Final total package value ({spread_label})")
     fig.suptitle("Multi-truck benchmark by fixture")
     fig.tight_layout()
     destination = Path(destination)
