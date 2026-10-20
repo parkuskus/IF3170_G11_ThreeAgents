@@ -216,7 +216,7 @@ Fixture di `tests/fixtures/fleet/` mengikuti 11 kasus valid yang sama dan menyed
 python -m src.experiments.fleet.run_benchmark
 ```
 
-Secara default, perintah tersebut menguji 3, 4, dan 5 truk pada tiga fixture utama (`base`, `tight-space`, dan `tight-capacity`) dengan seed 11. Empat varian HC, SA, dan GA menghasilkan 54 run. Dalam setiap pasangan fixture dan jumlah truk, semua metode memakai state awal yang sama. Parameter mengikuti baseline runner armada, sehingga jumlah iterasi atau evaluasinya tidak setara antaralgoritma. Hasil berada di `output/fleet-count-analysis/`, termasuk `runs.json`, `summary.json`, grafik per jumlah truk, serta visualisasi state awal dan akhir untuk setiap metode pada `tight-space`. Opsi `--instances`, `--seeds`, dan `--truck-counts` dapat dipakai untuk mengubah cakupan.
+Secara default, perintah tersebut menguji 3, 4, dan 5 truk pada tiga fixture utama (`base`, `tight-space`, dan `tight-capacity`) dengan seed 11. Empat varian HC, SA, dan GA menghasilkan 54 run. Dalam setiap pasangan fixture dan jumlah truk, semua metode memakai state awal yang sama. Parameter mengikuti baseline runner armada sehingga jumlah iterasi atau evaluasinya tidak setara antaralgoritma. Hasil berada di `output/fleet-count-analysis/`, termasuk `runs.json`, `summary.json`, grafik per jumlah truk, serta visualisasi state awal dan akhir untuk setiap metode pada `tight-space`. Opsi `--instances`, `--seeds`, dan `--truck-counts` dapat dipakai untuk mengubah cakupan.
 
 #### Studi ablasi operator GA
 
