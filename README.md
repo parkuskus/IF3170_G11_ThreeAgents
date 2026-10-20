@@ -208,6 +208,16 @@ python -m src.experiments.run_benchmark --output output/benchmark
 
 Perintah ini menjalankan empat varian HC, SA, dan GA pada semua fixture valid dengan seed 11-15 (state awal dan seed yang sama untuk semua algoritma), memvalidasi tiap state akhir, mencatat jumlah evaluasi objective dan durasi, serta memeriksa bahwa fixture `invalid/` ditolak. Hasil: `runs.json`, `summary.json`, dan `summary.png`.
 
+#### Kompilasi laporan
+
+Dari root repositori, jalankan perintah berikut agar gambar, bagian laporan, dan bibliografi ditemukan relatif terhadap folder sumber LaTeX.
+
+```bash
+latexmk -cd -pdf -interaction=nonstopmode -halt-on-error docs/laporan-akhir/IF3170_G11_ThreeAgents.tex
+```
+
+PDF dihasilkan di `docs/laporan-akhir/IF3170_G11_ThreeAgents.pdf`. Memanggil `latexmk` dari root tanpa `-cd` membuat jalur relatif seperti `cover.png` tidak ditemukan. Recipe LaTeX Workshop proyek di `.vscode/settings.json` memakai opsi yang sama. Jangan jalankan dua build ke direktori keluaran yang sama secara bersamaan karena berkas bantu BibTeX dapat terbaca sebelum selesai ditulis.
+
 #### Benchmark armada multi-truk
 
 Fixture di `tests/fixtures/fleet/` mengikuti 11 kasus valid yang sama dan menyediakan dua truk identik sebagai spesifikasi sumber. Runner mengulang spesifikasi tersebut untuk jumlah truk yang diminta, tanpa mengubah paket, kapasitas, atau dimensi tiap truk.
@@ -217,6 +227,8 @@ python -m src.experiments.fleet.run_benchmark
 ```
 
 Secara default, perintah tersebut menguji 3, 4, dan 5 truk pada tiga fixture utama (`base`, `tight-space`, dan `tight-capacity`) dengan seed 11. Empat varian HC, SA, dan GA menghasilkan 54 run. Dalam setiap pasangan fixture dan jumlah truk, semua metode memakai state awal yang sama. Parameter mengikuti baseline runner armada, sehingga jumlah iterasi atau evaluasinya tidak setara antaralgoritma. Hasil berada di `output/fleet-count-analysis/`, termasuk `runs.json`, `summary.json`, grafik per jumlah truk, serta visualisasi state awal dan akhir untuk setiap metode pada `tight-space`. Opsi `--instances`, `--seeds`, dan `--truck-counts` dapat dipakai untuk mengubah cakupan.
+
+Untuk mengulang hasil setelah penambahan operator swap armada tanpa menimpa keluaran sebelumnya, gunakan `--output output/fleet-count-swap-analysis` untuk studi 3 sampai 5 truk. Pembanding dua truk memakai `--truck-counts 2 --instances base infeasible tight-capacity tight-space equal-fitness exact-capacity fragile-support rotation-only single-package wall-touching zero-value-weight --seeds 11 12 13 14 15 --output output/fleet-swap-analysis`. HC dan SA berbagi neighbor dengan swap satu langkah, sedangkan operator mutasi GA tidak berubah. Catatan hasil historis tetap berada di `output/fleet-analysis/` dan `output/fleet-count-analysis/`.
 
 #### Studi ablasi operator GA
 

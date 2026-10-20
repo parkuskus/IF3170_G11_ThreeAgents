@@ -507,7 +507,7 @@ Pelaksana eksperimen \textit{hill climbing} berada pada \texttt{src/\allowbreak 
 
 \section{Implementasi Simulated Annealing}
 
-Implementasi \textit{Simulated Annealing} (SA) berada pada berkas \texttt{src/\allowbreak algorithms/\allowbreak simulated\_\allowbreak annealing/\allowbreak algorithm.py}. Algoritma ini memakai representasi \texttt{State}, validator \textit{constraint}, dan fungsi \texttt{random\_neighbor} yang sama dengan \textit{hill climbing} dan \textit{genetic algorithm}, serta mengembalikan objek \texttt{SearchResult} yang seragam. Seluruh fungsi pada algoritma ini terdapat dalam satu fungsi \texttt{simulated\_annealing}. Uraian berikut mengikuti urutan eksekusinya.
+Implementasi \textit{Simulated Annealing} (SA) berada pada berkas \texttt{src/\allowbreak algorithms/\allowbreak simulated\_\allowbreak annealing/\allowbreak algorithm.py}. Untuk satu truk, algoritma ini memakai representasi \texttt{State}, validator \textit{constraint}, dan fungsi \texttt{random\_neighbor} yang sama dengan \textit{hill climbing}, serta mengembalikan objek \texttt{SearchResult} yang seragam. GA memakai mutasi sendiri. Seluruh fungsi pada algoritma ini terdapat dalam satu fungsi \texttt{simulated\_annealing}. Uraian berikut mengikuti urutan eksekusinya.
 
 \subsection{Parameter dan Validasi Masukan}
 
@@ -534,7 +534,7 @@ Pemanggil menyediakan \textit{state} awal, \textit{seed}, jumlah iterasi maksimu
 Temperatur diturunkan secara geometris. Pada iterasi ke-$t$, temperatur adalah
 \begin{equation}
     T_t = T_0\,\alpha^{t},
-    \label{eq:sa-cooling}
+    \label{eq:sa-implementation-cooling}
 \end{equation}
 dengan $T_0$ sebagai temperatur awal dan $\alpha$ sebagai \texttt{cooling\_rate}. Karena persoalan ini adalah maksimisasi, selisih nilai kandidat terhadap \textit{state} saat ini ditulis $\Delta E=f(S')-f(S)$. Kandidat yang tidak lebih buruk ($\Delta E\ge 0$) selalu diterima, sedangkan kandidat yang lebih buruk diterima dengan peluang
 \begin{equation}
@@ -543,7 +543,7 @@ dengan $T_0$ sebagai temperatur awal dan $\alpha$ sebagai \texttt{cooling\_rate}
         1                & \Delta E \ge 0, \\
         e^{\Delta E/T_t} & \Delta E < 0.
     \end{cases}
-    \label{eq:sa-acceptance}
+    \label{eq:sa-implementation-acceptance}
 \end{equation}
 Dalam kode, rumus pendinginan berarti nilai temperatur cukup dikalikan dengan \texttt{cooling\_rate} pada setiap iterasi. Bentuk berpangkat merangkum pengulangan perkalian tersebut sebanyak $t$ kali. Semakin rendah temperatur atau semakin besar penurunan nilai, semakin kecil peluang menerima langkah yang memburuk. Peluang itu menjadi ambang untuk bilangan acak. Kandidat diterima jika bilangan acak kurang dari $e^{\Delta E/T_t}$. Kode~\ref{lst:sa-acceptance} menunjukkan fungsi bantu yang menghitung ambang ini.
 
@@ -558,7 +558,7 @@ def _acceptance_probability(delta, temperature):
 
 \subsection{Loop Pencarian}
 
-Pencarian dimulai dari \textit{state} awal yang diberikan. Pada setiap iterasi, satu \textit{neighbor} valid dibangkitkan oleh \texttt{random\_neighbor}, nilainya dievaluasi, lalu peluang pada Persamaan~\ref{eq:sa-acceptance} dicatat. Kandidat diterima jika $\Delta E\ge 0$ atau jika bilangan acak seragam pada $[0,1)$ lebih kecil daripada peluang tersebut. Setelah itu, temperatur dikalikan dengan \texttt{cooling\_rate}. Selain \textit{state} saat ini, algoritma menyimpan \textit{state} terbaik yang pernah dijumpai sehingga langkah yang memburuk tidak menghilangkan solusi terbaik.
+Pencarian dimulai dari \textit{state} awal yang diberikan. Pada setiap iterasi, satu \textit{neighbor} valid dibangkitkan oleh \texttt{random\_neighbor}, nilainya dievaluasi, lalu peluang pada Persamaan~\ref{eq:sa-implementation-acceptance} dicatat. Kandidat diterima jika $\Delta E\ge 0$ atau jika bilangan acak seragam pada $[0,1)$ lebih kecil daripada peluang tersebut. Setelah itu, temperatur dikalikan dengan \texttt{cooling\_rate}. Selain \textit{state} saat ini, algoritma menyimpan \textit{state} terbaik yang pernah dijumpai sehingga langkah yang memburuk tidak menghilangkan solusi terbaik.
 
 \begin{lstlisting}[language=Python, caption={Loop utama \textit{simulated annealing}},label={lst:sa-loop}]
 rng = Random(seed)
@@ -995,44 +995,35 @@ Strategi ini menggunakan generator acak ber-seed sehingga dapat direproduksi, da
 
 \subsubsection{Fungsi \textit{Neighbor} untuk HC dan SA}
 
-Pada HC dan SA, satu langkah pencarian armada mengubah assignment paling banyak satu paket. Untuk $S_F$, himpunan kandidat konseptual dapat ditulis sebagai
+Pada HC dan SA, satu langkah pencarian armada dapat mengubah penugasan satu paket melalui mutasi atau dua paket melalui pertukaran. Untuk $S_F$, himpunan kandidat konseptual dapat ditulis sebagai
 
 \begin{equation}
     N_F(S_F)=\left\{S'_F\in\mathcal{F}_F\;\middle|\,
-    \left|\left\{i\in I:\gamma_i(S_F)\neq\gamma_i(S'_F)\right\}\right|\leq 1
+    \left|\left\{i\in I:\gamma_i(S_F)\neq\gamma_i(S'_F)\right\}\right|\leq 2
     \right\},
     \label{eq:fleet-neighbor}
 \end{equation}
 
-Di sini, $\gamma_i(S_F)$ menyatakan penugasan paket $i$. Nilainya $\bot$ jika paket tidak dimuat, atau pasangan truk dan penempatannya jika paket dimuat. Implementasi tidak mengenumerasi seluruh $N_F(S_F)$. Program memilih satu paket secara acak, menentukan operasi yang sesuai, lalu menyampel kandidat valid. Jika tidak menemukan kandidat dalam batas percobaan, operator mengembalikan state asal.
+Di sini, $\gamma_i(S_F)$ menyatakan penugasan paket $i$. Nilainya $\bot$ jika paket tidak dimuat, atau pasangan truk dan penempatannya jika paket dimuat. Himpunan tersebut merupakan batas konseptual, bukan daftar kandidat yang dienumerasi. Program memilih pertukaran dengan peluang seperempat jika ada sedikitnya dua paket dan memakai mutasi satu paket pada kesempatan lainnya. Jika tidak menemukan kandidat valid, operator mengembalikan state asal.
 
-Operasi bergantung pada status paket yang dipilih. Paket yang belum dimuat hanya dapat dicoba untuk dimasukkan ke salah satu truk. Paket yang telah dimuat dapat dipindahkan di truk yang sama, diputar pada koordinat yang sama, dipindahkan ke truk lain, atau dikeluarkan dari armada. Kandidat move, rotate, dan reassign diterima hanya jika valid pada truk tujuan. Validator armada memastikan batasan assignment global tetap terjaga. Operator mencoba paling banyak 50 kandidat dan mengembalikan state asal apabila semua percobaan gagal.
+Dalam mutasi satu paket, paket yang belum dimuat hanya dapat dicoba untuk dimasukkan ke salah satu truk. Paket yang telah dimuat dapat dipindahkan di truk yang sama, diputar pada koordinat yang sama, dipindahkan ke truk lain, atau dikeluarkan dari armada. Mutasi mencoba paling banyak 50 kandidat dan mengembalikan state asal apabila semua percobaan gagal. Dalam pertukaran, dua paket dipilih dan posisi keduanya ditukar secara serentak, baik antarpaket yang telah dimuat pada truk yang sama atau berbeda maupun antara paket termuat dan paket di luar armada. Orientasi paket yang sudah dimuat dipertahankan, sedangkan paket yang semula di luar armada dicoba dengan orientasi acak. Validator armada memeriksa hasil akhir sebelum kandidat diterima, sehingga penghapusan sementara satu paket tidak pernah dianggap sebagai hasil akhir.
 
-\begin{lstlisting}[language=Python, caption={Pemilihan operasi mutasi/neighbor armada},label={lst:fleet-neighbor-operator}]
-operations = ("insert",) if old is None else (
-    "move", "rotate", "reassign", "remove"
-)
-operation = rng.choice(operations)
-if operation == "remove":
-    return base
-
-truck_order = list(range(len(base.trucks)))
-if operation == "move" and old_truck is not None:
-    truck_order = [old_truck]
-elif operation == "reassign" and old_truck is not None:
-    truck_order = [i for i in truck_order if i != old_truck]
-rng.shuffle(truck_order)
+\begin{lstlisting}[language=Python, caption={Pemilihan operasi neighbor armada},label={lst:fleet-neighbor-operator}]
+def _fleet_neighbor(state: FleetState, rng: Random) -> FleetState:
+    if len(state.packages) > 1 and rng.randrange(4) == 0:
+        return _fleet_swap_candidate(state, rng)
+    return mutate_fleet_individual(state, rng)
 \end{lstlisting}
 
-Cuplikan tersebut diambil dari awal proses mutasi. Untuk operasi selain \texttt{remove}, implementasi mencoba penempatan pada truk dalam \texttt{truck\_order}, membangun \texttt{FleetState} kandidat, lalu mengembalikannya hanya apabila berbeda dari state asal dan \texttt{validate\_fleet\_state} tidak menemukan pelanggaran.
+Operasi \texttt{\_fleet\_swap\_candidate} menukar dua penugasan secara atomik. Hanya \texttt{FleetState} kandidat yang berbeda dari state asal dan lolos \texttt{validate\_fleet\_state} yang dapat dikembalikan. Pada jalur mutasi, penempatan yang dicoba pada tiap truk tetap diperiksa terhadap validator yang sama.
 
-Fungsi \texttt{\_fleet\_neighbor} pada \texttt{search\_problems.py} menggunakan operator ini sebagai fungsi neighbor satu langkah. Dengan demikian, loop HC dan SA generik tetap sama. Perbedaan untuk armada berada pada adapter state dan operasi neighbor yang dipasangkan kepadanya. HC menerima kandidat menurut varian yang dipilih, sedangkan SA dapat menerima kandidat yang lebih buruk dengan probabilitas sesuai temperatur.
+Fungsi \texttt{\_fleet\_neighbor} pada \texttt{search\_problems.py} memasangkan kedua jenis operasi dengan loop HC dan SA generik. HC menerima kandidat menurut varian yang dipilih, sedangkan SA dapat menerima kandidat yang lebih buruk dengan probabilitas sesuai temperatur. Mutasi GA tetap menggunakan \texttt{mutate\_fleet\_individual} tanpa pertukaran dua paket.
 
 \subsubsection{Operator \textit{Genetic Algorithm} Armada}
 
 Pada GA, satu gen merepresentasikan assignment satu paket, termasuk pilihan truk dan penempatannya. Crossover satu titik memilih gen dari induk pertama sebelum titik potong dan dari induk kedua sesudahnya. Anak dimulai sebagai armada kosong. Gen yang diwarisi diproses menurut indeks truk dan ketinggian penempatan. Implementasi mula-mula mencoba mempertahankan truk, koordinat, dan orientasi yang diwarisi. Jika penempatan tersebut berbenturan dengan gen yang sudah dipasang, operator mencoba memperbaikinya pada truk asal, lalu mencoba truk lain. Gen yang tidak dapat ditempatkan secara valid dibiarkan di luar armada.
 
-Mutasi memilih satu paket. Untuk paket yang belum dimuat, mutasi mencoba insert. Untuk paket yang sudah dimuat, mutasi dapat memilih move, rotate, reassign, atau remove. Perubahan assignment dibangun melalui state sementara dengan paket tersebut dikeluarkan terlebih dahulu, lalu kandidat penempatan diperiksa terhadap constraint truk tujuan. Desain ini membuat mutasi satu-paket tidak perlu memodifikasi gen lain secara langsung, sekaligus menjaga keunikan assignment.
+Mutasi GA memilih satu paket. Untuk paket yang belum dimuat, mutasi mencoba insert. Untuk paket yang sudah dimuat, mutasi dapat memilih move, rotate, reassign, atau remove. Perubahan assignment dibangun melalui state sementara dengan paket tersebut dikeluarkan terlebih dahulu, lalu kandidat penempatan diperiksa terhadap constraint truk tujuan. GA tidak memakai pertukaran dua paket pada mutasi, tetapi crossover dapat menggabungkan penugasan dari dua induk. Desain ini menjaga keunikan assignment.
 
 \begin{lstlisting}[language=Python, caption={Pewarisan assignment paket pada crossover fleet},label={lst:fleet-crossover}]
 cut = rng.randrange(1, len(packages)) if len(packages) > 1 else 1
@@ -1054,7 +1045,7 @@ Loop GA sendiri memakai implementasi generik \texttt{genetic\_algorithm}. Adapte
 
 \subsubsection{Kontrak Pencarian, Masukan, dan Keluaran}
 
-Pemilihan operasi berdasarkan tipe state dilakukan oleh \texttt{search\_problem\_for\_state}. Untuk \texttt{FleetState}, adapter memasangkan objective dan validator armada, pembangkit state awal armada, neighbor berbasis mutasi, serta operator crossover dan mutasi GA. Akibatnya, algoritma HC, SA, dan GA dapat menggunakan tipe state yang sama tanpa menyalin loop pencarian masing-masing.
+Pemilihan operasi berdasarkan tipe state dilakukan oleh \texttt{search\_problem\_for\_state}. Untuk \texttt{FleetState}, adapter memasangkan objective dan validator armada, pembangkit state awal armada, neighbor berbasis mutasi atau pertukaran untuk HC dan SA, serta operator crossover dan mutasi satu paket untuk GA. Akibatnya, algoritma HC, SA, dan GA dapat menggunakan tipe state yang sama tanpa menyalin loop pencarian masing-masing.
 
 Masukan armada dapat memakai field JSON \texttt{trucks} berupa daftar truk dengan dimensi dan kapasitas yang dapat berbeda. Untuk kompatibilitas dengan format lama, field \texttt{truck} tunggal dapat direplikasi melalui argumen CLI \texttt{--truck-count}. Konfigurasi armada heterogen ditunjukkan pada contoh berikut.
 

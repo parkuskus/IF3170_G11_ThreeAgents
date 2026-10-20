@@ -38,7 +38,7 @@ Studi ablasi digunakan untuk mengetahui kontribusi pilihan desain terhadap hasil
 Setiap varian dijalankan dengan seed dan state awal yang sama seperti konfigurasi acuan. Analisis membandingkan nilai objektif akhir dan durasi serta menyajikan rata-rata, simpangan baku, dan riwayat pencarian. Dengan demikian, studi ablasi menunjukkan apakah perubahan konfigurasi memberi hasil yang konsisten pada seed yang diuji.
 
 \subsection{Dataset dan Konfigurasi Eksperimen}
-Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \textit{constraint}, dan fungsi \textit{neighbor} yang sama untuk ketiga algoritma. Spesifikasi tugas tidak menyediakan data paket, sehingga seluruh \textit{instance} bersifat sintetis dan disimpan sebagai \textit{fixture} pada \texttt{tests/fixtures/}. Setiap kategori pada subbab pertama diwujudkan oleh satu atau lebih berkas, dan sifat tiap berkas diperiksa otomatis oleh \texttt{tests/\allowbreak experiments/\allowbreak test\_fixtures.py} (misalnya bahwa \texttt{tight-space} hanya berbeda dari \texttt{base} pada dimensi truk, atau bahwa tidak ada paket pada \texttt{infeasible} yang dapat dimuat sendirian).
+Seluruh eksperimen dijalankan dengan representasi \textit{state} dan validator \textit{constraint} yang sama untuk ketiga algoritma. HC dan SA berbagi fungsi \textit{neighbor}, sedangkan GA memakai mutasi dan \textit{crossover} sendiri. Spesifikasi tugas tidak menyediakan data paket, sehingga seluruh \textit{instance} bersifat sintetis dan disimpan sebagai \textit{fixture} pada \texttt{tests/fixtures/}. Setiap kategori pada subbab pertama diwujudkan oleh satu atau lebih berkas, dan sifat tiap berkas diperiksa otomatis oleh \texttt{tests/\allowbreak experiments/\allowbreak test\_fixtures.py} (misalnya bahwa \texttt{tight-space} hanya berbeda dari \texttt{base} pada dimensi truk, atau bahwa tidak ada paket pada \texttt{infeasible} yang dapat dimuat sendirian).
 
 \begin{table}[H]
     \centering
@@ -774,7 +774,7 @@ Eksperimen memakai 11 fixture sintetis yang mengikuti kategori pengujian sebelum
 
 Setiap kombinasi fixture dan seed dijalankan dengan empat varian HC, SA, dan GA. Eksperimen memakai lima seed, yaitu 11 sampai 15, sehingga menghasilkan $11\times5\times6=330$ run. Untuk tiap fixture dan seed, seluruh metode menerima state awal yang sama. Seed pembentuk state awal diperoleh dengan XOR seed run dengan konstanta tetap $\texttt{0x5EED}$. Objective yang digunakan adalah \texttt{total\_value}.
 
-Parameter mengikuti baseline runner armada. HC memakai 30 neighbor per iterasi, paling banyak 1000 iterasi, 100 sideways move, dan 10 restart. SA memakai 2000 iterasi, temperatur awal 100, laju pendinginan 0,995, dan patience 100 iterasi. GA memakai populasi 20, 40 generasi, dan laju mutasi 0,05. Anggaran komputasi ketiga algoritma tidak setara. Perbandingan ini menggambarkan perilaku konfigurasi yang diuji dan tidak menyimpulkan keunggulan algoritma pada biaya komputasi yang sama.
+Parameter mengikuti baseline runner armada. HC memakai 30 neighbor per iterasi, paling banyak 1000 iterasi, 100 sideways move, dan 10 restart. SA memakai 2000 iterasi, temperatur awal 100, laju pendinginan 0,995, dan patience 100 iterasi. GA memakai populasi 20, 40 generasi, dan laju mutasi 0,05. HC dan SA kini dapat menukar penugasan dua paket secara atomik, termasuk paket yang semula berada di luar armada. Mutasi GA tidak berubah. Setiap hasil baru dibandingkan dengan catatan eksperimen sebelumnya yang belum memiliki swap armada. Karena urutan pembangkitan kandidat acak juga berubah, perbedaan nilai antarversi tidak boleh dianggap sebagai pengaruh swap yang terisolasi. Anggaran komputasi ketiga algoritma tidak setara. Perbandingan ini menggambarkan perilaku konfigurasi yang diuji dan tidak menyimpulkan keunggulan algoritma pada biaya komputasi yang sama.
 
 \subsubsection{State Awal sebagai Baseline}
 
@@ -820,9 +820,9 @@ Tabel~\ref{tab:fleet-final-results} membandingkan rata-rata dan simpangan baku n
             \toprule
             Fixture                    & HC steepest            & HC sideways            & HC stochastic          & HC random restart      & SA                     & GA                     \\
             \midrule
-            \texttt{base}              & 568,0 $\pm$ 43,8 (9,6) & 600,0 $\pm$ 0,0 (10,0) & 568,0 $\pm$ 43,8 (9,6) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) \\
-            \texttt{tight-space}       & 366,0 $\pm$ 52,2 (7,0) & 423,0 $\pm$ 27,5 (7,8) & 366,0 $\pm$ 52,2 (7,0) & 442,0 $\pm$ 14,0 (8,0) & 464,0 $\pm$ 34,5 (8,2) & 472,0 $\pm$ 28,2 (8,2) \\
-            \texttt{tight-capacity}    & 300,0 $\pm$ 0,0 (6,0)  & 300,0 $\pm$ 0,0 (6,0)  & 300,0 $\pm$ 0,0 (6,0)  & 300,0 $\pm$ 0,0 (6,0)  & 323,0 $\pm$ 11,5 (6,0) & 300,0 $\pm$ 0,0 (6,0)  \\
+            \texttt{base}              & 569,0 $\pm$ 42,5 (9,6) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) & 600,0 $\pm$ 0,0 (10,0) \\
+            \texttt{tight-space}       & 366,0 $\pm$ 52,2 (7,0) & 440,0 $\pm$ 52,1 (8,0) & 411,0 $\pm$ 33,4 (7,6) & 438,0 $\pm$ 17,5 (7,8) & 477,0 $\pm$ 34,9 (8,4) & 472,0 $\pm$ 28,2 (8,2) \\
+            \texttt{tight-capacity}    & 306,0 $\pm$ 13,4 (6,0) & 328,0 $\pm$ 9,7 (6,0)  & 317,0 $\pm$ 12,5 (6,0) & 327,0 $\pm$ 9,7 (6,0)  & 327,0 $\pm$ 9,1 (5,8)  & 300,0 $\pm$ 0,0 (6,0)  \\
             \texttt{infeasible}        & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    & 0,0 $\pm$ 0,0 (0,0)    \\
             \texttt{equal-fitness}     & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   & 60,0 $\pm$ 0,0 (6,0)   \\
             \texttt{exact-capacity}    & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  & 125,0 $\pm$ 0,0 (4,0)  \\
@@ -830,7 +830,7 @@ Tabel~\ref{tab:fleet-final-results} membandingkan rata-rata dan simpangan baku n
             \texttt{rotation-only}     & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  & 100,0 $\pm$ 0,0 (2,0)  \\
             \texttt{single-package}    & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   & 50,0 $\pm$ 0,0 (1,0)   \\
             \texttt{wall-touching}     & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  & 100,0 $\pm$ 0,0 (4,0)  \\
-            \texttt{zero-value-weight} & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (3,8)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   \\
+            \texttt{zero-value-weight} & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (2,8)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   & 70,0 $\pm$ 0,0 (4,0)   \\
             \bottomrule
         \end{tabular}%
     }
@@ -838,23 +838,23 @@ Tabel~\ref{tab:fleet-final-results} membandingkan rata-rata dan simpangan baku n
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{figures/fleet-analysis/summary.png}
+    \includegraphics[width=0.6\textwidth]{figures/fleet-swap-analysis/summary.png}
     \caption{Nilai akhir rata-rata per fixture dan metode dengan batang galat satu simpangan baku sampel}
     \label{fig:fleet-summary}
 \end{figure}
 
-Perbedaan antarmetode tampak terutama pada tiga fixture utama. Pada \texttt{base}, empat metode mencapai nilai 600 pada seluruh seed kecuali HC steepest dan HC stochastic, yang tidak memperbaiki dua state awal bernilai 520. Karena total nilai seluruh paket adalah 600 dan seluruh paket termuat pada hasil bernilai 600, nilai tersebut merupakan batas atas yang diketahui untuk fixture ini. HC sideways dan random restart, SA, serta GA mencapai batas itu pada kelima seed.
+Perbedaan antarmetode tampak terutama pada tiga fixture utama. Pada \texttt{base}, lima metode mencapai nilai 600 pada seluruh seed. HC steepest hanya menaikkan satu dari dua state awal bernilai 520 menjadi 525. Dibandingkan hasil lama, HC stochastic kini mencapai 600 pada kedua seed tersebut. Karena total nilai seluruh paket adalah 600 dan seluruh paket termuat pada hasil bernilai 600, nilai tersebut merupakan batas atas yang diketahui untuk fixture ini.
 
-Pada \texttt{tight-space}, GA memiliki rata-rata tertinggi sebesar 472, disusul SA sebesar 464 dan HC random restart sebesar 442. GA dan SA sama-sama mencapai nilai terbaik teramati 520, tetapi sebaran hasil SA lebih besar. HC steepest dan stochastic menghasilkan rata-rata 366, sama dengan nilai awal rata-ratanya. Random restart memberi hasil lebih baik daripada tiga varian HC lain pada fixture ini, sementara sideways move membantu HC sideways memperbaiki sebagian seed.
+Pada \texttt{tight-space}, SA memiliki rata-rata tertinggi sebesar 477, disusul GA sebesar 472. HC sideways mencapai 440, HC random restart 438, dan HC stochastic 411. GA dan HC sideways mencapai nilai terbaik teramati 520, sedangkan SA mencapai 510. HC steepest tetap pada rata-rata 366 seperti sebelum perubahan. Hasil ini menunjukkan bahwa operator baru tidak selalu menaikkan setiap rata-rata, karena random restart turun dari 442 menjadi 438 dan urutan sampel acak berubah.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{figures/fleet-analysis/tight-space-ga.png}
+    \includegraphics[width=0.9\textwidth]{figures/fleet-swap-analysis/tight-space-ga.png}
     \caption{State awal dan state akhir GA pada fixture \texttt{tight-space} untuk seed 11}
     \label{fig:fleet-tight-space-state}
 \end{figure}
 
-Pada \texttt{tight-capacity}, nilai awal semua seed adalah 300. Empat varian HC dan GA tetap pada nilai itu, sedangkan SA mencapai rata-rata 323 dengan simpangan baku 11,5. Jumlah paket yang dimuat tetap enam pada seluruh hasil. Kenaikan nilai SA berasal dari perubahan paket yang dipilih, bukan dari bertambahnya jumlah paket. Pola ini sesuai dengan kemampuan SA menerima perpindahan yang sementara menurunkan nilai saat temperatur masih tinggi.
+Pada \texttt{tight-capacity}, nilai awal semua seed adalah 300. Setelah perubahan, semua varian HC memperbaiki sedikitnya satu seed. HC sideways mencapai rata-rata 328, HC random restart dan SA masing-masing 327, HC stochastic 317, dan HC steepest 306. Sebelumnya keempat varian HC berhenti pada 300, sedangkan SA mencapai rata-rata 323. GA tidak berubah dan tetap 300. Jumlah paket termuat rata-rata tetap enam kecuali pada SA yang mencapai 5,8. Peningkatan nilai terutama menunjukkan perbaikan pemilihan paket dalam kapasitas yang ketat. Swap termuat dengan paket belum termuat menyediakan lintasan satu langkah yang tidak tersedia sebelumnya, tetapi perubahan urutan acak mencegah atribusi besaran kenaikan semata-mata kepada operator tersebut.
 
 \subsubsection{Eksperimen Jumlah Truk}
 
@@ -879,33 +879,33 @@ Untuk melihat dampak penambahan armada, spesifikasi truk identik diulang menjadi
         \midrule
         \texttt{tight-capacity} & 3 & 445 / 8 & 445--470 dan 8 \\
         & 4 & 445 / 8 & 445--600 dan 8--10 \\
-        & 5 & 520 / 9 & 520--600 dan 9--10 \\
+        & 5 & 520 / 9 & 600 dan 10 \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-Pada \texttt{base}, seluruh metode mencapai nilai 600 untuk ketiga jumlah armada. Pada \texttt{tight-space}, hasil seed ini mencapai 600 untuk semua metode mulai empat truk. Dengan tiga truk, nilai akhir berada pada 520--600. Pada \texttt{tight-capacity}, rentang nilai akhir melebar saat empat truk (445--600), lalu menjadi 520--600 saat lima truk. Hasil tersebut menunjukkan bahwa kapasitas tambahan dapat membantu pada kasus ini, tetapi tidak selalu memperbaiki hasil setiap metode. Karena state awal juga berubah antarjumlah truk dan hanya satu seed yang digunakan, pola ini bersifat deskriptif dan tidak mengisolasi pengaruh jumlah truk secara statistik.
+Pada \texttt{base}, seluruh metode mencapai nilai 600 untuk ketiga jumlah armada. Pada \texttt{tight-space}, hasil seed ini mencapai 600 untuk semua metode mulai empat truk. Dengan tiga truk, nilai akhir berada pada 520--600. HC random restart sebelumnya mencapai 600 pada tiga truk, tetapi kini tetap 520. Pada \texttt{tight-capacity}, rentang nilai akhir mencapai 445--600 saat empat truk. HC sideways meningkat dari 525 menjadi 600, sedangkan HC stochastic dari 445 menjadi 525. SA dengan tiga truk meningkat dari 455 menjadi 465. Saat lima truk, seluruh metode mencapai 600, termasuk HC steepest dan stochastic yang sebelumnya berhenti pada 520. Nilai 600 sama dengan jumlah nilai seluruh paket dan menjadi batas atas yang diketahui pada hasil tersebut. Karena state awal berbeda antarjumlah truk dan hanya satu seed yang digunakan, pola ini bersifat deskriptif dan tidak mengisolasi pengaruh jumlah truk secara statistik.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/fleet-count-analysis/tight-space-ga-trucks-5.png}
+    \includegraphics[width=0.95\textwidth]{figures/fleet-count-swap-analysis/tight-space-ga-trucks-5.png}
     \caption{State awal dan state akhir GA pada \texttt{tight-space}, lima truk, seed 11}
     \label{fig:fleet-count-tight-space-ga}
 \end{figure}
 
-Visualisasi state awal dan akhir untuk keenam metode pada setiap jumlah truk tersedia di \path{output/fleet-count-analysis/representative-states/}. Seluruh 54 run menghasilkan state valid. Benchmark armada dua truk tetap tersimpan terpisah sebagai pembanding.
+Visualisasi awal dan akhir keenam metode tersedia pada subfolder \texttt{representative-states} dalam hasil benchmark jumlah truk. Seluruh 54 run menghasilkan state valid. Hasil sebelum perbaikan operator tetap tersimpan di \path{output/fleet-analysis/} dan \path{output/fleet-count-analysis/} sebagai pembanding.
 
 Tujuh fixture batas menghasilkan nilai akhir yang sama untuk seluruh metode dan seed. Kesamaan ini memperlihatkan bahwa kasus batas tersebut sudah terjangkau dari state awal yang dibangkitkan. Seluruh 55 state awal dan 330 state akhir lolos validasi. Pada \texttt{infeasible}, seluruh 30 run mengembalikan state kosong yang valid. Kasus tersebut memeriksa penanganan paket yang tidak dapat dimuat dan tidak masuk peringkat kualitas.
 
 \subsubsection{Biaya Pencarian dan Karakteristik Algoritma}
 
-Biaya pencarian berbeda walaupun semua metode memakai state awal berpasangan. Pada \texttt{base}, HC steepest menggunakan rata-rata 31 evaluasi objektif dan selesai dalam 0,031 detik. HC stochastic menggunakan 1001 evaluasi dan 1,211 detik. HC sideways memakai 3043 evaluasi dan 3,103 detik, sedangkan random restart menggunakan 359 evaluasi dan 0,535 detik. SA menggunakan 2001 evaluasi dengan durasi 2,225 detik. GA memakai 820 evaluasi, tetapi durasi 2,436 detik. Jumlah evaluasi saja tidak menggambarkan biaya operasi setiap algoritma, sehingga durasi dilaporkan bersamanya.
+Biaya pencarian berbeda walaupun semua metode memakai state awal berpasangan. Pada \texttt{base}, HC steepest menggunakan rata-rata 37 evaluasi objektif dan selesai dalam 0,028 detik. HC stochastic menggunakan 1001 evaluasi dan 0,508 detik. HC sideways memakai 3049 evaluasi dan 1,616 detik, sedangkan random restart menggunakan 389 evaluasi dan 0,344 detik. SA menggunakan 2001 evaluasi dan 1,208 detik. GA memakai 820 evaluasi dan 1,645 detik. Jumlah evaluasi saja tidak menggambarkan biaya setiap algoritma. Durasi berbeda dari eksperimen lama dan dipengaruhi kondisi mesin ketika pengukuran, sehingga tidak digunakan untuk menyimpulkan percepatan akibat swap.
 
-HC steepest dan stochastic berakhir pada nilai awal pada \texttt{base} untuk semua seed. Dua state awal bernilai 520 tidak membaik, sementara sideways dan random restart mencapai nilai 600 pada kedua seed tersebut. Sideways menghabiskan lebih banyak evaluasi untuk menerima gerakan setara. Random restart menemukan hasil yang sama dengan biaya evaluasi dan waktu lebih rendah pada konfigurasi ini. Pola ini tidak membuktikan bahwa random restart selalu lebih efisien pada instance lain.
+Pada \texttt{base}, HC steepest memperbaiki salah satu state awal bernilai 520 sebesar lima poin, tetapi tetap tidak mencapai 600 pada kedua seed tersebut. Lima metode lain mencapai 600 pada semua seed. HC sideways menghabiskan lebih banyak evaluasi untuk menerima gerakan setara. HC random restart menemukan hasil yang sama dengan biaya evaluasi lebih rendah daripada HC sideways pada konfigurasi ini. Pola ini tidak membuktikan bahwa random restart selalu lebih efisien pada instance lain.
 
-SA memberi hasil tertinggi pada \texttt{tight-capacity}, dengan rata-rata 323 dibanding 300 untuk metode lain. Jumlah paketnya tetap enam. Pada kelima seed, paket yang dipilih SA berbeda dari state awal. Riwayat SA mencatat nilai state saat ini turun di bawah 300 pada semua seed, hingga serendah 115, sebelum menghasilkan state terbaik dengan nilai 310 sampai 335. Pada \texttt{tight-space}, SA mencapai rata-rata 464 dan GA 472. Kedua algoritma pernah menghasilkan nilai 520, sedangkan simpangan baku GA lebih kecil. Lima seed belum cukup untuk menyebut selisih tersebut signifikan.
+HC sideways memberi rata-rata tertinggi pada \texttt{tight-capacity} sebesar 328, sedangkan SA dan HC random restart masing-masing mencapai 327. GA tetap pada 300. Dalam semua seed, HC sideways menemukan perbaikan tanpa menambah jumlah paket termuat, yang cocok dengan pertukaran paket sebagai gerakan lokal. SA juga dapat melalui state yang lebih buruk untuk menemukan konfigurasi baru. Pada \texttt{tight-space}, SA mencapai rata-rata 477 dan GA 472. Lima seed belum cukup untuk menyebut selisih tersebut signifikan.
 
-GA mencapai rata-rata tertinggi pada \texttt{tight-space} dan 600 pada seluruh seed \texttt{base}. Namun, pada \texttt{tight-capacity}, nilai akhirnya tetap 300. Pada konfigurasi ini, populasi dan crossover belum memberi keuntungan pada semua struktur kasus. Biaya GA juga tidak berbanding lurus dengan banyak evaluasi. Pembentukan populasi, crossover, perbaikan konflik penempatan, dan validasi armada menambah pekerjaan di luar pemanggilan fungsi objektif.
+GA mencapai rata-rata 472 pada \texttt{tight-space} dan 600 pada seluruh seed \texttt{base}. Namun, pada \texttt{tight-capacity}, nilai akhirnya tetap 300. State akhir dan riwayat objektif GA identik dengan eksperimen sebelumnya untuk semua seed, sesuai dengan operator GA yang tidak diubah. Pada konfigurasi ini, populasi dan crossover belum memberi keuntungan pada semua struktur kasus. Pembentukan populasi, crossover, perbaikan konflik penempatan, dan validasi armada menambah pekerjaan di luar pemanggilan fungsi objektif.
 
-Eksperimen armada memakai paket sintetis dan truk identik. Studi dua truk menggunakan lima seed, sedangkan perluasan tiga sampai lima truk hanya memakai satu seed pada tiga fixture utama. Hasil perluasan belum mengukur variasi antar-seed dan tidak mendukung generalisasi. Belum ada pengujian truk heterogen. Parameter hanya memakai satu konfigurasi baseline per algoritma dan biaya komputasinya berbeda. Batas atas nilai 600 diketahui untuk \texttt{base} dari jumlah nilai seluruh paket. Nilai tertinggi pada fixture lain hanya disebut sebagai hasil terbaik yang ditemukan, bukan optimum global. Benchmark dua truk pada tiga fixture utama dapat diulang ke direktori terpisah dengan \texttt{python -m src.experiments.fleet.run\_benchmark --truck-counts 2 --output output/fleet-two-truck-check}. Benchmark jumlah truk dapat diulang dengan \texttt{python -m src.experiments.fleet.run\_benchmark}. Catatan run, ringkasan, dan visualisasi tersimpan di \path{output/fleet-analysis/} dan \path{output/fleet-count-analysis/}.
+Eksperimen armada memakai paket sintetis dan truk identik. Studi dua truk menggunakan lima seed, sedangkan perluasan tiga sampai lima truk hanya memakai satu seed pada tiga fixture utama. Hasil perluasan belum mengukur variasi antar-seed dan tidak mendukung generalisasi. Belum ada pengujian truk heterogen. Parameter hanya memakai satu konfigurasi baseline per algoritma dan biaya komputasinya berbeda. Batas atas nilai 600 diketahui untuk \texttt{base} dari jumlah nilai seluruh paket. Pada hasil \texttt{tight-capacity} lima truk dan \texttt{tight-space} empat sampai lima truk, seluruh paket juga termuat dengan nilai 600. Nilai tertinggi pada kasus lain hanya disebut hasil terbaik yang ditemukan, bukan optimum global. Benchmark baru dua truk memakai sebelas fixture dan seed 11--15, sedangkan benchmark jumlah truk memakai tiga fixture dan seed 11. Perintah lengkap tersedia pada \texttt{README.md}. Catatan run, ringkasan, dan visualisasi baru tersimpan di \path{output/fleet-swap-analysis/} dan \path{output/fleet-count-swap-analysis/}. Kedua direktori lama tetap tersimpan sebagai pembanding.
 
