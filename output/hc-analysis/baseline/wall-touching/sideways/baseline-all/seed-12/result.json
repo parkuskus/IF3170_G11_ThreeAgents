@@ -1,0 +1,348 @@
+{
+  "experiment": "baseline",
+  "category": "boundary",
+  "instance": "wall-touching",
+  "variant": "sideways",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "neighbors_per_iteration": 30,
+    "max_iterations": 1000,
+    "max_sideways": 100,
+    "max_restarts": 10
+  },
+  "seed": 12,
+  "initial_state_seed": 24289,
+  "initial_value": 10,
+  "loaded_packages": 3,
+  "valid": true,
+  "violations": [],
+  "iterations": 103,
+  "sideways_moves": 100,
+  "restarts": 0,
+  "duration_seconds": 0.10650339996209368,
+  "artifact_path": "output\\hc-analysis\\baseline\\wall-touching\\sideways\\baseline-all\\seed-12\\result.json",
+  "result": {
+    "algorithm": "hill_climbing_sideways",
+    "objective_name": "total_value",
+    "objective_value": 90,
+    "objective_history": [
+      10,
+      40,
+      40,
+      40,
+      40,
+      40,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90,
+      90
+    ],
+    "duration_seconds": 0.10650339996209368,
+    "seed": 12,
+    "run_index": 2,
+    "parameters": {
+      "variant": "sideways",
+      "max_iterations": 1000,
+      "neighbors_per_iteration": 30,
+      "max_sideways": 100
+    },
+    "metrics": {
+      "variant": "sideways",
+      "iterations": 103,
+      "sideways_moves": 100,
+      "maximum_sideways_moves": 100,
+      "restarts": 0,
+      "maximum_restarts": null,
+      "iterations_per_restart": []
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          4,
+          4,
+          2
+        ],
+        "max_capacity": 8
+      },
+      "total_package_value": 10,
+      "packages": [
+        {
+          "id": "cube-1",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 10,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              1,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-2",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 20,
+          "weight": 2,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "cube-3",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "cube-4",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 40,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          4,
+          4,
+          2
+        ],
+        "max_capacity": 8
+      },
+      "total_package_value": 90,
+      "packages": [
+        {
+          "id": "cube-1",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 10,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "cube-2",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 20,
+          "weight": 2,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              1,
+              2,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-3",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              2,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-4",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 40,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -69,12 +69,13 @@ Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \tex
     \label{tab:fixtures}
 \end{table}
 
-Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi wajib. \texttt{eta\_weighted\_value} membagi nilai paket dengan $\text{ETA}+1$ sehingga paket yang mendesak mendapat bobot lebih besar. \texttt{compact\_value} menambahkan bonus kurang dari satu satuan untuk penataan yang lebih rendah. Pengujian dibagi menjadi lima rangkaian.
+Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi wajib. \texttt{eta\_weighted\_value} membagi nilai paket dengan $\text{ETA}+1$ sehingga paket yang mendesak mendapat bobot lebih besar. \texttt{compact\_value} menambahkan bonus kurang dari satu satuan untuk penataan yang lebih rendah. Pengujian dibagi menjadi enam rangkaian.
 
 \begin{enumerate}
     \renewcommand{\labelenumi}{(\arabic{enumi})}
     \item \textbf{\textit{Benchmark} lintas kategori} (\texttt{src/experiments/run\_benchmark.py}). Seluruh algoritma diuji pada 11 \textit{fixture} valid dengan \texttt{total\_value}, lima \textit{seed} (11--15), dan satu konfigurasi parameter tetap sehingga $11\ \text{instance} \times 5\ \textit{seed} \times 6\ \text{algoritma} = 330$ \textit{run}. Setiap \textit{run} mencatat validitas \textit{state} akhir, jumlah paket termuat, jumlah evaluasi objektif, dan durasi pencarian. Runner yang sama memberikan delapan \textit{fixture} tidak valid ke \textit{loader} data.
     \item \textbf{Perbandingan fungsi objektif per algoritma} pada \texttt{base} dengan tiga fungsi objektif dan tiga \textit{seed} (11--13). Rangkaian ini mencakup empat varian \textit{hill climbing}, tiga \textit{run} SA per fungsi objektif, serta dua \textit{sweep} GA untuk jumlah generasi dan ukuran populasi. Perbandingan fungsi objektif juga diulang pada \texttt{tight-capacity} dengan konfigurasi yang sama. Runner yang digunakan adalah \texttt{src/\allowbreak experiments/\allowbreak run\_hill\_climbing.py}, \texttt{src/\allowbreak experiments/\allowbreak run\_sa.py}, dan \texttt{src/\allowbreak experiments/\allowbreak run\_ga.py}.
+    \item \textbf{Analisis HC lintas fixture dan parameter} dengan \texttt{total\_value} (\texttt{src/\allowbreak experiments/\allowbreak hc/\allowbreak results\_analysis.py}). Baseline keempat varian dijalankan pada 11 \textit{fixture} valid dengan lima \textit{seed} (11--15) sehingga menghasilkan $11\times4\times5=220$ \textit{run}. Empat \textit{sweep} satu faktor dilakukan pada \texttt{base} dengan lima \textit{seed} (11--15), dan tiap \textit{sweep} hanya menjalankan varian yang memakai parameter tersebut (135 \textit{run}). Parameter yang disapu adalah \texttt{neighbors\_\allowbreak per\_\allowbreak iteration} $\in\{10,30,60\}$ (\textit{steepest}, \textit{sideways}, \textit{random restart}), \texttt{max\_\allowbreak iterations} $\in\{500,1000,2000\}$ (keempat varian), \texttt{max\_\allowbreak sideways} $\in\{50,100,300\}$ (\textit{sideways}), dan \texttt{max\_\allowbreak restarts} $\in\{5,10,20\}$ (\textit{random restart}). Seluruh analisis ini terdiri atas 355 \textit{run}.
     \item \textbf{Analisis SA lintas fixture dan parameter} dengan \texttt{total\_value} (\texttt{src/\allowbreak experiments/\allowbreak sa/\allowbreak results\_analysis.py}). Baseline dijalankan pada 11 \textit{fixture} valid. Tiga \textit{sweep} satu faktor dilakukan pada \texttt{base} dengan lima \textit{seed} (11--15). Baseline memakai parameter SA pada Tabel~\ref{tab:konfigurasi}. Parameter yang disapu adalah suhu awal $T_0\in\{10,100,1000\}$, laju pendinginan 0,99, 0,995, dan 0,999, serta jumlah iterasi 1000, 3000, dan 6000.
     \item \textbf{Analisis GA lintas fixture dan parameter} dengan \texttt{total\_value} (\texttt{src/\allowbreak experiments/\allowbreak ga/\allowbreak results\_analysis.py}). Baseline dijalankan pada 11 \textit{fixture} valid. Tiga \textit{sweep} satu faktor dilakukan pada \texttt{base} dengan lima \textit{seed} (11--15). Baseline memakai populasi 20, 40 generasi, dan laju mutasi 0,05. Parameter yang disapu adalah ukuran populasi 10, 20, dan 40, jumlah generasi 20, 40, dan 80, serta laju mutasi 0, 0,05, dan 0,20.
     \item \textbf{Studi ablasi GA} pada \texttt{base} dengan \texttt{total\_value} dan lima \textit{seed} (11--15) (\texttt{src/\allowbreak experiments/\allowbreak run\_ga\_ablation.py}). Empat varian yang dibandingkan adalah baseline, tanpa mutasi, tanpa \textit{crossover}, dan seleksi \textit{uniform}.
@@ -86,7 +87,7 @@ Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi waj
         \toprule
         Algoritma                    & Parameter                                                                                                                                                                                                                                                                                                                       \\
         \midrule
-        \textit{Hill climbing}       & 4 varian dengan \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, dan \texttt{max\_restarts}\,=\,10                                                                                                                                                                           \\
+        \textit{Hill climbing}       & 4 varian dengan \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, dan \texttt{max\_restarts}\,=\,10. \textit{Sweep} terpisah menguji \texttt{neighbors\_\allowbreak per\_\allowbreak iteration} $\{10,30,60\}$, \texttt{max\_\allowbreak iterations} $\{500,1000,2000\}$, \texttt{max\_\allowbreak sideways} $\{50,100,300\}$, dan \texttt{max\_\allowbreak restarts} $\{5,10,20\}$, dengan parameter lain tetap pada baseline \\
         \textit{Simulated annealing} & Baseline memakai \texttt{max\_iterations}\,=\,3000, $T_0=100$, \texttt{cooling\_rate}\,=\,0,995, dan \texttt{stuck\_patience}\,=\,100. \textit{Sweep} terpisah menguji $T_0\in\{10,100,1000\}$, \texttt{cooling\_rate} $\{0{,}99,\;0{,}995,\;0{,}999\}$, dan \texttt{max\_iterations} $\{1000,3000,6000\}$, dengan parameter lain tetap pada baseline \\
         \textit{Genetic algorithm}   & Baseline memakai populasi 20, 40 generasi, dan \textit{mutation rate} 0,05. \textit{Sweep} terpisah menguji populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, dan \textit{mutation rate} $\{0,\;0{,}05,\;0{,}20\}$. Parameter lain tetap pada baseline dan seleksi memakai \textit{roulette-wheel}. Ablasi memakai populasi 20 dan 50 generasi                          \\
         \bottomrule
@@ -101,7 +102,7 @@ Nilai optimum sebagai acuan. Relaksasi yang hanya memperhatikan kapasitas berat 
 
 \section{Hasil Eksperimen dan Analisis tiap Algoritma}
 
-Hasil \textit{hill climbing} dan perbandingan \textit{objective} SA pada bagian ini menggunakan \texttt{base} dengan tiga \textit{seed} (11--13), kecuali bila disebut lain. Analisis lintas \textit{fixture} dan parameter SA serta seluruh analisis GA dijelaskan dan dilaporkan tersendiri karena mencakup seluruh kategori fixture serta lima seed (11--15).
+Hasil \textit{hill climbing} per varian dan perbandingan \textit{objective} SA pada bagian ini menggunakan \texttt{base} dengan tiga \textit{seed} (11--13), kecuali bila disebut lain. Analisis lintas \textit{fixture} dan parameter HC dan SA serta seluruh analisis GA dijelaskan dan dilaporkan tersendiri karena mencakup seluruh kategori fixture serta lima seed (11--15).
 
 \subsection{Hill Climbing}
 
@@ -389,6 +390,196 @@ Gambar~\ref{fig:hc-states-tight-steepest} sampai Gambar~\ref{fig:hc-states-tight
     \caption{\textit{State} awal dan akhir \textit{Random restart} pada \texttt{tight-capacity} (\textit{seed} 12). Nilai awal 155, nilai akhir 175}
     \label{fig:hc-states-tight-random-restart}
 \end{figure}
+
+
+\subsubsection{Protokol dan hasil baseline lintas kasus}
+
+Baseline HC dijalankan pada seluruh 11 \textit{fixture} valid dengan \texttt{total\_value}, \texttt{neighbors\_\allowbreak per\_\allowbreak iteration}\,=\,30, \texttt{max\_\allowbreak iterations}\,=\,1000, \texttt{max\_\allowbreak sideways}\,=\,100, \texttt{max\_\allowbreak restarts}\,=\,10, dan lima \textit{seed} (11--15) sehingga menghasilkan 220 \textit{run} (empat varian $\times$ 11 \textit{fixture} $\times$ 5 \textit{seed}). \textit{State} awal diturunkan dengan $s_0=s\oplus\texttt{0x5EED}$ sehingga setiap pasangan \textit{fixture}--\textit{seed} berangkat dari \textit{state} awal yang sama dengan SA dan GA. Seluruh \textit{state} akhir lolos validasi (100\%), dan pada \texttt{infeasible} keempat varian mengembalikan \textit{state} kosong bernilai 0 pada kelima \textit{seed}. Hasilnya dirangkum pada Tabel~\ref{tab:hc-fixture-baseline}. Pada \texttt{base}, hasil lima \textit{seed} ini identik dengan \textit{benchmark} untuk keempat varian, dan nilai pada \textit{seed} 11--13 sama dengan analisis per varian di atas.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \caption{Baseline HC pada seluruh fixture valid, rata-rata nilai akhir $\pm$ simpangan baku sampel dari lima seed}
+    \label{tab:hc-fixture-baseline}
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        \textit{Fixture}           & Nilai awal & \textit{Steepest}  & \textit{Sideways} & \textit{Stochastic} & \textit{Random restart} \\
+        \midrule
+        \texttt{base}              & 297,0      & 303,0 $\pm$ 27,5   & 317,0 $\pm$ 20,5  & 305,0 $\pm$ 26,2    & 331,0 $\pm$ 6,5         \\
+        \texttt{tight-space}       & 231,0      & 242,0 $\pm$ 26,8   & 255,0 $\pm$ 35,0  & 246,0 $\pm$ 34,4    & 280,0 $\pm$ 16,2        \\
+        \texttt{tight-capacity}    & 156,0      & 158,0 $\pm$ 11,5   & 166,0 $\pm$ 2,2   & 162,0 $\pm$ 5,7     & 175,0 $\pm$ 0,0         \\
+        \texttt{infeasible}        & 0,0        & 0,0 $\pm$ 0,0      & 0,0 $\pm$ 0,0     & 0,0 $\pm$ 0,0       & 0,0 $\pm$ 0,0           \\
+        \texttt{single-package}    & 50,0       & 50,0 $\pm$ 0,0     & 50,0 $\pm$ 0,0    & 50,0 $\pm$ 0,0      & 50,0 $\pm$ 0,0          \\
+        \texttt{equal-fitness}     & 40,0       & 40,0 $\pm$ 0,0     & 40,0 $\pm$ 0,0    & 40,0 $\pm$ 0,0      & 40,0 $\pm$ 0,0          \\
+        \texttt{exact-capacity}    & 93,0       & 99,0 $\pm$ 2,2     & 100,0 $\pm$ 0,0   & 100,0 $\pm$ 0,0     & 100,0 $\pm$ 0,0         \\
+        \texttt{wall-touching}     & 64,0       & 74,0 $\pm$ 31,3    & 98,0 $\pm$ 4,5    & 74,0 $\pm$ 31,3     & 100,0 $\pm$ 0,0         \\
+        \texttt{fragile-support}   & 70,0       & 78,0 $\pm$ 16,4    & 78,0 $\pm$ 16,4   & 78,0 $\pm$ 16,4     & 90,0 $\pm$ 0,0          \\
+        \texttt{rotation-only}     & 46,0       & 46,0 $\pm$ 21,9    & 46,0 $\pm$ 21,9   & 46,0 $\pm$ 21,9     & 70,0 $\pm$ 0,0          \\
+        \texttt{zero-value-weight} & 58,0       & 58,0 $\pm$ 26,8    & 70,0 $\pm$ 0,0    & 58,0 $\pm$ 26,8     & 70,0 $\pm$ 0,0          \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textit{Random restart} memiliki rata-rata tertinggi atau setara pada seluruh 11 \textit{fixture}, dengan simpangan baku 0 pada sembilan di antaranya. Pada \texttt{base}, rata-ratanya 331,0 dibandingkan 303,0 (\textit{steepest}), 317,0 (\textit{sideways}), dan 305,0 (\textit{stochastic}). Kenaikan dari nilai awal rata-rata 297,0 masing-masing 34 poin (\textit{random restart}), 6 (\textit{steepest}), 20 (\textit{sideways}), dan 8 (\textit{stochastic}). Kelima \textit{seed} \textit{random restart} berakhir pada 335, 330, 335, 320, dan 335, sedangkan \textit{steepest} berakhir pada 330, 285, 335, 275, dan 290. \textit{Seed} 12 dan 14 adalah yang tersulit karena berawal dari 285 dan 275. Pada \texttt{tight-space}, \textit{random restart} mencapai rata-rata 280,0 dengan simpangan baku 16,2, sedangkan tiga varian lain di bawah 256 dengan simpangan baku di atas 26. Nilai terbaik 300 pada \texttt{tight-space} dicapai \textit{sideways}, \textit{stochastic}, dan \textit{random restart} pada satu \textit{seed} masing-masing, lebih tinggi daripada nilai terbaik SA pada fixture yang sama (290). Pada \texttt{tight-capacity}, \textit{random restart} berakhir pada 175 di kelima \textit{seed}, sedangkan varian lain tertahan pada 140--170.
+
+Pada tiga \textit{fixture} (\texttt{infeasible}, \texttt{single-package}, dan \texttt{equal-fitness}) keempat varian menghasilkan nilai yang sama pada seluruh \textit{seed} karena \textit{state} awal sudah optimal atau tidak ada perubahan yang mungkin. Pada empat \textit{fixture} lain (\texttt{fragile-support}, \texttt{rotation-only}, \texttt{wall-touching}, dan \texttt{zero-value-weight}), \textit{steepest} dan \textit{stochastic} memberi rata-rata dan simpangan baku yang sama persis. Pada \texttt{rotation-only}, ketiga varian selain \textit{random restart} tidak pernah mengubah \textit{state} (nilai akhir 30, 70, 30, 30, 70 sama dengan nilai awal), sejalan dengan temuan SA bahwa tidak ada \textit{neighbor} yang mengubah nilai. \textit{Random restart} mencapai 70 pada kelima \textit{seed} dengan 0 iterasi karena tiap \textit{restart} mengambil \textit{state} acak baru, bukan karena pendakian. Pada \texttt{zero-value-weight}, \textit{sideways} menaikkan \textit{seed} 13 dari 10 ke 70 lewat gerakan setara, sedangkan \textit{steepest} dan \textit{stochastic} tetap pada 10. Pada \texttt{wall-touching}, \textit{seed} 12 dan 13 berawal dari 10 dan 40. \textit{Sideways} menaikkannya ke 90 dan 100, sedangkan \textit{steepest} dan \textit{stochastic} hanya mencapai 40 pada keduanya. Pada \texttt{fragile-support}, tiga varian pertama tetap pada 60 untuk \textit{seed} 12 dan 15, dan hanya \textit{random restart} mencapai 90 pada semua \textit{seed}.
+
+Biaya pencarian pada \texttt{base} dirinci pada Tabel~\ref{tab:hc-base-cost}. \textit{Steepest} paling murah karena berhenti pada rata-rata 0,4 iterasi, \textit{sideways} paling mahal karena selalu menghabiskan 100 \textit{sideways move}, dan \textit{stochastic} selalu memakai 1000 iterasi. \textit{Random restart} selalu menjalankan seluruh 10 \textit{restart}, tetapi total iterasi pendakiannya hanya 1,4. Angka ini sejalan dengan analisis pada Tabel~\ref{tab:hc-restart-tight}: keunggulan \textit{random restart} lebih tepat dibaca sebagai hasil pengambilan sampel sebelas \textit{state} acak daripada hasil pendakian yang panjang. Kesimpulan ini kini didukung lima \textit{seed}, tetapi hanya pada \textit{fixture} yang diuji.
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption{Biaya dan metrik penghentian baseline HC pada \texttt{base}, rata-rata lima seed}
+    \label{tab:hc-base-cost}
+    \begin{tabular}{@{}lrrrrrr@{}}
+        \toprule
+        Varian                  & Rata-rata $\pm$ SD & Terbaik & Iterasi & \textit{Sideways move} & \textit{Restart} & Durasi (s) \\
+        \midrule
+        \textit{Steepest}       & 303,0 $\pm$ 27,5   & 335     & 0,4     & 0,0                    & 0                & 0,007      \\
+        \textit{Sideways}       & 317,0 $\pm$ 20,5   & 335     & 101,8   & 100,0                  & 0                & 0,519      \\
+        \textit{Stochastic}     & 305,0 $\pm$ 26,2   & 335     & 1000,0  & 0,0                    & 0                & 0,185      \\
+        \textit{Random restart} & 331,0 $\pm$ 6,5    & 335     & 1,4     & 0,0                    & 10               & 0,228      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{figures/hc-analysis/fixture-summary.png}
+    \caption{Rata-rata nilai terbaik tiap varian HC pada tiap fixture ($\pm1$ SD, lima seed)}
+    \label{fig:hc-fixture-summary}
+\end{figure}
+
+Durasi diukur pada lingkungan lokal yang sama, tetapi konfigurasi yang identik dapat berbeda cukup besar antar-rangkaian. Pada \texttt{base}, \textit{random restart} dengan konfigurasi baseline tercatat 0,228 detik pada tabel ini dan 0,118 detik pada \textit{sweep} \texttt{neighbors\_\allowbreak per\_\allowbreak iteration}\,=\,30, hampir dua kali lipat. Karena itu durasi dipakai untuk membandingkan orde besaran, bukan selisih kecil.
+
+\subsubsection{Contoh keluaran dan visualisasi state}
+
+Tabel~\ref{tab:hc-representative} memperlihatkan keluaran konkret \textit{run} dengan \textit{seed} 11, satu \textit{run} representatif yang dipilih sebelum melihat hasil, untuk kasus yang sama dengan tabel SA. Pada \texttt{base}, \textit{sideways} dan \textit{random restart} naik dari 330 ke optimum 335, sedangkan \textit{steepest} dan \textit{stochastic} tetap pada 330. Pada \texttt{tight-space}, \textit{sideways} dan \textit{stochastic} mencapai 300 dengan lima paket, sedangkan \textit{steepest} dan \textit{random restart} mencapai 280 dengan empat paket. Pada \texttt{tight-capacity}, hanya \textit{random restart} mencapai optimum 175, dengan paket P02, P04, dan P06. \textit{Steepest} dan \textit{stochastic} tidak mengubah nilai awal 155. Pada \texttt{rotation-only}, hanya \textit{random restart} mencapai 70 dari 30, dan pada \texttt{infeasible} keempat varian tetap kosong.
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption{Keluaran aktual HC untuk seed 11 pada satu wakil tiap kategori dan kedua fixture kendala ketat (semua state akhir valid)}
+    \label{tab:hc-representative}
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        Kasus                   & Nilai awal & \textit{Steepest} & \textit{Sideways} & \textit{Stochastic} & \textit{Random restart} \\
+        \midrule
+        \texttt{base}           & 330        & 330               & 335               & 330                 & 335                     \\
+        \texttt{tight-space}    & 255        & 280               & 300               & 300                 & 280                     \\
+        \texttt{tight-capacity} & 155        & 155               & 165               & 155                 & 175                     \\
+        \texttt{infeasible}     & 0          & 0                 & 0                 & 0                   & 0                       \\
+        \texttt{rotation-only}  & 30         & 30                & 30                & 30                  & 70                      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/base-states.png}
+        \caption{Kasus dasar}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/tight-space-states.png}
+        \caption{Ruang truk ketat}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/tight-capacity-states.png}
+        \caption{Kapasitas truk ketat}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/rotation-only-states.png}
+        \caption{Paket hanya muat setelah rotasi}
+    \end{subfigure}
+    \caption{State awal dan state akhir \textit{random restart} untuk seed 11}
+    \label{fig:hc-state-examples}
+\end{figure}
+
+\subsubsection{Pengaruh parameter HC}
+
+Empat parameter HC diuji secara terpisah pada \texttt{base} dengan lima \textit{seed} dan \textit{state} awal yang sama. Parameter lain tetap pada baseline, dan tiap \textit{sweep} hanya menjalankan varian yang memakai parameter tersebut. Tabel~\ref{tab:hc-sweep-neighbors} memuat \textit{sweep} jumlah tetangga per iterasi, dan Tabel~\ref{tab:hc-sweep-lain} memuat \textit{sweep} \texttt{max\_\allowbreak sideways} dan \texttt{max\_\allowbreak restarts}.
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption{Pengaruh \texttt{neighbors\_\allowbreak per\_\allowbreak iteration} pada \texttt{base} (lima seed)}
+    \label{tab:hc-sweep-neighbors}
+    \begin{tabular}{@{}lrrrrr@{}}
+        \toprule
+        Varian                  & Tetangga & Rata-rata $\pm$ SD & Terbaik & Iterasi & Durasi (s) \\
+        \midrule
+        \textit{Steepest}       & 10       & 297,0 $\pm$ 26,1   & 330     & 0,0     & 0,001      \\
+                                & 30       & 303,0 $\pm$ 27,5   & 335     & 0,4     & 0,005      \\
+                                & 60       & 304,0 $\pm$ 27,0   & 335     & 0,6     & 0,017      \\
+        \textit{Sideways}       & 10       & 309,0 $\pm$ 21,6   & 335     & 101,2   & 0,149      \\
+                                & 30       & 317,0 $\pm$ 20,5   & 335     & 101,8   & 0,497      \\
+                                & 60       & 310,0 $\pm$ 20,9   & 335     & 101,2   & 0,879      \\
+        \textit{Random restart} & 10       & 327,0 $\pm$ 7,6    & 335     & 1,2     & 0,083      \\
+                                & 30       & 331,0 $\pm$ 6,5    & 335     & 1,4     & 0,118      \\
+                                & 60       & 332,0 $\pm$ 2,7    & 335     & 4,8     & 0,183      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption{Pengaruh \texttt{max\_\allowbreak sideways} (\textit{sideways}) dan \texttt{max\_\allowbreak restarts} (\textit{random restart}) pada \texttt{base} (lima seed)}
+    \label{tab:hc-sweep-lain}
+    \begin{tabular}{@{}llrrrr@{}}
+        \toprule
+        Parameter                  & Nilai & Rata-rata $\pm$ SD & Terbaik & Iterasi & Durasi (s) \\
+        \midrule
+        \texttt{max\_\allowbreak sideways}     & 50    & 311,0 $\pm$ 23,0   & 335     & 51,4    & 0,260      \\
+                                   & 100   & 317,0 $\pm$ 20,5   & 335     & 101,8   & 0,488      \\
+                                   & 300   & 324,0 $\pm$ 10,2   & 335     & 302,4   & 1,557      \\
+        \texttt{max\_\allowbreak restarts}     & 5     & 331,0 $\pm$ 6,5    & 335     & 1,2     & 0,085      \\
+                                   & 10    & 331,0 $\pm$ 6,5    & 335     & 1,4     & 0,130      \\
+                                   & 20    & 334,0 $\pm$ 2,2    & 335     & 3,4     & 0,301      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{Jumlah tetangga per iterasi} menaikkan rata-rata \textit{steepest} dari 297,0 (10 tetangga) ke 303,0 (30) dan 304,0 (60), dan \textit{random restart} dari 327,0 ke 331,0 dan 332,0 dengan simpangan baku turun dari 7,6 ke 2,7. Dengan 10 tetangga, \textit{steepest} berhenti pada iterasi ke-0 di kelima \textit{seed}, sehingga rata-ratanya sama dengan nilai awal (297,0). Durasi naik seiring jumlah tetangga (0,001 ke 0,017 detik pada \textit{steepest}). \textit{Sideways} tidak monoton: 309,0, 317,0, dan 310,0. Selisih antarnilai (paling besar 8 poin) lebih kecil daripada satu simpangan baku pada \textit{steepest} dan \textit{sideways}, sehingga hasil ini belum menunjukkan jumlah tetangga terbaik. Mengubah jumlah tetangga juga mengubah urutan bilangan acak yang dipakai tiap \textit{seed}, sehingga lintasan pencarian tidak sepenuhnya sebanding antar-nilai.
+
+\textbf{Jumlah iterasi maksimum} tidak mengubah hasil pada nilai yang diuji. Untuk keempat varian, rata-rata dan simpangan baku identik pada 500, 1000, dan 2000 iterasi (303,0, 317,0, 305,0, dan 331,0). \textit{Steepest}, \textit{sideways}, dan \textit{random restart} berhenti jauh sebelum batas (rata-rata 0,4, 101,8, dan 1,4 iterasi). \textit{Stochastic} selalu memakai seluruh iterasi, tetapi nilai akhir per \textit{seed} identik pada ketiga batas (330, 290, 335, 275, dan 295), sehingga seluruh perbaikan ditemukan dalam 500 iterasi pertama. Iterasi tambahan hanya menaikkan durasi hampir linear (0,077, 0,173, dan 0,303 detik). Batas 1000 iterasi pada baseline karenanya lebih longgar daripada yang dibutuhkan pada \texttt{base}.
+
+\textbf{Jatah \textit{sideways move}} menaikkan rata-rata \textit{sideways} dari 311,0 (50) ke 317,0 (100) dan 324,0 (300), dengan simpangan baku turun dari 23,0 ke 10,2. Pada 300, \textit{seed} 12 naik dari 285 ke 320, sedangkan pada 50 dan 100 tetap 285. Harganya adalah durasi: 0,260, 0,488, dan 1,557 detik, kira-kira tiga kali lipat dari 100 ke 300. Nilai terbaik tetap 335 pada ketiganya.
+
+\textbf{Jumlah \textit{restart}} tidak mengubah hasil dari 5 ke 10 (331,0 $\pm$ 6,5 dengan nilai per \textit{seed} yang sama: 335, 330, 335, 320, dan 335), sehingga \textit{restart} keenam sampai kesepuluh tidak menemukan \textit{state} yang lebih baik. Pada 20 \textit{restart}, rata-ratanya 334,0 $\pm$ 2,2: \textit{seed} 12 naik ke 335 dan \textit{seed} 14 ke 330. Durasinya naik dari 0,130 ke 0,301 detik.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/neighbors-sweep.png}
+        \caption{Jumlah tetangga per iterasi}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/iterations-sweep.png}
+        \caption{Iterasi maksimum}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/sideways-sweep.png}
+        \caption{Jatah \textit{sideways move}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/restarts-sweep.png}
+        \caption{Jumlah \textit{restart}}
+    \end{subfigure}
+    \caption{Pengaruh parameter HC terhadap nilai terbaik (rata-rata $\pm1$ SD) dan durasi}
+    \label{fig:hc-parameter-sweeps}
+\end{figure}
+
+\textit{Sweep} hanya dilakukan pada satu \textit{fixture} dengan lima \textit{seed} sehingga hasilnya belum menunjukkan konfigurasi terbaik untuk kategori lain. Parameter disapu satu per satu, jadi interaksi antarparameter tidak diuji. Durasi dapat berbeda hingga sekitar dua kali lipat antar-rangkaian untuk konfigurasi yang identik.
+
+Seluruh 355 keluaran per-\textit{run}, parameter, riwayat \textit{objective}, serta \textit{state} awal/akhir disimpan di \texttt{output/hc-analysis/}. Eksperimen dapat direproduksi dengan menjalankan \texttt{python -m src.experiments.hc.results\_analysis} dari root repositori.
 
 
 \subsection{Simulated Annealing}
@@ -895,7 +1086,7 @@ Nilai total paket pada Tabel~\ref{tab:objective} dihitung ulang dengan \texttt{t
 Efek \texttt{compact\_value} pada penataan terukur pada SA. Kepadatan rata-rata naik dari 0,250 menjadi 0,375 pada \texttt{base} dan dari 0,305 menjadi 0,614 pada \texttt{tight-capacity}. Biaya komputasi ketiga \textit{objective} sebanding pada HC dan GA (selisih durasi rata-rata hingga sekitar 25\% pada kedua \textit{instance}), tetapi SA dengan \texttt{compact\_value} lebih lambat pada \texttt{base} (0,568 dibanding 0,390 detik), perbedaan yang tidak terlihat pada \texttt{tight-capacity} (0,314 dibanding 0,285 detik) dan belum ditelusuri penyebabnya.
 
 \subsection{Keterbatasan}
-Seluruh \textit{instance} bersifat sintetis dan kecil (1--10 paket), dan konfigurasi per algoritma hanya diulang tiga kali (lima kali pada \textit{benchmark} dan ablasi). Akibatnya selisih yang kecil, seperti antara \textit{random restart}, SA, dan GA pada \texttt{base}, tidak dapat dibedakan dari \textit{noise}. Parameter tiap algoritma (suhu awal, laju pendinginan, ukuran populasi, \textit{mutation rate}, jumlah tetangga per iterasi) tidak disetel, hanya satu konfigurasi yang dipakai pada \textit{benchmark} sehingga urutan algoritma berlaku untuk konfigurasi tersebut. Optimum sebenarnya hanya diketahui untuk \texttt{base} dan \texttt{tight-capacity} (lewat batas atas \textit{knapsack}). Untuk \texttt{tight-space} nilai ``terbaik'' hanyalah yang tertinggi yang ditemukan. Hasil pada data paket kelompok yang sesungguhnya, jika ada dan berbeda, perlu ditambahkan pada bagian ini.
+Seluruh \textit{instance} bersifat sintetis dan kecil (1--10 paket), dan konfigurasi per algoritma hanya diulang tiga kali pada analisis per varian HC dan perbandingan \textit{objective} (lima kali pada \textit{benchmark}, ablasi, serta analisis lintas \textit{fixture} dan parameter). Akibatnya selisih yang kecil, seperti antara \textit{random restart}, SA, dan GA pada \texttt{base}, tidak dapat dibedakan dari \textit{noise}. Parameter tiap algoritma (suhu awal, laju pendinginan, ukuran populasi, \textit{mutation rate}, jumlah tetangga per iterasi) tidak disetel, hanya satu konfigurasi yang dipakai pada \textit{benchmark} sehingga urutan algoritma berlaku untuk konfigurasi tersebut. Optimum sebenarnya hanya diketahui untuk \texttt{base} dan \texttt{tight-capacity} (lewat batas atas \textit{knapsack}). Untuk \texttt{tight-space} nilai ``terbaik'' hanyalah yang tertinggi yang ditemukan. Hasil pada data paket kelompok yang sesungguhnya, jika ada dan berbeda, perlu ditambahkan pada bagian ini.
 
 \section{Analisis Implementasi Spesifikasi Bonus}
 
