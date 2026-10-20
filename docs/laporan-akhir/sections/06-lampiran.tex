@@ -3,17 +3,17 @@
 Pembagian tugas mengikuti pembagian yang tercatat pada \texttt{README.md} repositori.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}p{4.6cm}p{2.3cm}p{8.4cm}@{}}
-\toprule
-Nama & NIM & Kontribusi \\
-\midrule
-Muhammad Aufar Rizqi Kusuma & 13524061 & Kontrak dan fondasi bersama (model, validator, \textit{neighbor}, \textit{SearchResult}), \textit{genetic algorithm}, serta bonus multi-truk \\
-Arina Azka & 13524049 & \textit{Hill climbing} wajib beserta seluruh variannya (\textit{steepest}, \textit{sideways}, \textit{stochastic}, \textit{random restart}) sebagai bonus \\
-Michael James Liman & 13524106 & \textit{Simulated annealing} wajib dan \textit{objective function} alternatif (\texttt{eta\_weighted\_value} dan \texttt{compact\_value}) sebagai bonus, serta \textit{visualizer} berbasis \textit{web server} \\
-\bottomrule
-\end{tabular}
-\caption{Pembagian tugas anggota kelompok Three Agents}
+    \centering
+    \begin{tabular}{@{}p{4.6cm}p{2.3cm}p{8.4cm}@{}}
+        \toprule
+        Nama                        & NIM      & Kontribusi                                                                                                                                                                                                      \\
+        \midrule
+        Muhammad Aufar Rizqi Kusuma & 13524061 & Kontrak dan fondasi bersama (model, validator, \textit{neighbor}, \textit{SearchResult}), \textit{genetic algorithm}, serta bonus multi-truk                                                                    \\
+        Arina Azka                  & 13524049 & \textit{Hill climbing} wajib beserta seluruh variannya (\textit{steepest}, \textit{sideways}, \textit{stochastic}, \textit{random restart}) sebagai bonus                                                       \\
+        Michael James Liman         & 13524106 & \textit{Simulated annealing} wajib dan \textit{objective function} alternatif (\texttt{eta\_weighted\_value} dan \texttt{compact\_value}) sebagai bonus, serta \textit{visualizer} berbasis \textit{web server} \\
+        \bottomrule
+    \end{tabular}
+    \caption{Pembagian tugas anggota kelompok Three Agents}
 \end{table}
 
 \section{Repositori GitHub}
@@ -21,27 +21,30 @@ Michael James Liman & 13524106 & \textit{Simulated annealing} wajib dan \textit{
 Kode sumber, data eksperimen, visualisasi, dan sumber laporan ini tersedia pada repositori berikut.
 
 \begin{center}
-\url{https://github.com/parkuskus/IF3170_G11_ThreeAgents}
+    \url{https://github.com/parkuskus/IF3170_G11_ThreeAgents}
 \end{center}
 
 Struktur direktori utama repositori adalah sebagai berikut.
 
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}p{5.2cm}p{9.8cm}@{}}
-\toprule
-Lokasi & Isi \\
-\midrule
-\texttt{src/model.py}, \texttt{validation.py}, \texttt{neighbors.py}, \texttt{objectives.py} & Representasi \textit{state}, validator \textit{constraint}, pembangkit \textit{state} awal dan \textit{neighbor}, serta ketiga \textit{objective function} \\
-\texttt{src/algorithms/} & Implementasi \textit{hill climbing}, \textit{simulated annealing}, dan \textit{genetic algorithm} \\
-\texttt{src/experiments/} & Pelaksana eksperimen, termasuk \textit{benchmark} lintas kategori (\texttt{run\_benchmark.py}), perbandingan \textit{objective}, dan ablasi GA \\
-\texttt{src/visualization/} & Pembuat plot riwayat \textit{objective} dan tampilan 3D \textit{state} \\
-\texttt{tests/fixtures/} & Berkas \textit{instance} untuk setiap kategori kasus uji, yaitu \texttt{base}, \texttt{tight-space}, \texttt{tight-capacity}, \texttt{infeasible}, \texttt{boundary/} (7 berkas), dan \texttt{invalid/} (8 berkas). \texttt{hard.json} dan \texttt{demo.json} adalah instance lama yang tidak digunakan pada bab hasil \\
-\texttt{output/} & Hasil \textit{run} dalam JSON dan visualisasi. Isinya mencakup \texttt{benchmark} (330 \textit{run}), \texttt{base-hc}, \texttt{base-sa}, \texttt{base-ga}, \texttt{base-ga-ablation}, dan hasil serupa untuk \texttt{tight-capacity-*} \\
-\texttt{tests/} & Tes fondasi, algoritma, eksperimen, dan \textit{fixture} \\
-\bottomrule
-\end{tabular}
-\caption{Struktur repositori}
+    \centering
+    \begin{tabular}{@{}p{5.2cm}p{9.8cm}@{}}
+        \toprule
+        Lokasi                                                                                       & Isi                                                                                                                                                                                                                                                                                                                    \\
+        \midrule
+        \texttt{src/model.py}, \texttt{validation.py}, \texttt{neighbors.py}, \texttt{objectives.py} & Representasi \textit{state}, validator \textit{constraint}, pembangkit \textit{state} awal dan \textit{neighbor}, serta ketiga \textit{objective function}                                                                                                                                                             \\
+        \texttt{src/algorithms/}                                                                     & Implementasi \textit{hill climbing}, \textit{simulated annealing}, dan \textit{genetic algorithm}                                                                                                                                                                                                                      \\
+        \texttt{src/experiments/}                                                                    & Pelaksana eksperimen, termasuk \textit{benchmark} lintas kategori (\texttt{run\_benchmark.py}), perbandingan \textit{objective}, dan ablasi GA                                                                                                                                                                         \\
+        \texttt{src/visualization/}                                                                  & Pembuat plot riwayat \textit{objective} dan tampilan 3D \textit{state}                                                                                                                                                                                                                                                 \\
+        \texttt{tests/fixtures/}                                                                     & Berkas \textit{instance} untuk setiap kategori kasus uji, yaitu \texttt{base}, \texttt{tight-space}, \texttt{tight-capacity}, \texttt{infeasible}, \texttt{boundary/} (7 berkas), dan \texttt{invalid/} (8 berkas). \texttt{hard.json} dan \texttt{demo.json} adalah instance lama yang tidak digunakan pada bab hasil \\
+        \texttt{output/}                                                                             & Hasil \textit{run} dalam JSON dan visualisasi. Isinya mencakup \texttt{benchmark} (330 \textit{run}), \texttt{base-hc}, \texttt{base-sa}, \texttt{base-ga}, \texttt{base-ga-ablation}, dan hasil serupa untuk \texttt{tight-capacity-*}                                                                                \\
+        \texttt{tests/}                                                                              & Tes fondasi, algoritma, eksperimen, dan \textit{fixture}                                                                                                                                                                                                                                                               \\
+        \bottomrule
+    \end{tabular}
+    \caption{Struktur repositori}
 \end{table}
 
 Dependensi dipasang dengan \texttt{python -m pip install -r requirements.txt} (Python 3.10 atau lebih baru), dan seluruh tes dijalankan dengan \texttt{python -m unittest discover -s tests -v} dari direktori utama repositori. Setiap \textit{run} mencatat \textit{seed} dan parameter pada berkas \texttt{result.json} sehingga hasil pada Bab Hasil Eksperimen dan Analisis dapat direproduksi.
+
+\clearpage
+\includepdf[pages=-,pagecommand={\thispagestyle{empty}}]{\detokenize{../ThreeAgents_Surat Pernyataan AI.pdf}}
