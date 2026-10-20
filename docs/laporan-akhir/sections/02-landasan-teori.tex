@@ -1,17 +1,17 @@
 \section{Algoritma Hill Climbing}
 
-\textit{Hill climbing} adalah algoritma \textit{local search} yang bekerja pada satu \textit{state} saja. Algoritma ini mulai dari sebuah \textit{state} awal, membangkitkan \textit{neighbor} dari \textit{state} saat ini, lalu berpindah ke \textit{neighbor} yang nilai \textit{objective function}-nya lebih baik. Pencarian berhenti ketika tidak ada lagi \textit{neighbor} yang lebih baik. Karena hanya menyimpan satu \textit{state} dan tidak menyimpan jalur pencarian, kebutuhan memorinya sangat kecil dan setiap iterasinya murah. Pada permasalahan ini \textit{objective function} dimaksimalkan, sehingga algoritma bergerak ``naik'' menuju nilai \textit{value} total paket yang lebih besar.
+\textit{Hill climbing} adalah algoritma \textit{local search} yang bekerja pada satu \textit{state} saja. Algoritma ini mulai dari sebuah \textit{state} awal, membangkitkan \textit{neighbor} dari \textit{state} saat ini, lalu berpindah ke \textit{neighbor} yang nilai \textit{objective function}-nya lebih baik. Pencarian berhenti ketika tidak ada lagi \textit{neighbor} yang lebih baik. Karena hanya menyimpan satu \textit{state} dan tidak menyimpan jalur pencarian, kebutuhan memorinya sangat kecil dan setiap iterasinya murah. Pada permasalahan ini \textit{objective function} dimaksimalkan sehingga algoritma bergerak naik menuju nilai \textit{value} total paket yang lebih besar.
 
 Kelemahan utama \textit{hill climbing} adalah tidak adanya mekanisme untuk keluar dari daerah yang buruk. Ada tiga kondisi yang menyebabkan pencarian terhenti sebelum mencapai \textit{global optimum}.
 \begin{itemize}
     \item \textit{Local maximum} adalah \textit{state} yang lebih baik daripada semua \textit{neighbor}-nya, tetapi bukan yang terbaik secara global.
-    \item \textit{Plateau} adalah daerah datar tempat semua \textit{neighbor} bernilai sama, sehingga tidak ada arah yang jelas untuk naik.
+    \item \textit{Plateau} adalah daerah datar tempat semua \textit{neighbor} bernilai sama sehingga tidak ada arah yang jelas untuk naik.
     \item \textit{Shoulder} adalah \textit{plateau} yang masih memiliki jalan menaik di ujungnya dan dapat terlewat jika pencarian berhenti terlalu cepat.
 \end{itemize}
 Keempat varian berikut dibuat untuk mengurangi kelemahan tersebut dengan cara yang berbeda.
 
 \subsection{\textit{Steepest Ascent Hill Climbing}}
-Pada setiap iterasi, algoritma mengevaluasi sekumpulan \textit{neighbor} dan memilih yang bernilai paling tinggi. Algoritma berpindah ke kandidat itu hanya jika nilainya lebih besar daripada nilai \textit{state} saat ini. Jika tidak, pencarian berhenti pada \textit{local optimum}. Pemilihan terbaik bersifat deterministik untuk sampel yang dievaluasi. Namun, sampel \textit{neighbor} dibangkitkan secara acak, sehingga hasil dapat berbeda antarpercobaan. Varian ini masih dapat terjebak pada \textit{local maximum} atau \textit{plateau}.
+Pada setiap iterasi, algoritma mengevaluasi sekumpulan \textit{neighbor} dan memilih yang bernilai paling tinggi. Algoritma berpindah ke kandidat itu hanya jika nilainya lebih besar daripada nilai \textit{state} saat ini. Jika tidak, pencarian berhenti pada \textit{local optimum}. Pemilihan terbaik bersifat deterministik untuk sampel yang dievaluasi. Namun, sampel \textit{neighbor} dibangkitkan secara acak sehingga hasil dapat berbeda antarpercobaan. Varian ini masih dapat terjebak pada \textit{local maximum} atau \textit{plateau}.
 
 \begingroup
 \setlength{\parskip}{0pt}
@@ -97,7 +97,7 @@ Algoritma memilih satu \textit{neighbor} secara acak pada setiap iterasi dan ber
 \endgroup
 
 \subsection{\textit{Random Restart Hill Climbing}}
-Algoritma menjalankan \textit{steepest ascent hill climbing} dari \textit{state} awal yang diberikan, kemudian mengulanginya dari \textit{state} awal acak yang baru dan menyimpan hasil terbaik dari seluruh pendakian. Peluang menemukan \textit{global optimum} meningkat seiring bertambahnya jumlah \textit{restart}, karena setiap \textit{restart} mengeksplorasi daerah ruang pencarian yang berbeda. Parameter \textit{maximum restart} membatasi pengulangan setelah pendakian pertama, sehingga jumlah total pendakian adalah satu ditambah jumlah \textit{restart}. Kelemahannya adalah biaya komputasi yang bertambah sebanding dengan jumlah pendakian.
+Algoritma menjalankan \textit{steepest ascent hill climbing} dari \textit{state} awal yang diberikan, kemudian mengulanginya dari \textit{state} awal acak yang baru dan menyimpan hasil terbaik dari seluruh pendakian. Peluang menemukan \textit{global optimum} meningkat seiring bertambahnya jumlah \textit{restart}, karena setiap \textit{restart} mengeksplorasi daerah ruang pencarian yang berbeda. Parameter \textit{maximum restart} membatasi pengulangan setelah pendakian pertama sehingga jumlah total pendakian adalah satu ditambah jumlah \textit{restart}. Kelemahannya adalah biaya komputasi yang bertambah sebanding dengan jumlah pendakian.
 
 \begingroup
 \setlength{\parskip}{0pt}

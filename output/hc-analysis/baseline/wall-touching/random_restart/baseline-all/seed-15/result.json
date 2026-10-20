@@ -1,0 +1,320 @@
+{
+  "experiment": "baseline",
+  "category": "boundary",
+  "instance": "wall-touching",
+  "variant": "random_restart",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "neighbors_per_iteration": 30,
+    "max_iterations": 1000,
+    "max_sideways": 100,
+    "max_restarts": 10
+  },
+  "seed": 15,
+  "initial_state_seed": 24290,
+  "initial_value": 70,
+  "loaded_packages": 4,
+  "valid": true,
+  "violations": [],
+  "iterations": 5,
+  "sideways_moves": 0,
+  "restarts": 10,
+  "duration_seconds": 0.0336403000401333,
+  "artifact_path": "output\\hc-analysis\\baseline\\wall-touching\\random_restart\\baseline-all\\seed-15\\result.json",
+  "result": {
+    "algorithm": "hill_climbing_random_restart",
+    "objective_name": "total_value",
+    "objective_value": 100,
+    "objective_history": [
+      70,
+      80,
+      90,
+      100,
+      100,
+      100,
+      100,
+      90,
+      100,
+      80,
+      80,
+      90,
+      70,
+      90,
+      60,
+      70
+    ],
+    "duration_seconds": 0.0336403000401333,
+    "seed": 15,
+    "run_index": 5,
+    "parameters": {
+      "variant": "random_restart",
+      "max_iterations": 1000,
+      "neighbors_per_iteration": 30,
+      "max_restarts": 10
+    },
+    "metrics": {
+      "variant": "random_restart",
+      "iterations": 5,
+      "sideways_moves": 0,
+      "maximum_sideways_moves": null,
+      "restarts": 10,
+      "maximum_restarts": 10,
+      "iterations_per_restart": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          4,
+          4,
+          2
+        ],
+        "max_capacity": 8
+      },
+      "total_package_value": 70,
+      "packages": [
+        {
+          "id": "cube-1",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 10,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              2,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-2",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 20,
+          "weight": 2,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-3",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "cube-4",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 40,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": {
+            "coordinate": [
+              2,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          4,
+          4,
+          2
+        ],
+        "max_capacity": 8
+      },
+      "total_package_value": 100,
+      "packages": [
+        {
+          "id": "cube-1",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 10,
+          "weight": 2,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-2",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 20,
+          "weight": 2,
+          "fragile": false,
+          "eta": 2,
+          "placement": {
+            "coordinate": [
+              2,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-3",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 30,
+          "weight": 2,
+          "fragile": false,
+          "eta": 3,
+          "placement": {
+            "coordinate": [
+              0,
+              2,
+              0
+            ],
+            "orientation": [
+              2,
+              0,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "id": "cube-4",
+          "dimensions": [
+            2,
+            2,
+            2
+          ],
+          "value": 40,
+          "weight": 2,
+          "fragile": false,
+          "eta": 4,
+          "placement": {
+            "coordinate": [
+              2,
+              2,
+              0
+            ],
+            "orientation": [
+              0,
+              2,
+              1
+            ],
+            "oriented_dimensions": [
+              2,
+              2,
+              2
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

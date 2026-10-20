@@ -1,0 +1,336 @@
+{
+  "experiment": "baseline",
+  "category": "infeasible",
+  "instance": "infeasible",
+  "variant": "steepest",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "neighbors_per_iteration": 30,
+    "max_iterations": 1000,
+    "max_sideways": 100,
+    "max_restarts": 10
+  },
+  "seed": 11,
+  "initial_state_seed": 24294,
+  "initial_value": 0,
+  "loaded_packages": 0,
+  "valid": true,
+  "violations": [],
+  "iterations": 0,
+  "sideways_moves": 0,
+  "restarts": 0,
+  "duration_seconds": 0.0007718999986536801,
+  "artifact_path": "output\\hc-analysis\\baseline\\infeasible\\steepest\\baseline-all\\seed-11\\result.json",
+  "result": {
+    "algorithm": "hill_climbing_steepest",
+    "objective_name": "total_value",
+    "objective_value": 0,
+    "objective_history": [
+      0
+    ],
+    "duration_seconds": 0.0007718999986536801,
+    "seed": 11,
+    "run_index": 1,
+    "parameters": {
+      "variant": "steepest",
+      "max_iterations": 1000,
+      "neighbors_per_iteration": 30
+    },
+    "metrics": {
+      "variant": "steepest",
+      "iterations": 0,
+      "sideways_moves": 0,
+      "maximum_sideways_moves": null,
+      "restarts": 0,
+      "maximum_restarts": null,
+      "iterations_per_restart": []
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          8,
+          6,
+          4
+        ],
+        "max_capacity": 30
+      },
+      "total_package_value": 0,
+      "packages": [
+        {
+          "id": "P01",
+          "dimensions": [
+            9,
+            2,
+            2
+          ],
+          "value": 60,
+          "weight": 6,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "P02",
+          "dimensions": [
+            9,
+            3,
+            2
+          ],
+          "value": 100,
+          "weight": 9,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "P03",
+          "dimensions": [
+            9,
+            2,
+            2
+          ],
+          "value": 45,
+          "weight": 4,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "P04",
+          "dimensions": [
+            9,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 3,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "P05",
+          "dimensions": [
+            9,
+            3,
+            3
+          ],
+          "value": 90,
+          "weight": 10,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "P06",
+          "dimensions": [
+            2,
+            1,
+            4
+          ],
+          "value": 35,
+          "weight": 31,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "P07",
+          "dimensions": [
+            4,
+            4,
+            1
+          ],
+          "value": 55,
+          "weight": 31,
+          "fragile": false,
+          "eta": 6,
+          "placement": null
+        },
+        {
+          "id": "P08",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 20,
+          "weight": 31,
+          "fragile": false,
+          "eta": 0,
+          "placement": null
+        },
+        {
+          "id": "P09",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 75,
+          "weight": 31,
+          "fragile": true,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "P10",
+          "dimensions": [
+            6,
+            2,
+            2
+          ],
+          "value": 80,
+          "weight": 31,
+          "fragile": false,
+          "eta": 7,
+          "placement": null
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          8,
+          6,
+          4
+        ],
+        "max_capacity": 30
+      },
+      "total_package_value": 0,
+      "packages": [
+        {
+          "id": "P01",
+          "dimensions": [
+            9,
+            2,
+            2
+          ],
+          "value": 60,
+          "weight": 6,
+          "fragile": false,
+          "eta": 3,
+          "placement": null
+        },
+        {
+          "id": "P02",
+          "dimensions": [
+            9,
+            3,
+            2
+          ],
+          "value": 100,
+          "weight": 9,
+          "fragile": false,
+          "eta": 5,
+          "placement": null
+        },
+        {
+          "id": "P03",
+          "dimensions": [
+            9,
+            2,
+            2
+          ],
+          "value": 45,
+          "weight": 4,
+          "fragile": true,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "P04",
+          "dimensions": [
+            9,
+            2,
+            1
+          ],
+          "value": 40,
+          "weight": 3,
+          "fragile": false,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "P05",
+          "dimensions": [
+            9,
+            3,
+            3
+          ],
+          "value": 90,
+          "weight": 10,
+          "fragile": false,
+          "eta": 4,
+          "placement": null
+        },
+        {
+          "id": "P06",
+          "dimensions": [
+            2,
+            1,
+            4
+          ],
+          "value": 35,
+          "weight": 31,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "P07",
+          "dimensions": [
+            4,
+            4,
+            1
+          ],
+          "value": 55,
+          "weight": 31,
+          "fragile": false,
+          "eta": 6,
+          "placement": null
+        },
+        {
+          "id": "P08",
+          "dimensions": [
+            2,
+            2,
+            1
+          ],
+          "value": 20,
+          "weight": 31,
+          "fragile": false,
+          "eta": 0,
+          "placement": null
+        },
+        {
+          "id": "P09",
+          "dimensions": [
+            3,
+            3,
+            2
+          ],
+          "value": 75,
+          "weight": 31,
+          "fragile": true,
+          "eta": 2,
+          "placement": null
+        },
+        {
+          "id": "P10",
+          "dimensions": [
+            6,
+            2,
+            2
+          ],
+          "value": 80,
+          "weight": 31,
+          "fragile": false,
+          "eta": 7,
+          "placement": null
+        }
+      ]
+    }
+  }
+}

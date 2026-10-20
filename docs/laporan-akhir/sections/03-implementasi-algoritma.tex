@@ -1,6 +1,6 @@
 \section{Representasi State}
 
-State merepresentasikan satu konfigurasi pemuatan paket pada sebuah truk. Implementasi menyimpan data paket dan truk secara terpisah, lalu menghubungkan setiap paket dengan posisinya melalui pemetaan dari ID paket ke objek penempatan. Nilai penempatan \texttt{None} menandakan paket berada di luar truk, sehingga state tetap mencatat seluruh paket, baik yang dimuat maupun tidak.
+State merepresentasikan satu konfigurasi pemuatan paket pada sebuah truk. Implementasi menyimpan data paket dan truk secara terpisah, lalu menghubungkan setiap paket dengan posisinya melalui pemetaan dari ID paket ke objek penempatan. Nilai penempatan \texttt{None} menandakan paket berada di luar truk sehingga state tetap mencatat seluruh paket, baik yang dimuat maupun tidak.
 
 Objek \texttt{Package} menyimpan ID, dimensi awal, nilai, berat, status mudah pecah, dan ETA. Dimensi disimpan sebagai tiga bilangan bulat, sedangkan orientasi adalah permutasi indeks dimensi yang menentukan urutan ukuran setelah rotasi. Ada enam kemungkinan orientasi, sesuai seluruh permutasi indeks tiga dimensi. Objek \texttt{Truck} menyimpan dimensi ruang muat serta kapasitas berat maksimum. Objek \texttt{Placement} menggabungkan koordinat sudut paket, dimensi setelah orientasi diterapkan, dan orientasinya. Kode~\ref{lst:state-model} memperlihatkan struktur data inti dari \texttt{src/model.py}. Pemeriksaan validasi dihilangkan dari cuplikan agar fokus pada field representasinya.
 
@@ -53,7 +53,7 @@ Secara matematis, satu state dituliskan sebagai $S=(P,T,\phi)$, dengan $P=(p_1,\
 
 Di sini $\bot$ menyatakan paket tidak dimuat, $\mathbf{x}_i$ adalah koordinat sudut paket di dalam truk, dan $S_3$ adalah himpunan enam permutasi sumbu yang merepresentasikan orientasi. Domain $I$ memastikan setiap paket memiliki tepat satu entri penempatan. Persamaan~\ref{eq:state-representation} menjelaskan bentuk representasi. Batas ruang, kapasitas, dan batasan fisik lainnya menentukan apakah state tersebut layak.
 
-Pemetaan \texttt{placements} harus memiliki tepat satu entri untuk setiap ID paket. Konstruktor \texttt{State} memeriksa keunikan ID, kelengkapan kunci pemetaan, dan kecocokan dimensi hasil orientasi dengan dimensi paket. Fungsi objektif state menjumlahkan nilai paket yang memiliki penempatan, sehingga paket di luar truk tidak berkontribusi terhadap nilai solusi.
+Pemetaan \texttt{placements} harus memiliki tepat satu entri untuk setiap ID paket. Konstruktor \texttt{State} memeriksa keunikan ID, kelengkapan kunci pemetaan, dan kecocokan dimensi hasil orientasi dengan dimensi paket. Fungsi objektif state menjumlahkan nilai paket yang memiliki penempatan sehingga paket di luar truk tidak berkontribusi terhadap nilai solusi.
 
 Contoh berikut menunjukkan sebuah paket di dalam truk dan satu paket yang tidak dimuat. Koordinat menggunakan urutan sumbu $x$, $y$, dan $z$, sedangkan koordinat $(0,0,0)$ menandakan sudut bawah paket berada di titik asal ruang muat.
 
@@ -85,7 +85,7 @@ State layak apabila seluruh syarat berikut terpenuhi. Misalkan $I^+=\{i\in I\mid
               \mathbf{0}\leq\mathbf{x}_i,\qquad \mathbf{x}_i+\mathbf{d}_i\leq\mathbf{L},\qquad \forall i\in I^+.
           \end{equation*}
 
-    \item Setiap pasangan paket harus terpisah pada setidaknya satu sumbu, sehingga keduanya tidak saling bertumpang tindih. Di sini $d_{i,k}$ adalah ukuran paket $i$ pada sumbu $k$. 
+    \item Setiap pasangan paket harus terpisah pada setidaknya satu sumbu sehingga keduanya tidak saling bertumpang tindih. Di sini $d_{i,k}$ adalah ukuran paket $i$ pada sumbu $k$. 
           \begin{equation*}
               \exists k\in\{x,y,z\}:\quad x_{i,k}+d_{i,k}\leq x_{j,k}\ \lor\ x_{j,k}+d_{j,k}\leq x_{i,k},\qquad \forall i,j\in I^+,\ i\neq j.
           \end{equation*}
@@ -278,7 +278,7 @@ Karena paket diproses satu per satu dengan jumlah percobaan terbatas, hasil stat
 Seluruh varian \textit{hill climbing} diimplementasikan pada berkas \texttt{src/\allowbreak algorithms/\allowbreak hill\_\allowbreak climbing/\allowbreak algorithm.py}. Algoritma ditulis generik terhadap tipe \textit{state}. Seluruh operasi yang bergantung pada domain (nilai \textit{objective}, validasi, pembangkitan \textit{state} acak, dan pembangkitan \textit{neighbor}) diterima melalui objek \texttt{SearchProblem} pada \texttt{src/\allowbreak contracts.py}. Fungsi \texttt{search\_problem\_for\_state} pada \texttt{src/\allowbreak search\_problems.py} memasangkan objek tersebut sesuai tipe \textit{state}. Untuk \texttt{State} (satu truk) dipakai \texttt{validate\_state}, \texttt{random\_initial\_state}, dan \texttt{random\_neighbor}, sedangkan untuk \texttt{FleetState} (multi-truk) dipakai padanan versi armada. Dengan demikian satu implementasi \textit{hill climbing} dapat dipakai pada kedua jenis \textit{state}, dan semua algoritma menerima masukan serta mengembalikan keluaran yang seragam, yaitu objek \texttt{SearchResult} yang memuat \textit{state} awal, \textit{state} akhir, nilai \textit{objective function} akhir, riwayat nilai per iterasi, durasi pencarian, dan metrik khusus algoritma.
 
 \subsection{Pembangkitan \textit{Neighbor} dan Heuristik}
-Ruang \textit{neighbor} pada permasalahan ini sangat besar karena koordinat paket berupa bilangan bulat, sehingga seluruh \textit{neighbor} tidak dapat dienumerasi pada setiap iterasi. Sebagai gantinya, setiap \textit{neighbor} dibangkitkan lewat \texttt{problem.neighbor}. Pada satu truk fungsi ini adalah \texttt{random\_neighbor}, yang secara acak memilih salah satu dari tiga operasi (menukar dua paket, memindahkan paket ke koordinat lain, atau merotasi paket $90^{\circ}$) dan hanya mengembalikan \textit{state} yang lolos validasi \textit{constraint}. Bila tidak ada kandidat valid dalam batas percobaan, fungsi mengembalikan \textit{state} asal. Sebelum dievaluasi, setiap kandidat diperiksa ulang dengan \texttt{problem.is\_valid}, dan \texttt{ValueError} dilempar jika operator \textit{neighbor} menghasilkan \textit{state} yang tidak valid.
+Ruang \textit{neighbor} pada permasalahan ini sangat besar karena koordinat paket berupa bilangan bulat sehingga seluruh \textit{neighbor} tidak dapat dienumerasi pada setiap iterasi. Sebagai gantinya, setiap \textit{neighbor} dibangkitkan lewat \texttt{problem.neighbor}. Pada satu truk fungsi ini adalah \texttt{random\_neighbor}, yang secara acak memilih salah satu dari tiga operasi (menukar dua paket, memindahkan paket ke koordinat lain, atau merotasi paket $90^{\circ}$) dan hanya mengembalikan \textit{state} yang lolos validasi \textit{constraint}. Bila tidak ada kandidat valid dalam batas percobaan, fungsi mengembalikan \textit{state} asal. Sebelum dievaluasi, setiap kandidat diperiksa ulang dengan \texttt{problem.is\_valid}, dan \texttt{ValueError} dilempar jika operator \textit{neighbor} menghasilkan \textit{state} yang tidak valid.
 
 Heuristik yang kami gunakan adalah \textit{steepest} berbasis sampel. Pada setiap iterasi dibangkitkan \texttt{neighbors\_per\_iteration} (bawaan 30) \textit{neighbor} valid, kemudian \textit{neighbor} dengan nilai terbaik dianggap sebagai \textit{neighbor} terbaik. Konsekuensinya, varian \textit{steepest} dan \textit{sideways} tidak menjamin menemukan \textit{neighbor} terbaik yang sesungguhnya, tetapi peluangnya naik seiring bertambahnya ukuran sampel. Varian \textit{stochastic} memakai tepat satu \textit{neighbor} per iterasi.
 
@@ -304,16 +304,17 @@ Heuristik yang kami gunakan adalah \textit{steepest} berbasis sampel. Pada setia
     \item \textit{Steepest}. Berhenti ketika \textit{neighbor} terbaik dari sampel tidak lebih baik daripada \textit{state} saat ini.
     \item \textit{Sideways}. Sama seperti \textit{steepest}, tetapi \textit{neighbor} bernilai sama diterima selama jumlah \textit{sideways move} belum mencapai \texttt{max\_sideways}.
     \item \textit{Stochastic}. Berhenti setelah \texttt{max\_iterations} iterasi. Iterasi yang \textit{neighbor}-nya ditolak tetap dihitung.
-    \item \textit{Random restart}. Menjalankan \textit{steepest} dari \textit{state} awal yang diberikan, lalu dari \texttt{max\_restarts} \textit{state} acak baru, sehingga total terdapat \texttt{max\_restarts}\,+\,1 pendakian. Hasil terbaik dari seluruh pendakian dikembalikan.
+    \item \textit{Random restart}. Menjalankan \textit{steepest} dari \textit{state} awal yang diberikan, lalu dari \texttt{max\_restarts} \textit{state} acak baru sehingga total terdapat \texttt{max\_restarts}\,+\,1 pendakian. Hasil terbaik dari seluruh pendakian dikembalikan.
 \end{itemize}
 
 \subsection{Metrik yang Dicatat}
 Setiap \textit{run} mengembalikan \texttt{HillClimbingMetrics} yang berisi varian yang dipakai, banyak iterasi hingga berhenti, jumlah dan batas \textit{sideways move}, jumlah dan batas \textit{restart}, serta banyak iterasi pada setiap \textit{restart}. Riwayat nilai \textit{objective function} dicatat pada setiap iterasi (elemen pertama adalah nilai \textit{state} awal) dan digunakan untuk membuat plot nilai \textit{objective function} terhadap banyak iterasi. Durasi pencarian diukur dengan \texttt{perf\_counter}.
 
 \subsection{\textit{Source Code}}
-Fungsi \texttt{\_climb} menjalankan satu pendakian untuk varian \textit{steepest}, \textit{sideways}, atau \textit{stochastic}. Fungsi \texttt{hill\_climbing} memvalidasi parameter, memasang \texttt{SearchProblem} dan \textit{objective}, memeriksa \textit{state} awal, memilih varian, menangani pengulangan pada \textit{random restart}, lalu menyusun \texttt{SearchResult}. Listing berikut disalin dari \texttt{algorithm.py}.
+Berkas \texttt{algorithm.py} terdiri dari dua fungsi bantu validasi (\texttt{\_check\_int} dan \texttt{\_score}), fungsi pendakian \texttt{\_climb}, fungsi utama \texttt{hill\_climbing}, dan empat fungsi pembungkus. Bagian ini membahas kodenya potongan demi potongan; seluruh listing disalin dari \texttt{algorithm.py}.
 
-\begin{lstlisting}[language=Python, caption={Fungsi bantu dan \texttt{\_climb} pada \texttt{algorithm.py}}, label={lst:hc-climb}]
+\subsubsection{Impor dan Konstanta}
+\begin{lstlisting}[language=Python, caption={Impor dan konstanta pada \texttt{algorithm.py}}, label={lst:hc-impor}]
 from math import isfinite
 from random import Random
 from time import perf_counter
@@ -324,8 +325,12 @@ from src.results import HillClimbingMetrics, ObjectiveValue, SearchResult
 
 StateT = TypeVar("StateT")
 VARIANTS = ("steepest", "sideways", "stochastic", "random_restart")
+\end{lstlisting}
 
+\texttt{StateT} adalah variabel tipe sehingga seluruh fungsi berlaku untuk tipe \textit{state} apa pun, baik \texttt{State} satu truk maupun \texttt{FleetState}. \texttt{SearchProblem} dan \texttt{ObjectiveFunction} berasal dari kontrak bersama, sedangkan \texttt{HillClimbingMetrics} dan \texttt{SearchResult} adalah format keluaran yang sama untuk semua algoritma. Tuple \texttt{VARIANTS} adalah daftar nama varian yang sah. Daftar ini dipakai untuk memvalidasi parameter \texttt{variant}, pilihan \texttt{--variants} pada baris perintah, dan pilihan varian pada \textit{visualizer}, sehingga nama varian hanya didefinisikan di satu tempat.
 
+\subsubsection{Fungsi Bantu Validasi}
+\begin{lstlisting}[language=Python, caption={Fungsi \texttt{\_check\_int} dan \texttt{\_score}}, label={lst:hc-helper}]
 def _check_int(value, name: str, minimum: int) -> None:
     if type(value) is not int or value < minimum:
         raise ValueError(f"{name} must be an integer >= {minimum}")
@@ -336,8 +341,12 @@ def _score(objective: ObjectiveFunction[StateT], state: StateT) -> ObjectiveValu
     if isinstance(score, bool) or not isinstance(score, (int, float)) or not isfinite(score):
         raise ValueError("objective_fn harus mengembalikan finite integer atau float values")
     return score
+\end{lstlisting}
 
+\texttt{\_check\_int} memastikan parameter berupa bilangan bulat dengan batas bawah tertentu. Pemeriksaan memakai \texttt{type(value) is not int}, bukan \texttt{isinstance}, sehingga nilai \texttt{bool} (subkelas \texttt{int} pada Python) ikut ditolak. \texttt{\_score} membungkus setiap pemanggilan \textit{objective function} dan menolak hasil yang bukan bilangan, berupa \texttt{bool}, atau tidak berhingga (\texttt{NaN} dan tak hingga). Dengan begitu perbandingan nilai pada \texttt{\_climb} selalu terjadi antar-bilangan yang terdefinisi, termasuk untuk \textit{objective} alternatif yang dibuat pengguna.
 
+\subsubsection{Fungsi \texttt{\_climb}: Persiapan}
+\begin{lstlisting}[language=Python, caption={Tanda tangan dan inisialisasi \texttt{\_climb}}, label={lst:hc-climb-init}]
 def _climb(
     start: StateT,
     problem: SearchProblem[StateT],
@@ -353,7 +362,12 @@ def _climb(
     current, current_score = start, _score(objective, start)
     history = [current_score]
     iterations = sideways = 0
+\end{lstlisting}
 
+\texttt{\_climb} menjalankan satu pendakian lengkap dari \texttt{start} dan mengembalikan lima nilai secara berurutan: \textit{state} akhir, nilai \textit{objective} akhir, riwayat nilai, jumlah iterasi, dan jumlah \textit{sideways move}. Seluruh parameter pengaturan bersifat \textit{keyword-only}. \texttt{current} dan \texttt{current\_score} menyimpan posisi pendakian saat ini. \texttt{history} dimulai dengan nilai \textit{state} awal, sehingga panjangnya selalu satu lebih banyak daripada jumlah iterasi. \texttt{iterations} dan \texttt{sideways} dimulai dari nol.
+
+\subsubsection{Fungsi \texttt{\_climb}: Pembangkitan dan Evaluasi Kandidat}
+\begin{lstlisting}[language=Python, caption={Pembangkitan dan evaluasi kandidat pada \texttt{\_climb}}, label={lst:hc-climb-cand}]
     while iterations < max_iterations:
         if variant == "stochastic":
             candidates = [problem.neighbor(current, rng)]
@@ -363,7 +377,12 @@ def _climb(
             raise ValueError("neighbor operator returned invalid state")
         scored = [(_score(objective, c), c) for c in candidates]
         best_score, best = max(scored, key=lambda pair: pair[0])
+\end{lstlisting}
 
+Perulangan berjalan selama \texttt{iterations} belum mencapai \texttt{max\_iterations}. Pada varian \textit{stochastic}, hanya satu \textit{neighbor} dibangkitkan per iterasi. Pada varian lain, \texttt{neighbors\_per\_iteration} \textit{neighbor} dibangkitkan lewat \texttt{problem.neighbor} dari \textit{state} saat ini. Setiap kandidat diperiksa dengan \texttt{problem.is\_valid}; bila ada yang tidak valid, \texttt{ValueError} dilempar karena itu berarti operator \textit{neighbor} melanggar kontrak. Kandidat lalu dinilai satu per satu dengan \texttt{\_score}, dan \texttt{max} memilih pasangan (nilai, \textit{state}) bernilai tertinggi. Bila beberapa kandidat sama nilainya, \texttt{max} mengembalikan yang dibangkitkan paling awal. Untuk \textit{stochastic}, daftar kandidat hanya berisi satu elemen, sehingga elemen itu otomatis menjadi \texttt{best}.
+
+\subsubsection{Fungsi \texttt{\_climb}: Keputusan Pindah atau Berhenti}
+\begin{lstlisting}[language=Python, caption={Percabangan keputusan pada \texttt{\_climb}}, label={lst:hc-climb-decision}]
         if best_score > current_score:
             current, current_score = best, best_score
         elif variant == "sideways" and best_score == current_score and sideways < max_sideways:
@@ -381,7 +400,10 @@ def _climb(
     return current, current_score, history, iterations, sideways
 \end{lstlisting}
 
-\begin{lstlisting}[language=Python, caption={Fungsi \texttt{hill\_climbing} pada \texttt{algorithm.py}}, label={lst:hc-main}]
+Cabang pertama berlaku untuk semua varian: bila kandidat terbaik lebih baik daripada \textit{state} saat ini, pendakian pindah ke kandidat tersebut. Cabang kedua hanya untuk \textit{sideways}: bila kandidat terbaik sama nilainya dan jatah belum habis, pendakian tetap pindah dan \texttt{sideways} bertambah. Cabang ketiga hanya untuk \textit{stochastic}: kandidat yang tidak lebih baik ditolak, tetapi iterasi tetap dihitung dan nilai saat ini dicatat ulang, lalu \texttt{continue} melewati penambahan di bawahnya agar tidak terhitung dua kali. Cabang terakhir menghentikan pendakian dengan \texttt{break}. Ini terjadi pada \textit{steepest} yang tidak menemukan perbaikan (\textit{local optimum} menurut sampel) dan pada \textit{sideways} yang kandidat terbaiknya lebih buruk atau jatahnya habis. Karena \texttt{break} terjadi sebelum \texttt{iterations += 1}, iterasi terakhir yang gagal tidak dihitung, sehingga untuk \textit{steepest} \texttt{iterations} sama dengan jumlah perpindahan yang diterima. Hal ini menjelaskan mengapa rata-rata iterasi \textit{steepest} pada Tabel~\ref{tab:hc-variants} hanya 0,33.
+
+\subsubsection{Fungsi \texttt{hill\_climbing}: Validasi dan Persiapan}
+\begin{lstlisting}[language=Python, caption={Validasi parameter dan persiapan pada \texttt{hill\_climbing}}, label={lst:hc-main-setup}]
 def hill_climbing(
     initial_state: StateT,
     *,
@@ -420,7 +442,14 @@ def hill_climbing(
         max_iterations=max_iterations,
         max_sideways=max_sideways,
     )
+\end{lstlisting}
 
+Fungsi ini adalah pintu masuk yang sesuai kontrak algoritma: menerima \textit{state} awal, \texttt{seed}, dan \texttt{objective\_fn} opsional, serta mengembalikan \texttt{SearchResult}. Parameter \texttt{search\_problem} opsional dipakai bila pemanggil ingin memakai operasi domain sendiri. Sebelum mencari, fungsi memvalidasi nama varian, tipe \texttt{seed} (harus \texttt{int}), dan batas bawah parameter bilangan bulat: \texttt{neighbors\_per\_iteration} minimal 1, \texttt{max\_iterations}, \texttt{max\_sideways}, dan \texttt{max\_restarts} minimal 0, serta \texttt{run\_index} minimal 1. Dengan \texttt{max\_iterations} 0, pencarian langsung mengembalikan \textit{state} awal.
+
+Setelah itu waktu mulai dicatat dengan \texttt{perf\_counter} dan satu pembangkit acak \texttt{Random(seed)} dibuat untuk seluruh \textit{run}, sehingga hasil dapat diulang dengan \textit{seed} yang sama. \texttt{problem} diambil dari \texttt{search\_problem} bila diberikan, atau dipasangkan otomatis oleh \texttt{search\_problem\_for\_state} sesuai tipe \textit{state}. \textit{Objective} yang dipakai adalah \texttt{objective\_fn} bila diberikan, atau \textit{objective} bawaan \texttt{problem}. \textit{State} awal diperiksa kevalidannya. Terakhir, \texttt{climb\_kwargs} mengumpulkan parameter yang diteruskan ke \texttt{\_climb}; varian \textit{random restart} dipetakan ke \texttt{"steepest"} karena tiap pendakiannya memakai aturan \textit{steepest}.
+
+\subsubsection{Fungsi \texttt{hill\_climbing}: Cabang \textit{Random Restart}}
+\begin{lstlisting}[language=Python, caption={Cabang \textit{random restart} pada \texttt{hill\_climbing}}, label={lst:hc-main-restart}]
     if variant == "random_restart":
         best_state, best_score = initial_state, None
         history: list[ObjectiveValue] = []
@@ -443,12 +472,23 @@ def hill_climbing(
         final_state, final_score = best_state, best_score
         iterations, sideways = sum(per_restart), 0
         restarts = max_restarts
+\end{lstlisting}
+
+Perulangan menjalankan \texttt{max\_restarts}\,+\,1 pendakian. Pendakian ke-0 dimulai dari \texttt{initial\_state} yang diberikan, sedangkan pendakian berikutnya dimulai dari \textit{state} acak baru dari \texttt{problem.random\_state(rng)}, yang diperiksa kevalidannya sebelum dipakai. Semua pendakian memakai pembangkit acak \texttt{rng} yang sama, sehingga seluruh \textit{run} tetap ditentukan oleh satu \textit{seed}. Setiap hasil pendakian ditambahkan ke \texttt{history} (\texttt{extend}), dan jumlah iterasinya dicatat pada \texttt{per\_restart}. Hasil terbaik dipertahankan dengan perbandingan \texttt{score > best\_score} yang ketat, sehingga bila dua pendakian sama baiknya, yang lebih awal dipertahankan. Setelah perulangan, \texttt{iterations} adalah jumlah iterasi seluruh pendakian, \texttt{sideways} bernilai 0 karena tidak ada \textit{sideways move} pada pendakian \textit{steepest}, dan \texttt{restarts} bernilai \texttt{max\_restarts}. Akibat \texttt{extend}, kurva riwayat \textit{objective} turun pada titik awal tiap \textit{restart} dan tidak monoton.
+
+\subsubsection{Fungsi \texttt{hill\_climbing}: Varian Lain}
+\begin{lstlisting}[language=Python, caption={Cabang varian selain \textit{random restart}}, label={lst:hc-main-single}]
     else:
         final_state, final_score, history, iterations, sideways = _climb(
             initial_state, problem, objective, rng, **climb_kwargs
         )
         per_restart, restarts = [], 0
+\end{lstlisting}
 
+Untuk \textit{steepest}, \textit{sideways}, dan \textit{stochastic}, \texttt{\_climb} dipanggil sekali dari \textit{state} awal. Karena tidak ada \textit{restart}, \texttt{per\_restart} berupa daftar kosong dan \texttt{restarts} bernilai 0.
+
+\subsubsection{Fungsi \texttt{hill\_climbing}: Penyusunan Hasil}
+\begin{lstlisting}[language=Python, caption={Penyusunan parameter dan \texttt{SearchResult}}, label={lst:hc-main-result}]
     parameters: dict[str, int | float | str | bool] = {
         "variant": variant,
         "max_iterations": max_iterations,
@@ -485,7 +525,10 @@ def hill_climbing(
     )
 \end{lstlisting}
 
-\begin{lstlisting}[language=Python, caption={Fungsi pembungkus tiap varian pada \texttt{algorithm.py}}, label={lst:hc-wrappers}]
+Kamus \texttt{parameters} hanya memuat parameter yang relevan bagi varian terpilih: \texttt{neighbors\_per\_iteration} tidak dicatat untuk \textit{stochastic}, \texttt{max\_sideways} hanya untuk \textit{sideways}, dan \texttt{max\_restarts} hanya untuk \textit{random restart}. \texttt{SearchResult} memuat nama algoritma (misalnya \texttt{hill\_climbing\_sideways}), nama \textit{objective} (diambil dari \texttt{objective\_name}, atau \texttt{"custom"} bila \texttt{objective\_fn} diberikan tanpa nama, atau nama bawaan \texttt{problem}), \textit{state} awal dan akhir, nilai akhir, riwayat \textit{objective} (diubah menjadi \textit{tuple}), durasi sejak \texttt{started\_at}, \texttt{seed}, \texttt{run\_index}, dan \texttt{parameters}. \texttt{HillClimbingMetrics} mencatat varian, jumlah iterasi, jumlah \textit{sideways move} beserta batasnya (hanya untuk \textit{sideways}), jumlah \textit{restart} beserta batasnya (hanya untuk \textit{random restart}), dan iterasi tiap pendakian. Durasi mencakup validasi dan seluruh pendakian, termasuk semua \textit{restart}.
+
+\subsubsection{Fungsi Pembungkus Varian}
+\begin{lstlisting}[language=Python, caption={Fungsi pembungkus tiap varian}, label={lst:hc-wrappers}]
 def steepest_ascent_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="steepest", **kw)
 
@@ -501,6 +544,8 @@ def stochastic_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT
 def random_restart_hill_climbing(initial_state: StateT, **kw) -> SearchResult[StateT]:
     return hill_climbing(initial_state, variant="random_restart", **kw)
 \end{lstlisting}
+
+Keempat fungsi ini hanya memanggil \texttt{hill\_climbing} dengan \texttt{variant} yang sudah ditetapkan dan meneruskan parameter lain lewat \texttt{**kw}. Pemanggil dapat memilih varian lewat nama fungsi tanpa menulis argumen \texttt{variant} (menyertakan \texttt{variant} lagi pada \texttt{**kw} akan menimbulkan \texttt{TypeError}).
 
 \subsection{Pelaksana Eksperimen dan Visualisasi}
 Pelaksana eksperimen \textit{hill climbing} berada pada \texttt{src/\allowbreak experiments/\allowbreak hc/\allowbreak experiments.py}, dengan antarmuka baris perintah pada \texttt{src/\allowbreak experiments/\allowbreak hc/\allowbreak run.py}.  \texttt{src/\allowbreak experiments/\allowbreak run\_\allowbreak hill\_\allowbreak climbing.py} hanya meneruskan ke \textit{entry point} tersebut. Fungsi \texttt{run\_hc\_experiments} menjalankan setiap varian sebanyak tiga kali dengan tiga \textit{seed} berbeda. \textit{State} awal setiap \textit{run} dibangkitkan secara acak dari \textit{seed} yang dikenai XOR dengan konstanta tetap (\texttt{seed \^{} 0x5EED}). XOR adalah operasi bit deterministik yang membentuk seed turunan untuk inisialisasi. Pasangan seed dan konstanta yang sama selalu menghasilkan seed awal yang sama. Karena seed turunan ini dipakai bersama, seluruh varian dan seluruh \textit{objective function} yang dibandingkan memulai dari \textit{state} awal yang sama. Untuk setiap \textit{run}, program menyimpan berkas \texttt{result.json}, plot nilai \textit{objective function} terhadap iterasi, dan visualisasi tiga dimensi \textit{state} awal dan akhir. Ringkasan lintas \textit{run} (rata-rata, simpangan baku, dan nilai terbaik \textit{objective}, serta rata-rata durasi dan iterasi) disimpan pada \texttt{summary.json} dan \texttt{summary.png}. Program dijalankan melalui \texttt{python -m src.experiments.run\_hill\_climbing}.
@@ -592,7 +637,7 @@ for _ in range(max_iterations):
     temperature *= cooling_rate
 \end{lstlisting}
 
-Pengujian \texttt{delta >= 0} sebelum pemanggilan \texttt{rng.random()} berarti kandidat yang tidak lebih buruk tidak mengonsumsi bilangan acak, sehingga urutan keputusan acak tetap deterministik untuk \textit{seed} yang sama. Karena \texttt{random\_neighbor} mengembalikan \textit{state} asal ketika tidak menemukan kandidat valid, iterasi tersebut menghasilkan $\Delta E=0$ dan \textit{state} tidak berubah.
+Pengujian \texttt{delta >= 0} sebelum pemanggilan \texttt{rng.random()} berarti kandidat yang tidak lebih buruk tidak mengonsumsi bilangan acak sehingga urutan keputusan acak tetap deterministik untuk \textit{seed} yang sama. Karena \texttt{random\_neighbor} mengembalikan \textit{state} asal ketika tidak menemukan kandidat valid, iterasi tersebut menghasilkan $\Delta E=0$ dan \textit{state} tidak berubah.
 
 \subsection{Deteksi \textit{Stuck} pada Optimum Lokal}
 
@@ -632,7 +677,7 @@ return SearchResult(
 
 \subsection{Pelaksana Eksperimen dan Visualisasi}
 
-Berkas \texttt{src/\allowbreak experiments/\allowbreak simulated\_\allowbreak annealing.py} menjalankan SA satu kali untuk setiap \textit{seed}, sehingga tiga \textit{seed} menghasilkan tiga \textit{run} per konfigurasi. \textit{State} awal setiap \textit{run} dibangkitkan dengan \texttt{random\_initial\_state} dari \textit{seed} yang diturunkan melalui operasi XOR dengan \texttt{0x5EED}, turunan yang sama dengan pelaksana GA sehingga kedua algoritma dapat dimulai dari \textit{state} yang identik. Untuk setiap \textit{run}, program menyimpan \texttt{result.json}, plot riwayat nilai objektif, plot $e^{\Delta E/T}$ terhadap iterasi, dan visualisasi tiga dimensi \textit{state} awal dan akhir. Ringkasan lintas \textit{run} (rata-rata dan simpangan baku nilai akhir, durasi, dan \texttt{stuck\_count}) disimpan pada \texttt{summary.json} dan \texttt{summary-runs.png}. Fungsi \texttt{compare\_objectives} dapat mengulang eksperimen untuk beberapa fungsi objektif dengan \textit{seed} dan parameter yang sama, lalu menulis perbandingannya. Program dijalankan melalui \texttt{src/\allowbreak experiments/\allowbreak run\_\allowbreak sa.py}.
+Berkas \texttt{src/\allowbreak experiments/\allowbreak simulated\_\allowbreak annealing.py} menjalankan SA satu kali untuk setiap \textit{seed} sehingga tiga \textit{seed} menghasilkan tiga \textit{run} per konfigurasi. \textit{State} awal setiap \textit{run} dibangkitkan dengan \texttt{random\_initial\_state} dari \textit{seed} yang diturunkan melalui operasi XOR dengan \texttt{0x5EED}, turunan yang sama dengan pelaksana GA sehingga kedua algoritma dapat dimulai dari \textit{state} yang identik. Untuk setiap \textit{run}, program menyimpan \texttt{result.json}, plot riwayat nilai objektif, plot $e^{\Delta E/T}$ terhadap iterasi, dan visualisasi tiga dimensi \textit{state} awal dan akhir. Ringkasan lintas \textit{run} (rata-rata dan simpangan baku nilai akhir, durasi, dan \texttt{stuck\_count}) disimpan pada \texttt{summary.json} dan \texttt{summary-runs.png}. Fungsi \texttt{compare\_objectives} dapat mengulang eksperimen untuk beberapa fungsi objektif dengan \textit{seed} dan parameter yang sama, lalu menulis perbandingannya. Program dijalankan melalui \texttt{src/\allowbreak experiments/\allowbreak run\_\allowbreak sa.py}.
 
 \section{Implementasi Genetic Algorithm}
 
@@ -640,7 +685,7 @@ Implementasi Genetic Algorithm pada proyek ini menyimpan tiap individu sebagai o
 
 \subsection{Konfigurasi dan Generator Acak}
 
-Pemanggil menyediakan state awal, seed, ukuran populasi, dan jumlah generasi. Laju mutasi secara default adalah $0{,}05$, seleksi default menggunakan \textit{roulette wheel}, dan crossover diaktifkan. Seed dipakai untuk menginisialisasi satu generator acak yang digunakan bersama oleh seluruh tahap, sehingga run dengan masukan dan seed yang sama dapat direproduksi. Fungsi objektif dapat menggunakan metode \texttt{State.objective} atau fungsi objektif lain yang diberikan pemanggil.
+Pemanggil menyediakan state awal, seed, ukuran populasi, dan jumlah generasi. Laju mutasi secara default adalah $0{,}05$, seleksi default menggunakan \textit{roulette wheel}, dan crossover diaktifkan. Seed dipakai untuk menginisialisasi satu generator acak yang digunakan bersama oleh seluruh tahap sehingga run dengan masukan dan seed yang sama dapat direproduksi. Fungsi objektif dapat menggunakan metode \texttt{State.objective} atau fungsi objektif lain yang diberikan pemanggil.
 
 \begin{lstlisting}[caption={Menyiapkan pencarian GA},label={lst:ga-setup}]
 rng = Random(seed)
@@ -671,7 +716,7 @@ def initialize_population(initial_state, population_size, rng):
 
 \subsection{Evaluasi \textit{Fitness} dan Penyimpanan Individu Terbaik}
 
-Pada awal setiap generasi, nilai objektif setiap individu dihitung sebagai \textit{fitness}. Implementasi juga memastikan setiap nilai berupa bilangan hingga. Individu dengan nilai tertinggi pada generasi tersebut dicatat, begitu pula rata-rata fitness populasi. Di luar populasi yang sedang berjalan, \texttt{best\_state} dan \texttt{best\_score} menyimpan solusi terbaik yang pernah ditemukan, sehingga solusi tersebut tetap dapat dikembalikan walaupun tidak terpilih menjadi induk atau tidak muncul pada generasi berikutnya.
+Pada awal setiap generasi, nilai objektif setiap individu dihitung sebagai \textit{fitness}. Implementasi juga memastikan setiap nilai berupa bilangan hingga. Individu dengan nilai tertinggi pada generasi tersebut dicatat, begitu pula rata-rata fitness populasi. Di luar populasi yang sedang berjalan, \texttt{best\_state} dan \texttt{best\_score} menyimpan solusi terbaik yang pernah ditemukan sehingga solusi tersebut tetap dapat dikembalikan walaupun tidak terpilih menjadi induk atau tidak muncul pada generasi berikutnya.
 
 \begin{lstlisting}[caption={Evaluasi populasi dan pembaruan solusi terbaik},label={lst:ga-evaluate}]
 fitnesses = _evaluate_population(population, objective)
@@ -773,7 +818,7 @@ return individual
 
 \subsection{Pembentukan Generasi Berikutnya dan Terminasi}
 
-Anak-anak dibuat berulang kali sampai jumlahnya sama dengan \texttt{population\_size}. Populasi baru kemudian menggantikan populasi lama secara generasional. Individu terbaik tidak otomatis disalin ke generasi berikutnya, tetapi solusi terbaik global tetap tersimpan dalam \texttt{best\_state}. Loop mengevaluasi generasi awal bernomor nol hingga generasi ke-$G$, sehingga menghasilkan $G+1$ catatan fitness. Setelah generasi terakhir dievaluasi, pencarian berhenti dan hasil akhirnya memuat state dengan fitness terbaik yang pernah dijumpai, riwayat fitness terbaik dan rata-rata per generasi, durasi, seed, serta parameter pencarian.
+Anak-anak dibuat berulang kali sampai jumlahnya sama dengan \texttt{population\_size}. Populasi baru kemudian menggantikan populasi lama secara generasional. Individu terbaik tidak otomatis disalin ke generasi berikutnya, tetapi solusi terbaik global tetap tersimpan dalam \texttt{best\_state}. Loop mengevaluasi generasi awal bernomor nol hingga generasi ke-$G$ sehingga menghasilkan $G+1$ catatan fitness. Setelah generasi terakhir dievaluasi, pencarian berhenti dan hasil akhirnya memuat state dengan fitness terbaik yang pernah dijumpai, riwayat fitness terbaik dan rata-rata per generasi, durasi, seed, serta parameter pencarian.
 
 \begin{lstlisting}[caption={Loop generasi dan pembentukan populasi baru},label={lst:ga-generation-loop}]
 best_history = []
@@ -838,7 +883,7 @@ return SearchResult(
 )
 \end{lstlisting}
 
-Seed acak diberikan pada generator \texttt{Random}, sehingga konfigurasi seed yang sama dapat mereproduksi urutan keputusan acak yang sama. Sebagai catatan implementasi, riwayat fitness terbaik menyimpan nilai terbaik pada masing-masing generasi, sedangkan \texttt{final\_state} menyimpan individu terbaik sepanjang seluruh generasi. Karena tidak ada elitisme, nilai terbaik per generasi dapat turun meskipun solusi terbaik global yang dikembalikan tetap dipertahankan.
+Seed acak diberikan pada generator \texttt{Random} sehingga konfigurasi seed yang sama dapat mereproduksi urutan keputusan acak yang sama. Sebagai catatan implementasi, riwayat fitness terbaik menyimpan nilai terbaik pada masing-masing generasi, sedangkan \texttt{final\_state} menyimpan individu terbaik sepanjang seluruh generasi. Karena tidak ada elitisme, nilai terbaik per generasi dapat turun meskipun solusi terbaik global yang dikembalikan tetap dipertahankan.
 
 
 \section{Implementasi Spesifikasi Bonus}
@@ -849,7 +894,7 @@ Dua \textit{objective function} tambahan diimplementasikan pada \texttt{src/\all
 
 \begin{itemize}
     \item \texttt{eta\_weighted\_value}\,$=\sum_{i\in\text{truk}} \dfrac{v_i}{e_i+1}$, dengan $v_i$ nilai dan $e_i$ ETA paket $i$. Paket yang mendesak ($e_i$ kecil) memberi kontribusi lebih besar. Paket dengan ETA 0 bernilai penuh, sedangkan paket dengan ETA 3 hanya seperempatnya.
-    \item \texttt{compact\_value}\,$=\text{total\_value} + 0{,}99\cdot\left(1-\dfrac{\sum_i (z_i+h_i)\,V_i}{H\sum_i V_i}\right)$, dengan $z_i$ koordinat vertikal, $h_i$ tinggi terorientasi, $V_i$ volume paket, dan $H$ tinggi truk. Rasio di dalam kurung adalah rata-rata tinggi puncak paket relatif terhadap tinggi truk, dengan paket bervolume besar memberi bobot lebih besar. Jadi, semakin rendah tumpukan, semakin kecil rasio tersebut dan semakin besar bonus kekompakannya. Suku kedua selalu kurang dari satu satuan nilai, sehingga total nilai paket tetap menjadi penentu utama. Bonus hanya memecah seri ketika total nilai sama dan membuat perubahan posisi atau rotasi yang mempertahankan paket tetap terlihat oleh algoritma.
+    \item \texttt{compact\_value}\,$=\text{total\_value} + 0{,}99\cdot\left(1-\dfrac{\sum_i (z_i+h_i)\,V_i}{H\sum_i V_i}\right)$, dengan $z_i$ koordinat vertikal, $h_i$ tinggi terorientasi, $V_i$ volume paket, dan $H$ tinggi truk. Rasio di dalam kurung adalah rata-rata tinggi puncak paket relatif terhadap tinggi truk, dengan paket bervolume besar memberi bobot lebih besar. Jadi, semakin rendah tumpukan, semakin kecil rasio tersebut dan semakin besar bonus kekompakannya. Suku kedua selalu kurang dari satu satuan nilai sehingga total nilai paket tetap menjadi penentu utama. Bonus hanya memecah seri ketika total nilai sama dan membuat perubahan posisi atau rotasi yang mempertahankan paket tetap terlihat oleh algoritma.
 \end{itemize}
 
 \begin{lstlisting}[language=Python, caption={Fungsi \textit{objective} tambahan pada \texttt{objectives.py}}]
@@ -875,11 +920,106 @@ OBJECTIVES = {
 }
 \end{lstlisting}
 
-Fungsi \texttt{compactness} menghitung satu dikurangi rata-rata tinggi puncak paket yang dibobot volume dan dinormalisasi terhadap tinggi truk, sehingga bernilai dalam $[0,1]$ dan bernilai 0 untuk truk kosong. Setiap algoritma menerima \textit{objective} melalui parameter \texttt{objective\_fn} pada kontrak yang sama, dan \texttt{src/\allowbreak experiments/\allowbreak common/\allowbreak objective\_comparison.py} menyediakan fungsi bersama untuk memilih \textit{objective} berdasarkan nama serta menilai ulang setiap \textit{state} akhir dengan \texttt{total\_value} agar perbandingan antar-\textit{objective} adil.
+Fungsi \texttt{compactness} menghitung satu dikurangi rata-rata tinggi puncak paket yang dibobot volume dan dinormalisasi terhadap tinggi truk sehingga bernilai dalam $[0,1]$ dan bernilai 0 untuk truk kosong. Setiap algoritma menerima \textit{objective} melalui parameter \texttt{objective\_fn} pada kontrak yang sama, dan \texttt{src/\allowbreak experiments/\allowbreak common/\allowbreak objective\_comparison.py} menyediakan fungsi bersama untuk memilih \textit{objective} berdasarkan nama serta menilai ulang setiap \textit{state} akhir dengan \texttt{total\_value} agar perbandingan antar-\textit{objective} adil.
 
 \subsection{All-variant Hill Climbing Algorithm}
 
-Keempat varian \textit{hill climbing} (\textit{steepest}, \textit{sideways}, \textit{stochastic}, dan \textit{random restart}) sudah dijelaskan beserta kode sumbernya pada bagian Implementasi \textit{Hill Climbing}. Seluruhnya berbagi satu fungsi \texttt{hill\_climbing} dengan parameter \texttt{variant} dan satu fungsi pendakian \texttt{\_climb}, sehingga perbedaan hasil antar-varian hanya berasal dari aturan penerimaan \textit{neighbor} dan kondisi berhenti. Varian tersebut dapat dijalankan bersamaan dengan salah satu dari tiga \textit{objective function} melalui parameter \texttt{objective\_fn}.
+Spesifikasi bonus meminta seluruh varian \textit{hill climbing}. Implementasi mencakup empat varian, yaitu \textit{steepest ascent}, \textit{sideways move}, \textit{stochastic}, dan \textit{random restart}. Keempatnya berbagi satu fungsi \texttt{hill\_climbing} yang memilih perilaku melalui parameter \texttt{variant}, dan satu fungsi pendakian \texttt{\_climb}. Dengan desain ini, perbedaan hasil antar-varian hanya berasal dari aturan penerimaan \textit{neighbor}, kondisi berhenti, dan pengulangan pendakian, bukan dari perbedaan operator \textit{neighbor}, \textit{objective}, atau cara pencatatan. Kode lengkap ada pada Kode~\ref{lst:hc-impor} sampai Kode~\ref{lst:hc-wrappers}; subbagian ini merinci bagian yang membedakan varian.
+
+\subsubsection{Aturan Tiap Varian pada \texttt{\_climb}}
+
+Pada setiap iterasi, \texttt{\_climb} membangkitkan kandidat, menghitung nilainya, lalu memilih kandidat terbaik (\texttt{best}). Kandidat dibangkitkan sebanyak \texttt{neighbors\_per\_iteration} untuk \textit{steepest}, \textit{sideways}, dan \textit{random restart}, tetapi hanya satu untuk \textit{stochastic}. Keputusan berikutnya ditentukan oleh variannya.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{@{}p{2.6cm}p{2.3cm}p{4.2cm}p{4.6cm}@{}}
+        \toprule
+        Varian & Kandidat per iterasi & Aturan penerimaan & Kondisi berhenti \\
+        \midrule
+        \textit{Steepest} & \texttt{neighbors\_per\_iteration} & Pindah jika \texttt{best\_score} $>$ nilai saat ini & Kandidat terbaik tidak lebih baik, atau \texttt{max\_iterations} tercapai \\
+        \textit{Sideways} & \texttt{neighbors\_per\_iteration} & Seperti \textit{steepest}; jika sama, pindah selama \texttt{sideways} $<$ \texttt{max\_sideways} & Kandidat terbaik lebih buruk, atau jatah \textit{sideways} habis, atau \texttt{max\_iterations} tercapai \\
+        \textit{Stochastic} & 1 & Pindah hanya jika kandidat lebih baik; jika tidak, \textit{state} tetap & Selalu menjalankan \texttt{max\_iterations} iterasi \\
+        \textit{Random restart} & \texttt{neighbors\_per\_iteration} & Pendakian \textit{steepest} & \texttt{max\_restarts}\,+\,1 pendakian selesai \\
+        \bottomrule
+    \end{tabular}
+    \caption{Aturan penerimaan dan kondisi berhenti tiap varian \textit{hill climbing}}
+    \label{tab:hc-rules}
+\end{table}
+
+Aturan tersebut diwujudkan oleh satu rantai kondisi pada akhir tiap iterasi \texttt{\_climb}. Potongan berikut adalah inti yang membedakan keempat varian (kode lengkapnya pada Kode~\ref{lst:hc-climb-decision}).
+
+\begin{lstlisting}[language=Python, caption={Inti perbedaan antar-varian pada \texttt{\_climb}}, label={lst:hc-decision}]
+if best_score > current_score:
+    current, current_score = best, best_score
+elif variant == "sideways" and best_score == current_score and sideways < max_sideways:
+    current = best
+    sideways += 1
+elif variant == "stochastic":
+    iterations += 1
+    history.append(current_score)
+    continue
+else:
+    break
+iterations += 1
+history.append(current_score)
+\end{lstlisting}
+
+Cabang pertama berlaku untuk semua varian (perbaikan selalu diterima). Cabang kedua hanya aktif untuk \textit{sideways}: kandidat bernilai sama diterima dan dihitung pada \texttt{sideways}. Cabang ketiga khusus \textit{stochastic}: kandidat yang tidak lebih baik ditolak, tetapi iterasi tetap dihitung dan nilai saat ini dicatat ulang pada riwayat, sehingga riwayat selalu berpanjang \texttt{max\_iterations}\,+\,1. Cabang terakhir menghentikan pendakian, yaitu pada \textit{local optimum} untuk \textit{steepest} dan \textit{random restart}, atau saat jatah \textit{sideways} habis untuk \textit{sideways}.
+
+\subsubsection{Penanganan \textit{Random Restart}}
+
+\textit{Random restart} tidak mempunyai aturan penerimaan sendiri. \texttt{hill\_climbing} memanggil \texttt{\_climb} dengan \texttt{variant="steepest"} sebanyak \texttt{max\_restarts}\,+\,1 kali: pendakian pertama dimulai dari \textit{state} awal yang diberikan, dan pendakian berikutnya dari \textit{state} acak baru yang dibangkitkan \texttt{problem.random\_state}. Hasil terbaik dari seluruh pendakian dikembalikan.
+
+Kodenya ada pada Kode~\ref{lst:hc-main-restart}.
+
+Ada tiga konsekuensi pencatatan. Pertama, \texttt{objective\_history} adalah gabungan riwayat semua pendakian (\texttt{history.extend}), sehingga kurvanya turun pada titik awal tiap \textit{restart} dan tidak monoton. Kedua, \texttt{iterations} adalah jumlah iterasi seluruh pendakian, sedangkan iterasi per pendakian disimpan pada \texttt{iterations\_per\_restart}. Ketiga, \texttt{sideways\_moves} selalu 0 karena pendakian memakai aturan \textit{steepest}. Nilai akhir yang dikembalikan adalah nilai terbaik dari seluruh pendakian, sehingga sama dengan nilai maksimum pada \texttt{objective\_history} (diperiksa pada \texttt{test\_random\_restart\_metrics}).
+
+\subsubsection{Pemilihan Varian dan Pengaturan Pelaksanaan}
+
+Varian dapat dipilih lewat parameter \texttt{variant}, atau lewat fungsi pembungkus \texttt{steepest\_ascent\_hill\_climbing}, \texttt{sideways\_hill\_climbing}, \texttt{stochastic\_hill\_climbing}, dan \texttt{random\_restart\_hill\_climbing} (Kode~\ref{lst:hc-wrappers}). Parameter yang dicatat pada \texttt{SearchResult.parameters} hanya yang relevan bagi varian tersebut: \texttt{neighbors\_per\_iteration} tidak dicatat untuk \textit{stochastic}, \texttt{max\_sideways} hanya untuk \textit{sideways}, dan \texttt{max\_restarts} hanya untuk \textit{random restart}. Pelaksana eksperimen memanggil seluruh varian secara berurutan dengan \textit{seed} dan \textit{state} awal yang sama:
+
+\begin{lstlisting}[language=Python, caption={Perulangan varian dan \textit{seed} pada \texttt{run\_hc\_experiments}}, label={lst:hc-runner}]
+for variant in variants:
+    for run_index, seed in enumerate(seeds, start=1):
+        initial_seed = seed ^ 0x5EED
+        initial_state = random_initial_state(packages, truck, Random(initial_seed))
+        result = hill_climbing(
+            initial_state,
+            seed=seed,
+            variant=variant,
+            neighbors_per_iteration=neighbors_per_iteration,
+            max_iterations=max_iterations,
+            max_sideways=max_sideways,
+            max_restarts=max_restarts,
+            objective_fn=objective_fn,
+            objective_name=objective_name,
+            run_index=run_index,
+        )
+\end{lstlisting}
+
+Pada baris perintah, \texttt{--seeds} menerima tepat tiga nilai, \texttt{--variants} memilih himpunan varian (bawaan: keempatnya) dan \texttt{--objectives} memilih satu atau beberapa \textit{objective function}. Jika lebih dari satu \textit{objective} diberikan, \texttt{compare\_hc\_objectives} menjalankan \texttt{run\_hc\_experiments} untuk tiap \textit{objective} dengan \textit{seed} dan parameter yang sama, lalu menulis perbandingan lintas \textit{objective}. Contoh:
+
+\begin{lstlisting}[language=bash, caption={Menjalankan seluruh varian pada ketiga \textit{objective}}, label={lst:hc-cli}]
+python -m src.experiments.run_hill_climbing \
+    --input tests/fixtures/base.json --seeds 11 12 13 \
+    --variants steepest sideways stochastic random_restart \
+    --objectives total_value eta_weighted_value compact_value
+\end{lstlisting}
+
+\textit{Hill climbing} juga dapat dijalankan pada armada multi-truk melalui \texttt{src/\allowbreak experiments/\allowbreak fleet/\allowbreak run\_\allowbreak hc.py}, yang menerima \texttt{--variants} dan \texttt{--objectives} yang sama. Tidak ada perubahan pada \texttt{\_climb} untuk keperluan ini karena \texttt{search\_problem\_for\_state} menyediakan operasi armada melalui \texttt{SearchProblem}.
+
+\subsubsection{Catatan Implementasi}
+
+\begin{itemize}
+    \item \textbf{\textit{Neighbor} yang tidak mengubah \textit{state}.} \texttt{random\_neighbor} mengembalikan \textit{state} asal bila tidak menemukan kandidat valid dalam \texttt{max\_attempts} (bawaan 100) percobaan. Kandidat seperti ini bernilai sama dengan \textit{state} saat ini, sehingga pada varian \textit{sideways} ia dapat terpilih dan dihitung sebagai \textit{sideways move} walaupun tidak menjelajahi \textit{state} baru. Akibatnya jatah \texttt{max\_sideways} dapat terpakai tanpa kemajuan nyata.
+    \item \textbf{Pemilihan kandidat terbaik.} \texttt{max} mengembalikan kandidat pertama yang bernilai maksimum, sehingga bila beberapa kandidat sama baiknya, yang dibangkitkan lebih awal dipilih.
+    \item \textbf{Sampel \textit{neighbor}.} \textit{Steepest}, \textit{sideways}, dan \textit{random restart} hanya mengevaluasi sampel acak (bawaan 30) dari ruang \textit{neighbor}, bukan seluruhnya. Berhenti pada \textit{steepest} berarti tidak ada perbaikan di dalam sampel, bukan bukti bahwa \textit{state} adalah \textit{local optimum} sejati.
+\end{itemize}
+
+\subsubsection{Pengujian}
+
+Pengujian pada \texttt{tests/\allowbreak algorithms/\allowbreak test\_\allowbreak hill\_\allowbreak climbing.py} memeriksa bahwa setiap varian menghasilkan \textit{state} valid yang tidak lebih buruk daripada \textit{state} awal, bahwa \textit{seed} yang sama memberi riwayat \textit{objective} yang sama, bahwa riwayat tidak menurun dalam satu pendakian (\textit{steepest}, \textit{sideways}, \textit{stochastic}), bahwa \texttt{sideways\_moves} tidak melebihi \texttt{max\_sideways}, bahwa metrik \textit{random restart} konsisten, dan bahwa \textit{stochastic} memakai seluruh \texttt{max\_iterations}. Tes lain memeriksa penolakan argumen tidak valid, penerimaan \texttt{SearchProblem} armada, penolakan operator \textit{neighbor} yang menghasilkan \textit{state} tidak valid, dan pembuatan berkas keluaran oleh pelaksana eksperimen.
 
 \subsection{Multi-Truck}
 
@@ -952,7 +1092,7 @@ for truck_index, (truck, placements) in enumerate(
             loaded_by[package_id] = truck_index
 \end{lstlisting}
 
-Fungsi objektif memaksimalkan total nilai paket yang dimuat di seluruh armada. Persamaan~\ref{eq:fleet-unique-assignment} membatasi setiap paket pada satu penempatan, sehingga nilai tiap paket hanya dijumlahkan satu kali.
+Fungsi objektif memaksimalkan total nilai paket yang dimuat di seluruh armada. Persamaan~\ref{eq:fleet-unique-assignment} membatasi setiap paket pada satu penempatan sehingga nilai tiap paket hanya dijumlahkan satu kali.
 
 \begin{equation}
     f_F(S_F) = \sum_{i\in I} v_i\,
@@ -1062,9 +1202,9 @@ Ekstensi multi-truk mempertahankan constraint pemuatan untuk setiap truk dan men
 
 \subsection{\textit{Visualizer} Berbasis \textit{Web Server}}
 
-Selain plot statis dari runner eksperimen, program menyediakan \textit{visualizer} interaktif pada \texttt{src/\allowbreak visualizer/}. \textit{Backend} berupa aplikasi FastAPI yang dijalankan dengan \texttt{python -m src.visualizer} (bawaan \url{http://127.0.0.1:8000}), sedangkan \textit{frontend} dibangun dengan React, TypeScript, dan three.js di \texttt{src/\allowbreak visualizer/\allowbreak web/}. Hasil \textit{build} \textit{frontend} disajikan langsung oleh aplikasi Python, sehingga cukup satu proses untuk menjalankan keduanya. Dependensinya dipisahkan pada \texttt{requirements-visualizer.txt} agar eksperimen tetap dapat dijalankan tanpa memasang \textit{library} web.
+Selain plot statis dari runner eksperimen, program menyediakan \textit{visualizer} interaktif pada \texttt{src/\allowbreak visualizer/}. \textit{Backend} berupa aplikasi FastAPI yang dijalankan dengan \texttt{python -m src.visualizer} (bawaan \url{http://127.0.0.1:8000}), sedangkan \textit{frontend} dibangun dengan React, TypeScript, dan three.js di \texttt{src/\allowbreak visualizer/\allowbreak web/}. Hasil \textit{build} \textit{frontend} disajikan langsung oleh aplikasi Python sehingga cukup satu proses untuk menjalankan keduanya. Dependensinya dipisahkan pada \texttt{requirements-visualizer.txt} agar eksperimen tetap dapat dijalankan tanpa memasang \textit{library} web.
 
-\textit{Backend} menyediakan tiga \textit{endpoint}. \texttt{GET /api/catalogue} mengembalikan daftar algoritma beserta spesifikasi parameternya, \texttt{GET /api/examples} mengembalikan \textit{fixture} pada \texttt{tests/fixtures} yang lolos \textit{loader} sebagai contoh masalah (ditambah varian armada \texttt{base-2-trucks} dan \texttt{hard-3-trucks}), dan \texttt{POST /api/run} menjalankan pencarian. Permintaan \textit{run} divalidasi oleh model Pydantic pada \texttt{schemas.py}, lalu \textit{server} membangkitkan \textit{initial state} dari \textit{seed} yang diberikan dan memanggil fungsi algoritma yang sama dengan yang dipakai pada eksperimen. Jika masalah memiliki satu truk, pencarian berjalan pada \texttt{State}; jika lebih, pada \texttt{FleetState} dengan operator armada. Parameter setiap algoritma didefinisikan sekali pada \texttt{registry.py}, dan formulir pada antarmuka dibangun dari definisi tersebut, sehingga algoritma atau parameter baru cukup ditambahkan di satu tempat.
+\textit{Backend} menyediakan tiga \textit{endpoint}. \texttt{GET /api/catalogue} mengembalikan daftar algoritma beserta spesifikasi parameternya, \texttt{GET /api/examples} mengembalikan \textit{fixture} pada \texttt{tests/fixtures} yang lolos \textit{loader} sebagai contoh masalah (ditambah varian armada \texttt{base-2-trucks} dan \texttt{hard-3-trucks}), dan \texttt{POST /api/run} menjalankan pencarian. Permintaan \textit{run} divalidasi oleh model Pydantic pada \texttt{schemas.py}, lalu \textit{server} membangkitkan \textit{initial state} dari \textit{seed} yang diberikan dan memanggil fungsi algoritma yang sama dengan yang dipakai pada eksperimen. Jika masalah memiliki satu truk, pencarian berjalan pada \texttt{State}; jika lebih, pada \texttt{FleetState} dengan operator armada. Parameter setiap algoritma didefinisikan sekali pada \texttt{registry.py}, dan formulir pada antarmuka dibangun dari definisi tersebut sehingga algoritma atau parameter baru cukup ditambahkan di satu tempat.
 
 Antarmuka terdiri atas tiga bagian. Panel \textit{Problem} memuat contoh atau JSON masalah serta mengubah daftar truk dan paket. Panel \textit{Solver} memilih algoritma (keempat varian HC, SA, atau GA), \textit{objective function}, \textit{seed}, dan parameternya. Panel hasil menampilkan ringkasan (nilai \textit{objective}, durasi, dan metrik algoritma), tampilan 3D truk beserta paket di dalamnya, dan grafik kemajuan pencarian: \textit{objective} per iterasi untuk HC dan SA, suhu dan probabilitas penerimaan $e^{\Delta E/T}$ untuk SA, serta \textit{fitness} per generasi untuk GA.
 

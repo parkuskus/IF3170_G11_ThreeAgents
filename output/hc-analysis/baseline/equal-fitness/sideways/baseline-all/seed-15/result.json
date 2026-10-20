@@ -1,0 +1,461 @@
+{
+  "experiment": "baseline",
+  "category": "boundary",
+  "instance": "equal-fitness",
+  "variant": "sideways",
+  "factor": "baseline",
+  "factor_value": "all",
+  "parameters": {
+    "neighbors_per_iteration": 30,
+    "max_iterations": 1000,
+    "max_sideways": 100,
+    "max_restarts": 10
+  },
+  "seed": 15,
+  "initial_state_seed": 24290,
+  "initial_value": 40,
+  "loaded_packages": 4,
+  "valid": true,
+  "violations": [],
+  "iterations": 100,
+  "sideways_moves": 100,
+  "restarts": 0,
+  "duration_seconds": 0.16893700003856793,
+  "artifact_path": "output\\hc-analysis\\baseline\\equal-fitness\\sideways\\baseline-all\\seed-15\\result.json",
+  "result": {
+    "algorithm": "hill_climbing_sideways",
+    "objective_name": "total_value",
+    "objective_value": 40,
+    "objective_history": [
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40
+    ],
+    "duration_seconds": 0.16893700003856793,
+    "seed": 15,
+    "run_index": 5,
+    "parameters": {
+      "variant": "sideways",
+      "max_iterations": 1000,
+      "neighbors_per_iteration": 30,
+      "max_sideways": 100
+    },
+    "metrics": {
+      "variant": "sideways",
+      "iterations": 100,
+      "sideways_moves": 100,
+      "maximum_sideways_moves": 100,
+      "restarts": 0,
+      "maximum_restarts": null,
+      "iterations_per_restart": []
+    },
+    "initial_state": {
+      "truck": {
+        "dimensions": [
+          2,
+          2,
+          1
+        ],
+        "max_capacity": 100
+      },
+      "total_package_value": 40,
+      "packages": [
+        {
+          "id": "same-1",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              1,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "same-2",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              1,
+              0
+            ],
+            "orientation": [
+              2,
+              1,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "same-3",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "same-4",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "same-5",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              2,
+              1,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "same-6",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "final_state": {
+      "truck": {
+        "dimensions": [
+          2,
+          2,
+          1
+        ],
+        "max_capacity": 100
+      },
+      "total_package_value": 40,
+      "packages": [
+        {
+          "id": "same-1",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "same-2",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": null
+        },
+        {
+          "id": "same-3",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              0,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "same-4",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              0,
+              0
+            ],
+            "orientation": [
+              1,
+              2,
+              0
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "same-5",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              1,
+              1,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "id": "same-6",
+          "dimensions": [
+            1,
+            1,
+            1
+          ],
+          "value": 10,
+          "weight": 1,
+          "fragile": false,
+          "eta": 1,
+          "placement": {
+            "coordinate": [
+              0,
+              1,
+              0
+            ],
+            "orientation": [
+              0,
+              1,
+              2
+            ],
+            "oriented_dimensions": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
