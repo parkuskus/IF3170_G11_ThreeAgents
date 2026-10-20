@@ -38,29 +38,29 @@ Studi ablasi digunakan untuk mengetahui kontribusi pilihan desain terhadap hasil
 Setiap varian dijalankan dengan seed dan state awal yang sama seperti konfigurasi acuan. Analisis membandingkan nilai objektif akhir dan durasi serta menyajikan rata-rata, simpangan baku, dan riwayat pencarian. Dengan demikian, studi ablasi menunjukkan apakah perubahan konfigurasi memberi hasil yang konsisten pada seed yang diuji.
 
 \subsection{Dataset dan Konfigurasi Eksperimen}
-Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \textit{constraint}, dan fungsi \textit{neighbor} yang sama untuk ketiga algoritma. Spesifikasi tugas tidak menyediakan data paket, sehingga seluruh \textit{instance} bersifat sintetis dan disimpan sebagai \textit{fixture} pada \texttt{tests/fixtures/}. Setiap kategori pada subbab pertama diwujudkan oleh satu atau lebih berkas, dan sifat tiap berkas diperiksa otomatis oleh \texttt{tests/test\_fixtures.py} (misalnya bahwa \texttt{tight-space} hanya berbeda dari \texttt{base} pada dimensi truk, atau bahwa tidak ada paket pada \texttt{infeasible} yang dapat dimuat sendirian).
+Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \textit{constraint}, dan fungsi \textit{neighbor} yang sama untuk ketiga algoritma. Spesifikasi tugas tidak menyediakan data paket, sehingga seluruh \textit{instance} bersifat sintetis dan disimpan sebagai \textit{fixture} pada \texttt{tests/fixtures/}. Setiap kategori pada subbab pertama diwujudkan oleh satu atau lebih berkas, dan sifat tiap berkas diperiksa otomatis oleh \texttt{tests/\allowbreak experiments/\allowbreak test\_fixtures.py} (misalnya bahwa \texttt{tight-space} hanya berbeda dari \texttt{base} pada dimensi truk, atau bahwa tidak ada paket pada \texttt{infeasible} yang dapat dimuat sendirian).
 
 \begin{table}[H]
     \centering
     \small
     \begin{tabular}{@{}p{2.6cm}p{3.3cm}p{1.0cm}p{2.3cm}p{5.4cm}@{}}
         \toprule
-        Kategori                  & Berkas                              & Paket & Truk (kapasitas)          & Karakteristik                                                                                                                                           \\
+        Kategori                  & Berkas                              & Paket & Truk (kapasitas)          & Karakteristik                                                                                                                                                         \\
         \midrule
-        Dasar                     & \texttt{base.json}                  & 10    & $8\times6\times4$ (30)    & Dimensi, nilai, berat, ETA, dan kerapuhan bervariasi. Total berat 59 melebihi kapasitas sehingga harus dipilih himpunan bagian                          \\
+        Dasar                     & \texttt{base.json}                  & 10    & $8\times6\times4$ (30)    & Dimensi, nilai, berat, ETA, dan kerapuhan bervariasi. Total berat 59 melebihi kapasitas sehingga harus dipilih himpunan bagian                                        \\
         \midrule
-        Kendala ketat             & \texttt{tight-space.json}           & 10    & $6\times4\times3$ (30)    & Paket dan kapasitas sama dengan \texttt{base}. Hanya dimensi truk diperkecil                                                                            \\
-                                  & \texttt{tight-capacity.json}        & 10    & $8\times6\times4$ (15)    & Paket dan dimensi sama dengan \texttt{base}. Hanya kapasitas dikurangi                                                                                  \\
+        Kendala ketat             & \texttt{tight-space.json}           & 10    & $6\times4\times3$ (30)    & Paket dan kapasitas sama dengan \texttt{base}. Hanya dimensi truk diperkecil                                                                                          \\
+                                  & \texttt{tight-capacity.json}        & 10    & $8\times6\times4$ (15)    & Paket dan dimensi sama dengan \texttt{base}. Hanya kapasitas dikurangi                                                                                                \\
         \midrule
-        Tanpa pemuatan layak      & \texttt{infeasible.json}            & 10    & $8\times6\times4$ (30)    & Perubahan dari \texttt{base}. Paket P01--P05 diberi satu sisi 9, melebihi sisi terpanjang truk. Paket P06--P10 diberi berat 31, melebihi kapasitas                          \\
+        Tanpa pemuatan layak      & \texttt{infeasible.json}            & 10    & $8\times6\times4$ (30)    & Perubahan dari \texttt{base}. Paket P01--P05 diberi satu sisi 9, melebihi sisi terpanjang truk. Paket P06--P10 diberi berat 31, melebihi kapasitas                    \\
         \midrule
-        Batas dan struktur khusus & \texttt{boundary/single-package}    & 1     & $4\times4\times4$ (10)    & Satu paket yang muat                                                                                                                                    \\
-                                  & \texttt{boundary/rotation-only}     & 2     & $5\times2\times2$ (10)    & Paket $2\times2\times5$ hanya muat setelah rotasi                                                                                                       \\
-                                  & \texttt{boundary/wall-touching}     & 4     & $4\times4\times2$ (8)     & Empat paket $2\times2\times2$ mengisi truk tepat sampai dinding                                                                                         \\
-                                  & \texttt{boundary/exact-capacity}    & 4     & $10\times10\times10$ (10) & Optimum (berat $4+3+3$) tepat sama dengan kapasitas                                                                                                     \\
-                                  & \texttt{boundary/fragile-support}   & 3     & $2\times2\times2$ (10)    & Paket rapuh boleh berada di atas paket biasa, tetapi tidak boleh menopang                                                                               \\
-                                  & \texttt{boundary/zero-value-weight} & 4     & $4\times4\times4$ (5)     & Paket bernilai nol, berbobot nol, dan keduanya nol                                                                                                      \\
-                                  & \texttt{boundary/equal-fitness}     & 6     & $2\times2\times1$ (100)   & Enam paket identik. Seleksi tidak punya preferensi                                                                                                      \\
+        Batas dan struktur khusus & \texttt{boundary/single-package}    & 1     & $4\times4\times4$ (10)    & Satu paket yang muat                                                                                                                                                  \\
+                                  & \texttt{boundary/rotation-only}     & 2     & $5\times2\times2$ (10)    & Paket $2\times2\times5$ hanya muat setelah rotasi                                                                                                                     \\
+                                  & \texttt{boundary/wall-touching}     & 4     & $4\times4\times2$ (8)     & Empat paket $2\times2\times2$ mengisi truk tepat sampai dinding                                                                                                       \\
+                                  & \texttt{boundary/exact-capacity}    & 4     & $10\times10\times10$ (10) & Optimum (berat $4+3+3$) tepat sama dengan kapasitas                                                                                                                   \\
+                                  & \texttt{boundary/fragile-support}   & 3     & $2\times2\times2$ (10)    & Paket rapuh boleh berada di atas paket biasa, tetapi tidak boleh menopang                                                                                             \\
+                                  & \texttt{boundary/zero-value-weight} & 4     & $4\times4\times4$ (5)     & Paket bernilai nol, berbobot nol, dan keduanya nol                                                                                                                    \\
+                                  & \texttt{boundary/equal-fitness}     & 6     & $2\times2\times1$ (100)   & Enam paket identik. Seleksi tidak punya preferensi                                                                                                                    \\
         \midrule
         Masukan tidak valid       & \texttt{invalid/} (8 berkas)        & ---   & ---                       & Dimensi paket tidak positif, terlalu panjang, atau bukan bilangan bulat. Dimensi truk tidak positif. Kapasitas negatif. ID ganda. Daftar paket kosong. Atribut hilang \\
         \bottomrule
@@ -69,13 +69,13 @@ Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \tex
     \label{tab:fixtures}
 \end{table}
 
-Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi wajib. \texttt{eta\_weighted\_value} membagi nilai paket dengan $\text{ETA}+1$, sehingga paket yang mendesak mendapat bobot lebih besar. \texttt{compact\_value} menambahkan bonus kurang dari satu satuan untuk penataan yang lebih rendah. Pengujian dibagi menjadi empat rangkaian.
+Setiap algoritma dijalankan pada tiga \textit{objective function}: \texttt{total\_value} (fungsi wajib), \texttt{eta\_weighted\_value} (nilai paket dibagi $\text{ETA}+1$, sehingga paket yang mendesak bernilai lebih besar), dan \texttt{compact\_value} (nilai total ditambah bonus kurang dari satu satuan untuk penumpukan yang rendah). Eksperimen dibagi menjadi empat rangkaian.
 
 \begin{enumerate}
     \renewcommand{\labelenumi}{(\arabic{enumi})}
-    \item \textbf{\textit{Benchmark} lintas kategori} (\texttt{src/experiments/run\_benchmark.py}). Seluruh algoritma pada seluruh \textit{fixture} valid dengan \texttt{total\_value}, lima \textit{seed} (11--15) dan satu konfigurasi parameter tetap, sehingga $11\ \text{instance} \times 5\ \textit{seed} \times 6\ \text{algoritma} = 330$ \textit{run}. Setiap \textit{run} mencatat validitas \textit{state} akhir, jumlah paket termuat, jumlah evaluasi objektif, dan durasi pencarian. Delapan \textit{fixture} tidak valid diberikan ke \textit{loader} data pada rangkaian yang sama.
-    \item \textbf{Eksperimen per algoritma} pada \texttt{base} dengan tiga fungsi objektif dan tiga \textit{seed} (11--13), sesuai kebutuhan tugas. Pengujian mencakup empat varian \textit{hill climbing}, tiga \textit{run} SA, dan dua \textit{sweep} GA untuk generasi serta populasi. Perbandingan fungsi objektif juga diulang pada \texttt{tight-capacity} dengan konfigurasi yang sama.
-    \item \textbf{Analisis GA lintas fixture dan parameter} dengan \texttt{total\_value}. Baseline dijalankan pada 11 fixture valid. Tiga \textit{sweep} satu faktor dilakukan pada \texttt{base} dengan lima \textit{seed} (11--15). Baseline memakai populasi 20 dan 40 generasi dengan laju mutasi 0,05. Nilai yang diuji untuk populasi adalah $\{10,20,40\}$, untuk generasi $\{20,40,80\}$, dan untuk laju mutasi $\{0 / 0{,}05 / 0{,}20\}$.
+    \item \textbf{\textit{Benchmark} lintas kategori} (\texttt{src/experiments/run\_benchmark.py}): seluruh algoritma pada seluruh \textit{fixture} valid dengan \texttt{total\_value}, lima \textit{seed} (11--15) dan satu konfigurasi parameter tetap, sehingga $11\ \text{instance} \times 5\ \textit{seed} \times 6\ \text{algoritma} = 330$ \textit{run}. Setiap \textit{run} mencatat validitas \textit{state} akhir, jumlah paket termuat, jumlah evaluasi objektif, dan durasi pencarian. Delapan \textit{fixture} tidak valid diberikan ke \textit{loader} data pada rangkaian yang sama.
+    \item \textbf{Eksperimen per algoritma} pada \texttt{base} dengan ketiga \textit{objective} dan tiga \textit{seed} (11--13), sesuai kebutuhan evaluasi tugas: empat varian \textit{hill climbing}, tiga \textit{run} SA, serta dua \textit{sweep} GA (generasi dan populasi). Perbandingan antar-\textit{objective} diulang pada \texttt{tight-capacity} dengan konfigurasi yang sama untuk melihat apakah kesimpulannya bergantung pada \textit{instance}.
+    \item \textbf{Analisis GA lintas fixture dan parameter} pada \texttt{total\_value}: baseline untuk seluruh 11 fixture valid dan tiga \textit{sweep} satu-faktor-pada-satu-waktu pada \texttt{base}, masing-masing memakai lima \textit{seed} (11--15). Baseline memakai populasi 20, 40 generasi, dan laju mutasi 0,05; parameter yang disapu adalah ukuran populasi $\{10,20,40\}$, jumlah generasi $\{20,40,80\}$, dan laju mutasi $\{0;0,05;0,20\}$.
     \item \textbf{Studi ablasi GA} pada \texttt{base} dengan \texttt{total\_value} dan lima \textit{seed} (11--15).
 \end{enumerate}
 
@@ -85,9 +85,9 @@ Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi waj
         \toprule
         Algoritma                    & Parameter                                                                                                                                                                                                                                                                                              \\
         \midrule
-        \textit{Hill climbing}       & Empat varian dengan \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, dan \texttt{max\_restarts}\,=\,10                                                                                                                                                  \\
+        \textit{Hill climbing}       & 4 varian; \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, \texttt{max\_restarts}\,=\,10                                                                                                                                                  \\
         \textit{Simulated annealing} & \texttt{max\_iterations}\,=\,3000, $T_0=100$, \texttt{cooling\_rate}\,=\,0,995, \texttt{stuck\_patience}\,=\,100                                                                                                                                                                                       \\
-        \textit{Genetic algorithm}   & Baseline memakai populasi 20 dan 40 generasi dengan \textit{mutation rate} 0,05. \textit{Sweep} menguji populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, serta laju mutasi $\{0 / 0{,}05 / 0{,}20\}$ dengan parameter lain tetap. Seleksi memakai \textit{roulette-wheel}. Ablasi memakai populasi 20 dan 50 generasi \\
+        \textit{Genetic algorithm}   & Baseline: populasi 20, 40 generasi, \textit{mutation rate} 0,05. \textit{Sweep} terpisah: populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, dan \textit{mutation rate} $\{0;0,05;0,20\}$, dengan parameter lain tetap pada baseline; seleksi \textit{roulette-wheel}. Ablasi: populasi 20, 50 generasi \\
         \bottomrule
     \end{tabular}
     \caption{Konfigurasi parameter eksperimen}
@@ -100,7 +100,7 @@ Nilai optimum sebagai acuan. Relaksasi yang hanya memperhatikan kapasitas berat 
 
 \section{Hasil Eksperimen dan Analisis tiap Algoritma}
 
-Hasil \textit{hill climbing} dan SA pada bagian ini menggunakan \texttt{base} dengan tiga \textit{seed} (11--13), kecuali bila disebut lain. Protokol GA dijelaskan dan dilaporkan tersendiri karena mencakup seluruh kategori fixture serta lima seed (11--15).
+Hasil \textit{hill climbing} dan perbandingan \textit{objective} SA pada bagian ini menggunakan \texttt{base} dengan tiga \textit{seed} (11--13), kecuali bila disebut lain. Analisis lintas \textit{fixture} dan parameter SA serta seluruh analisis GA dijelaskan dan dilaporkan tersendiri karena mencakup seluruh kategori fixture serta lima seed (11--15).
 
 \subsection{Hill Climbing}
 
@@ -228,6 +228,170 @@ Nilai akhir pada tiga \textit{seed} adalah 330,449, 330,410, dan 335,254. Rata-r
     \includegraphics[width=0.85\textwidth]{figures/base/sa-objective-comparison.png}
     \caption{Perbandingan ketiga \textit{objective function} pada \textit{simulated annealing}}
 \end{figure}
+
+\subsubsection{Protokol dan hasil baseline lintas kasus}
+
+Baseline SA dijalankan pada seluruh 11 \textit{fixture} valid dengan \texttt{total\_value}, $T_0=100$, laju pendinginan 0,995, 3000 iterasi, dan lima \textit{seed} (11--15), sehingga menghasilkan 55 \textit{run}. \textit{State} awal diturunkan dengan $s_0=s\oplus\texttt{0x5EED}$, sehingga setiap pasangan \textit{fixture}--\textit{seed} selalu berangkat dari \textit{state} awal yang sama di seluruh rangkaian SA. Setiap \textit{run} memakai 3001 evaluasi objektif (satu untuk \textit{state} awal dan satu per iterasi). Seluruh \textit{state} akhir lolos validasi (100\%), dan kelima \textit{run} pada \texttt{infeasible} mengembalikan \textit{state} kosong bernilai 0.
+
+Selain nilai akhir, tabel mencatat dua besaran yang khas SA: jumlah gerakan memburuk yang diterima (transisi ketika nilai \textit{state} saat ini turun) dan iterasi saat \textit{state} terbaik pertama kali ditemukan. Keduanya memperlihatkan seberapa sering mekanisme penerimaan probabilistik benar-benar dipakai dan seberapa lama pencarian masih berguna.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \caption{Baseline SA pada seluruh fixture valid; rata-rata dan simpangan baku sampel dari lima seed}
+    \label{tab:sa-fixture-baseline}
+    \begin{tabular}{@{}lrrrrrrr@{}}
+        \toprule
+        \textit{Fixture}           & Nilai awal & Rata-rata $\pm$ SD & Terbaik & Paket & Memburuk diterima & Iterasi terbaik & Durasi (s) \\
+        \midrule
+        \texttt{base}              & 297,0      & 329,00 $\pm$ 8,22  & 335     & 6,0   & 8,6               & 585             & 0,640      \\
+        \texttt{tight-space}       & 231,0      & 282,00 $\pm$ 8,37  & 290     & 5,4   & 2,8               & 819             & 0,480      \\
+        \texttt{tight-capacity}    & 156,0      & 173,00 $\pm$ 2,74  & 175     & 3,8   & 5,8               & 73              & 0,304      \\
+        \texttt{infeasible}        & 0,0        & 0,00 $\pm$ 0,00    & 0       & 0,0   & 0,0               & 0               & 0,072      \\
+        \texttt{single-package}    & 50,0       & 50,00 $\pm$ 0,00   & 50      & 1,0   & 0,0               & 0               & 0,045      \\
+        \texttt{equal-fitness}     & 40,0       & 40,00 $\pm$ 0,00   & 40      & 4,0   & 0,0               & 0               & 0,127      \\
+        \texttt{exact-capacity}    & 93,0       & 100,00 $\pm$ 0,00  & 100     & 3,0   & 41,2              & 18              & 0,099      \\
+        \texttt{wall-touching}     & 64,0       & 100,00 $\pm$ 0,00  & 100     & 4,0   & 6,6               & 67              & 0,121      \\
+        \texttt{fragile-support}   & 70,0       & 78,00 $\pm$ 16,43  & 90      & 2,0   & 9,4               & 1               & 0,154      \\
+        \texttt{rotation-only}     & 46,0       & 46,00 $\pm$ 21,91  & 70      & 1,0   & 0,4               & 0               & 0,080      \\
+        \texttt{zero-value-weight} & 58,0       & 70,00 $\pm$ 0,00   & 70      & 3,0   & 2,8               & 11              & 0,145      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+SA memperbaiki nilai awal pada tiga \textit{fixture} utama: \texttt{base} naik rata-rata 32 poin (297 ke 329), \texttt{tight-space} 51 poin (231 ke 282), dan \texttt{tight-capacity} 17 poin (156 ke 173). Pada \texttt{base}, kelima \textit{seed} berakhir pada 335, 320, 335, 320, dan 335; dua \textit{seed} yang berawal dari 285 dan 275 (12 dan 14) berhenti pada 320. Pada \texttt{tight-capacity}, tiga \textit{seed} mencapai optimum 175 dan dua berakhir pada 170, termasuk \textit{seed} 14 yang \textit{state} awalnya (170) tidak pernah dilampaui. \texttt{tight-space} memiliki sebaran yang serupa dengan \texttt{base} (simpangan baku 8,37) dan nilai terbaik 290, di bawah batas atas \textit{knapsack} 335, sehingga kesulitannya terletak pada penataan geometris.
+
+Pada kasus batas, SA mencapai optimum pada \texttt{exact-capacity}, \texttt{wall-touching}, dan \texttt{zero-value-weight} dari seluruh \textit{state} awal, termasuk \textit{state} \texttt{wall-touching} yang hanya bernilai 10 (\textit{seed} 12). Sebaliknya, \texttt{fragile-support} berhenti pada 60 untuk \textit{seed} 12 dan 15, dan \texttt{rotation-only} berhenti pada 30 untuk \textit{seed} 11, 13, dan 14. Pada kelima \textit{run} tersebut, tidak ada satu pun dari 3000 \textit{neighbor} yang diusulkan bernilai lebih rendah atau lebih tinggi daripada \textit{state} saat ini: semua kandidat adalah \textit{move} atau rotasi yang tidak mengubah himpunan paket. Suhu tinggi tidak membantu karena tidak ada gerakan memburuk yang dapat diterima. Ini mengonfirmasi analisis pada \texttt{rotation-only} di subbab ketahanan: keterbatasan berasal dari keterhubungan operator \textit{neighbor}, bukan dari jadwal pendinginan.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{figures/sa-analysis/fixture-summary.png}
+    \caption{Rata-rata nilai terbaik SA pada tiap fixture (batang, $\pm1$ SD) dan rata-rata nilai \textit{state} awal (garis hitam)}
+    \label{fig:sa-fixture-summary}
+\end{figure}
+
+\subsubsection{Dinamika penerimaan dan pendinginan}
+
+Dengan $T_0=100$ dan laju 0,995, suhu turun di bawah 1 setelah sekitar 919 iterasi ($100\cdot0{,}995^{i}<1 \iff i>\ln 100/{-\ln 0{,}995}\approx919$), dan pada iterasi ke-3000 tersisa $3\times10^{-5}$. Pada \texttt{base}, rata-rata hanya 196 dari 3000 \textit{neighbor} (6,5\%) bernilai lebih rendah daripada \textit{state} saat ini, dan dari jumlah itu hanya 8,6 yang diterima. Gerakan memburuk terakhir diterima pada iterasi ke-346 hingga ke-685, sehingga setelah sekitar 700 iterasi SA praktis hanya menerima gerakan yang setara atau lebih baik. \textit{State} terbaik ditemukan rata-rata pada iterasi ke-585 (paling lambat 1344 pada \textit{seed} 11); sisa iterasi tidak menghasilkan perbaikan apa pun.
+
+Sebagian besar \textit{neighbor} tidak mengubah nilai karena \textit{move} dan rotasi hanya mengubah penataan, sedangkan hanya \textit{swap} yang mengubah himpunan paket. Pada \texttt{tight-space}, rata-rata hanya 31 \textit{neighbor} memburuk per \textit{run} dan 2,8 yang diterima; ruang truk yang sempit membuat \textit{swap} yang layak jarang. Sebaliknya, \texttt{exact-capacity} memiliki lebih dari 540 usulan memburuk per \textit{run} dan 41 yang diterima, karena nilai keempat paketnya berdekatan (25--40) sehingga selisih nilai akibat \textit{swap} kecil relatif terhadap suhu sehingga $e^{\Delta E/T}$ mendekati 1. Hal ini menunjukkan bahwa makna $T_0=100$ bergantung pada skala selisih nilai di tiap \textit{instance}.
+
+Gambar~\ref{fig:sa-tight-capacity-dynamics} memperlihatkan pola ini pada \texttt{tight-capacity} \textit{seed} 11: \textit{state} saat ini turun hingga 95 pada puluhan iterasi pertama, \textit{state} terbaik 175 ditemukan pada iterasi ke-45, dan beberapa penurunan singkat ke 170 masih diterima hingga sekitar iterasi ke-700. Grafik $e^{\Delta E/T}$ menunjukkan probabilitas penerimaan gerakan memburuk yang meluruh menuju nol mengikuti pendinginan.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/tight-capacity-history.png}
+        \caption{Nilai \textit{state} saat ini dan terbaik}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/tight-capacity-acceptance.png}
+        \caption{$e^{\Delta E/T}$ terhadap iterasi}
+    \end{subfigure}
+    \caption{Dinamika SA pada \texttt{tight-capacity} (\textit{seed} 11)}
+    \label{fig:sa-tight-capacity-dynamics}
+\end{figure}
+
+\subsubsection{Contoh keluaran dan visualisasi state}
+
+Tabel~\ref{tab:sa-representative} memperlihatkan keluaran konkret \textit{run} dengan \textit{seed} 11, satu \textit{run} representatif yang dipilih sebelum melihat hasil. Kolom paket menunjukkan isi \textit{state} terbaik, bukan seluruh \textit{state} yang dikunjungi. Pada \texttt{base}, SA naik dari 330 ke optimum 335 dengan enam paket, dan pada \texttt{tight-space} dari 255 ke 280 dengan empat paket. Pada \texttt{tight-capacity}, SA mencapai optimum 175 dengan empat paket. Pada \texttt{rotation-only}, SA tetap memuat paket kubus (30) karena tidak ada \textit{neighbor} yang mengubah nilai, sedangkan \texttt{infeasible} tetap kosong.
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption{Keluaran aktual SA untuk seed 11 pada satu wakil tiap kategori dan kedua fixture kendala ketat}
+    \label{tab:sa-representative}
+    \begin{tabular}{@{}lrrrl@{}}
+        \toprule
+        Kasus                   & Nilai awal $\rightarrow$ akhir & Paket & Valid & Paket termuat pada hasil     \\
+        \midrule
+        \texttt{base}           & 330 $\rightarrow$ 335          & 6/10  & Ya    & P01, P02, P04, P06, P08, P10 \\
+        \texttt{tight-space}    & 255 $\rightarrow$ 280          & 4/10  & Ya    & P01, P02, P03, P09           \\
+        \texttt{tight-capacity} & 155 $\rightarrow$ 175          & 4/10  & Ya    & P04, P06, P08, P10           \\
+        \texttt{infeasible}     & 0 $\rightarrow$ 0              & 0/10  & Ya    & --                           \\
+        \texttt{rotation-only}  & 30 $\rightarrow$ 30            & 1/2   & Ya    & \texttt{cube}                \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/base-states.png}
+        \caption{Kasus dasar}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/tight-space-states.png}
+        \caption{Ruang truk ketat}
+    \end{subfigure}
+
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/tight-capacity-states.png}
+        \caption{Kapasitas truk ketat}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/rotation-only-states.png}
+        \caption{Paket hanya muat setelah rotasi (tidak membaik)}
+    \end{subfigure}
+    \caption{State awal dan state terbaik yang dikembalikan SA untuk seed 11}
+    \label{fig:sa-state-examples}
+\end{figure}
+
+\subsubsection{Pengaruh parameter SA}
+
+Suhu awal, laju pendinginan, dan jumlah iterasi diuji secara terpisah pada \texttt{base} dengan lima \textit{seed} dan \textit{state} awal yang sama; parameter lain tetap pada baseline. Tabel~\ref{tab:sa-parameter-sweeps} juga mencantumkan suhu akhir $T_0\cdot r^{N}$ untuk membantu membaca seberapa ``dingin'' pencarian ketika berhenti.
+
+\begin{table}[H]
+    \centering
+    \small
+    \caption{Sweep satu faktor SA pada fixture \texttt{base} (lima seed per nilai parameter)}
+    \label{tab:sa-parameter-sweeps}
+    \begin{tabular}{@{}llrrrrr@{}}
+        \toprule
+        Parameter             & Nilai & Rata-rata $\pm$ SD & Nilai per \textit{seed} (11--15) & Memburuk diterima & Suhu akhir        & Durasi (s) \\
+        \midrule
+        $T_0$                 & 10    & 327,00 $\pm$ 10,95 & 335, 315, 335, 315, 335          & 0,8               & $3\times10^{-6}$  & 0,429      \\
+                              & 100   & 329,00 $\pm$ 8,22  & 335, 320, 335, 320, 335          & 8,6               & $3\times10^{-5}$  & 0,457      \\
+                              & 1000  & 334,00 $\pm$ 2,24  & 335, 330, 335, 335, 335          & 20,8              & $3\times10^{-4}$  & 0,502      \\
+        \midrule
+        \textit{Cooling rate} & 0,99  & 334,00 $\pm$ 2,24  & 330, 335, 335, 335, 335          & 4,4               & $8\times10^{-12}$ & 0,494      \\
+                              & 0,995 & 329,00 $\pm$ 8,22  & 335, 320, 335, 320, 335          & 8,6               & $3\times10^{-5}$  & 0,473      \\
+                              & 0,999 & 334,00 $\pm$ 2,24  & 330, 335, 335, 335, 335          & 40,4              & 4,97              & 0,431      \\
+        \midrule
+        Iterasi               & 1000  & 328,00 $\pm$ 7,58  & 330, 320, 335, 320, 335          & 8,6               & 0,665             & 0,138      \\
+                              & 3000  & 329,00 $\pm$ 8,22  & 335, 320, 335, 320, 335          & 8,6               & $3\times10^{-5}$  & 0,425      \\
+                              & 6000  & 329,00 $\pm$ 8,22  & 335, 320, 335, 320, 335          & 8,6               & $9\times10^{-12}$ & 0,891      \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{Suhu awal} memberi tren yang paling jelas. Menaikkan $T_0$ dari 10 ke 1000 menaikkan jumlah gerakan memburuk yang diterima dari 0,8 menjadi 20,8 per \textit{run}, dan dua \textit{seed} tersulit (12 dan 14) naik dari 315 ke 330 dan 335. Dengan $T_0=10$, SA hampir tidak pernah menerima gerakan memburuk (empat dari lima \textit{run} menerima paling banyak satu), sehingga hampir seluruh pencarian hanya menerima gerakan setara atau lebih baik. Simpangan baku turun dari 10,95 ke 2,24, dan durasi hanya naik sekitar 17\%.
+
+\textbf{Laju pendinginan} tidak memberi tren monoton. Laju 0,99 dan 0,999 sama-sama menghasilkan rata-rata 334, lebih tinggi daripada baseline 0,995 (329), dengan pola per \textit{seed} yang identik: \textit{seed} 12 dan 14 mencapai 335, tetapi \textit{seed} 11 berhenti pada 330. Mekanismenya berbeda. Dengan 0,999, suhu akhirnya masih 4,97 sehingga gerakan memburuk diterima hingga iterasi ke-2550--2970 (40,4 per \textit{run}), dan pencarian tetap menjelajah hingga akhir. Dengan 0,99, suhu turun di bawah 1 setelah sekitar 460 iterasi dan hanya 4,4 gerakan memburuk diterima, tetapi lintasan acak yang berbeda pada awal pencarian kebetulan mengarah ke cekungan yang lebih baik. Karena hasil per \textit{seed} berubah tanpa pola yang konsisten, keunggulan 0,99 dan 0,999 atas 0,995 pada lima \textit{seed} ini lebih tepat dibaca sebagai kepekaan SA terhadap lintasan acak daripada sebagai laju pendinginan optimum.
+
+\textbf{Jumlah iterasi} hanya memengaruhi \textit{seed} 11. Karena generator acak dan jadwal suhu sama, \textit{run} dengan iterasi lebih sedikit adalah awalan persis dari \textit{run} yang lebih panjang. Dengan 1000 iterasi, \textit{seed} 11 berhenti pada 330 karena \textit{state} 335 baru ditemukan pada iterasi ke-1344; dengan 6000 iterasi hasilnya identik dengan 3000 karena tidak ada perbaikan setelah iterasi ke-1344 pada seed mana pun, sementara durasi berlipat dua (0,425 menjadi 0,891 detik). Pada konfigurasi ini, iterasi setelah suhu mendekati nol hanya menambah biaya, sehingga kondisi berhenti dini berdasarkan \texttt{stuck\_patience} atau suhu minimum akan memangkas durasi tanpa mengubah hasil.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/temperature-sweep.png}
+        \caption{Suhu awal}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/sa-analysis/cooling-sweep.png}
+        \caption{Laju pendinginan}
+    \end{subfigure}
+
+    \includegraphics[width=0.49\textwidth]{figures/sa-analysis/iteration-sweep.png}
+    \caption{Pengaruh parameter SA terhadap nilai terbaik (batang galat: $\pm1$ SD) dan jumlah gerakan memburuk yang diterima}
+    \label{fig:sa-parameter-sweeps}
+\end{figure}
+
+\textit{Sweep} hanya dilakukan pada satu \textit{fixture} dengan lima \textit{seed}, sehingga hasilnya belum menunjukkan konfigurasi terbaik untuk kategori lain. Durasi diukur pada lingkungan lokal yang sama, tetapi konfigurasi yang identik dapat berbeda hingga sekitar 50\% antar-rangkaian (baseline \texttt{base} 0,640 detik pada Tabel~\ref{tab:sa-fixture-baseline} dibandingkan 0,425--0,473 detik pada \textit{sweep}), sehingga selisih durasi kecil antarnilai parameter tidak bermakna. Seluruh 100 keluaran per-\textit{run}, parameter, riwayat \textit{objective}, riwayat suhu, serta \textit{state} awal/akhir disimpan di \texttt{output/sa-analysis/}. Eksperimen dapat direproduksi dengan menjalankan \texttt{python -m src.experiments.sa.results\_analysis} dari root repositori.
 
 \subsection{Genetic Algorithm}
 
@@ -460,7 +624,7 @@ Beberapa pola konsisten muncul.
 
 \textbf{Tanpa pemuatan layak.} Seluruh 30 \textit{run} pada \texttt{infeasible} mengembalikan \textit{state} valid tanpa paket termuat dan nilai 0, sehingga representasi yang mengizinkan semua paket berada di luar truk bekerja seperti yang dirancang. Karena nilai 0 saja ambigu bila ada paket bernilai nol, jumlah paket termuat dicatat bersamaan (0 pada seluruh \textit{run}).
 
-\textbf{Kasus batas.} Kasus \texttt{single-package} dan \texttt{equal-fitness} tidak membedakan algoritma karena \textit{state} awal acak sudah optimal (50 dan 40). Keduanya hanya menunjukkan bahwa seleksi \textit{roulette-wheel} dengan fitness yang sama dan satu paket tidak menimbulkan galat. Kasus lain membedakan algoritma dengan jelas. 
+\textbf{Kasus batas.} Kasus \texttt{single-package} dan \texttt{equal-fitness} tidak membedakan algoritma karena \textit{state} awal acak sudah optimal (50 dan 40). Keduanya hanya menunjukkan bahwa seleksi \textit{roulette-wheel} dengan fitness yang sama dan satu paket tidak menimbulkan galat. Kasus lain membedakan algoritma dengan jelas.
 \begin{itemize}
     \item \texttt{rotation-only}. \textit{Random restart} dan GA mencapai 70 pada kelima \textit{seed}. Empat metode lain hanya mencapai 70 pada dua \textit{seed} yang state awalnya sudah memuat paket panjang. Pada tiga state awal lainnya, rata-ratanya tetap 46. Operator \textit{move} tidak mengeluarkan paket dari truk. Operator \textit{swap} memberi orientasi awal $(0,1,2)$ kepada paket dari luar, sehingga paket $2\times2\times5$ tidak muat. Paket panjang tidak dapat dimasukkan selama paket kubus berada di dalam. Karena itu, dari state tersebut tidak ada jalur menuju state yang lebih baik dengan operator yang tersedia. Ini merupakan batasan operator \textit{neighbor}. \textit{Random restart} dan GA dapat menghindarinya dengan membangkitkan state awal baru.
     \item \texttt{fragile-support}. \textit{Random restart} dan GA mencapai 90 pada seluruh \textit{seed} dengan menempatkan paket rapuh di atas paket yang tidak rapuh. Empat metode lain mendapat nilai 60 pada dua dari lima \textit{seed} dan rata-rata 78. Ketiganya mencapai 90 pada tiga \textit{seed} lainnya.

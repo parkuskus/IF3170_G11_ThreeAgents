@@ -306,6 +306,20 @@ table.packages tr.muted td {
   font-size: 22px;
   font-weight: 700;
 }
+.stats .wide {
+  grid-column: 1 / -1;
+}
+.stats .wide dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--grid);
+  font-size: 12px;
+}
 
 .charts {
   display: grid;
@@ -345,6 +359,14 @@ table.packages tr.muted td {
 .chart .tick {
   fill: var(--muted);
   font-size: 11px;
+}
+.chart line.marker {
+  stroke: var(--danger);
+  stroke-dasharray: 2 3;
+}
+.legend i.marker {
+  height: 0;
+  border-top: 2px dotted var(--danger);
 }
 
 .error {
