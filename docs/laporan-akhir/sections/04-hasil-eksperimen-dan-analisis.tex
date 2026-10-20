@@ -4,13 +4,13 @@ Metodologi eksperimen dirancang untuk membandingkan kualitas solusi dan biaya pe
 
 \subsection{Kumpulan Instance dan Kasus Uji}
 
-Kumpulan uji mencakup instance dasar (sintetis, karena spesifikasi tugas tidak menyediakan data paket) serta instance terkontrol yang diturunkan darinya untuk menguji karakteristik tertentu. Ukuran dan tingkat kesulitan instance dibuat bervariasi agar hasil tidak hanya menggambarkan satu konfigurasi pemuatan. Setidaknya, pengujian mencakup kategori berikut:
+Kumpulan uji mencakup instance dasar sintetis karena spesifikasi tugas tidak menyediakan data paket. Instance terkontrol diturunkan dari kasus dasar untuk menguji karakteristik tertentu. Ukuran dan tingkat kesulitan dibuat bervariasi agar hasil mewakili beberapa konfigurasi pemuatan. Pengujian mencakup kategori berikut.
 
 \begin{enumerate}
     \renewcommand{\labelenumi}{(\arabic{enumi})}
     \item \textbf{Kasus dasar.} Instance dengan paket yang bervariasi dalam dimensi, nilai, dan berat, serta beberapa kombinasi pemuatan yang layak. Kasus ini digunakan untuk membandingkan kinerja umum.
     \item \textbf{Kasus kendala ketat.} Ruang truk diperkecil atau kapasitas berat dikurangi agar lebih banyak kandidat penempatan ditolak. Instance ini menguji dampak keterbatasan ruang dan kapasitas.
-    \item \textbf{Kasus tanpa pemuatan nonkosong yang layak.} Semua paket dibuat tidak dapat dimuat, misalnya setiap paket lebih besar daripada ruang truk pada semua orientasi atau beratnya melebihi kapasitas. Karena representasi tetap mengizinkan semua paket berada di luar truk, state kosong merupakan state valid dengan nilai objektif nol; kasus ini menguji apakah algoritma dapat mengembalikan state valid tanpa paket termuat.
+    \item \textbf{Kasus tanpa pemuatan nonkosong yang layak.} Semua paket dibuat tidak dapat dimuat, misalnya setiap paket lebih besar daripada ruang truk pada semua orientasi atau beratnya melebihi kapasitas. Karena representasi tetap mengizinkan semua paket berada di luar truk, state kosong merupakan state valid dengan nilai objektif nol. Kasus ini menguji apakah algoritma dapat mengembalikan state valid tanpa paket termuat.
     \item \textbf{Kasus batas dan struktur khusus.} Pengujian meliputi satu paket, paket yang hanya muat setelah rotasi, paket yang tepat menyentuh dinding truk, berat total yang tepat sama dengan kapasitas, paket rapuh yang memengaruhi dukungan, serta paket bernilai atau berbobot nol. Kasus dengan fitness sama juga digunakan untuk memeriksa perilaku ketika seleksi tidak memiliki preferensi nilai.
     \item \textbf{Masukan tidak valid.} Data dengan dimensi atau kapasitas yang melanggar format, ID paket duplikat, atau daftar paket kosong diuji pada batas validasi data. Kasus ini dipisahkan dari benchmark pencarian karena bukan instance masalah yang sah menurut loader.
 \end{enumerate}
@@ -19,23 +19,23 @@ Instance sintetis untuk uji batas dibuat dengan mengubah satu karakteristik pada
 
 \subsection{Protokol Perbandingan}
 
-Untuk setiap pasangan instance dan seed, state awal yang sama digunakan oleh semua algoritma. Daftar seed ditetapkan sebelum eksperimen; setiap kombinasi dijalankan sedikitnya tiga kali dengan seed berbeda sesuai kebutuhan evaluasi tugas. Jika anggaran komputasi memungkinkan, jumlah pengulangan ditambah agar estimasi variasi hasil lebih stabil. Penggunaan seed dan state awal berpasangan mengurangi pengaruh variasi inisialisasi saat membandingkan metode.
+Untuk setiap pasangan instance dan seed, state awal yang sama digunakan oleh semua algoritma. Daftar seed ditetapkan sebelum eksperimen. Setiap kombinasi dijalankan sedikitnya tiga kali dengan seed berbeda sesuai kebutuhan evaluasi tugas. Jika anggaran komputasi memungkinkan, jumlah pengulangan ditambah agar estimasi variasi hasil lebih stabil. Penggunaan seed dan state awal berpasangan mengurangi pengaruh variasi inisialisasi saat membandingkan metode.
 
-Selain jenis instance, faktor lain seperti data paket, truk, fungsi objektif, dan implementasi validasi dijaga tetap sama. Batas penghentian dan konfigurasi spesifik mengikuti definisi masing-masing algoritma; karena satu iterasi pada algoritma berbeda belum tentu setara, jumlah iterasi tidak digunakan sendirian sebagai ukuran biaya lintas algoritma. Durasi pencarian dan jumlah evaluasi fungsi objektif dicatat sebagai ukuran biaya yang lebih langsung. Pengukuran waktu dilakukan pada lingkungan komputasi yang sama, dengan waktu persiapan data dan pembuatan visualisasi dipisahkan dari waktu pencarian.
+Selain jenis instance, faktor lain seperti data paket, truk, fungsi objektif, dan implementasi validasi dijaga tetap sama. Batas penghentian dan konfigurasi spesifik mengikuti definisi masing-masing algoritma. Karena satu iterasi pada algoritma berbeda belum tentu setara, jumlah iterasi tidak digunakan sendirian sebagai ukuran biaya lintas algoritma. Durasi pencarian dan jumlah evaluasi fungsi objektif dicatat sebagai ukuran biaya yang lebih langsung. Pengukuran waktu dilakukan pada lingkungan komputasi yang sama, dengan waktu persiapan data dan pembuatan visualisasi dipisahkan dari waktu pencarian.
 
-Setiap hasil akhir diperiksa kembali menggunakan validator. Run dinyatakan berhasil jika algoritma mengembalikan state valid; pada instance tanpa pemuatan nonkosong yang layak, state akhir harus valid dan tidak memuat paket. State awal dan akhir, seed, nilai objektif, jumlah paket termuat, riwayat pencarian, durasi, serta konfigurasi run disimpan agar hasil dapat direproduksi dan ditelusuri.
+Setiap hasil akhir diperiksa kembali menggunakan validator. Run dinyatakan berhasil jika algoritma mengembalikan state valid. Pada instance tanpa pemuatan nonkosong yang layak, state akhir harus valid dan tidak memuat paket. State awal dan akhir, seed, nilai objektif, jumlah paket termuat, riwayat pencarian, durasi, serta konfigurasi run disimpan agar hasil dapat direproduksi dan ditelusuri.
 
 \subsection{Metrik dan Analisis}
 
-Kualitas hasil dinilai dari nilai objektif akhir dan jumlah paket yang termuat. Ketahanan terhadap constraint dinilai dari proporsi run yang menghasilkan state akhir valid. Konsistensi diukur dengan merangkum nilai objektif dan durasi antarrun menggunakan rata-rata serta simpangan baku; hasil tiap run tetap disajikan agar variasi tidak tersembunyi oleh agregat. Riwayat nilai objektif juga ditampilkan untuk memperlihatkan perkembangan pencarian. Untuk perbandingan lintas algoritma, kurva dapat disejajarkan terhadap jumlah evaluasi objektif atau waktu berjalan, selain menampilkan sumbu iterasi atau generasi yang diwajibkan untuk masing-masing algoritma.
+Kualitas hasil dinilai dari nilai objektif akhir dan jumlah paket yang termuat. Ketahanan terhadap constraint dinilai dari proporsi run yang menghasilkan state akhir valid. Konsistensi diukur dengan merangkum nilai objektif dan durasi antarrun menggunakan rata-rata serta simpangan baku. Hasil tiap run tetap disajikan agar variasi tidak tersembunyi oleh agregat. Riwayat nilai objektif juga ditampilkan untuk memperlihatkan perkembangan pencarian. Untuk perbandingan lintas algoritma, kurva dapat disejajarkan terhadap jumlah evaluasi objektif atau waktu berjalan, selain menampilkan sumbu iterasi atau generasi yang diwajibkan untuk masing-masing algoritma.
 
 Pada kasus tanpa pemuatan nonkosong yang layak, nilai objektif nol saja tidak cukup untuk menyimpulkan perilaku algoritma karena paket bernilai nol dapat saja termuat. Oleh sebab itu, jumlah paket termuat dan validitas state diperiksa bersamaan dengan nilai objektif. Hasil kasus ini dilaporkan sebagai uji ketahanan, terpisah dari perbandingan kualitas solusi pada instance yang dapat dimuat.
 
 \subsection{Studi Ablasi}
 
-Studi ablasi digunakan untuk mengetahui kontribusi pilihan desain terhadap hasil pencarian. Untuk setiap studi, satu konfigurasi acuan dibandingkan dengan beberapa varian konfigurasi. Pada tiap perbandingan, hanya faktor yang sedang diuji yang diubah; instance, state awal, seed, fungsi objektif, constraint, dan anggaran pencarian lainnya dijaga tetap sama. Jika dua faktor diduga saling memengaruhi, interaksinya diuji pada eksperimen terpisah, bukan diubah sekaligus tanpa kontrol.
+Studi ablasi digunakan untuk mengetahui kontribusi pilihan desain terhadap hasil pencarian. Untuk setiap studi, satu konfigurasi acuan dibandingkan dengan beberapa varian konfigurasi. Pada tiap perbandingan, hanya faktor yang sedang diuji yang diubah. Instance, state awal, seed, fungsi objektif, constraint, dan anggaran pencarian lainnya dijaga tetap sama. Jika dua faktor diduga saling memengaruhi, interaksinya diuji pada eksperimen terpisah, bukan diubah sekaligus tanpa kontrol.
 
-Setiap varian dijalankan pada seed yang sama dengan konfigurasi acuannya, sehingga hasil dapat dibandingkan secara berpasangan. Analisis melaporkan perubahan nilai objektif akhir dan durasi terhadap acuan, disertai rata-rata dan simpangan baku serta riwayat pencarian. Dengan protokol ini, studi ablasi menilai apakah perubahan konfigurasi memberi manfaat yang konsisten, bukan hanya hasil yang lebih baik pada satu seed.
+Setiap varian dijalankan dengan seed dan state awal yang sama seperti konfigurasi acuan. Analisis membandingkan nilai objektif akhir dan durasi serta menyajikan rata-rata, simpangan baku, dan riwayat pencarian. Dengan demikian, studi ablasi menunjukkan apakah perubahan konfigurasi memberi hasil yang konsisten pada seed yang diuji.
 
 \subsection{Dataset dan Konfigurasi Eksperimen}
 Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \textit{constraint}, dan fungsi \textit{neighbor} yang sama untuk ketiga algoritma. Spesifikasi tugas tidak menyediakan data paket, sehingga seluruh \textit{instance} bersifat sintetis dan disimpan sebagai \textit{fixture} pada \texttt{tests/fixtures/}. Setiap kategori pada subbab pertama diwujudkan oleh satu atau lebih berkas, dan sifat tiap berkas diperiksa otomatis oleh \texttt{tests/test\_fixtures.py} (misalnya bahwa \texttt{tight-space} hanya berbeda dari \texttt{base} pada dimensi truk, atau bahwa tidak ada paket pada \texttt{infeasible} yang dapat dimuat sendirian).
@@ -47,12 +47,12 @@ Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \tex
         \toprule
         Kategori                  & Berkas                              & Paket & Truk (kapasitas)          & Karakteristik                                                                                                                                           \\
         \midrule
-        Dasar                     & \texttt{base.json}                  & 10    & $8\times6\times4$ (30)    & Dimensi, nilai, berat, ETA, dan kerapuhan bervariasi; total berat 59 melebihi kapasitas sehingga harus dipilih himpunan bagian                          \\
+        Dasar                     & \texttt{base.json}                  & 10    & $8\times6\times4$ (30)    & Dimensi, nilai, berat, ETA, dan kerapuhan bervariasi. Total berat 59 melebihi kapasitas sehingga harus dipilih himpunan bagian                          \\
         \midrule
-        Kendala ketat             & \texttt{tight-space.json}           & 10    & $6\times4\times3$ (30)    & Paket dan kapasitas sama dengan \texttt{base}; hanya dimensi truk diperkecil                                                                            \\
-                                  & \texttt{tight-capacity.json}        & 10    & $8\times6\times4$ (15)    & Paket dan dimensi sama dengan \texttt{base}; hanya kapasitas dikurangi                                                                                  \\
+        Kendala ketat             & \texttt{tight-space.json}           & 10    & $6\times4\times3$ (30)    & Paket dan kapasitas sama dengan \texttt{base}. Hanya dimensi truk diperkecil                                                                            \\
+                                  & \texttt{tight-capacity.json}        & 10    & $8\times6\times4$ (15)    & Paket dan dimensi sama dengan \texttt{base}. Hanya kapasitas dikurangi                                                                                  \\
         \midrule
-        Tanpa pemuatan layak      & \texttt{infeasible.json}            & 10    & $8\times6\times4$ (30)    & Dari \texttt{base}: P01--P05 diberi satu sisi 9 (melebihi sisi terpanjang truk), P06--P10 diberi berat 31 (melebihi kapasitas)                          \\
+        Tanpa pemuatan layak      & \texttt{infeasible.json}            & 10    & $8\times6\times4$ (30)    & Perubahan dari \texttt{base}. Paket P01--P05 diberi satu sisi 9, melebihi sisi terpanjang truk. Paket P06--P10 diberi berat 31, melebihi kapasitas                          \\
         \midrule
         Batas dan struktur khusus & \texttt{boundary/single-package}    & 1     & $4\times4\times4$ (10)    & Satu paket yang muat                                                                                                                                    \\
                                   & \texttt{boundary/rotation-only}     & 2     & $5\times2\times2$ (10)    & Paket $2\times2\times5$ hanya muat setelah rotasi                                                                                                       \\
@@ -60,22 +60,22 @@ Seluruh eksperimen dijalankan dengan representasi \textit{state}, validator \tex
                                   & \texttt{boundary/exact-capacity}    & 4     & $10\times10\times10$ (10) & Optimum (berat $4+3+3$) tepat sama dengan kapasitas                                                                                                     \\
                                   & \texttt{boundary/fragile-support}   & 3     & $2\times2\times2$ (10)    & Paket rapuh boleh berada di atas paket biasa, tetapi tidak boleh menopang                                                                               \\
                                   & \texttt{boundary/zero-value-weight} & 4     & $4\times4\times4$ (5)     & Paket bernilai nol, berbobot nol, dan keduanya nol                                                                                                      \\
-                                  & \texttt{boundary/equal-fitness}     & 6     & $2\times2\times1$ (100)   & Enam paket identik: seleksi tidak punya preferensi                                                                                                      \\
+                                  & \texttt{boundary/equal-fitness}     & 6     & $2\times2\times1$ (100)   & Enam paket identik. Seleksi tidak punya preferensi                                                                                                      \\
         \midrule
-        Masukan tidak valid       & \texttt{invalid/} (8 berkas)        & ---   & ---                       & Dimensi paket nonpositif, panjang, atau bukan bilangan bulat; dimensi truk nonpositif; kapasitas negatif; ID ganda; daftar paket kosong; atribut hilang \\
+        Masukan tidak valid       & \texttt{invalid/} (8 berkas)        & ---   & ---                       & Dimensi paket tidak positif, terlalu panjang, atau bukan bilangan bulat. Dimensi truk tidak positif. Kapasitas negatif. ID ganda. Daftar paket kosong. Atribut hilang \\
         \bottomrule
     \end{tabular}
     \caption{\textit{Fixture} untuk tiap kategori kasus uji}
     \label{tab:fixtures}
 \end{table}
 
-Setiap algoritma dijalankan pada tiga \textit{objective function}: \texttt{total\_value} (fungsi wajib), \texttt{eta\_weighted\_value} (nilai paket dibagi $\text{ETA}+1$, sehingga paket yang mendesak bernilai lebih besar), dan \texttt{compact\_value} (nilai total ditambah bonus kurang dari satu satuan untuk penumpukan yang rendah). Eksperimen dibagi menjadi empat rangkaian.
+Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi wajib. \texttt{eta\_weighted\_value} membagi nilai paket dengan $\text{ETA}+1$, sehingga paket yang mendesak mendapat bobot lebih besar. \texttt{compact\_value} menambahkan bonus kurang dari satu satuan untuk penataan yang lebih rendah. Pengujian dibagi menjadi empat rangkaian.
 
 \begin{enumerate}
     \renewcommand{\labelenumi}{(\arabic{enumi})}
-    \item \textbf{\textit{Benchmark} lintas kategori} (\texttt{src/experiments/run\_benchmark.py}): seluruh algoritma pada seluruh \textit{fixture} valid dengan \texttt{total\_value}, lima \textit{seed} (11--15) dan satu konfigurasi parameter tetap, sehingga $11\ \text{instance} \times 5\ \textit{seed} \times 6\ \text{algoritma} = 330$ \textit{run}. Setiap \textit{run} mencatat validitas \textit{state} akhir, jumlah paket termuat, jumlah evaluasi objektif, dan durasi pencarian. Delapan \textit{fixture} tidak valid diberikan ke \textit{loader} data pada rangkaian yang sama.
-    \item \textbf{Eksperimen per algoritma} pada \texttt{base} dengan ketiga \textit{objective} dan tiga \textit{seed} (11--13), sesuai kebutuhan evaluasi tugas: empat varian \textit{hill climbing}, tiga \textit{run} SA, serta dua \textit{sweep} GA (generasi dan populasi). Perbandingan antar-\textit{objective} diulang pada \texttt{tight-capacity} dengan konfigurasi yang sama untuk melihat apakah kesimpulannya bergantung pada \textit{instance}.
-    \item \textbf{Analisis GA lintas fixture dan parameter} pada \texttt{total\_value}: baseline untuk seluruh 11 fixture valid dan tiga \textit{sweep} satu-faktor-pada-satu-waktu pada \texttt{base}, masing-masing memakai lima \textit{seed} (11--15). Baseline memakai populasi 20, 40 generasi, dan laju mutasi 0,05; parameter yang disapu adalah ukuran populasi $\{10,20,40\}$, jumlah generasi $\{20,40,80\}$, dan laju mutasi $\{0;0,05;0,20\}$.
+    \item \textbf{\textit{Benchmark} lintas kategori} (\texttt{src/experiments/run\_benchmark.py}). Seluruh algoritma pada seluruh \textit{fixture} valid dengan \texttt{total\_value}, lima \textit{seed} (11--15) dan satu konfigurasi parameter tetap, sehingga $11\ \text{instance} \times 5\ \textit{seed} \times 6\ \text{algoritma} = 330$ \textit{run}. Setiap \textit{run} mencatat validitas \textit{state} akhir, jumlah paket termuat, jumlah evaluasi objektif, dan durasi pencarian. Delapan \textit{fixture} tidak valid diberikan ke \textit{loader} data pada rangkaian yang sama.
+    \item \textbf{Eksperimen per algoritma} pada \texttt{base} dengan tiga fungsi objektif dan tiga \textit{seed} (11--13), sesuai kebutuhan tugas. Pengujian mencakup empat varian \textit{hill climbing}, tiga \textit{run} SA, dan dua \textit{sweep} GA untuk generasi serta populasi. Perbandingan fungsi objektif juga diulang pada \texttt{tight-capacity} dengan konfigurasi yang sama.
+    \item \textbf{Analisis GA lintas fixture dan parameter} dengan \texttt{total\_value}. Baseline dijalankan pada 11 fixture valid. Tiga \textit{sweep} satu faktor dilakukan pada \texttt{base} dengan lima \textit{seed} (11--15). Baseline memakai populasi 20 dan 40 generasi dengan laju mutasi 0,05. Nilai yang diuji untuk populasi adalah $\{10,20,40\}$, untuk generasi $\{20,40,80\}$, dan untuk laju mutasi $\{0 / 0{,}05 / 0{,}20\}$.
     \item \textbf{Studi ablasi GA} pada \texttt{base} dengan \texttt{total\_value} dan lima \textit{seed} (11--15).
 \end{enumerate}
 
@@ -85,18 +85,18 @@ Setiap algoritma dijalankan pada tiga \textit{objective function}: \texttt{total
         \toprule
         Algoritma                    & Parameter                                                                                                                                                                                                                                                                                              \\
         \midrule
-        \textit{Hill climbing}       & 4 varian; \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, \texttt{max\_restarts}\,=\,10                                                                                                                                                  \\
+        \textit{Hill climbing}       & Empat varian dengan \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, dan \texttt{max\_restarts}\,=\,10                                                                                                                                                  \\
         \textit{Simulated annealing} & \texttt{max\_iterations}\,=\,3000, $T_0=100$, \texttt{cooling\_rate}\,=\,0,995, \texttt{stuck\_patience}\,=\,100                                                                                                                                                                                       \\
-        \textit{Genetic algorithm}   & Baseline: populasi 20, 40 generasi, \textit{mutation rate} 0,05. \textit{Sweep} terpisah: populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, dan \textit{mutation rate} $\{0;0,05;0,20\}$, dengan parameter lain tetap pada baseline; seleksi \textit{roulette-wheel}. Ablasi: populasi 20, 50 generasi \\
+        \textit{Genetic algorithm}   & Baseline memakai populasi 20 dan 40 generasi dengan \textit{mutation rate} 0,05. \textit{Sweep} menguji populasi $\{10,20,40\}$, generasi $\{20,40,80\}$, serta laju mutasi $\{0 / 0{,}05 / 0{,}20\}$ dengan parameter lain tetap. Seleksi memakai \textit{roulette-wheel}. Ablasi memakai populasi 20 dan 50 generasi \\
         \bottomrule
     \end{tabular}
     \caption{Konfigurasi parameter eksperimen}
     \label{tab:konfigurasi}
 \end{table}
 
-\textit{State} awal setiap \textit{run} dibangkitkan secara acak dari \textit{seed} yang sama (\textit{seed} dikenai XOR dengan konstanta tetap), sehingga ketiga algoritma dan ketiga \textit{objective} memulai dari \textit{state} yang identik. Pada \texttt{base}, nilai total \textit{state} awal untuk \textit{seed} 11 sampai 15 berturut-turut adalah 330, 285, 320, 275, dan 275; pada \texttt{tight-capacity} untuk \textit{seed} 11 sampai 13 adalah 155, 155, dan 160. Pada GA, \textit{state} awal menjadi anggota pertama populasi. Karena hanya ada tiga atau lima \textit{seed}, simpangan baku (simpangan baku sampel, dihitung ulang dari nilai tiap \textit{run}) harus dibaca sebagai gambaran sebaran kasar, bukan hasil uji statistik.
+\textit{State} awal setiap \textit{run} dibangkitkan secara acak dari \textit{seed} yang sama (\textit{seed} dikenai XOR dengan konstanta tetap), sehingga ketiga algoritma dan ketiga \textit{objective} memulai dari \textit{state} yang identik. Pada \texttt{base}, nilai total \textit{state} awal untuk \textit{seed} 11 sampai 15 berturut-turut adalah 330, 285, 320, 275, dan 275. Pada \texttt{tight-capacity} untuk \textit{seed} 11 sampai 13 adalah 155, 155, dan 160. Pada GA, \textit{state} awal menjadi anggota pertama populasi. Karena hanya ada tiga atau lima \textit{seed}, simpangan baku (simpangan baku sampel, dihitung ulang dari nilai tiap \textit{run}) harus dibaca sebagai gambaran sebaran kasar, bukan hasil uji statistik.
 
-Nilai optimum sebagai acuan: relaksasi yang hanya memperhatikan kapasitas berat (masalah \textit{knapsack}, dihitung dengan enumerasi) memberi batas atas 335 untuk \texttt{base} dan 175 untuk \texttt{tight-capacity}. Kedua batas ini tercapai oleh \textit{run} yang valid, sehingga 335 dan 175 adalah optimum sebenarnya. Pada \texttt{tight-space} batas atas yang sama (335) tidak tercapai oleh \textit{run} mana pun; nilai terbaik yang ditemukan adalah 300, dan apakah itu optimum tidak diketahui. Pada tabel berikutnya, ``terbaik'' berarti nilai tertinggi yang ditemukan oleh seluruh \textit{run} pada \textit{instance} tersebut.
+Nilai optimum sebagai acuan. Relaksasi yang hanya memperhatikan kapasitas berat (masalah \textit{knapsack}, dihitung dengan enumerasi) memberi batas atas 335 untuk \texttt{base} dan 175 untuk \texttt{tight-capacity}. Kedua batas ini tercapai oleh \textit{run} yang valid, sehingga 335 dan 175 adalah optimum sebenarnya. Pada \texttt{tight-space} batas atas yang sama (335) tidak tercapai oleh \textit{run} mana pun. Nilai terbaik yang ditemukan adalah 300, dan apakah itu optimum tidak diketahui. Pada tabel berikutnya, ``terbaik'' berarti nilai tertinggi yang ditemukan oleh seluruh \textit{run} pada \textit{instance} tersebut.
 
 \section{Hasil Eksperimen dan Analisis tiap Algoritma}
 
@@ -121,9 +121,9 @@ Hasil \textit{hill climbing} dan SA pada bagian ini menggunakan \texttt{base} de
     \label{tab:hc-total}
 \end{table}
 
-Nilai akhir per \textit{seed} (11, 12, 13) dari \textit{state} awal bernilai 330, 285, dan 320 adalah 330, 285, 335 untuk \textit{steepest}; 335, 285, 335 untuk \textit{sideways}; 330, 290, 335 untuk \textit{stochastic}; dan 335, 330, 335 untuk \textit{random restart}. \textit{Seed} 12 adalah kasus tersulit: \textit{state} awalnya (lima paket termuat, bernilai 285) adalah \textit{local optimum} bagi \textit{steepest} dan \textit{sideways}, yang masing-masing berhenti pada iterasi ke-0 dan menghabiskan 100 \textit{sideways move} tanpa perbaikan; \textit{stochastic} hanya naik ke 290 dalam 1000 iterasi. Pada \textit{seed} 11, \textit{steepest} dan \textit{stochastic} tidak menemukan perbaikan dari 330 sedangkan \textit{sideways} mencapai 335 melalui gerakan setara, dan pada \textit{seed} 13 semua varian naik dari 320 ke 335. Dengan kata lain, \textit{base} memiliki beberapa \textit{local optimum} yang tidak dapat ditinggalkan oleh gerakan tunggal \textit{swap}, \textit{move}, atau rotasi yang diterima hanya jika tidak lebih buruk.
+Nilai akhir per \textit{seed} 11, 12, dan 13 untuk \textit{steepest} adalah 330, 285, dan 335. Nilai untuk \textit{sideways} adalah 335, 285, dan 335, untuk \textit{stochastic} adalah 330, 290, dan 335, sedangkan \textit{random restart} menghasilkan 335, 330, dan 335. \textit{Seed} 12 menjadi kasus tersulit. Nilai awalnya 285 dengan lima paket termuat dan merupakan \textit{local optimum} bagi \textit{steepest} serta \textit{sideways}. Varian pertama berhenti pada iterasi ke-0, sedangkan varian kedua memakai 100 \textit{sideways move} tanpa perbaikan. \textit{Stochastic} hanya mencapai 290 setelah 1000 iterasi. Pada \textit{seed} 11, \textit{steepest} dan \textit{stochastic} tidak memperbaiki nilai awal 330, sementara \textit{sideways} mencapai 335 melalui gerakan setara. Semua varian mencapai 335 pada \textit{seed} 13. Hasil ini menunjukkan bahwa gerakan tunggal \textit{swap}, \textit{move}, atau rotasi yang tidak boleh menurunkan nilai dapat membuat pencarian menetap pada optimum lokal.
 
-\textit{Random restart} adalah satu-satunya varian yang tidak tersangkut pada \textit{seed} 12 (330) dan mencapai 335 pada dua \textit{seed} lain, sehingga simpangan bakunya turun dari sekitar 25--29 menjadi 2,89. Sepuluh pendakian tambahan dari \textit{state} acak memberi peluang untuk mendarat di cekungan yang berbeda; iterasi rata-ratanya kecil (1,67) karena sebagian besar pendakian segera berhenti. Durasinya (0,15 detik) berada di antara \textit{steepest} dan \textit{sideways}.
+\textit{Random restart} adalah satu-satunya varian yang tidak tersangkut pada \textit{seed} 12 (330) dan mencapai 335 pada dua \textit{seed} lain, sehingga simpangan bakunya turun dari sekitar 25--29 menjadi 2,89. Sepuluh pendakian tambahan dari \textit{state} acak memberi peluang untuk mendarat di cekungan yang berbeda. Iterasi rata-ratanya kecil (1,67) karena sebagian besar pendakian segera berhenti. Durasinya (0,15 detik) berada di antara \textit{steepest} dan \textit{sideways}.
 
 \begin{figure}[H]
     \centering
@@ -134,7 +134,7 @@ Nilai akhir per \textit{seed} (11, 12, 13) dari \textit{state} awal bernilai 330
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{figures/base/hc-states-steepest-seed12.png}
-    \caption{\textit{State} awal dan akhir \textit{steepest} pada \textit{seed} 12: kedua \textit{state} bernilai 285}
+    \caption{\textit{State} awal dan akhir \textit{steepest} pada \textit{seed} 12. Kedua \textit{state} bernilai 285}
 \end{figure}
 
 \subsubsection{Fungsi objektif \texttt{eta\_weighted\_value}}
@@ -154,7 +154,7 @@ Nilai akhir per \textit{seed} (11, 12, 13) dari \textit{state} awal bernilai 330
     \label{tab:hc-eta}
 \end{table}
 
-Pada \texttt{eta\_weighted\_value}, \textit{sideways} mencapai nilai terbaik (116,33) pada ketiga \textit{seed}, sedangkan \textit{random restart} mencapainya hanya pada satu dari tiga \textit{seed} (116,33; 115,00; 113,33). Ini satu-satunya kombinasi \textit{instance} dan \textit{objective} pada eksperimen per algoritma di mana \textit{random restart} bukan yang terbaik; penyebabnya belum diselidiki, dan dengan tiga \textit{seed} selisih 1,4 poin ini dapat berasal dari \textit{noise}. Himpunan paket yang dipilih juga berbeda dari \texttt{total\_value}: nilai total paket pada \textit{state} akhir hanya 298--310, di bawah 335 yang dapat dicapai (dibahas pada subbab \textit{objective function}).
+Pada \texttt{eta\_weighted\_value}, \textit{sideways} mencapai nilai terbaik 116,33 pada ketiga \textit{seed}. \textit{Random restart} memperoleh 116,33, 115,00, dan 113,33. Ini satu-satunya kombinasi \textit{instance} dan \textit{objective} dalam eksperimen per algoritma ketika \textit{random restart} bukan yang terbaik. Penyebabnya belum diselidiki. Dengan tiga \textit{seed}, selisih 1,4 poin dapat berasal dari \textit{noise}. Himpunan paket yang dipilih juga berbeda dari hasil \texttt{total\_value}. Nilai total paket pada \textit{state} akhir hanya 298--310, di bawah 335 yang dapat dicapai dan dibahas pada subbab fungsi objektif.
 
 \subsubsection{Fungsi objektif \texttt{compact\_value}}
 \begin{table}[H]
@@ -173,7 +173,7 @@ Pada \texttt{eta\_weighted\_value}, \textit{sideways} mencapai nilai terbaik (11
     \label{tab:hc-compact}
 \end{table}
 
-Berbeda dari \texttt{total\_value}, \texttt{compact\_value} memberi gradien kecil pada dataran sehingga \textit{sideways} naik dari 318,33 menjadi 328,76 dan \textit{stochastic} dari 318,33 menjadi 322,03: pada \textit{seed} 12 keduanya meninggalkan \textit{state} 285 karena ada gerakan yang menurunkan tumpukan (iterasi \textit{random restart} juga naik dari 1,67 menjadi 18,33). \textit{Steepest} tidak terbantu (316,91) karena hanya menerima perbaikan sedikit demi sedikit dari sampel 30 \textit{neighbor}. \textit{Random restart} tetap yang terbaik (331,98). Nilai terbaik 335,380 pada \textit{sideways} melebihi 335 karena bonus kepadatan lebih besar pada penataan yang lebih rendah, bukan karena paket tambahan: bonus dirancang selalu kurang dari satu satuan nilai.
+Berbeda dari \texttt{total\_value}, \texttt{compact\_value} memberi gradien kecil pada dataran sehingga \textit{sideways} naik dari 318,33 menjadi 328,76 dan \textit{stochastic} dari 318,33 menjadi 322,03. Pada \textit{seed} 12 keduanya meninggalkan \textit{state} 285 karena ada gerakan yang menurunkan tumpukan (iterasi \textit{random restart} juga naik dari 1,67 menjadi 18,33). \textit{Steepest} tidak terbantu (316,91) karena hanya menerima perbaikan sedikit demi sedikit dari sampel 30 \textit{neighbor}. \textit{Random restart} tetap yang terbaik (331,98). Nilai terbaik 335,380 pada \textit{sideways} melebihi 335 karena bonus kepadatan lebih besar pada penataan yang lebih rendah, bukan karena paket tambahan. Bonus dirancang selalu kurang dari satu satuan nilai.
 
 \begin{figure}[H]
     \centering
@@ -199,9 +199,9 @@ Berbeda dari \texttt{total\_value}, \texttt{compact\_value} memberi gradien keci
     \label{tab:sa}
 \end{table}
 
-Dengan \texttt{total\_value}, SA mencapai 335 pada \textit{seed} 11 dan 13 dan 320 pada \textit{seed} 12 (rata-rata 330). \textit{Seed} 12 berawal dari 285 dan menjadi \textit{state} awal tersulit bagi hampir semua algoritma; SA berhasil keluar dari \textit{local optimum} tersebut dan naik ke 320, lebih tinggi daripada \textit{steepest} dan \textit{sideways} (285) maupun \textit{stochastic} (290), tetapi belum mencapai 335. Riwayat nilai \textit{state} saat ini menunjukkan SA menerima \textit{state} yang jauh lebih buruk pada suhu tinggi (nilai minimum yang dikunjungi 245 pada \textit{seed} 12 dan 255 pada \textit{seed} 11) sebelum menyempit ke satu cekungan seiring pendinginan $0{,}995^{3000}\approx 3\times10^{-7}$. Hasil akhir adalah \textit{state} terbaik yang pernah dikunjungi, bukan \textit{state} saat pencarian berhenti. Jumlah kejadian \textit{stuck} (nilai terbaik tidak berubah selama 100 iterasi berturut-turut) rata-rata 2 per \textit{run} (2, 3, dan 1 pada \textit{seed} 11, 12, dan 13).
+Dengan \texttt{total\_value}, SA mencapai 335 pada \textit{seed} 11 dan 13 serta 320 pada \textit{seed} 12, dengan rata-rata 330. \textit{Seed} 12 berawal dari 285 dan menjadi kasus tersulit bagi hampir semua algoritma. SA keluar dari \textit{local optimum} tersebut dan naik ke 320. Hasil ini lebih tinggi daripada \textit{steepest} dan \textit{sideways} yang berhenti pada 285, serta \textit{stochastic} yang mencapai 290. Namun, SA belum mencapai 335. Riwayat nilai saat ini menunjukkan bahwa SA menerima solusi jauh lebih buruk saat suhu tinggi. Nilai minimum yang dikunjungi adalah 245 pada \textit{seed} 12 dan 255 pada \textit{seed} 11. Seiring pendinginan $0{,}995^{3000}\approx 3\times10^{-7}$, pencarian menyempit ke satu cekungan. Hasil akhir menyimpan solusi terbaik yang pernah dikunjungi, bukan solusi saat pencarian berhenti. Jumlah kejadian \textit{stuck}, saat nilai terbaik tidak berubah selama 100 iterasi berturut-turut, rata-rata 2 per \textit{run}. Nilainya 2, 3, dan 1 untuk \textit{seed} 11, 12, dan 13.
 
-Biayanya adalah durasi: SA selalu menjalankan seluruh 3000 iterasi tanpa kondisi berhenti dini, sehingga sekitar 0,4 detik per \textit{run}, kira-kira 2,5 kali \textit{random restart} dan 74 kali \textit{steepest}.
+Biaya utama SA adalah waktu pencarian. Algoritma selalu menjalankan 3000 iterasi tanpa berhenti dini, dengan durasi sekitar 0,4 detik per \textit{run}. Durasi ini sekitar 2,5 kali durasi \textit{random restart} dan 74 kali durasi \textit{steepest}.
 
 \begin{figure}[H]
     \centering
@@ -218,10 +218,10 @@ Biayanya adalah durasi: SA selalu menjalankan seluruh 3000 iterasi tanpa kondisi
 \end{figure}
 
 \subsubsection{Fungsi objektif \texttt{eta\_weighted\_value}}
-Ketiga \textit{seed} menghasilkan 116,33 (simpangan baku 0), sama dengan nilai terbaik yang ditemukan \textit{hill climbing}. Himpunan paket yang terpilih berbeda dari \texttt{total\_value}: nilai total paketnya 305, bukan 335, tetapi skor ETA-nya 116,33 dibandingkan 93,45 bila \textit{state} hasil \texttt{total\_value} diberi skor yang sama (naik sekitar 24\%). Jumlah kejadian \textit{stuck} rata-rata 4, dua kali lipat \texttt{total\_value}; kemungkinan karena skala \textit{objective} yang lebih kecil membuat suhu awal 100 relatif lebih panas, tetapi hal ini belum diuji dengan variasi $T_0$. Durasi (0,375 detik) setara dengan \texttt{total\_value}.
+Ketiga \textit{seed} menghasilkan 116,33 dengan simpangan baku 0, sama dengan nilai terbaik yang ditemukan \textit{hill climbing}. Himpunan paket berbeda dari hasil \texttt{total\_value}. Nilai total paketnya 305, bukan 335, tetapi skor ETA mencapai 116,33 dibandingkan 93,45 ketika state hasil \texttt{total\_value} dinilai dengan fungsi ETA, atau naik sekitar 24\%. Jumlah kejadian \textit{stuck} rata-rata 4, dua kali lipat hasil \texttt{total\_value}. Salah satu kemungkinan penyebabnya adalah skala objektif yang lebih kecil membuat suhu awal 100 relatif lebih tinggi. Pengaruh suhu belum diuji dengan variasi $T_0$. Durasi 0,375 detik setara dengan \texttt{total\_value}.
 
 \subsubsection{Fungsi objektif \texttt{compact\_value}}
-Nilai akhir per \textit{seed} adalah 330,449; 330,410; dan 335,254 (rata-rata 332,04). Rata-rata kepadatan hasil SA naik dari 0,250 pada \texttt{total\_value} menjadi 0,375, sehingga bonus kepadatan menggeser penataan ke tumpukan yang lebih rendah; nilai total paketnya per \textit{seed} adalah 330, 330, dan 335 (rata-rata 331,67) dibandingkan 335, 320, dan 335 pada \texttt{total\_value}; selisih rata-rata 1,67 ini berbeda arah antar-\textit{seed} dan berada dalam \textit{noise}. Durasi rata-rata 0,568 detik, sekitar 46\% lebih lama dibanding 0,390 detik pada \texttt{total\_value} (selisih ini lebih dari simpangan baku keduanya; penyebabnya belum diselidiki).
+Nilai akhir pada tiga \textit{seed} adalah 330,449, 330,410, dan 335,254. Rata-ratanya 332,04. Kepadatan rata-rata hasil SA naik dari 0,250 pada \texttt{total\_value} menjadi 0,375, sehingga bonus kepadatan mendorong penataan ke tumpukan yang lebih rendah. Nilai total paket pada masing-masing \textit{seed} adalah 330, 330, dan 335, dengan rata-rata 331,67. Sebagai pembanding, \texttt{total\_value} menghasilkan 335, 320, dan 335. Selisih rata-rata 1,67 berbeda arah antar-seed dan dapat berasal dari \textit{noise}. Durasi rata-rata mencapai 0,568 detik, sekitar 46\% lebih lama daripada 0,390 detik pada \texttt{total\_value}. Penyebab perbedaan durasi ini belum diselidiki.
 
 \begin{figure}[H]
     \centering
@@ -233,14 +233,14 @@ Nilai akhir per \textit{seed} adalah 330,449; 330,410; dan 335,254 (rata-rata 33
 
 \subsubsection{Protokol dan hasil baseline lintas kasus}
 
-Baseline GA dijalankan pada seluruh 11 \textit{fixture} valid dengan \texttt{total\_value}, populasi 20, 40 generasi, \textit{mutation rate} 0,05, dan lima \textit{seed} (11--15), menghasilkan 55 \textit{run}. Untuk setiap pasangan fixture--seed, state awal dibuat dengan seed turunan yang sama, $s_0=s\oplus\texttt{0x5EED}$. Evaluasi objektif berjumlah 820 per run, sesuai $(40+1)\times20$. Seluruh state akhir lolos validasi (100\%); pada fixture \texttt{infeasible}, kelima run mengembalikan state kosong yang valid dengan nilai 0 dan nol paket termuat.
+Baseline GA dijalankan pada seluruh 11 \textit{fixture} valid dengan \texttt{total\_value}, populasi 20, 40 generasi, \textit{mutation rate} 0,05, dan lima \textit{seed} (11--15), sehingga menghasilkan 55 \textit{run}. Untuk setiap pasangan fixture dan seed, state awal dibuat dari seed turunan yang sama, $s_0=s\oplus\texttt{0x5EED}$. Setiap run melakukan 820 evaluasi objektif, sesuai $(40+1)\times20$. Seluruh state akhir lolos validasi. Pada fixture \texttt{infeasible}, kelima run mengembalikan state kosong yang valid dengan nilai 0 dan tanpa paket termuat.
 
 Tabel~\ref{tab:ga-fixture-baseline} merangkum nilai akhir, variasi antarseed, paket termuat, serta waktu pencarian. Nilai terbaik pada tabel adalah maksimum hasil run yang benar-benar diamati, bukan klaim optimum global. Kasus tanpa pemuatan layak dilaporkan sebagai pemeriksaan validitas, bukan sebagai perbandingan kualitas dengan kasus yang dapat dimuat.
 
 \begin{table}[H]
     \centering
     \small
-    \caption{Baseline GA pada seluruh fixture valid; rata-rata dan simpangan baku sampel dari lima seed}
+    \caption{Baseline GA pada seluruh fixture valid. Rata-rata dan simpangan baku sampel dari lima seed}
     \label{tab:ga-fixture-baseline}
     \begin{tabular}{@{}lrrrrr@{}}
         \toprule
@@ -261,18 +261,18 @@ Tabel~\ref{tab:ga-fixture-baseline} merangkum nilai akhir, variasi antarseed, pa
     \end{tabular}
 \end{table}
 
-Perbedaan terhadap kasus dasar terlihat pada ruang truk yang dipersempit: rata-rata \texttt{tight-space} turun dari 331 pada \texttt{base} menjadi 274, dan simpangan bakunya 10,84 merupakan yang terbesar di antara 11 fixture. Nilai terbaik yang ditemukan pada lima seed adalah 290. Sebaliknya, nilai pada \texttt{tight-capacity} mendekati batas nilai berbasis kapasitas 175, tetapi tidak semua seed mencapainya. Fixture batas berukuran kecil mencapai nilai yang sama pada kelima seed; konsistensi tersebut menunjukkan bahwa kasus-kasus sederhana ini terjangkau oleh konfigurasi GA, bukan bahwa algoritma selalu menemukan optimum pada instance lain.
+Perbedaan terhadap kasus dasar terlihat pada ruang truk yang dipersempit. Rata-rata \texttt{tight-space} turun dari 331 pada \texttt{base} menjadi 274, dan simpangan bakunya 10,84 merupakan yang terbesar di antara 11 fixture. Nilai terbaik yang ditemukan pada lima seed adalah 290. Sebaliknya, nilai pada \texttt{tight-capacity} mendekati batas nilai berbasis kapasitas 175, tetapi tidak semua seed mencapainya. Fixture batas berukuran kecil mencapai nilai yang sama pada kelima seed. Konsistensi tersebut menunjukkan bahwa kasus-kasus sederhana ini terjangkau oleh konfigurasi GA, bukan bahwa algoritma selalu menemukan optimum pada instance lain.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.92\textwidth]{figures/ga-analysis/fixture-summary.png}
-    \caption{Rata-rata nilai terbaik yang ditemukan pada tiap fixture; batang galat menunjukkan satu simpangan baku sampel}
+    \caption{Rata-rata nilai terbaik yang ditemukan pada tiap fixture. Batang galat menunjukkan satu simpangan baku sampel}
     \label{fig:ga-fixture-summary}
 \end{figure}
 
 \subsubsection{Contoh keluaran dan visualisasi state}
 
-Tabel~\ref{tab:ga-representative} memperlihatkan hasil konkret dari run dengan seed 11, satu run representatif yang dipilih konsisten sebelum melihat perbandingan antarparameter. Kolom paket menunjukkan assignment pada state akhir, bukan seluruh kandidat yang diperiksa GA. Pada \texttt{base}, nilai awal sudah 330 sehingga run tersebut tidak meningkat; pada \texttt{tight-space} dan \texttt{tight-capacity}, pencarian memperbaiki nilai awal. Kasus \texttt{rotation-only} memuat paket \texttt{long} setelah rotasi, sementara kasus \texttt{infeasible} tetap kosong.
+Tabel~\ref{tab:ga-representative} memperlihatkan hasil konkret dari run dengan seed 11, satu run representatif yang dipilih konsisten sebelum melihat perbandingan antarparameter. Kolom paket menunjukkan assignment pada state akhir, bukan seluruh kandidat yang diperiksa GA. Pada \texttt{base}, nilai awal sudah 330 sehingga run tersebut tidak meningkat. Pada \texttt{tight-space} dan \texttt{tight-capacity}, pencarian memperbaiki nilai awal. Kasus \texttt{rotation-only} memuat paket \texttt{long} setelah rotasi, sementara kasus \texttt{infeasible} tetap kosong.
 
 \begin{table}[H]
     \centering
@@ -328,7 +328,7 @@ Gambar~\ref{fig:ga-state-examples} memperlihatkan perubahan penempatan sebelum d
 
 \subsubsection{Pengaruh parameter GA}
 
-Pengaruh ukuran populasi, jumlah generasi, dan laju mutasi diuji secara terpisah pada \texttt{base}. Setiap nilai parameter dijalankan dengan lima seed yang sama dan derivasi state awal yang sama; parameter lain dipertahankan pada baseline. Tabel~\ref{tab:ga-parameter-sweeps} melaporkan rata-rata nilai terbaik yang ditemukan, simpangan baku sampel, maksimum hasil run, durasi, dan jumlah evaluasi.
+Pengaruh ukuran populasi, jumlah generasi, dan laju mutasi diuji secara terpisah pada \texttt{base}. Setiap nilai parameter dijalankan dengan lima seed yang sama dan derivasi state awal yang sama. Parameter lain dipertahankan pada baseline. Tabel~\ref{tab:ga-parameter-sweeps} melaporkan rata-rata nilai terbaik yang ditemukan, simpangan baku sampel, maksimum hasil run, durasi, dan jumlah evaluasi.
 
 \begin{table}[H]
     \centering
@@ -354,13 +354,13 @@ Pengaruh ukuran populasi, jumlah generasi, dan laju mutasi diuji secara terpisah
     \end{tabular}
 \end{table}
 
-Ukuran populasi memberi tren kualitas yang paling jelas pada rentang yang diuji: rata-rata naik dari 327 menjadi 333 saat populasi bertambah dari 10 ke 40, sementara durasi rata-rata meningkat sekitar lima kali (0,295 menjadi 1,553 detik). Namun, nilai terbaik yang pernah ditemukan tetap 335 pada ketiga ukuran populasi, sehingga keuntungan yang terlihat adalah konsistensi rata-rata, bukan batas solusi baru. Karena hanya lima seed yang diuji, tren ini bersifat deskriptif dan tidak membuktikan perbedaan statistik.
+Ukuran populasi memberi tren kualitas yang paling jelas pada rentang yang diuji. Rata-rata naik dari 327 menjadi 333 saat populasi bertambah dari 10 ke 40, sementara durasi rata-rata meningkat sekitar lima kali (0,295 menjadi 1,553 detik). Namun, nilai terbaik yang pernah ditemukan tetap 335 pada ketiga ukuran populasi, sehingga keuntungan yang terlihat adalah konsistensi rata-rata, bukan batas solusi baru. Karena hanya lima seed yang diuji, tren ini bersifat deskriptif dan tidak membuktikan perbedaan statistik.
 
-Menambah generasi dari 20 menjadi 40 menaikkan rata-rata hanya satu poin (330 ke 331), sedangkan dari 40 ke 80 tidak menambah rata-rata maupun nilai terbaik; durasi naik dari 0,665 menjadi 0,935 detik. Ini menunjukkan stagnasi hasil pada seed dan rentang generasi ini, bukan bahwa tambahan generasi tidak pernah berguna. Jumlah evaluasi bertambah proporsional dengan ukuran populasi dan banyak generasi karena setiap generasi mengevaluasi seluruh populasi.
+Menambah generasi dari 20 menjadi 40 menaikkan rata-rata hanya satu poin (330 ke 331), sedangkan dari 40 ke 80 tidak menambah rata-rata maupun nilai terbaik. Durasi naik dari 0,665 menjadi 0,935 detik. Ini menunjukkan stagnasi hasil pada seed dan rentang generasi ini, bukan bahwa tambahan generasi tidak pernah berguna. Jumlah evaluasi bertambah proporsional dengan ukuran populasi dan banyak generasi karena setiap generasi mengevaluasi seluruh populasi.
 
-Laju mutasi 0,05 memberi rata-rata tertinggi (331) dan satu run mencapai 335; tanpa mutasi seluruh lima run berakhir pada 330. Laju 0,20 menurunkan rata-rata menjadi 328 dan menghasilkan sebaran lebih lebar (SD 4,47). Pada instance ini, hasil konsisten dengan mutasi moderat membantu mempertahankan variasi yang berguna, sedangkan laju lebih tinggi dapat mengganggu kombinasi yang baik; lima seed belum cukup untuk menyimpulkan hubungan umum.
+Laju mutasi 0,05 memberi rata-rata tertinggi (331) dan satu run mencapai 335. Tanpa mutasi seluruh lima run berakhir pada 330. Laju 0,20 menurunkan rata-rata menjadi 328 dan menghasilkan sebaran lebih lebar (SD 4,47). Pada instance ini, hasil konsisten dengan mutasi moderat membantu mempertahankan variasi yang berguna, sedangkan laju lebih tinggi dapat mengganggu kombinasi yang baik. Lima seed belum cukup untuk menyimpulkan hubungan umum.
 
-Gambar~\ref{fig:ga-parameter-sweeps} memperlihatkan hubungan kualitas dan biaya untuk ketiga sweep. Riwayat pencarian per run disimpan terpisah pada berkas JSON; grafik di sini menekankan nilai akhir dan durasi agar dampak parameter mudah dibandingkan.
+Gambar~\ref{fig:ga-parameter-sweeps} memperlihatkan hubungan kualitas dan biaya untuk ketiga sweep. Riwayat pencarian per run disimpan terpisah pada berkas JSON. Grafik di sini menekankan nilai akhir dan durasi agar dampak parameter mudah dibandingkan.
 
 \begin{figure}[H]
     \centering
@@ -375,17 +375,17 @@ Gambar~\ref{fig:ga-parameter-sweeps} memperlihatkan hubungan kualitas dan biaya 
     \end{subfigure}
 
     \includegraphics[width=0.78\textwidth]{figures/ga-analysis/mutation-sweep.png}
-    \caption{Pengaruh parameter terhadap nilai terbaik dan durasi rata-rata (batang galat: $\pm1$ SD)}
+    \caption{Pengaruh parameter terhadap nilai terbaik dan durasi rata-rata. Batang galat menunjukkan $\pm1$ SD}
     \label{fig:ga-parameter-sweeps}
 \end{figure}
 
-Eksperimen ini menggunakan satu fixture untuk sweep parameter dan lima seed, sehingga hasilnya belum menunjukkan konfigurasi terbaik untuk semua kategori. Waktu yang dilaporkan adalah durasi algoritma pada lingkungan lokal yang sama, tetapi dapat berubah akibat beban mesin; seluruh 100 keluaran per-run, parameter, riwayat objective, dan state awal/akhir disimpan di \texttt{output/ga-analysis/}. Eksperimen dapat direproduksi dengan menjalankan \texttt{python -m src.experiments.ga.results\_analysis} dari root repositori.
+Eksperimen ini menggunakan satu fixture untuk sweep parameter dan lima seed, sehingga hasilnya belum menunjukkan konfigurasi terbaik untuk semua kategori. Waktu yang dilaporkan adalah durasi algoritma pada lingkungan lokal yang sama, tetapi dapat berubah akibat beban mesin. Seluruh 100 keluaran per-run, parameter, riwayat objective, dan state awal/akhir disimpan di \texttt{output/ga-analysis/}. Eksperimen dapat direproduksi dengan menjalankan \texttt{python -m src.experiments.ga.results\_analysis} dari root repositori.
 
 \section{Analisis Keseluruhan}
 
 \subsection{Perbandingan Antar-Algoritma pada Seluruh Kategori}
 
-Seluruh 330 \textit{run} \textit{benchmark} menghasilkan \textit{state} akhir yang valid menurut validator (proporsi valid 100\%), termasuk 30 \textit{run} pada \texttt{infeasible} yang seluruhnya berakhir dengan nol paket termuat dan nilai 0. Kualitas dibandingkan pada \textit{instance} yang dapat dimuat berikut; Tabel~\ref{tab:bench-main} merangkum kasus dasar dan kendala ketat, dan Tabel~\ref{tab:bench-boundary} merangkum kasus batas.
+Seluruh 330 \textit{run} \textit{benchmark} menghasilkan \textit{state} akhir yang dinyatakan valid oleh validator. Proporsi valid mencapai 100\%. Ketiga puluh \textit{run} pada \texttt{infeasible} berakhir dengan state kosong yang valid, tanpa paket termuat, dan bernilai 0. Perbandingan kualitas hanya mencakup \textit{instance} yang dapat dimuat. Tabel~\ref{tab:bench-main} merangkum kasus dasar dan kendala ketat. Tabel~\ref{tab:bench-boundary} merangkum kasus batas.
 
 \begin{table}[H]
     \centering
@@ -403,7 +403,7 @@ Seluruh 330 \textit{run} \textit{benchmark} menghasilkan \textit{state} akhir ya
     \label{tab:bench-main}
 \end{table}
 
-Frekuensi mencapai nilai terbaik (dari lima \textit{seed}) pada \texttt{base} adalah 1, 2, 1, 3, 3, dan 1 untuk \textit{steepest}, \textit{sideways}, \textit{stochastic}, \textit{random restart}, SA, dan GA; pada \texttt{tight-space} adalah 0, 1, 1, 1, 0, dan 0; dan pada \texttt{tight-capacity} adalah 0, 0, 0, 5, 3, dan 4.
+Frekuensi mencapai nilai terbaik (dari lima \textit{seed}) pada \texttt{base} adalah 1, 2, 1, 3, 3, dan 1 untuk \textit{steepest}, \textit{sideways}, \textit{stochastic}, \textit{random restart}, SA, dan GA. Pada \texttt{tight-space} adalah 0, 1, 1, 1, 0, dan 0. Dan pada \texttt{tight-capacity} adalah 0, 0, 0, 5, 3, dan 4.
 
 \begin{table}[H]
     \centering
@@ -450,26 +450,26 @@ Frekuensi mencapai nilai terbaik (dari lima \textit{seed}) pada \texttt{base} ad
 Beberapa pola konsisten muncul.
 
 \begin{enumerate}
-    \item \textbf{Kualitas.} Pada \texttt{base} dan \texttt{tight-capacity}, \textit{random restart}, SA, dan GA berada dalam selisih sekitar 1\% satu sama lain, sedangkan \textit{steepest}, \textit{sideways}, dan \textit{stochastic} tertinggal 5--10\%. Pada \texttt{tight-space}, SA (282) sedikit di atas \textit{random restart} (280) dan GA (274), tetapi tidak ada algoritma yang rata-ratanya mencapai 300, dan \textit{steepest}, SA, dan GA tidak pernah mencapainya pada kelima \textit{seed}; pada ruang truk yang kecil, kesulitan tampaknya berasal dari penataan geometris, bukan dari pemilihan paket (batas \textit{knapsack} 335 jauh di atas 300). Dengan lima \textit{seed}, selisih antara \textit{random restart}, SA, dan GA lebih kecil daripada simpangan baku mereka dan tidak dapat dinyatakan sebagai perbedaan yang nyata.
-    \item \textbf{Konsistensi.} GA memiliki simpangan baku terkecil pada \texttt{base} (2,2) dan SA pada \texttt{tight-space} (8,4); tiga varian pertama \textit{hill climbing} memiliki simpangan baku terbesar pada \texttt{base} dan \texttt{tight-space} (20--35). \textit{Random restart} menurunkan simpangan baku varian dasarnya (27,5 menjadi 6,5 pada \texttt{base}, dan 11,5 menjadi 0 pada \texttt{tight-capacity}). Pada \texttt{tight-capacity}, \textit{random restart} mencapai optimum 175 pada kelima \textit{seed}.
-    \item \textbf{Biaya.} \textit{Steepest} termurah (43 evaluasi, 0,006 detik). \textit{Random restart} (383 evaluasi) mencapai kualitas yang sebanding dengan SA (3001 evaluasi) dan GA (820 evaluasi) pada sekitar seperdelapan dan setengah dari jumlah evaluasi tersebut. Durasi per evaluasi pada GA (0,58 ms) kira-kira empat kali \textit{steepest}, karena durasi GA mencakup pembentukan populasi, \textit{crossover}, perbaikan (\textit{repair}), dan validasi, bukan hanya penghitungan \textit{objective}; karena itu jumlah evaluasi saja bukan ukuran biaya yang adil dan durasi dicatat berdampingan.
-    \item \textbf{Ketahanan terhadap \textit{local optimum}.} \textit{State} awal yang buruk adalah satu-satunya hal yang membedakan algoritma pada \texttt{base}. Varian HC yang hanya menerima gerakan tidak lebih buruk tersangkut; SA keluar dengan menerima gerakan yang memburuk pada suhu tinggi; \textit{random restart} dan GA keluar dengan memulai dari \textit{state} acak baru.
+    \item \textbf{Kualitas.} Pada \texttt{base} dan \texttt{tight-capacity}, rata-rata \textit{random restart}, SA, dan GA berbeda sekitar 1\%. Rata-rata \textit{steepest}, \textit{sideways}, dan \textit{stochastic} tertinggal 5--10\%. Pada \texttt{tight-space}, SA memperoleh 282, sedikit di atas \textit{random restart} dengan 280 dan GA dengan 274. Tidak ada metode yang mencapai rata-rata 300. \textit{Steepest}, SA, dan GA juga tidak pernah mencapai 300 dalam lima \textit{seed}. Kesulitan pada ruang kecil tampaknya berasal dari penataan geometris, bukan pemilihan paket, karena batas \textit{knapsack} sebesar 335 jauh di atas 300. Selisih rata-rata antara ketiga metode tersebut lebih kecil daripada simpangan bakunya. Lima \textit{seed} belum cukup untuk menyatakan perbedaan yang nyata.
+    \item \textbf{Konsistensi.} GA memiliki simpangan baku terkecil pada \texttt{base} (2,2) dan SA pada \texttt{tight-space} (8,4). Tiga varian pertama \textit{hill climbing} memiliki simpangan baku terbesar pada \texttt{base} dan \texttt{tight-space} (20--35). \textit{Random restart} menurunkan simpangan baku varian dasarnya (27,5 menjadi 6,5 pada \texttt{base}, dan 11,5 menjadi 0 pada \texttt{tight-capacity}). Pada \texttt{tight-capacity}, \textit{random restart} mencapai optimum 175 pada kelima \textit{seed}.
+    \item \textbf{Biaya.} \textit{Steepest} paling murah dengan 43 evaluasi dan durasi 0,006 detik. \textit{Random restart} memakai 383 evaluasi, sekitar seperdelapan dari SA yang memakai 3001 dan setengah dari GA yang memakai 820, dengan kualitas yang sebanding. Durasi per evaluasi GA sekitar empat kali durasi \textit{steepest} karena juga mencakup pembentukan populasi, \textit{crossover}, perbaikan, dan validasi. Perbandingan biaya perlu melihat durasi bersama jumlah evaluasi.
+    \item \textbf{Ketahanan terhadap \textit{local optimum}.} Pada \texttt{base}, perbedaan hasil muncul dari cara algoritma menangani state awal yang buruk. Varian HC yang hanya menerima gerakan setara atau lebih baik dapat tersangkut. SA dapat keluar dengan menerima gerakan yang memburuk saat suhu tinggi. \textit{Random restart} dan GA dapat memulai pencarian dari state acak lain.
 \end{enumerate}
 
 \subsection{Ketahanan pada Kasus Batas dan Masukan Tidak Valid}
 
 \textbf{Tanpa pemuatan layak.} Seluruh 30 \textit{run} pada \texttt{infeasible} mengembalikan \textit{state} valid tanpa paket termuat dan nilai 0, sehingga representasi yang mengizinkan semua paket berada di luar truk bekerja seperti yang dirancang. Karena nilai 0 saja ambigu bila ada paket bernilai nol, jumlah paket termuat dicatat bersamaan (0 pada seluruh \textit{run}).
 
-\textbf{Kasus batas.} Kasus \texttt{single-package} dan \texttt{equal-fitness} tidak membedakan algoritma karena \textit{state} awal acak sudah optimal (50 dan 40); keduanya hanya menunjukkan bahwa seleksi \textit{roulette-wheel} dengan fitness yang sama dan satu paket tidak menimbulkan galat. Kasus lain membedakan algoritma dengan jelas:
+\textbf{Kasus batas.} Kasus \texttt{single-package} dan \texttt{equal-fitness} tidak membedakan algoritma karena \textit{state} awal acak sudah optimal (50 dan 40). Keduanya hanya menunjukkan bahwa seleksi \textit{roulette-wheel} dengan fitness yang sama dan satu paket tidak menimbulkan galat. Kasus lain membedakan algoritma dengan jelas. 
 \begin{itemize}
-    \item \texttt{rotation-only}: hanya \textit{random restart} dan GA yang mencapai 70 pada kelima \textit{seed}; \textit{steepest}, \textit{sideways}, \textit{stochastic}, dan SA hanya mencapai 70 pada dua \textit{seed} yang \textit{state} awalnya sudah memuat paket panjang, dan tidak pernah memperbaiki \textit{state} awal lain (rata-rata 46 untuk keempatnya, sama dengan rata-rata nilai awal). Penyebabnya terbaca dari operator \textit{neighbor}: \textit{move} tidak pernah mengeluarkan paket dari truk, sedangkan \textit{swap} memberikan orientasi awal $(0,1,2)$ kepada paket dari luar sehingga paket $2\times2\times5$ tidak muat; paket panjang tidak dapat masuk selama paket kubus berada di dalam, sehingga ruang pencarian dari \textit{state} tersebut tidak terhubung ke \textit{state} lebih baik. Ini adalah keterbatasan operator \textit{neighbor}, bukan algoritmanya; \textit{random restart} dan GA terhindar karena membangkitkan \textit{state} awal baru.
-    \item \texttt{fragile-support}: \textit{random restart} dan GA mencapai 90 (paket rapuh di atas paket padat) pada seluruh \textit{seed}, sedangkan \textit{steepest}, \textit{sideways}, \textit{stochastic}, dan SA berakhir pada 60 pada dua dari lima \textit{seed} (rata-rata 78) dan mencapai 90 pada tiga \textit{seed} lain.
-    \item \texttt{wall-touching}: \textit{random restart}, SA, dan GA mengisi truk tepat sampai dinding (100) pada seluruh \textit{seed}; \textit{sideways} rata-rata 98, \textit{steepest} dan \textit{stochastic} 74. Penempatan yang tepat menyentuh dinding diterima validator pada seluruh \textit{run}.
-    \item \texttt{exact-capacity}: seluruh algoritma mencapai 100 (berat tepat sama dengan kapasitas) kecuali satu \textit{run} \textit{steepest} pada 95, sehingga batas ``$\leq$'' pada kapasitas ditangani benar.
-    \item \texttt{zero-value-weight}: \textit{steepest} dan \textit{stochastic} berakhir pada 10 pada satu \textit{seed} (seed 13: paket berbobot nol termuat tanpa paket \texttt{regular}), sedangkan algoritma lain selalu 70; paket bernilai atau berbobot nol tidak menyebabkan galat atau \textit{state} tidak valid.
+    \item \texttt{rotation-only}. \textit{Random restart} dan GA mencapai 70 pada kelima \textit{seed}. Empat metode lain hanya mencapai 70 pada dua \textit{seed} yang state awalnya sudah memuat paket panjang. Pada tiga state awal lainnya, rata-ratanya tetap 46. Operator \textit{move} tidak mengeluarkan paket dari truk. Operator \textit{swap} memberi orientasi awal $(0,1,2)$ kepada paket dari luar, sehingga paket $2\times2\times5$ tidak muat. Paket panjang tidak dapat dimasukkan selama paket kubus berada di dalam. Karena itu, dari state tersebut tidak ada jalur menuju state yang lebih baik dengan operator yang tersedia. Ini merupakan batasan operator \textit{neighbor}. \textit{Random restart} dan GA dapat menghindarinya dengan membangkitkan state awal baru.
+    \item \texttt{fragile-support}. \textit{Random restart} dan GA mencapai 90 pada seluruh \textit{seed} dengan menempatkan paket rapuh di atas paket yang tidak rapuh. Empat metode lain mendapat nilai 60 pada dua dari lima \textit{seed} dan rata-rata 78. Ketiganya mencapai 90 pada tiga \textit{seed} lainnya.
+    \item \texttt{wall-touching}. \textit{Random restart}, SA, dan GA mengisi truk hingga tepat menyentuh dinding dan mendapat nilai 100 pada seluruh \textit{seed}. Nilai rata-rata \textit{sideways} adalah 98, sedangkan \textit{steepest} dan \textit{stochastic} memperoleh 74. Validator menerima penempatan yang menyentuh dinding pada seluruh \textit{run}.
+    \item \texttt{exact-capacity}. Seluruh algoritma mencapai 100 (berat tepat sama dengan kapasitas) kecuali satu \textit{run} \textit{steepest} pada 95, sehingga batas ``$\leq$'' pada kapasitas ditangani benar.
+    \item \texttt{zero-value-weight}. \textit{Steepest} dan \textit{stochastic} berakhir pada nilai 10 pada satu \textit{seed}, yaitu seed 13. Paket berbobot nol termuat tanpa paket \texttt{regular}. Algoritma lain selalu memperoleh nilai 70. Paket bernilai nol atau berbobot nol tidak menyebabkan galat maupun state tidak valid.
 \end{itemize}
 
-\textbf{Masukan tidak valid.} Seluruh delapan \textit{fixture} pada \texttt{invalid/} ditolak oleh \textit{loader} dengan \texttt{ValueError} dan pesan yang menyebut penyebabnya (Tabel~\ref{tab:invalid}); tidak ada yang lolos ke pencarian.
+\textbf{Masukan tidak valid.} Seluruh delapan \textit{fixture} pada \texttt{invalid/} ditolak oleh \textit{loader} dengan \texttt{ValueError} dan pesan yang menyebut penyebabnya (Tabel~\ref{tab:invalid}). Tidak ada yang lolos ke pencarian.
 
 \begin{table}[H]
     \centering
@@ -512,32 +512,32 @@ Beberapa pola konsisten muncul.
                                 & GA                     & 174,17                                          & 166,94                         & 174,17           & 0,397          & 0,316            \\
         \bottomrule
     \end{tabular}
-    \caption{Nilai total paket pada \textit{state} akhir menurut \textit{objective} yang dioptimalkan (\texttt{total} = \texttt{total\_value}, \texttt{eta} = \texttt{eta\_weighted\_value}, \texttt{compact} = \texttt{compact\_value}); durasi untuk \texttt{total\_value} dan \texttt{compact\_value}}
+    \caption{Nilai total paket pada \textit{state} akhir menurut \textit{objective} yang dioptimalkan (\texttt{total} = \texttt{total\_value}, \texttt{eta} = \texttt{eta\_weighted\_value}, \texttt{compact} = \texttt{compact\_value}). Durasi untuk \texttt{total\_value} dan \texttt{compact\_value}}
     \label{tab:objective}
 \end{table}
 
-Nilai total paket pada Tabel~\ref{tab:objective} dihitung ulang dengan \texttt{total\_value} untuk seluruh \textit{state} akhir, sehingga ketiga \textit{objective} dapat dibandingkan pada satu skala. \texttt{eta\_weighted\_value} jelas mengubah himpunan paket: pada kedua \textit{instance} dan ketiga algoritma nilai total turun (misalnya GA pada \texttt{base} dari 331,39 menjadi 296,94, dan SA dari 330 menjadi 305), sedangkan skor ETA yang dioptimalkan naik (SA pada \texttt{base} dari 93,45 menjadi 116,33). \texttt{compact\_value} tidak mengorbankan nilai total dan nilai akhirnya sama dengan atau sedikit di atas \texttt{total\_value}; selisih kecil pada HC dan SA lebih mungkin berasal dari gradien kepadatan yang membantu pencarian melewati dataran (Tabel~\ref{tab:hc-compact}) daripada dari perubahan himpunan paket. Pada GA \texttt{compact\_value} memberi nilai total yang identik dengan \texttt{total\_value} (331,39 dan 174,17).
+Nilai total paket pada Tabel~\ref{tab:objective} dihitung ulang dengan \texttt{total\_value} untuk seluruh \textit{state} akhir, sehingga ketiga \textit{objective} dapat dibandingkan pada satu skala. \texttt{eta\_weighted\_value} jelas mengubah himpunan paket. Pada kedua \textit{instance} dan ketiga algoritma nilai total turun (misalnya GA pada \texttt{base} dari 331,39 menjadi 296,94, dan SA dari 330 menjadi 305), sedangkan skor ETA yang dioptimalkan naik (SA pada \texttt{base} dari 93,45 menjadi 116,33). \texttt{compact\_value} tidak mengorbankan nilai total dan nilai akhirnya sama dengan atau sedikit di atas \texttt{total\_value}. Selisih kecil pada HC dan SA lebih mungkin berasal dari gradien kepadatan yang membantu pencarian melewati dataran (Tabel~\ref{tab:hc-compact}) daripada dari perubahan himpunan paket. Pada GA \texttt{compact\_value} memberi nilai total yang identik dengan \texttt{total\_value} (331,39 dan 174,17).
 
-Efek \texttt{compact\_value} pada penataan terukur pada SA: kepadatan rata-rata naik dari 0,250 menjadi 0,375 pada \texttt{base} dan dari 0,305 menjadi 0,614 pada \texttt{tight-capacity}. Biaya komputasi ketiga \textit{objective} sebanding pada HC dan GA (selisih durasi rata-rata hingga sekitar 25\% pada kedua \textit{instance}), tetapi SA dengan \texttt{compact\_value} lebih lambat pada \texttt{base} (0,568 dibanding 0,390 detik), perbedaan yang tidak terlihat pada \texttt{tight-capacity} (0,314 dibanding 0,285 detik) dan belum ditelusuri penyebabnya.
+Efek \texttt{compact\_value} pada penataan terukur pada SA. Kepadatan rata-rata naik dari 0,250 menjadi 0,375 pada \texttt{base} dan dari 0,305 menjadi 0,614 pada \texttt{tight-capacity}. Biaya komputasi ketiga \textit{objective} sebanding pada HC dan GA (selisih durasi rata-rata hingga sekitar 25\% pada kedua \textit{instance}), tetapi SA dengan \texttt{compact\_value} lebih lambat pada \texttt{base} (0,568 dibanding 0,390 detik), perbedaan yang tidak terlihat pada \texttt{tight-capacity} (0,314 dibanding 0,285 detik) dan belum ditelusuri penyebabnya.
 
 \subsection{Keterbatasan}
-Seluruh \textit{instance} bersifat sintetis dan kecil (1--10 paket), dan konfigurasi per algoritma hanya diulang tiga kali (lima kali pada \textit{benchmark} dan ablasi). Akibatnya selisih yang kecil, seperti antara \textit{random restart}, SA, dan GA pada \texttt{base}, tidak dapat dibedakan dari \textit{noise}. Parameter tiap algoritma (suhu awal, laju pendinginan, ukuran populasi, \textit{mutation rate}, jumlah tetangga per iterasi) tidak disetel, hanya satu konfigurasi yang dipakai pada \textit{benchmark}, sehingga urutan algoritma berlaku untuk konfigurasi tersebut. Optimum sebenarnya hanya diketahui untuk \texttt{base} dan \texttt{tight-capacity} (lewat batas atas \textit{knapsack}); untuk \texttt{tight-space} nilai ``terbaik'' hanyalah yang tertinggi yang ditemukan. Hasil pada data paket kelompok yang sesungguhnya, jika ada dan berbeda, perlu ditambahkan pada bagian ini.
+Seluruh \textit{instance} bersifat sintetis dan kecil (1--10 paket), dan konfigurasi per algoritma hanya diulang tiga kali (lima kali pada \textit{benchmark} dan ablasi). Akibatnya selisih yang kecil, seperti antara \textit{random restart}, SA, dan GA pada \texttt{base}, tidak dapat dibedakan dari \textit{noise}. Parameter tiap algoritma (suhu awal, laju pendinginan, ukuran populasi, \textit{mutation rate}, jumlah tetangga per iterasi) tidak disetel, hanya satu konfigurasi yang dipakai pada \textit{benchmark}, sehingga urutan algoritma berlaku untuk konfigurasi tersebut. Optimum sebenarnya hanya diketahui untuk \texttt{base} dan \texttt{tight-capacity} (lewat batas atas \textit{knapsack}). Untuk \texttt{tight-space} nilai ``terbaik'' hanyalah yang tertinggi yang ditemukan. Hasil pada data paket kelompok yang sesungguhnya, jika ada dan berbeda, perlu ditambahkan pada bagian ini.
 
 \section{Analisis Implementasi Spesifikasi Bonus}
 
 \subsection{\textit{Extra} Objective Function}
 
-Dua \textit{objective function} tambahan, \texttt{eta\_weighted\_value} dan \texttt{compact\_value}, dijalankan pada seluruh algoritma, \textit{seed}, dan \textit{state} awal yang sama dengan \texttt{total\_value} (Tabel~\ref{tab:objective}). Temuannya adalah sebagai berikut.
+Dua fungsi objektif tambahan, \texttt{eta\_weighted\_value} dan \texttt{compact\_value}, diuji dengan algoritma, \textit{seed}, dan \textit{state} awal yang sama seperti \texttt{total\_value} (Tabel~\ref{tab:objective}).
 
 \begin{enumerate}
-    \item \textbf{\texttt{eta\_weighted\_value} mengubah solusi bila ada \textit{trade-off} antara nilai dan urgensi.} Pada \texttt{base} nilai total paket turun dari 321,67 menjadi 304,17 (HC), 330 menjadi 305 (SA), dan 331,39 menjadi 296,94 (GA), sementara skor ETA naik (SA dari 93,45 menjadi 116,33). Pada \texttt{tight-capacity} penurunannya juga terjadi (HC 165 menjadi 153,75; SA 173,33 menjadi 170; GA 174,17 menjadi 166,94). Skala nilainya juga lebih kecil (maksimum 116,33 pada \texttt{base} dan 75,83 pada \texttt{tight-capacity}), sehingga parameter yang bergantung pada skala, seperti suhu awal SA, mungkin perlu disesuaikan. Jumlah kejadian \textit{stuck} SA yang naik dari 2 menjadi 4 pada \texttt{base} konsisten dengan hal ini, tetapi pengaruh $T_0$ belum diuji.
-    \item \textbf{\texttt{compact\_value} terutama mengubah penataan.} Nilai total paket sama dengan atau sedikit di atas \texttt{total\_value}, kepadatan SA naik (0,250 menjadi 0,375 pada \texttt{base}, 0,305 menjadi 0,614 pada \texttt{tight-capacity}), dan dinamika pencarian berubah: pada HC, \textit{sideways} naik dari 318,33 menjadi 328,76 dan \textit{stochastic} dari 318,33 menjadi 322,03 karena bonus memberi gradien pada dataran.
-    \item \textbf{Biaya komputasi umumnya tidak berubah.} Durasi ketiga \textit{objective} berbeda hingga sekitar 25\% pada HC dan GA di kedua \textit{instance}, tanpa arah yang konsisten; pengecualiannya SA dengan \texttt{compact\_value} pada \texttt{base} (sekitar 46\% lebih lama).
+    \item \textbf{\texttt{eta\_weighted\_value} mengubah pilihan paket saat nilai dan urgensi berbeda.} Pada \texttt{base}, nilai total paket turun dari 321,67 menjadi 304,17 untuk HC, dari 330 menjadi 305 untuk SA, dan dari 331,39 menjadi 296,94 untuk GA. Skor ETA SA naik dari 93,45 menjadi 116,33. Pada \texttt{tight-capacity}, nilai HC turun dari 165 menjadi 153,75, SA dari 173,33 menjadi 170, dan GA dari 174,17 menjadi 166,94. Skor objektif ini lebih kecil, dengan maksimum 116,33 pada \texttt{base} dan 75,83 pada \texttt{tight-capacity}. Parameter yang bergantung pada skala, seperti suhu awal SA, mungkin perlu disesuaikan. Jumlah kejadian \textit{stuck} SA meningkat dari 2 menjadi 4 pada \texttt{base}, tetapi pengaruh $T_0$ belum diuji.
+    \item \textbf{\texttt{compact\_value} terutama mengubah penataan.} Nilai total paket sama dengan atau sedikit di atas \texttt{total\_value}, kepadatan SA naik (0,250 menjadi 0,375 pada \texttt{base}, 0,305 menjadi 0,614 pada \texttt{tight-capacity}), dan dinamika pencarian berubah. Pada HC, \textit{sideways} naik dari 318,33 menjadi 328,76 dan \textit{stochastic} dari 318,33 menjadi 322,03 karena bonus memberi gradien pada dataran.
+    \item \textbf{Biaya komputasi umumnya tidak berubah.} Durasi ketiga fungsi objektif berbeda hingga sekitar 25\% pada HC dan GA di kedua \textit{instance}, tanpa arah yang konsisten. Pengecualiannya adalah SA dengan \texttt{compact\_value} pada \texttt{base}, yang berjalan sekitar 46\% lebih lama.
 \end{enumerate}
 
 \subsection{All-variant Hill Climbing Algorithm}
 
-Empat varian \textit{hill climbing} dibandingkan pada \textit{seed} dan \textit{state} awal yang sama. Tabel~\ref{tab:hc-variants} merangkum hasil \texttt{total\_value} pada dua \textit{instance}; hasil dua \textit{objective} lain untuk \texttt{base} ada pada Tabel~\ref{tab:hc-eta} dan Tabel~\ref{tab:hc-compact}.
+Empat varian \textit{hill climbing} dibandingkan pada \textit{seed} dan \textit{state} awal yang sama. Tabel~\ref{tab:hc-variants} merangkum hasil \texttt{total\_value} pada dua \textit{instance}. Hasil dua \textit{objective} lain untuk \texttt{base} ada pada Tabel~\ref{tab:hc-eta} dan Tabel~\ref{tab:hc-compact}.
 
 \begin{table}[H]
     \centering
@@ -559,7 +559,7 @@ Empat varian \textit{hill climbing} dibandingkan pada \textit{seed} dan \textit{
 \end{table}
 
 \begin{enumerate}
-    \item \textbf{\textit{Random restart} terbaik pada lima dari enam kombinasi \textit{instance} dan \textit{objective}} (rata-rata 333,33 dan 331,98 pada \texttt{base} untuk \texttt{total\_value} dan \texttt{compact\_value}, serta 175; 75,83; dan 175,49 pada \texttt{tight-capacity} untuk ketiga \textit{objective}); satu-satunya pengecualian adalah \texttt{eta\_weighted\_value} pada \texttt{base}, tempat \textit{sideways} (116,33) mengungguli \textit{random restart} (114,89). \textit{Random restart} lolos dari \textit{local optimum} karena sepuluh \textit{state} awal tambahan membuka peluang untuk berada pada cekungan yang lebih baik. Pada \texttt{tight-capacity} ia mencapai optimum 175 pada ketiga \textit{seed}.
+    \item \textbf{\textit{Random restart} memberi hasil tertinggi pada lima dari enam kombinasi \textit{instance} dan \textit{objective}.} Rata-ratanya 333,33 dan 331,98 pada \texttt{base} untuk \texttt{total\_value} dan \texttt{compact\_value}. Pada \texttt{tight-capacity}, nilainya 175, 75,83, dan 175,49 untuk ketiga fungsi objektif. Pengecualiannya adalah \texttt{eta\_weighted\_value} pada \texttt{base}, ketika \textit{sideways} memperoleh 116,33 dan \textit{random restart} memperoleh 114,89. Sepuluh state acak tambahan memberi peluang bagi \textit{random restart} untuk memulai dari cekungan lain. Pada \texttt{tight-capacity}, metode ini mencapai optimum 175 pada ketiga \textit{seed}.
     \item \textbf{\textit{Sideways move} membantu bila ada dataran yang dapat dilalui, dengan biaya besar.} Pada \texttt{total\_value}, hasilnya hampir sama dengan \textit{steepest} di \texttt{base} (318,33 dibanding 316,67), tetapi lebih baik di \texttt{tight-capacity} (165 dibanding 160), \texttt{eta\_weighted\_value} (116,33 dibanding 103,23 pada \texttt{base}), dan \texttt{compact\_value} (328,76 dibanding 316,91 pada \texttt{base}). Durasinya 56--88 kali durasi \textit{steepest} karena selalu menghabiskan 100 \textit{sideways move}.
     \item \textbf{\textit{Stochastic} setara \textit{steepest} dengan biaya lebih tinggi.} Karena hanya mencoba satu \textit{neighbor} per iterasi dan selalu menjalankan 1000 iterasi, varian ini sekitar 32 kali lebih lambat daripada \textit{steepest} pada \texttt{base}, tetapi hanya sedikit lebih baik (318,33 dibanding 316,67) atau sama (160 pada \texttt{tight-capacity}), dan lebih lemah daripada \textit{sideways} pada \texttt{eta\_weighted\_value} (110,89 dibanding 116,33).
     \item \textbf{\textit{Steepest} termurah} (0,0053 detik pada \texttt{base}) dan cukup bila \textit{state} awal berada di cekungan yang baik, tetapi tidak melindungi dari \textit{state} awal yang buruk (nilai akhir pada \textit{seed} 12 tetap 285).
@@ -567,11 +567,11 @@ Empat varian \textit{hill climbing} dibandingkan pada \textit{seed} dan \textit{
 
 \textit{Steepest} dan \textit{sideways} pada implementasi ini memakai sampel 30 \textit{neighbor} acak per iterasi, bukan seluruh ruang \textit{neighbor}, sehingga hasil di atas hanya berlaku untuk pengaturan tersebut.
 
-Dua catatan agar perbandingan tidak disalahartikan. Pertama, \textit{random restart} menjalankan 11 pendakian (pendakian dari \textit{state} awal ditambah sepuluh \textit{restart}), sedangkan varian lain hanya satu, sehingga keunggulannya sebagian berasal dari anggaran pencarian yang lebih besar dan bukan semata dari aturan penerimaan; durasinya tetap rendah (0,1535 detik pada \texttt{base}) karena sebagian besar pendakian segera berhenti. Kedua, durasi \textit{sideways} yang tinggi sebagian berasal dari \textit{sideways move} yang tidak mengubah \textit{state}: \texttt{random\_neighbor} dapat mengembalikan \textit{state} asal, kandidat itu bernilai sama, dan ia menghabiskan jatah \textit{sideways} tanpa menjelajah. Pada percobaan tambahan di \texttt{base}, sekitar 18--24 dari 100 \textit{sideways move} berupa \textit{no-op}, sehingga manfaat \textit{sideways} pada Tabel~\ref{tab:hc-variants} kemungkinan lebih kecil daripada yang ditunjukkan jatah 100 langkahnya.
+Perbandingan perlu mempertimbangkan jumlah pendakian. \textit{Random restart} menjalankan 11 pendakian, yaitu satu dari state awal dan sepuluh dari state acak. Varian lain hanya menjalankan satu pendakian. Karena itu, sebagian keunggulannya dapat berasal dari anggaran pencarian yang lebih besar. Durasinya tetap rendah, yaitu 0,1535 detik pada \texttt{base}, karena sebagian besar pendakian segera berhenti. Waktu \textit{sideways} yang tinggi sebagian disebabkan oleh gerakan yang tidak mengubah state. Fungsi \texttt{random\_neighbor} dapat mengembalikan state asal. Kandidat tersebut bernilai sama dan memakai jatah \textit{sideways} tanpa menjelajahi state baru. Pada percobaan tambahan di \texttt{base}, sekitar 18--24 dari 100 gerakan merupakan \textit{no-op}. Manfaat \textit{sideways} pada Tabel~\ref{tab:hc-variants} mungkin lebih kecil daripada yang ditunjukkan oleh batas 100 langkah.
 
 \subsection{Studi Ablasi Operator GA}
 
-Ablasi dilakukan pada \texttt{base} dengan \texttt{total\_value}, lima \textit{seed} (11--15), populasi 20, dan 50 generasi. Setiap varian hanya mengubah satu komponen terhadap \textit{baseline} (\textit{roulette-wheel}, \textit{single-point crossover}, mutasi 0,05): tanpa mutasi, tanpa \textit{crossover}, dan seleksi seragam sebagai pembanding \textit{roulette-wheel}.
+Ablasi dilakukan pada \texttt{base} dengan \texttt{total\_value}, lima \textit{seed} (11--15), populasi 20, dan 50 generasi. Setiap varian hanya mengubah satu komponen terhadap \textit{baseline} (\textit{roulette-wheel}, \textit{single-point crossover}, mutasi 0,05). Tanpa mutasi, tanpa \textit{crossover}, dan seleksi seragam sebagai pembanding \textit{roulette-wheel}.
 
 \begin{table}[H]
     \centering
@@ -592,11 +592,11 @@ Ablasi dilakukan pada \texttt{base} dengan \texttt{total\_value}, lima \textit{s
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{figures/base/ga-ablation.png}
-    \caption{Ablasi operator GA: nilai maksimum dan rata-rata populasi per generasi}
+    \caption{Ablasi operator GA. Nilai maksimum dan rata-rata populasi per generasi}
 \end{figure}
 
 \begin{enumerate}
-    \item \textbf{Mutasi hampir tidak berpengaruh.} Menghilangkan mutasi hanya menurunkan rata-rata 1 poin (331 menjadi 330), dan seluruh \textit{run} tanpa mutasi berakhir pada 330; \textit{baseline} menemukan 335 pada satu \textit{seed} (12) yang tidak dicapai tanpa mutasi. Satu \textit{run} tidak cukup untuk menyimpulkan bahwa mutasi bermanfaat.
+    \item \textbf{Dampak mutasi kecil pada percobaan ini.} Tanpa mutasi, rata-rata turun 1 poin dari 331 menjadi 330 dan seluruh \textit{run} berakhir pada 330. Baseline mencapai 335 pada seed 12. Lima seed belum cukup untuk memastikan bahwa mutasi menyebabkan perbedaan tersebut.
     \item \textbf{\textit{Crossover} dan seleksi \textit{roulette-wheel} tampak memberi manfaat kecil.} Tanpa \textit{crossover} atau dengan seleksi seragam, rata-rata turun 4--5 poin dan dua dari lima \textit{run} berakhir pada 320, sementara \textit{baseline} tidak pernah di bawah 330. Namun dengan lima \textit{seed} dan simpangan baku 5,5--6,7, selisih ini belum memenuhi syarat untuk disebut signifikan.
     \item \textbf{Biaya.} Menghilangkan \textit{crossover} memangkas durasi hampir separuh (0,196 dibanding 0,377 detik), yang menunjukkan bahwa \textit{crossover} beserta perbaikan (\textit{repair}) konflik adalah bagian termahal dari satu generasi.
 \end{enumerate}

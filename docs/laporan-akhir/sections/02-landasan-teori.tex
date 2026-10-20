@@ -4,20 +4,20 @@
 
 Kelemahan utama \textit{hill climbing} adalah tidak adanya mekanisme untuk keluar dari daerah yang buruk. Ada tiga kondisi yang menyebabkan pencarian terhenti sebelum mencapai \textit{global optimum}.
 \begin{itemize}
-    \item \textit{Local maximum}: \textit{state} yang lebih baik dari semua \textit{neighbor}-nya, tetapi bukan yang terbaik secara global.
-    \item \textit{Plateau}: daerah datar tempat semua \textit{neighbor} bernilai sama, sehingga tidak ada arah yang jelas untuk naik.
-    \item \textit{Shoulder}: \textit{plateau} yang di ujungnya masih terdapat jalan menaik, sehingga pencarian yang berhenti terlalu cepat melewatkannya.
+    \item \textit{Local maximum} adalah \textit{state} yang lebih baik daripada semua \textit{neighbor}-nya, tetapi bukan yang terbaik secara global.
+    \item \textit{Plateau} adalah daerah datar tempat semua \textit{neighbor} bernilai sama, sehingga tidak ada arah yang jelas untuk naik.
+    \item \textit{Shoulder} adalah \textit{plateau} yang masih memiliki jalan menaik di ujungnya dan dapat terlewat jika pencarian berhenti terlalu cepat.
 \end{itemize}
 Keempat varian berikut dibuat untuk mengurangi kelemahan tersebut dengan cara yang berbeda.
 
 \subsection{\textit{Steepest Ascent Hill Climbing}}
-Pada setiap iterasi, algoritma mengevaluasi sekumpulan \textit{neighbor} dan memilih \textit{neighbor} dengan nilai terbaik. Algoritma berpindah ke \textit{neighbor} tersebut hanya jika nilainya \textit{strictly} lebih besar daripada nilai \textit{state} saat ini; jika tidak, algoritma berhenti karena telah mencapai \textit{local optimum}. Pemilihan langkah terbaik deterministik untuk sampel yang dievaluasi, tetapi karena sampel \textit{neighbor} dibangkitkan secara acak, hasil pencarian dapat berbeda antarpercobaan. Varian ini dapat terjebak pada \textit{local maximum} dan \textit{plateau}.
+Pada setiap iterasi, algoritma mengevaluasi sekumpulan \textit{neighbor} dan memilih yang bernilai paling tinggi. Algoritma berpindah ke kandidat itu hanya jika nilainya lebih besar daripada nilai \textit{state} saat ini. Jika tidak, pencarian berhenti pada \textit{local optimum}. Pemilihan terbaik bersifat deterministik untuk sampel yang dievaluasi. Namun, sampel \textit{neighbor} dibangkitkan secara acak, sehingga hasil dapat berbeda antarpercobaan. Varian ini masih dapat terjebak pada \textit{local maximum} atau \textit{plateau}.
 
 \begingroup
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Steepest-Ascent Hill Climbing\label{alg:steepest-ascent-hill-climbing}\par
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm} Steepest-Ascent Hill Climbing\label{alg:steepest-ascent-hill-climbing}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
     \REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, jumlah sampel $m$, batas iterasi $I_{\max}$
@@ -44,7 +44,7 @@ Varian ini sama dengan \textit{steepest ascent}, tetapi juga mengizinkan perpind
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Hill Climbing with Sideways Move\label{alg:sideways-hill-climbing}\par
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm} Hill Climbing with Sideways Move\label{alg:sideways-hill-climbing}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
     \REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, jumlah sampel $m$, batas iterasi $I_{\max}$, batas \textit{sideways} $L$
@@ -77,7 +77,7 @@ Algoritma memilih satu \textit{neighbor} secara acak pada setiap iterasi dan ber
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Stochastic Hill Climbing\label{alg:stochastic-hill-climbing}\par
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm} Stochastic Hill Climbing\label{alg:stochastic-hill-climbing}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
     \REQUIRE Solusi awal $s_0$, fungsi tetangga acak $N$, fungsi objektif $f$, batas iterasi $I_{\max}$
@@ -103,7 +103,7 @@ Algoritma menjalankan \textit{steepest ascent hill climbing} dari \textit{state}
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.1\linewidth}\setlength{\rightmargin}{0.1\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Random-Restart Hill Climbing\label{alg:random-restart-hill-climbing}\par
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm} Random-Restart Hill Climbing\label{alg:random-restart-hill-climbing}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
     \REQUIRE Solusi awal $s_0$, pembangkit solusi acak $R$, fungsi tetangga $N$, fungsi objektif $f$, jumlah sampel $m$, batas iterasi per pendakian $I_{\max}$, batas \textit{restart} $K$
@@ -115,7 +115,7 @@ Algoritma menjalankan \textit{steepest ascent hill climbing} dari \textit{state}
     \ELSE
     \STATE $s \gets R()$
     \ENDIF
-    \STATE Jalankan \textit{steepest-ascent} dari $s$ hingga berhenti atau mencapai $I_{\max}$; hasilnya $s_r$
+    \STATE Jalankan \textit{steepest-ascent} dari $s$ hingga berhenti atau mencapai $I_{\max}$. Simpan hasilnya sebagai $s_r$
     \IF{$f(s_r) > f_{\text{best}}$}
     \STATE $s_{\text{best}} \gets s_r$, $f_{\text{best}} \gets f(s_r)$
     \ENDIF
@@ -130,7 +130,7 @@ Algoritma menjalankan \textit{steepest ascent hill climbing} dari \textit{state}
 
 Simulated Annealing adalah algoritma pencarian lokal stokastik yang meniru proses pendinginan material untuk mencari solusi bernilai objektif tinggi. Berbeda dari Hill Climbing yang hanya menerima perpindahan ke solusi lebih baik, Simulated Annealing juga dapat menerima solusi yang lebih buruk dengan peluang tertentu. Mekanisme ini membantu pencarian keluar dari optimum lokal dan mengeksplorasi bagian lain dari ruang solusi \cite{russell2021artificial,kirkpatrick1983optimization}.
 
-Pada setiap iterasi, algoritma memilih satu solusi tetangga dan menghitung perubahan nilai objektifnya. Untuk persoalan maksimisasi, perubahan tersebut didefinisikan sebagai $\Delta E=f(s')-f(s)$, dengan $s$ sebagai solusi saat ini dan $s'$ sebagai kandidat tetangga. Kandidat yang meningkatkan atau mempertahankan nilai objektif selalu diterima. Kandidat yang menurunkan nilai objektif dapat diterima dengan peluang yang bergantung pada temperatur $T$, seperti dirumuskan pada Persamaan~\ref{eq:sa-acceptance} \cite{kirkpatrick1983optimization}.
+Pada setiap iterasi, algoritma memilih satu solusi tetangga dan menghitung perubahan nilai objektifnya. Untuk persoalan maksimisasi, perubahan tersebut didefinisikan sebagai $\Delta E=f(s')-f(s)$, dengan $s$ sebagai solusi saat ini dan $s'$ sebagai kandidat tetangga. Kandidat yang meningkatkan atau mempertahankan nilai objektif selalu diterima. Kandidat yang menurunkan nilai objektif dapat diterima dengan peluang yang bergantung pada temperatur $T$. Peluang ini dirumuskan pada Persamaan~\ref{eq:sa-acceptance} \cite{kirkpatrick1983optimization}.
 
 \begin{equation}
     P(\text{menerima } s') =
@@ -143,7 +143,7 @@ Pada setiap iterasi, algoritma memilih satu solusi tetangga dan menghitung perub
 
 Temperatur mengendalikan tingkat eksplorasi algoritma. Pada temperatur tinggi, penurunan nilai objektif masih mungkin diterima sehingga pencarian dapat menjelajahi ruang solusi dengan lebih luas. Ketika temperatur diturunkan, peluang menerima perpindahan yang lebih buruk ikut mengecil dan pencarian semakin berfokus pada perbaikan. Salah satu jadwal pendinginan yang umum digunakan adalah pendinginan geometris, dengan $0<\alpha<1$ sebagai faktor pendinginan \cite{russell2021artificial}.
 
-Sebagai contoh, jika kandidat menurunkan nilai objektif sebesar 10, maka pada $T=10$ peluang penerimaannya adalah $e^{-1}\approx0{,}37$, sedangkan pada $T=5$ peluangnya menjadi $e^{-2}\approx0{,}14$. Dalam implementasi, algoritma membandingkan peluang tersebut dengan bilangan acak antara 0 dan 1; kandidat yang lebih buruk tetap diterima jika bilangan acaknya lebih kecil. Jadi, penurunan besar atau temperatur rendah membuat algoritma semakin jarang mengambil langkah mundur.
+Sebagai contoh, jika kandidat menurunkan nilai objektif sebesar 10, peluang penerimaannya pada $T=10$ adalah $e^{-1}\approx0{,}37$. Pada $T=5$, peluang itu menjadi $e^{-2}\approx0{,}14$. Implementasi membandingkan peluang tersebut dengan bilangan acak antara 0 dan 1. Kandidat yang lebih buruk diterima jika bilangan acaknya lebih kecil daripada peluang itu. Penurunan besar atau temperatur rendah membuat langkah mundur semakin jarang diterima.
 
 \begin{equation}
     T_{k+1}=\alpha T_k, \qquad 0<\alpha<1.
@@ -152,9 +152,9 @@ Sebagai contoh, jika kandidat menurunkan nilai objektif sebesar 10, maka pada $T
 
 Rumus ini berarti setiap iterasi mengalikan temperatur saat ini dengan faktor yang sama, bukan menguranginya dengan nilai tetap. Misalnya, jika $T_0=100$ dan $\alpha=0{,}995$, temperatur turun sekitar 0,5\% per iterasi dan setelah 100 iterasi menjadi sekitar 60,6. Penurunan bertahap ini membuat langkah eksplorasi yang awalnya cukup longgar menjadi semakin selektif.
 
-Keunggulan Simulated Annealing adalah kemampuannya melewati optimum lokal dengan menerima perpindahan yang sesaat menurunkan nilai objektif, tanpa harus menyimpan banyak kandidat solusi. Namun, kualitas hasil dan waktu pencarian sensitif terhadap temperatur awal, faktor pendinginan, temperatur minimum, serta mekanisme pembentukan tetangga. Jika temperatur turun terlalu cepat, pencarian masih dapat terjebak pada optimum lokal; frekuensi kondisi ini menjadi salah satu metrik evaluasi algoritma. Karena itu, algoritma ini tidak menjamin solusi global terbaik untuk jadwal pendinginan berdurasi terbatas dan hasilnya dapat berbeda antarpercobaan \cite{russell2021artificial,kirkpatrick1983optimization}.
+Simulated Annealing dapat melewati optimum lokal dengan menerima perpindahan yang sesaat menurunkan nilai objektif tanpa menyimpan banyak kandidat solusi. Kualitas hasil dan waktu pencarian bergantung pada temperatur awal, faktor pendinginan, temperatur minimum, serta cara membentuk tetangga. Jika temperatur turun terlalu cepat, pencarian masih dapat terjebak pada optimum lokal. Frekuensi kondisi ini menjadi salah satu metrik evaluasi. Algoritma ini tidak menjamin solusi global terbaik dalam waktu terbatas, dan hasilnya dapat berbeda antarpercobaan \cite{russell2021artificial,kirkpatrick1983optimization}.
 
-Simulated Annealing cocok digunakan pada ruang solusi besar dengan banyak optimum lokal, terutama ketika evaluasi solusi cukup murah dan solusi mendekati optimal sudah bermanfaat. Dalam persoalan pemuatan paket, pencarian dimulai dari konfigurasi acak. Pada setiap iterasi, satu tetangga dibentuk melalui operasi pertukaran paket, pemindahan paket, atau rotasi. Algoritma menerima kandidat yang meningkatkan nilai objektif, dan sesekali menerima kandidat yang menurunkannya sesuai peluang pada Persamaan~\ref{eq:sa-acceptance}. Temperatur kemudian dikurangi berdasarkan jadwal pendinginan. Nilai $\exp(\Delta E/T)$ menjadi ukuran peluang penerimaan kandidat yang lebih buruk, sesuai metrik yang diminta spesifikasi untuk dianalisis terhadap iterasi.
+Simulated Annealing cocok untuk ruang solusi besar yang memiliki banyak optimum lokal, terutama jika evaluasi solusi murah dan solusi mendekati optimal tetap berguna. Pada persoalan pemuatan paket, pencarian dimulai dari konfigurasi acak. Setiap iterasi membentuk satu tetangga dengan menukar, memindahkan, atau memutar paket. Kandidat yang meningkatkan nilai objektif diterima. Kandidat yang menurunkan nilai dapat diterima sesuai peluang pada Persamaan~\ref{eq:sa-acceptance}. Setelah evaluasi, temperatur diturunkan mengikuti jadwal pendinginan. Nilai $\exp(\Delta E/T)$ mencatat peluang penerimaan kandidat yang lebih buruk dan dianalisis terhadap jumlah iterasi sesuai spesifikasi.
 
 Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika temperatur mencapai nilai minimum. Variabel $s_{\text{best}}$ menyimpan konfigurasi bernilai tertinggi yang ditemukan, meskipun proses menerima perpindahan sementara ke konfigurasi yang lebih buruk.
 
@@ -162,7 +162,7 @@ Pseudocode berikut menggunakan pendinginan geometris dan berhenti ketika tempera
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Simulated Annealing\label{alg:simulated-annealing}\par
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm} Simulated Annealing\label{alg:simulated-annealing}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
     \REQUIRE Solusi awal $s_0$, fungsi tetangga $N$, fungsi objektif $f$, parameter $T_0>T_{\min}>0$ dan $0<\alpha<1$
@@ -205,7 +205,7 @@ Karakteristik Genetic Algorithm adalah pencarian atas banyak kandidat secara ber
     \label{eq:ga-selection}
 \end{equation}
 
-Pembilang adalah bobot individu yang sedang dihitung, sedangkan penyebut menjumlahkan bobot seluruh individu agar semua peluang berjumlah satu. Sebagai contoh, jika dua individu memiliki bobot 10 dan 20, peluang terpilihnya masing-masing adalah $1/3$ dan $2/3$. Pada implementasi, peluang itu diwujudkan sebagai pemilihan berbobot: individu berbobot 20 kira-kira dua kali lebih sering terpilih daripada individu berbobot 10, tetapi individu lain tetap mungkin terpilih.
+Pembilang adalah bobot individu yang sedang dihitung, sedangkan penyebut menjumlahkan bobot seluruh individu agar semua peluang berjumlah satu. Jika dua individu memiliki bobot 10 dan 20, peluang terpilihnya masing-masing adalah $1/3$ dan $2/3$. Dengan pemilihan berbobot, individu dengan bobot 20 kira-kira dua kali lebih sering terpilih daripada individu dengan bobot 10. Individu lain tetap memiliki peluang untuk terpilih.
 
 Untuk persoalan pemuatan paket dengan nilai objektif nonnegatif, bobot seleksi dapat menggunakan nilai objektif. Jika seluruh bobot bernilai nol, seleksi dilakukan secara seragam. Crossover satu titik menggabungkan gen dari dua induk, sementara mutasi mengubah satu gen dengan peluang tertentu. Kedua operator harus menghasilkan individu yang memenuhi batasan pemuatan paket \cite{goldberg1989genetic}.
 
@@ -219,7 +219,7 @@ Pseudocode berikut menggunakan seleksi roulette, crossover satu titik dengan per
 \setlength{\parskip}{0pt}
 \begin{list}{}{\setlength{\leftmargin}{0.05\linewidth}\setlength{\rightmargin}{0.05\linewidth}\setlength{\labelsep}{0pt}\setlength{\topsep}{0pt}\setlength{\partopsep}{0pt}\setlength{\parsep}{0pt}\setlength{\itemsep}{0pt}}\item[]
 \noindent\rule{\linewidth}{0.8pt}\par\vspace{1pt}
-\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm:} Genetic Algorithm\label{alg:genetic-algorithm}\par
+\noindent\refstepcounter{algorithm}\textbf{Algorithm \thealgorithm} Genetic Algorithm\label{alg:genetic-algorithm}\par
 \vspace{1pt}\noindent\rule{\linewidth}{0.4pt}\par\vspace{1pt}
 \begin{algorithmic}
     \REQUIRE Solusi awal valid $s_0$, fungsi objektif $f$, ukuran populasi $n$, jumlah generasi $G$, laju mutasi $\mu$
