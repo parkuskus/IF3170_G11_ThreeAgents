@@ -226,16 +226,6 @@ python -m src.experiments.run_ga_ablation --input tests/fixtures/demo.json --out
 
 Runner membandingkan baseline GA dengan tiga ablasi satu-komponen: tanpa mutasi, tanpa crossover, dan seleksi uniform sebagai pembanding roulette-wheel. Secara default tiap varian dijalankan dengan 5 seed yang sama, populasi 20, 50 generasi, dan mutation rate baseline 0,05. Parameter bersama bisa diubah lewat opsi CLI. Hasilnya mencakup `runs.json`, `summary.json` (mean dan simpangan baku objective/durasi per varian), dan plot objective maksimum serta rata-rata populasi. Gunakan dataset dan parameter tetap untuk membandingkan semua varian. Contoh di atas memakai data sintetis demo; hasil laporan harus memakai problem kelompok. Ablasi ini eksperimen tambahan dan tidak menggantikan 18 run sweep wajib.
 
-### Alur kerja
-
-1. Buat branch sesuai jenis perubahan: `feat/...` untuk fitur, `fix/...` untuk perbaikan, `docs/...` untuk dokumentasi, atau `test/...` untuk tes. Contoh: `feat/hill-climbing`, `feat/simulated-annealing`, `docs/readme`.
-2. Implementasikan algoritma di `src/algorithms/` dan gunakan kontrak fondasi di atas; jangan membuat representasi state atau validator alternatif.
-3. Tambahkan atau sesuaikan tes di `tests/`.
-4. Jalankan seluruh suite dengan `python -m unittest discover -s tests -v` sebelum menggabungkan perubahan.
-5. Simpan data eksperimen dan visualisasi run di `output/`; catat seed serta parameter agar hasil dapat direproduksi.
-
-Gunakan semantic commit yang sesuai dengan branch, misalnya `feat: add hill-climbing` atau `docs: update development guide`. Pastikan hasil eksperimen, pembahasan, dan pembagian tugas diperbarui pada laporan di `docs/laporan-akhir/`.
-
 ## Development Team
 
 | Nama | NIM | Kontribusi |
