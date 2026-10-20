@@ -18,7 +18,7 @@ Run `python -m src.visualizer --reload` and, in `src/visualizer/web`, `npm run d
 
 ## Multiple trucks
 
-The Problem tab holds a list of trucks (add, remove, edit each one's size and weight limit). With one truck the search runs on a single-truck `State`; with more it runs on a `FleetState` using the fleet operators, so Hill-climbing, Simulated Annealing and the Genetic Algorithm all work on a fleet. The 3D view lays the trucks side by side, and a package that changes truck is lifted out of one and lowered into the other. JSON import/export accepts either the fixture shape (`"truck": {...}`) or `"trucks": [...]`. The `base-2-trucks` and `hard-3-trucks` examples repeat the fixture's truck.
+The Problem tab holds a list of trucks (add, remove, edit each one's size and weight limit). With one truck the search runs on a single-truck `State`; with more it runs on a `FleetState` using the fleet operators (package swaps and single-package moves for Hill-climbing and Simulated Annealing, crossover and mutation for the Genetic Algorithm), so Hill-climbing, Simulated Annealing and the Genetic Algorithm all work on a fleet. The 3D view lays the trucks side by side, and a package that changes truck is lifted out of one and lowered into the other. JSON import/export accepts either the fixture shape (`"truck": {...}`) or `"trucks": [...]`. The `base-2-trucks` and `hard-3-trucks` examples repeat the fixture's truck.
 
 ## Solving animation
 
