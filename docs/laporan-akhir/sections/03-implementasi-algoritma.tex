@@ -1077,4 +1077,20 @@ Selain plot statis dari runner eksperimen, program menyediakan \textit{visualize
 
 Antarmuka terdiri atas tiga bagian. Panel \textit{Problem} memuat contoh atau JSON masalah serta mengubah daftar truk dan paket. Panel \textit{Solver} memilih algoritma (keempat varian HC, SA, atau GA), \textit{objective function}, \textit{seed}, dan parameternya. Panel hasil menampilkan ringkasan (nilai \textit{objective}, durasi, dan metrik algoritma), tampilan 3D truk beserta paket di dalamnya, dan grafik kemajuan pencarian: \textit{objective} per iterasi untuk HC dan SA, suhu dan probabilitas penerimaan $e^{\Delta E/T}$ untuk SA, serta \textit{fitness} per generasi untuk GA.
 
+Gambar~\ref{fig:visualizer-problem} dan Gambar~\ref{fig:visualizer-result} menunjukkan contoh penggunaan pada \textit{fixture} \texttt{base} dengan SA, \textit{seed} 0, dan parameter bawaan. Pada \textit{run} tersebut, nilai total naik dari 315 pada \textit{initial state} menjadi 335 pada \textit{final state} dengan 6 dari 10 paket dimuat.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/visualizer/problem-tab.png}
+    \caption{Tab \textit{Problem} dan panel \textit{Solver} pada \textit{visualizer} dengan contoh \texttt{base}}
+    \label{fig:visualizer-problem}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=0.62\textheight]{figures/visualizer/result-full.png}
+    \caption{Tab \textit{Result}: ringkasan, tampilan 3D \textit{final state}, dan grafik kemajuan SA}
+    \label{fig:visualizer-result}
+\end{figure}
+
 Animasi proses pencarian direkam oleh \texttt{FrameRecorder} pada \texttt{recording.py} tanpa mengubah kode algoritma. Karena setiap algoritma menilai kandidat melalui \texttt{objective\_fn}, \textit{recorder} membungkus fungsi tersebut dan mencatat setiap \textit{state} yang memperbaiki nilai terbaik sejauh ini serta sampel merata dari kandidat lain. Masing-masing dibatasi 40 \textit{frame}, dan \textit{frame} terakhir selalu \textit{state} akhir yang dikembalikan algoritma. Antarmuka memutar ulang rekaman tersebut dengan kontrol \textit{play}/\textit{pause}, \textit{scrubber}, dan pilihan kecepatan; pada armada, paket yang berpindah truk dianimasikan keluar dari satu truk dan masuk ke truk lain.
