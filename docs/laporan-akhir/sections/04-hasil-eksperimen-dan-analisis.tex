@@ -132,12 +132,6 @@ Nilai akhir per \textit{seed} 11, 12, dan 13 untuk \textit{steepest} adalah 330,
     \caption{Ringkasan \textit{hill climbing} dengan \texttt{total\_value}}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figures/base/hc-states-steepest-seed12.png}
-    \caption{\textit{State} awal dan akhir \textit{steepest} pada \textit{seed} 12. Kedua \textit{state} bernilai 285}
-\end{figure}
-
 \subsubsection{Fungsi objektif \texttt{eta\_weighted\_value}}
 \begin{table}[H]
     \centering
@@ -155,7 +149,7 @@ Nilai akhir per \textit{seed} 11, 12, dan 13 untuk \textit{steepest} adalah 330,
     \label{tab:hc-eta}
 \end{table}
 
-Pada \texttt{eta\_weighted\_value}, \textit{sideways} mencapai nilai terbaik 116,33 pada ketiga \textit{seed}. \textit{Random restart} memperoleh 116,33, 115,00, dan 113,33. Ini satu-satunya kombinasi \textit{instance} dan \textit{objective} dalam eksperimen per algoritma ketika \textit{random restart} bukan yang terbaik. Penyebabnya belum diselidiki. Dengan tiga \textit{seed}, selisih 1,4 poin dapat berasal dari \textit{noise}. Himpunan paket yang dipilih juga berbeda dari hasil \texttt{total\_value}. Nilai total paket pada \textit{state} akhir hanya 298--310, di bawah 335 yang dapat dicapai dan dibahas pada subbab fungsi objektif.
+Pada \texttt{eta\_weighted\_value}, \textit{sideways} mencapai nilai terbaik 116,33 pada ketiga \textit{seed}. \textit{Random restart} memperoleh 116,33, 115,00, dan 113,33. Ini satu-satunya kombinasi \textit{instance} dan \textit{objective} dalam eksperimen per algoritma ketika \textit{random restart} bukan yang terbaik. Penyebabnya tidak diselidiki lebih lanjut. Dengan tiga seed, selisih 1,4 poin dapat berasal dari noise. Himpunan paket yang dipilih juga berbeda dari hasil \texttt{total\_value}. Nilai total paket pada \textit{state} akhir hanya 298--310, di bawah 335 yang dapat dicapai dan dibahas pada subbab fungsi objektif.
 
 \subsubsection{Fungsi objektif \texttt{compact\_value}}
 \begin{table}[H]
@@ -181,6 +175,221 @@ Berbeda dari \texttt{total\_value}, \texttt{compact\_value} memberi gradien keci
     \includegraphics[width=0.85\textwidth]{figures/base/hc-objective-comparison.png}
     \caption{Perbandingan ketiga \textit{objective function} pada \textit{hill climbing}}
 \end{figure}
+
+\subsubsection{Metrik penghentian per \textit{seed}}
+Spesifikasi meminta metrik penghentian dan parameter khusus tiap varian. Tabel~\ref{tab:hc-metrik-base} merinci setiap \textit{run} \texttt{total\_value} pada \texttt{base}: nilai awal dan akhir, iterasi hingga berhenti, jumlah \textit{sideways move}, dan durasi. Parameter yang dipakai sama untuk semua \textit{run}: \texttt{neighbors\_per\_iteration}\,=\,30, \texttt{max\_iterations}\,=\,1000, \texttt{max\_sideways}\,=\,100, dan \texttt{max\_restarts}\,=\,10. Untuk \textit{random restart}, iterasi adalah jumlah dari seluruh pendakian dan nilai awal adalah nilai \textit{state} awal yang sama dengan varian lain.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{@{}llrrrrr@{}}
+        \toprule
+        Varian & \textit{Seed} & Nilai awal & Nilai akhir & Iterasi & \textit{Sideways move} & Durasi (s) \\
+        \midrule
+        \textit{Steepest} & 11 & 330 & 330 & 0 & 0 & 0,0045 \\
+         & 12 & 285 & 285 & 0 & 0 & 0,0022 \\
+         & 13 & 320 & 335 & 1 & 0 & 0,0092 \\
+        \midrule
+        \textit{Sideways} & 11 & 330 & 335 & 101 & 100 & 0,4937 \\
+         & 12 & 285 & 285 & 100 & 100 & 0,2418 \\
+         & 13 & 320 & 335 & 101 & 100 & 0,6583 \\
+        \midrule
+        \textit{Stochastic} & 11 & 330 & 330 & 1000 & 0 & 0,1802 \\
+         & 12 & 285 & 290 & 1000 & 0 & 0,0955 \\
+         & 13 & 320 & 335 & 1000 & 0 & 0,2350 \\
+        \midrule
+        \textit{Random restart} & 11 & 330 & 335 & 1 & 0 & 0,1993 \\
+         & 12 & 285 & 330 & 3 & 0 & 0,1333 \\
+         & 13 & 320 & 335 & 1 & 0 & 0,1280 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Metrik tiap \textit{run} \textit{hill climbing} dengan \texttt{total\_value} pada \texttt{base}}
+    \label{tab:hc-metrik-base}
+\end{table}
+
+Tiga pola terlihat pada Tabel~\ref{tab:hc-metrik-base}. Pertama, \textit{steepest} berhenti pada iterasi ke-0 pada \textit{seed} 11 dan 12. Artinya \textit{state} awal (330 dan 285) tidak memiliki \textit{neighbor} yang lebih baik di antara 30 sampel. Pada \textit{seed} 13 hanya satu perpindahan terjadi (320 menjadi 335). Kedua, \textit{sideways} selalu menghabiskan seluruh jatah 100 \textit{sideways move} (100 atau 101 iterasi). Inilah penyebab durasinya jauh lebih tinggi daripada \textit{steepest}. Gerakan setara itu memperbaiki hasil pada \textit{seed} 11 (330 menjadi 335) dan \textit{seed} 13 (320 menjadi 335), tetapi tidak pada \textit{seed} 12, yang tetap 285 setelah 100 gerakan setara; dalam batas 100 langkah tidak ditemukan \textit{state} yang lebih baik. Ketiga, \textit{stochastic} selalu menjalankan 1000 iterasi. Pada \textit{seed} 12 nilainya hanya naik dari 285 ke 290, dan pada \textit{seed} 11 tidak berubah.
+
+Tabel~\ref{tab:hc-restart-base} memerinci sebelas pendakian \textit{random restart}. Pendakian pertama berasal dari \textit{state} awal dan sepuluh lainnya dari \textit{state} acak baru.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{@{}lp{4.6cm}p{6.4cm}@{}}
+        \toprule
+        \textit{Seed} & Iterasi tiap pendakian & Nilai akhir tiap pendakian \\
+        \midrule
+        11 & 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 & 330, 305, 335, 285, 335, 320, 330, 275, 295, 270, 285 \\
+        12 & 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0 & 285, 300, 280, 330, 290, 300, 310, 320, 305, 330, 305 \\
+        13 & 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 & 335, 330, 285, 295, 320, 295, 295, 320, 270, 290, 335 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Iterasi dan nilai akhir tiap pendakian \textit{random restart} pada \texttt{base} (\texttt{total\_value})}
+    \label{tab:hc-restart-base}
+\end{table}
+
+Sebagian besar pendakian berhenti pada iterasi ke-0. Pada \textit{seed} 11 dan 13, sepuluh dari sebelas pendakian tidak melakukan perpindahan, dan pada \textit{seed} 12 delapan dari sebelas. \textit{State} acak baru sering kali sudah menjadi optimum lokal menurut sampel 30 \textit{neighbor}. Nilai 335 pada \textit{seed} 11 berasal dari dua sumber: pendakian ke-3 yang naik dari 310, dan pendakian ke-5 yang \textit{state} acaknya sudah bernilai 335. Pada \textit{seed} 13, nilai 335 berasal dari pendakian pertama (dari \textit{state} awal, 320 menjadi 335) dan pendakian terakhir yang \textit{state} acaknya sudah 335. Pada \textit{seed} 12, yang menahan varian lain di 285--290, nilai 330 dicapai oleh pendakian ke-4 dan ke-10 yang sama-sama naik dari 315. Pendakian dari \textit{state} awal (285) tidak bergerak. Hasil ini menunjukkan bahwa keunggulan \textit{random restart} berasal dari kombinasi kesempatan memulai dari \textit{state} acak yang baik dan sebagian kecil pendakian yang berhasil naik.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{@{}llrrrrr@{}}
+        \toprule
+        Varian & \textit{Seed} & Nilai awal & Nilai akhir & Iterasi & \textit{Sideways move} & Durasi (s) \\
+        \midrule
+        \textit{Steepest} & 11 & 155 & 155 & 0 & 0 & 0,0025 \\
+         & 12 & 155 & 165 & 1 & 0 & 0,0036 \\
+         & 13 & 160 & 160 & 0 & 0 & 0,0027 \\
+        \midrule
+        \textit{Sideways} & 11 & 155 & 165 & 101 & 100 & 0,1888 \\
+         & 12 & 155 & 165 & 101 & 100 & 0,1374 \\
+         & 13 & 160 & 165 & 101 & 100 & 0,1639 \\
+        \midrule
+        \textit{Stochastic} & 11 & 155 & 155 & 1000 & 0 & 0,0512 \\
+         & 12 & 155 & 165 & 1000 & 0 & 0,0344 \\
+         & 13 & 160 & 160 & 1000 & 0 & 0,0707 \\
+        \midrule
+        \textit{Random restart} & 11 & 155 & 175 & 3 & 0 & 0,1076 \\
+         & 12 & 155 & 175 & 4 & 0 & 0,0881 \\
+         & 13 & 160 & 175 & 0 & 0 & 0,1101 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Metrik tiap \textit{run} \textit{hill climbing} dengan \texttt{total\_value} pada \texttt{tight-capacity}}
+    \label{tab:hc-metrik-tight}
+\end{table}
+
+Pada \texttt{tight-capacity} (Tabel~\ref{tab:hc-metrik-tight}), \textit{steepest} dan \textit{stochastic} menghasilkan nilai akhir yang sama pada ketiga \textit{seed} (155, 165, dan 160), padahal \textit{stochastic} memakai 1000 iterasi. \textit{Sideways} mencapai 165 pada ketiga \textit{seed} dengan 100 \textit{sideways move} pada masing-masing \textit{run}. \textit{Random restart} mencapai 175 pada ketiga \textit{seed}.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabular}{@{}lp{4.6cm}p{6.4cm}@{}}
+        \toprule
+        \textit{Seed} & Iterasi tiap pendakian & Nilai akhir tiap pendakian \\
+        \midrule
+        11 & 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0 & 155, 160, 160, 170, 160, 175, 155, 160, 160, 135, 165 \\
+        12 & 1, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0 & 165, 155, 160, 160, 175, 155, 165, 160, 175, 170, 155 \\
+        13 & 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 & 160, 155, 175, 175, 160, 155, 160, 160, 155, 155, 165 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Iterasi dan nilai akhir tiap pendakian \textit{random restart} pada \texttt{tight-capacity} (\texttt{total\_value})}
+    \label{tab:hc-restart-tight}
+\end{table}
+
+Tabel~\ref{tab:hc-restart-tight} menunjukkan bahwa nilai 175 pada \textit{run} yang dicatat selalu berasal dari \textit{state} acak yang sudah bernilai 175 dan tidak bergerak (iterasi 0), bukan dari pendakian yang naik. Pada \textit{seed} 13 bahkan seluruh sebelas pendakian berhenti pada iterasi ke-0. Pada \texttt{tight-capacity}, keunggulan \textit{random restart} atas varian lain karenanya lebih tepat dibaca sebagai hasil pengambilan sampel \textit{state} acak sebanyak sebelas kali daripada hasil pendakian yang lebih baik. Kesimpulan ini terbatas pada tiga \textit{seed} yang dijalankan.
+
+\subsubsection{Riwayat \textit{objective function}}
+Gambar~\ref{fig:hc-history-base} menampilkan nilai \textit{objective} terhadap iterasi untuk keempat varian pada \texttt{base}. Riwayat \textit{steepest} pada \textit{seed} 12 hanya terdiri atas satu titik karena berhenti pada iterasi ke-0 sehingga tidak ada garis yang tergambar, maka gambar \textit{steepest} memakai \textit{seed} 13 (320 menjadi 335 dalam satu iterasi). Pada \textit{sideways} \textit{seed} 12 nilainya datar di 285 selama seluruh \textit{sideways move}. Pada \textit{stochastic} nilai naik sekali ke 290 pada iterasi ke-148 dan tetap hingga iterasi ke-1000. Pada \textit{random restart}, riwayat dari seluruh pendakian digabung dan garis merah putus-putus menandai batas antar-pendakian, sehingga kurva turun pada tiap awal pendakian dan sumbu x adalah indeks titik riwayat gabungan, bukan iterasi satu pendakian.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/base/hc-history-steepest-seed13.png}
+        \caption{\textit{Steepest} (\textit{seed} 13)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/base/hc-history-sideways-seed12.png}
+        \caption{\textit{Sideways} (\textit{seed} 12)}
+    \end{subfigure}
+    \\[1ex]
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/base/hc-history-stochastic-seed12.png}
+        \caption{\textit{Stochastic} (\textit{seed} 12)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/base/hc-history-random-restart-seed12.png}
+        \caption{\textit{Random restart} (\textit{seed} 12)}
+    \end{subfigure}
+    \caption{Riwayat \textit{objective} keempat varian \textit{hill climbing} dengan \texttt{total\_value} pada \texttt{base}}
+    \label{fig:hc-history-base}
+\end{figure}
+
+Gambar~\ref{fig:hc-history-tight} menampilkan hal yang sama untuk \texttt{tight-capacity} pada \textit{seed} 12.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/tight-capacity-history-steepest-seed12.png}
+        \caption{\textit{Steepest} (\textit{seed} 12)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/tight-capacity-history-sideways-seed12.png}
+        \caption{\textit{Sideways} (\textit{seed} 12)}
+    \end{subfigure}
+    \\[1ex]
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/tight-capacity-history-stochastic-seed12.png}
+        \caption{\textit{Stochastic} (\textit{seed} 12)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{figures/hc-analysis/tight-capacity-history-random-restart-seed12.png}
+        \caption{\textit{Random restart} (\textit{seed} 12)}
+    \end{subfigure}
+    \caption{Riwayat \textit{objective} keempat varian \textit{hill climbing} dengan \texttt{total\_value} pada \texttt{tight-capacity}}
+    \label{fig:hc-history-tight}
+\end{figure}
+
+\subsubsection{\textit{State} awal dan akhir}
+Gambar~\ref{fig:hc-states-base-steepest} sampai Gambar~\ref{fig:hc-states-base-random-restart} memperlihatkan \textit{state} awal dan akhir keempat varian pada \texttt{base} \textit{seed} 12, yaitu kasus tersulit. \textit{Steepest} dan \textit{sideways} tidak mengubah \textit{state} awal bernilai 285, \textit{stochastic} mencapai 290, dan \textit{random restart} mencapai 330.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/hc-states-steepest-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Steepest} pada \texttt{base} (\textit{seed} 12). Nilai awal 285, nilai akhir 285}
+    \label{fig:hc-states-base-steepest}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/hc-states-sideways-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Sideways} pada \texttt{base} (\textit{seed} 12). Nilai awal 285, nilai akhir 285}
+    \label{fig:hc-states-base-sideways}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/hc-states-stochastic-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Stochastic} pada \texttt{base} (\textit{seed} 12). Nilai awal 285, nilai akhir 290}
+    \label{fig:hc-states-base-stochastic}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/base/hc-states-random-restart-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Random restart} pada \texttt{base} (\textit{seed} 12). Nilai awal 285, nilai akhir 330}
+    \label{fig:hc-states-base-random-restart}
+\end{figure}
+
+Gambar~\ref{fig:hc-states-tight-steepest} sampai Gambar~\ref{fig:hc-states-tight-random-restart} menampilkan hal yang sama untuk \texttt{tight-capacity} \textit{seed} 12. \textit{Steepest}, \textit{sideways}, dan \textit{stochastic} sama-sama mencapai 165 dari nilai awal 155, sedangkan \textit{random restart} mencapai 175.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/hc-analysis/tight-capacity-states-steepest-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Steepest} pada \texttt{tight-capacity} (\textit{seed} 12). Nilai awal 155, nilai akhir 165}
+    \label{fig:hc-states-tight-steepest}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/hc-analysis/tight-capacity-states-sideways-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Sideways} pada \texttt{tight-capacity} (\textit{seed} 12). Nilai awal 155, nilai akhir 165}
+    \label{fig:hc-states-tight-sideways}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/hc-analysis/tight-capacity-states-stochastic-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Stochastic} pada \texttt{tight-capacity} (\textit{seed} 12). Nilai awal 155, nilai akhir 165}
+    \label{fig:hc-states-tight-stochastic}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/hc-analysis/tight-capacity-states-random-restart-seed12.png}
+    \caption{\textit{State} awal dan akhir \textit{Random restart} pada \texttt{tight-capacity} (\textit{seed} 12). Nilai awal 155, nilai akhir 175}
+    \label{fig:hc-states-tight-random-restart}
+\end{figure}
+
 
 \subsection{Simulated Annealing}
 
@@ -732,7 +941,7 @@ Empat varian \textit{hill climbing} dibandingkan pada \textit{seed} dan \textit{
 
 \textit{Steepest} dan \textit{sideways} pada implementasi ini memakai sampel 30 \textit{neighbor} acak per iterasi, bukan seluruh ruang \textit{neighbor} sehingga hasil di atas hanya berlaku untuk pengaturan tersebut.
 
-Perbandingan perlu mempertimbangkan jumlah pendakian. \textit{Random restart} menjalankan 11 pendakian, yaitu satu dari state awal dan sepuluh dari state acak. Varian lain hanya menjalankan satu pendakian. Karena itu, sebagian keunggulannya dapat berasal dari anggaran pencarian yang lebih besar. Durasinya tetap rendah, yaitu 0,1535 detik pada \texttt{base}, karena sebagian besar pendakian segera berhenti. Waktu \textit{sideways} yang tinggi sebagian dapat disebabkan oleh gerakan yang tidak mengubah state. Fungsi \texttt{random\_neighbor} mengembalikan state asal bila tidak menemukan kandidat valid, kandidat tersebut bernilai sama, dan ia memakai jatah \textit{sideways} tanpa menjelajahi state baru. Seberapa sering hal ini terjadi belum diukur sehingga manfaat \textit{sideways} pada Tabel~\ref{tab:hc-variants} dapat lebih kecil daripada yang ditunjukkan oleh batas 100 langkah.
+Perbandingan perlu mempertimbangkan jumlah pendakian. \textit{Random restart} menjalankan 11 pendakian, yaitu satu dari state awal dan sepuluh dari state acak. Varian lain hanya menjalankan satu pendakian. Karena itu, sebagian keunggulannya dapat berasal dari anggaran pencarian yang lebih besar. Durasinya tetap rendah, yaitu 0,1535 detik pada \texttt{base}, karena sebagian besar pendakian segera berhenti. Waktu \textit{sideways} yang tinggi sebagian dapat disebabkan oleh gerakan yang tidak mengubah state. Fungsi \texttt{random\_neighbor} mengembalikan state asal bila tidak menemukan kandidat valid, kandidat tersebut bernilai sama, dan ia memakai jatah \textit{sideways} tanpa menjelajahi state baru. Seberapa sering hal ini terjadi belum diukur, sehingga manfaat \textit{sideways} pada Tabel~\ref{tab:hc-variants} dapat lebih kecil daripada yang ditunjukkan oleh batas 100 langkah.
 
 \subsection{Studi Ablasi Operator GA}
 
