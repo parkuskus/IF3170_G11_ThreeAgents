@@ -3,6 +3,7 @@
 import json
 import tempfile
 import unittest
+from copy import deepcopy
 from pathlib import Path
 from unittest.mock import patch
 
@@ -158,6 +159,40 @@ class FleetBenchmarkTests(unittest.TestCase):
             with patch.object(matplotlib.axes.Axes, "bar", capture_bar):
                 plot_fleet_benchmark_summary([summary], Path(temporary) / "plot.png")
         self.assertNotIn("yerr", bar_kwargs[0])
+
+    def test_report_transfer_figure_uses_actual_cross_truck_exchange(self):
+        from src.visualization.benchmark import plot_fleet_transfer
+
+        records = json.loads(
+            (Path(__file__).resolve().parents[3] / "output" / "fleet-count-swap-analysis" / "runs.json")
+            .read_text(encoding="utf-8")
+        )
+        record = next(
+            row for row in records
+            if (row["instance"], row["method"], row["truck_count"], row["seed"])
+            == ("tight-capacity", "hc_sideways", 3, 11)
+        )
+        assignments = [
+            {package["id"]: index + 1
+             for index, truck in enumerate(record[side]["trucks"])
+             for package in truck["packages"]}
+            for side in ("initial_state", "final_state")
+        ]
+        self.assertEqual(record["initial_value"], record["final_value"])
+        self.assertEqual(record["final_value"], 445)
+        self.assertEqual((assignments[0]["P03"], assignments[1]["P03"]), (1, 3))
+        self.assertEqual((assignments[0]["P04"], assignments[1]["P04"]), (3, 1))
+        with tempfile.TemporaryDirectory() as temporary:
+            destination = Path(temporary) / "transfer.png"
+            plot_fleet_transfer(record, destination)
+            self.assertGreater(destination.stat().st_size, 1000)
+            incomplete = deepcopy(record)
+            incomplete["final_state"]["trucks"][0]["packages"] = [
+                package for package in incomplete["final_state"]["trucks"][0]["packages"]
+                if package["id"] != "P06"
+            ]
+            with self.assertRaisesRegex(ValueError, "reciprocal cross-truck exchange"):
+                plot_fleet_transfer(incomplete, destination)
 
 
 if __name__ == "__main__":

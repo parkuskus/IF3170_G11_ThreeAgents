@@ -856,6 +856,8 @@ Pada \texttt{tight-space}, SA memiliki rata-rata tertinggi sebesar 477, disusul 
 
 Pada \texttt{tight-capacity}, nilai awal semua seed adalah 300. Setelah perubahan, semua varian HC memperbaiki sedikitnya satu seed. HC sideways mencapai rata-rata 328, HC random restart dan SA masing-masing 327, HC stochastic 317, dan HC steepest 306. Sebelumnya keempat varian HC berhenti pada 300, sedangkan SA mencapai rata-rata 323. GA tidak berubah dan tetap 300. Jumlah paket termuat rata-rata tetap enam kecuali pada SA yang mencapai 5,8. Peningkatan nilai terutama menunjukkan perbaikan pemilihan paket dalam kapasitas yang ketat. Swap termuat dengan paket belum termuat menyediakan lintasan satu langkah yang tidak tersedia sebelumnya, tetapi perubahan urutan acak mencegah atribusi besaran kenaikan semata-mata kepada operator tersebut.
 
+Contoh konkret terlihat pada HC steepest dua truk dengan seed 11. Dalam satu iterasi, nilai naik dari 300 menjadi 330 ketika P03 bernilai 45 dan berbobot 4 diganti P09 bernilai 75 dan berbobot 8 pada koordinat yang sama di truk 1. Sebelum pertukaran, truk 1 sudah berbobot 11 dari kapasitas 15, sehingga P09 tidak dapat dimasukkan sebagai satu operasi \textit{insert}. Sesudah P03 dikeluarkan dan P09 dimasukkan secara atomik, berat truk tepat 15 dan state tetap valid. Mutasi satu paket tidak dapat menghasilkan penggantian tersebut dalam satu langkah. Kasus ini memperlihatkan kemampuan baru operator swap, tetapi tidak membuktikan bahwa seluruh selisih rata-rata terhadap hasil lama hanya berasal dari swap.
+
 \subsubsection{Eksperimen Jumlah Truk}
 
 Untuk melihat dampak penambahan armada, spesifikasi truk identik diulang menjadi tiga, empat, dan lima truk pada fixture \texttt{base}, \texttt{tight-space}, dan \texttt{tight-capacity}. Keenam metode memakai state awal yang sama dalam setiap pasangan fixture dan jumlah truk. Eksperimen ini memakai satu seed (11), sehingga tabel berikut berisi nilai observasi tunggal, bukan rata-rata atau ukuran variasi.
@@ -885,6 +887,15 @@ Untuk melihat dampak penambahan armada, spesifikasi truk identik diulang menjadi
 \end{table}
 
 Pada \texttt{base}, seluruh metode mencapai nilai 600 untuk ketiga jumlah armada. Pada \texttt{tight-space}, hasil seed ini mencapai 600 untuk semua metode mulai empat truk. Dengan tiga truk, nilai akhir berada pada 520--600. HC random restart sebelumnya mencapai 600 pada tiga truk, tetapi kini tetap 520. Pada \texttt{tight-capacity}, rentang nilai akhir mencapai 445--600 saat empat truk. HC sideways meningkat dari 525 menjadi 600, sedangkan HC stochastic dari 445 menjadi 525. SA dengan tiga truk meningkat dari 455 menjadi 465. Saat lima truk, seluruh metode mencapai 600, termasuk HC steepest dan stochastic yang sebelumnya berhenti pada 520. Nilai 600 sama dengan jumlah nilai seluruh paket dan menjadi batas atas yang diketahui pada hasil tersebut. Karena state awal berbeda antarjumlah truk dan hanya satu seed yang digunakan, pola ini bersifat deskriptif dan tidak mengisolasi pengaruh jumlah truk secara statistik.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{figures/fleet-count-swap-analysis/tight-capacity-cross-truck-transfer.png}
+    \caption{Perubahan penugasan paket antara state awal dan akhir HC sideways pada \texttt{tight-capacity}, tiga truk, seed 11. P03 berpindah dari truk 1 ke truk 3 dan P04 dari truk 3 ke truk 1}
+    \label{fig:fleet-cross-truck-transfer}
+\end{figure}
+
+Gambar~\ref{fig:fleet-cross-truck-transfer} menunjukkan contoh pertukaran penugasan antartruk yang tampak pada hasil setelah perbaikan operator. Paket lain tetap berada di truk asal, jumlah paket termuat tetap delapan, dan nilai armada tetap 445. Pertukaran antarpaket yang sudah dimuat dapat mengubah susunan tanpa mengubah nilai objektif. HC sideways dapat melintasi state bernilai sama, tetapi catatan benchmark hanya menyimpan state awal dan akhir. Karena itu, gambar ini tidak membuktikan bahwa perpindahan P03 dan P04 terjadi dalam satu langkah pencarian.
 
 \begin{figure}[H]
     \centering
