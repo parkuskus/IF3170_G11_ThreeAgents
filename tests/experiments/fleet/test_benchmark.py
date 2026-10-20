@@ -39,7 +39,11 @@ class FleetBenchmarkTests(unittest.TestCase):
             )
 
             records = run_fleet_benchmark(
-                fixtures, seeds=(11, 12, 13), output_dir=root / "output"
+                fixtures,
+                seeds=(11, 12, 13),
+                truck_counts=(2,),
+                instance_names=("tight-space",),
+                output_dir=root / "output",
             )
 
             self.assertEqual(len(records), 18)
@@ -57,8 +61,8 @@ class FleetBenchmarkTests(unittest.TestCase):
             output = root / "output"
             self.assertTrue((output / "runs.json").is_file())
             self.assertTrue((output / "summary.json").is_file())
-            self.assertTrue((output / "summary.png").is_file())
-            representative_states = output / "representative-states"
+            self.assertTrue((output / "summary-trucks-2.png").is_file())
+            representative_states = output / "representative-states" / "trucks-2"
             self.assertEqual(len(list(representative_states.glob("*.png"))), 6)
             summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
             self.assertEqual(len(summary["summary"]), 6)
@@ -72,13 +76,46 @@ class FleetBenchmarkTests(unittest.TestCase):
                 initial["loaded_packages_mean"],
             )
 
-    def test_requires_at_least_three_distinct_seeds(self):
+    def test_accepts_one_seed_and_rejects_empty_or_duplicate_seed_lists(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             with self.assertRaises(ValueError):
-                run_fleet_benchmark(root, seeds=(11, 12), output_dir=root / "out")
+                run_fleet_benchmark(root, seeds=(), output_dir=root / "out")
             with self.assertRaises(ValueError):
                 run_fleet_benchmark(root, seeds=(11, 11, 12), output_dir=root / "out")
+
+    def test_rejects_unknown_instance_names(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            fixtures = root / "fixtures"
+            fixtures.mkdir()
+            (fixtures / "base.json").write_text(
+                json.dumps({
+                    "packages": [
+                        {
+                            "id": "p",
+                            "dimensions": [1, 1, 1],
+                            "value": 1,
+                            "weight": 1,
+                            "fragile": False,
+                            "eta": 0,
+                        }
+                    ],
+                    "trucks": [
+                        {"dimensions": [2, 2, 2], "max_capacity": 2},
+                        {"dimensions": [2, 2, 2], "max_capacity": 2},
+                    ],
+                }),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "unknown fleet fixtures"):
+                run_fleet_benchmark(
+                    fixtures,
+                    seeds=(11,),
+                    truck_counts=(3,),
+                    instance_names=("missing",),
+                    output_dir=root / "out",
+                )
 
     def test_summary_plot_allocates_enough_panels_for_custom_fixture_sets(self):
         import matplotlib.pyplot as plt
@@ -99,6 +136,28 @@ class FleetBenchmarkTests(unittest.TestCase):
             ) as create_subplots:
                 plot_fleet_benchmark_summary(summaries, Path(temporary) / "plot.png")
         self.assertEqual(create_subplots.call_args.args[:2], (4, 4))
+
+    def test_single_run_summary_plot_does_not_show_zero_spread_as_error_bars(self):
+        import matplotlib.axes
+
+        summary = {
+            "instance": "base",
+            "method": "ga",
+            "runs": 1,
+            "final_value_mean": 600,
+            "final_value_stdev": 0,
+        }
+        original_bar = matplotlib.axes.Axes.bar
+        bar_kwargs = []
+
+        def capture_bar(axis, *args, **kwargs):
+            bar_kwargs.append(kwargs)
+            return original_bar(axis, *args, **kwargs)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            with patch.object(matplotlib.axes.Axes, "bar", capture_bar):
+                plot_fleet_benchmark_summary([summary], Path(temporary) / "plot.png")
+        self.assertNotIn("yerr", bar_kwargs[0])
 
 
 if __name__ == "__main__":

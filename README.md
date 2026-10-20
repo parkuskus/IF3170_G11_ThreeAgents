@@ -177,13 +177,13 @@ Perintah ini menjalankan empat varian HC, SA, dan GA pada semua fixture valid de
 
 #### Benchmark armada multi-truk
 
-Fixture di `tests/fixtures/fleet/` mengikuti 11 kasus valid yang sama, tetapi setiap JSON memiliki dua truk identik. Paket dan karakter kasus sumber dipertahankan agar pengaruh assignment lintas truk dapat diamati tanpa mengubah kapasitas atau dimensi truk.
+Fixture di `tests/fixtures/fleet/` mengikuti 11 kasus valid yang sama dan menyediakan dua truk identik sebagai spesifikasi sumber. Runner mengulang spesifikasi tersebut untuk jumlah truk yang diminta, tanpa mengubah paket, kapasitas, atau dimensi tiap truk.
 
 ```bash
 python -m src.experiments.fleet.run_benchmark
 ```
 
-Perintah tersebut menjalankan empat varian HC, SA, dan GA untuk lima seed yang sama. Dalam setiap pasangan kasus dan seed, semua metode memakai state awal yang sama. Parameter mengikuti baseline runner armada, sehingga jumlah iterasi atau evaluasinya tidak setara antaralgoritma. Hasil berada di `output/fleet-analysis/`, termasuk `runs.json`, `summary.json`, grafik per fixture, serta visualisasi state awal dan akhir untuk seed pertama pada kasus `tight-space`.
+Secara default, perintah tersebut menguji 3, 4, dan 5 truk pada tiga fixture utama (`base`, `tight-space`, dan `tight-capacity`) dengan seed 11. Empat varian HC, SA, dan GA menghasilkan 54 run. Dalam setiap pasangan fixture dan jumlah truk, semua metode memakai state awal yang sama. Parameter mengikuti baseline runner armada, sehingga jumlah iterasi atau evaluasinya tidak setara antaralgoritma. Hasil berada di `output/fleet-count-analysis/`, termasuk `runs.json`, `summary.json`, grafik per jumlah truk, serta visualisasi state awal dan akhir untuk setiap metode pada `tight-space`. Opsi `--instances`, `--seeds`, dan `--truck-counts` dapat dipakai untuk mengubah cakupan.
 
 #### Studi ablasi operator GA
 

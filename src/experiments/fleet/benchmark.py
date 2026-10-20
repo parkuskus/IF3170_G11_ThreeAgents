@@ -16,7 +16,7 @@ from src.algorithms.hill_climbing import VARIANTS, hill_climbing
 from src.algorithms.simulated_annealing import simulated_annealing
 from src.experiments.common.data import load_fleet_problem
 from src.experiments.fleet.ga import _serialize_fleet_state
-from src.model import FleetState
+from src.model import FleetState, Truck
 from src.objectives import OBJECTIVES
 from src.validation import validate_fleet_state
 from src.visualization.benchmark import plot_fleet_benchmark_summary
@@ -115,16 +115,34 @@ def _loaded_count(state: FleetState) -> int:
     )
 
 
+def _expand_identical_trucks(
+    trucks: tuple[Truck, ...], truck_count: int
+) -> tuple[Truck, ...]:
+    if type(truck_count) is not int or truck_count < 1:
+        raise ValueError("truck_count must be a positive integer")
+    if not trucks or any(truck != trucks[0] for truck in trucks[1:]):
+        raise ValueError("source trucks must be identical to expand the fleet")
+    return (trucks[0],) * truck_count
+
+
 def summarize_fleet_benchmark(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    groups: dict[tuple[str, str, str], list[dict[str, Any]]] = defaultdict(list)
+    groups: dict[tuple[int, str, str, str], list[dict[str, Any]]] = defaultdict(list)
     for record in records:
-        groups[(record["category"], record["instance"], record["method"])].append(record)
+        groups[
+            (
+                record["truck_count"],
+                record["category"],
+                record["instance"],
+                record["method"],
+            )
+        ].append(record)
 
     summaries = []
-    for (category, instance, method), rows in groups.items():
+    for (truck_count, category, instance, method), rows in groups.items():
         values = [row["final_value"] for row in rows]
         summaries.append(
             {
+                "truck_count": truck_count,
                 "category": category,
                 "instance": instance,
                 "method": method,
@@ -154,17 +172,21 @@ def summarize_initial_fleet_states(
     records: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """Summarize one shared initial state per fixture and seed, not per method."""
-    groups: dict[str, dict[int, dict[str, Any]]] = defaultdict(dict)
+    groups: dict[tuple[int, str], dict[int, dict[str, Any]]] = defaultdict(dict)
     for record in records:
-        groups[record["instance"]].setdefault(record["seed"], record)
+        groups[(record["truck_count"], record["instance"])].setdefault(
+            record["seed"], record
+        )
 
     summaries = []
-    for instance, by_seed in groups.items():
+    for (truck_count, instance), by_seed in groups.items():
         rows = list(by_seed.values())
         initial_states = [row["initial_state"] for row in rows]
-        truck_count = len(initial_states[0]["trucks"])
+        if any(len(state["trucks"]) != truck_count for state in initial_states):
+            raise ValueError(f"initial state truck count does not match {truck_count} for {instance}")
         summaries.append(
             {
+                "truck_count": truck_count,
                 "instance": instance,
                 "runs": len(rows),
                 "initial_value_mean": mean(
@@ -203,68 +225,98 @@ def summarize_initial_fleet_states(
 def run_fleet_benchmark(
     fixtures_dir: str | Path = "tests/fixtures/fleet",
     *,
-    seeds: tuple[int, ...] = (11, 12, 13, 14, 15),
-    output_dir: str | Path = "output/fleet-analysis",
+    seeds: tuple[int, ...] = (11,),
+    truck_counts: tuple[int, ...] = (3, 4, 5),
+    instance_names: tuple[str, ...] = ("base", "tight-space", "tight-capacity"),
+    output_dir: str | Path = "output/fleet-count-analysis",
 ) -> tuple[dict[str, Any], ...]:
     """Run all HC variants, SA, and GA from paired seeded fleet states."""
-    if len(seeds) < 3 or any(type(seed) is not int for seed in seeds) or len(set(seeds)) != len(seeds):
-        raise ValueError("seeds must contain at least three distinct integers")
+    if not seeds or any(type(seed) is not int for seed in seeds) or len(set(seeds)) != len(seeds):
+        raise ValueError("seeds must contain distinct integers")
+    if (
+        not truck_counts
+        or any(type(count) is not int or count < 1 for count in truck_counts)
+        or len(set(truck_counts)) != len(truck_counts)
+    ):
+        raise ValueError("truck_counts must contain distinct positive integers")
+    if (
+        not instance_names
+        or any(type(name) is not str or not name for name in instance_names)
+        or len(set(instance_names)) != len(instance_names)
+    ):
+        raise ValueError("instance_names must contain distinct non-empty names")
     fixtures_dir, output_dir = Path(fixtures_dir), Path(output_dir)
-    instances = discover_fleet_instances(fixtures_dir)
-    if not instances:
+    discovered_instances = discover_fleet_instances(fixtures_dir)
+    if not discovered_instances:
         raise ValueError(f"no fleet fixtures found in {fixtures_dir}")
+    available_names = {path.stem for _, path in discovered_instances}
+    unknown_names = set(instance_names) - available_names
+    if unknown_names:
+        raise ValueError(f"unknown fleet fixtures {sorted(unknown_names)} in {fixtures_dir}")
+    requested_names = set(instance_names)
+    instances = [
+        (category, path)
+        for category, path in discovered_instances
+        if path.stem in requested_names
+    ]
 
     records: list[dict[str, Any]] = []
     methods = _method_specs()
     for category, path in instances:
-        packages, trucks = load_fleet_problem(path)
+        packages, source_trucks = load_fleet_problem(path)
         instance = path.stem
-        for seed in seeds:
-            initial_seed = seed ^ 0x5EED
-            initial = random_initial_fleet_state(packages, trucks, Random(initial_seed))
-            initial_record = _serialize_fleet_state(initial)
-            initial_violations = validate_fleet_state(initial)
-            for method, algorithm, variant in methods:
-                objective = _CountingObjective(OBJECTIVES["total_value"])
-                result = _run_method(method, algorithm, variant, initial, seed, objective)
-                final = result.final_state
-                violations = validate_fleet_state(final)
-                record = {
-                    "category": category,
-                    "instance": instance,
-                    "method": method,
-                    "algorithm": algorithm,
-                    "variant": variant,
-                    "seed": seed,
-                    "initial_state_seed": initial_seed,
-                    "initial_state": initial_record,
-                    "initial_valid": not initial_violations,
-                    "initial_violations": initial_violations,
-                    "final_state": _serialize_fleet_state(final),
-                    "initial_value": initial.objective(),
-                    "final_value": final.objective(),
-                    "initial_loaded_packages": _loaded_count(initial),
-                    "final_loaded_packages": _loaded_count(final),
-                    "valid": not violations,
-                    "violations": violations,
-                    "objective_evaluations": objective.evaluations,
-                    "duration_seconds": result.duration_seconds,
-                    "objective_history": list(result.objective_history),
-                    "metrics": asdict(result.metrics),
-                    "parameters": dict(result.parameters),
-                }
-                records.append(record)
-                if instance == "tight-space" and seed == seeds[0]:
-                    plot_fleet_state_comparison(
-                        initial,
-                        final,
-                        output_dir / "representative-states" / f"{method}.png",
+        for truck_count in truck_counts:
+            trucks = _expand_identical_trucks(source_trucks, truck_count)
+            for seed in seeds:
+                initial_seed = seed ^ 0x5EED
+                initial = random_initial_fleet_state(packages, trucks, Random(initial_seed))
+                initial_record = _serialize_fleet_state(initial)
+                initial_violations = validate_fleet_state(initial)
+                for method, algorithm, variant in methods:
+                    objective = _CountingObjective(OBJECTIVES["total_value"])
+                    result = _run_method(method, algorithm, variant, initial, seed, objective)
+                    final = result.final_state
+                    violations = validate_fleet_state(final)
+                    record = {
+                        "truck_count": truck_count,
+                        "category": category,
+                        "instance": instance,
+                        "method": method,
+                        "algorithm": algorithm,
+                        "variant": variant,
+                        "seed": seed,
+                        "initial_state_seed": initial_seed,
+                        "initial_state": initial_record,
+                        "initial_valid": not initial_violations,
+                        "initial_violations": initial_violations,
+                        "final_state": _serialize_fleet_state(final),
+                        "initial_value": initial.objective(),
+                        "final_value": final.objective(),
+                        "initial_loaded_packages": _loaded_count(initial),
+                        "final_loaded_packages": _loaded_count(final),
+                        "valid": not violations,
+                        "violations": violations,
+                        "objective_evaluations": objective.evaluations,
+                        "duration_seconds": result.duration_seconds,
+                        "objective_history": list(result.objective_history),
+                        "metrics": asdict(result.metrics),
+                        "parameters": dict(result.parameters),
+                    }
+                    records.append(record)
+                    if instance == "tight-space" and seed == seeds[0]:
+                        plot_fleet_state_comparison(
+                            initial,
+                            final,
+                            output_dir
+                            / "representative-states"
+                            / f"trucks-{truck_count}"
+                            / f"{method}.png",
+                        )
+                    print(
+                        f"{instance:20s} trucks={truck_count} seed={seed} {method:18s} "
+                        f"value={record['final_value']} valid={record['valid']}",
+                        flush=True,
                     )
-                print(
-                    f"{instance:20s} seed={seed} {method:18s} "
-                    f"value={record['final_value']} valid={record['valid']}",
-                    flush=True,
-                )
 
     summaries = summarize_fleet_benchmark(records)
     initial_state_summaries = summarize_initial_fleet_states(records)
@@ -280,6 +332,7 @@ def run_fleet_benchmark(
                     "ga": GA_PARAMETERS,
                     "objective": "total_value",
                     "seeds": list(seeds),
+                    "truck_counts": list(truck_counts),
                     "initial_state_seed": "seed ^ 0x5EED",
                 },
                 "initial_state_summary": initial_state_summaries,
@@ -289,5 +342,9 @@ def run_fleet_benchmark(
         ),
         encoding="utf-8",
     )
-    plot_fleet_benchmark_summary(summaries, output_dir / "summary.png")
+    for truck_count in truck_counts:
+        plot_fleet_benchmark_summary(
+            [row for row in summaries if row["truck_count"] == truck_count],
+            output_dir / f"summary-trucks-{truck_count}.png",
+        )
     return tuple(records)
