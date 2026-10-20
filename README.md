@@ -193,6 +193,16 @@ python -m src.experiments.run_ga_ablation --input tests/fixtures/demo.json --out
 
 Runner membandingkan baseline GA dengan tiga ablasi satu-komponen: tanpa mutasi, tanpa crossover, dan seleksi uniform sebagai pembanding roulette-wheel. Secara default tiap varian dijalankan dengan 5 seed yang sama, populasi 20, 50 generasi, dan mutation rate baseline 0,05. Parameter bersama bisa diubah lewat opsi CLI. Hasilnya mencakup `runs.json`, `summary.json` (mean dan simpangan baku objective/durasi per varian), dan plot objective maksimum serta rata-rata populasi. Gunakan dataset dan parameter tetap untuk membandingkan semua varian. Contoh di atas memakai data sintetis demo; hasil laporan harus memakai problem kelompok. Ablasi ini eksperimen tambahan dan tidak menggantikan 18 run sweep wajib.
 
+### Menjalankan visualizer
+
+```bash
+python -m pip install -r requirements-visualizer.txt
+cd src/visualizer/web && npm install && npm run build && cd ../../..
+python -m src.visualizer            # http://127.0.0.1:8000
+```
+
+Visualizer web memuat contoh dari `tests/fixtures/` atau problem JSON sendiri (satu atau beberapa truk), menjalankan HC, SA, atau GA dengan objective, seed, dan parameter yang dipilih, lalu menampilkan ringkasan hasil, tampilan 3D truk, grafik progres pencarian, dan animasi proses solving. Detail pengembangan ada di `src/visualizer/README.md`.
+
 ### Alur kerja
 
 1. Buat branch sesuai jenis perubahan: `feat/...` untuk fitur, `fix/...` untuk perbaikan, `docs/...` untuk dokumentasi, atau `test/...` untuk tes. Contoh: `feat/hill-climbing`, `feat/simulated-annealing`, `docs/readme`.
@@ -207,4 +217,4 @@ Gunakan semantic commit yang sesuai dengan branch, misalnya `feat: add hill-clim
 
 - **Aufar:** kontrak dan fondasi bersama, Genetic Algorithm, serta bonus multi-truk.
 - **Arin:** Hill-climbing wajib dan seluruh variannya sebagai bonus.
-- **Mike:** Simulated Annealing wajib dan objective function alternatif sebagai bonus.
+- **Mike:** Simulated Annealing wajib dan objective function alternatif sebagai bonus, serta visualizer web server.
