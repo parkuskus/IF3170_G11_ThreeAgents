@@ -1056,7 +1056,7 @@ Masukan armada dapat memakai field JSON \texttt{trucks} berupa daftar truk denga
 ]
 \end{lstlisting}
 
-Runner fleet berada di \texttt{src/experiments/fleet/}. Berkas JSON mencatat nilai armada, konfigurasi dan muatan truk, paket yang tidak termuat, seed, parameter, riwayat objective, serta durasi. Runner juga menyimpan visualisasi state awal dan akhir. SA turut mencatat riwayat probabilitas penerimaan. Tes pada \texttt{tests/fleet/} mencakup CLI, serialisasi, visualisasi, seed jamak, objective alternatif, dan konfigurasi truk heterogen.
+Runner fleet berada di \texttt{src/experiments/fleet/}. Berkas JSON mencatat nilai armada, konfigurasi dan muatan truk, paket yang tidak termuat, seed, parameter, riwayat objective, serta durasi. Runner juga menyimpan visualisasi state awal dan akhir. SA turut mencatat riwayat probabilitas penerimaan. Tes pada \texttt{tests/fleet/} mencakup CLI, serialisasi, visualisasi, seed jamak, objective alternatif, konfigurasi truk heterogen, serta operator pertukaran armada (\texttt{tests/fleet/test\_fleet\_neighbor.py}). Tes terakhir memeriksa bahwa pertukaran dua paket menghasilkan state valid, menggantikan paket termuat secara atomik pada truk yang penuh, dan memperbaiki nilai pada kasus kapasitas ketat.
 
 Ekstensi multi-truk mempertahankan constraint pemuatan untuk setiap truk dan menambahkan constraint penugasan pada tingkat armada. Inisialisasi dan operator pencarian memakai percobaan acak yang terbatas. Karena itu, hasilnya bersifat heuristik dan tidak menjamin optimum global atau pemuatan semua paket yang sebenarnya dapat dimuat.
 

@@ -69,7 +69,7 @@ Seluruh eksperimen dijalankan dengan representasi \textit{state} dan validator \
     \label{tab:fixtures}
 \end{table}
 
-Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi wajib. \texttt{eta\_weighted\_value} membagi nilai paket dengan $\text{ETA}+1$, sehingga paket yang mendesak mendapat bobot lebih besar. \texttt{compact\_value} menambahkan bonus kurang dari satu satuan untuk penataan yang lebih rendah. Pengujian dibagi menjadi lima rangkaian.
+Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi wajib. \texttt{eta\_weighted\_value} membagi nilai paket dengan $\text{ETA}+1$, sehingga paket yang mendesak mendapat bobot lebih besar. \texttt{compact\_value} menambahkan bonus kurang dari satu satuan untuk penataan yang lebih rendah. Pengujian dibagi menjadi enam rangkaian.
 
 \begin{enumerate}
     \renewcommand{\labelenumi}{(\arabic{enumi})}
@@ -78,6 +78,7 @@ Eksperimen memakai tiga fungsi objektif. \texttt{total\_value} adalah fungsi waj
     \item \textbf{Analisis SA lintas fixture dan parameter} dengan \texttt{total\_value} (\texttt{src/\allowbreak experiments/\allowbreak sa/\allowbreak results\_analysis.py}). Baseline dijalankan pada 11 \textit{fixture} valid. Tiga \textit{sweep} satu faktor dilakukan pada \texttt{base} dengan lima \textit{seed} (11--15). Baseline memakai parameter SA pada Tabel~\ref{tab:konfigurasi}. Parameter yang disapu adalah suhu awal $T_0\in\{10,100,1000\}$, laju pendinginan 0,99, 0,995, dan 0,999, serta jumlah iterasi 1000, 3000, dan 6000.
     \item \textbf{Analisis GA lintas fixture dan parameter} dengan \texttt{total\_value} (\texttt{src/\allowbreak experiments/\allowbreak ga/\allowbreak results\_analysis.py}). Baseline dijalankan pada 11 \textit{fixture} valid. Tiga \textit{sweep} satu faktor dilakukan pada \texttt{base} dengan lima \textit{seed} (11--15). Baseline memakai populasi 20, 40 generasi, dan laju mutasi 0,05. Parameter yang disapu adalah ukuran populasi 10, 20, dan 40, jumlah generasi 20, 40, dan 80, serta laju mutasi 0, 0,05, dan 0,20.
     \item \textbf{Studi ablasi GA} pada \texttt{base} dengan \texttt{total\_value} dan lima \textit{seed} (11--15) (\texttt{src/\allowbreak experiments/\allowbreak run\_ga\_ablation.py}). Empat varian yang dibandingkan adalah baseline, tanpa mutasi, tanpa \textit{crossover}, dan seleksi \textit{uniform}.
+    \item \textbf{Eksperimen multi-truk} dengan \texttt{total\_value} (\texttt{src/\allowbreak experiments/\allowbreak fleet/\allowbreak run\_benchmark.py}). Pada \textit{neighbor} armada, HC dan SA memakai mutasi satu paket atau pertukaran dua penugasan, sedangkan mutasi GA tidak berubah. Studi dua truk identik memakai 11 \textit{fixture} valid, lima \textit{seed} (11--15), dan enam algoritma, sehingga $11 \times 5 \times 6 = 330$ \textit{run}. Studi jumlah truk memakai tiga, empat, dan lima truk pada \texttt{base}, \texttt{tight-space}, dan \texttt{tight-capacity} dengan satu \textit{seed} (11), sehingga $3 \times 3 \times 6 = 54$ \textit{run}. Hasil dibahas pada subbab Multi-Truck.
 \end{enumerate}
 
 \begin{table}[H]

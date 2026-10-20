@@ -196,7 +196,7 @@ python -m src.experiments.run_fleet_hc --input tests/fixtures/demo.json --truck-
 python -m src.experiments.run_fleet_sa --input tests/fixtures/demo.json --truck-count 3 --max-iterations 2000 --seeds 41 42 43 --objectives total_value eta_weighted_value compact_value --output output/fleet-sa-demo
 ```
 
-Keduanya menerima daftar `trucks` heterogen atau `--truck-count` untuk menduplikasi `truck` lama. `--seeds` menjalankan tiga seed berbeda; jika tidak diberikan, `--seed` (default 41) menjalankan satu kali. Beberapa objective menghasilkan ringkasan dan perbandingan total value. Objective armada menghitung nilai/ETA untuk semua paket yang termuat; `compact_value` menambahkan bonus kekompakan berbobot volume lintas truk. Hasil mencakup JSON per run dan ringkasan, plot state awal/akhir, serta riwayat objective; SA juga menyimpan grafik probabilitas penerimaan.
+Neighbor armada pada HC dan SA memilih pertukaran dua penugasan paket (termasuk dengan paket di luar armada) dengan peluang seperempat, dan mutasi satu paket pada kesempatan lainnya; GA tetap memakai operator mutasi dan crossover armada. Runner HC dan SA menerima daftar `trucks` heterogen atau `--truck-count` untuk menduplikasi `truck` lama. `--seeds` menjalankan tiga seed berbeda; jika tidak diberikan, `--seed` (default 41) menjalankan satu kali. Beberapa objective menghasilkan ringkasan dan perbandingan total value. Objective armada menghitung nilai/ETA untuk semua paket yang termuat; `compact_value` menambahkan bonus kekompakan berbobot volume lintas truk. Hasil mencakup JSON per run dan ringkasan, plot state awal/akhir, serta riwayat objective; SA juga menyimpan grafik probabilitas penerimaan.
 
 #### Fixture dan benchmark lintas algoritma
 
